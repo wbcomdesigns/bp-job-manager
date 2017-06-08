@@ -16,3 +16,8 @@ i.wpbpjm-job-status, i.wpbpjm-resume-status{
 .wpbpjm-select-job-wait-text{
   display: none;
 }
+
+#secondary .wpbpjm-applicants-per-job .bp-applicant-widget-user-avatar {
+    width: 20%;
+    float: left;
+}

@@ -71,7 +71,7 @@ function wpbpjm_plugin_init() {
     }
     run_wp_bp_job_manager();
     //Settings link for this plugin
-    add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'wpbpjm_settings_link' );
+    //add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'wpbpjm_settings_link' );
   }
 }
 add_action('plugins_loaded', 'wpbpjm_plugin_init');

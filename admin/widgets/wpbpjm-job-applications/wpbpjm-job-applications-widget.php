@@ -7,7 +7,7 @@ if( !class_exists( 'JobApplicants' ) ) {
     function __construct() {
       parent::__construct('JobApplicants',
        __('Employer\'s Profile - Job Applicants'),
-        array('description' => __('This widget shows the list of applicatns per job on single employers profile page.') )
+        array('description' => __('This widget shows the list of applicants per job on single employers profile page.') )
       );
     }
 
