@@ -1,0 +1,18 @@
+a.wpbpjm-post-job-link {
+  font-size: 15px;
+}
+
+i.wpbpjm-job-status, i.wpbpjm-resume-status{
+  font-size: 12px;
+}
+
+.wpbpjm-wait-to-apply-for-job{
+  text-align: center;
+  margin-top: 15px;
+}
+.wpbpjm-wait-to-apply-for-job > p{
+  margin-top: 5px;
+}
+.wpbpjm-select-job-wait-text{
+  display: none;
+}
