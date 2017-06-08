@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: BuddyPress Job Manager For WordPress
+ * Plugin Name: BuddyPress Job Manager
  * Description: This plugin manages user's jobs.
  * Version: 1.0.0
  * Author: Wbcom Designs
@@ -78,12 +78,13 @@ add_action('plugins_loaded', 'wpbpjm_plugin_init');
 
 // Throw an Alert to tell the Admin why it didn't activate
 function wpbpjm_plugin_admin_notice() {
-    $wpbpjm_plugin = __( 'BP Job Manager For WP', WPBPJM_TEXT_DOMAIN );
+    $wpbpjm_plugin = __( 'BP Job Manager', WPBPJM_TEXT_DOMAIN );
     $bp_plugin = __( 'BuddyPress', WPBPJM_TEXT_DOMAIN );
     $wpjm_plugin = __( 'WP Job Manager', WPBPJM_TEXT_DOMAIN );
+    $wpjm_applications_plugin = __( 'WP Job Manager - Applications', WPBPJM_TEXT_DOMAIN );
+    $wpjm_resumes_plugin = __( 'WP Job Manager - Resume Manager', WPBPJM_TEXT_DOMAIN );
     echo '<div class="error"><p>'
-    . sprintf(__('%1$s requires %2$s and %3$s to function correctly. Please activate %2$s and %3$s before activating %1$s.', WPBPJM_TEXT_DOMAIN), '<strong>' . esc_html($wpbpjm_plugin) . '</strong>', '<strong>' . esc_html($bp_plugin) . '</strong>', '<strong>' . esc_html($wpjm_plugin) . '</strong>')
+    . sprintf(__('%1$s requires %2$s, %3$s, %4$s and %5$s to function correctly. Please activate %2$s and %3$s before activating %1$s.', WPBPJM_TEXT_DOMAIN), '<strong>' . esc_html($wpbpjm_plugin) . '</strong>', '<strong>' . esc_html($bp_plugin) . '</strong>', '<strong>' . esc_html($wpjm_plugin) . '</strong>', '<strong>' . esc_html($wpjm_applications_plugin) . '</strong>', '<strong>' . esc_html($wpjm_resumes_plugin) . '</strong>')
     . '</p></div>';
-    if (isset($_GET['activate']))
-        unset($_GET['activate']);
+    if (isset($_GET['activate'])) unset($_GET['activate']);
 }
