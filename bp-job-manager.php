@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: BuddyPress Job Manager
+ * Plugin Name: BP Job Manager
  * Description: This plugin manages user's jobs.
  * Version: 1.0.0
  * Author: Wbcom Designs
