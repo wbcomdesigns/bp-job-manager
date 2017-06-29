@@ -56,14 +56,16 @@ function wpbpjm_settings_link( $links ) {
 
 /**
  * Check plugin requirement on plugins loaded
- * this plugin requires buddypress and woocommerce to be installed and active
+ * this plugin requires the following plugins
+ * BuddyPress, WP Job Manager, WP Job Manager Applications & WP Job Manager Resumes
+ * to be installed and active.
  */
 function wpbpjm_plugin_init() {
-  // If BuddyPress && WP Job Manager is NOT active
   $wpjm_active = in_array('wp-job-manager/wp-job-manager.php', get_option('active_plugins'));
   $bp_active = in_array('buddypress/bp-loader.php', get_option('active_plugins'));
-
-  if ( current_user_can('activate_plugins') && ( $wpjm_active !== true || $bp_active !== true ) ) {
+  $wpjm_applications_active = in_array('wp-job-manager-applications/wp-job-manager-applications.php', get_option('active_plugins'));
+  $wpjm_resumes_active = in_array('wp-job-manager-resumes/wp-job-manager-resumes.php', get_option('active_plugins'));
+  if ( current_user_can('activate_plugins') && ( $wpjm_active !== true || $bp_active !== true || $wpjm_applications_active !== true || $wpjm_resumes_active !== true ) ) {
     add_action('admin_notices', 'wpbpjm_plugin_admin_notice');
   } else {
     if (!defined('WPBPJM_PLUGIN_BASENAME')) {
