@@ -50,8 +50,8 @@ function run_wp_bp_job_manager() {
 }
 
 function wpbpjm_settings_link( $links ) {
-	$settings_link = array( '<a href="javascript:void(0);">Settings</a>' );
-	return array_merge( $links, $settings_link );
+    $settings_link = array( '<a href="javascript:void(0);">Settings</a>' );
+    return array_merge( $links, $settings_link );
 }
 
 /**
@@ -86,7 +86,7 @@ function wpbpjm_plugin_admin_notice() {
     $wpjm_applications_plugin = __( 'WP Job Manager - Applications', WPBPJM_TEXT_DOMAIN );
     $wpjm_resumes_plugin = __( 'WP Job Manager - Resume Manager', WPBPJM_TEXT_DOMAIN );
     echo '<div class="error"><p>'
-    . sprintf(__('%1$s requires %2$s, %3$s, %4$s and %5$s to function correctly. Please activate %2$s and %3$s before activating %1$s.', WPBPJM_TEXT_DOMAIN), '<strong>' . esc_html($wpbpjm_plugin) . '</strong>', '<strong>' . esc_html($bp_plugin) . '</strong>', '<strong>' . esc_html($wpjm_plugin) . '</strong>', '<strong>' . esc_html($wpjm_applications_plugin) . '</strong>', '<strong>' . esc_html($wpjm_resumes_plugin) . '</strong>')
+    . sprintf(__('%1$s is ineffective now as it requires %2$s, %3$s, %4$s and %5$s to function correctly.', WPBPJM_TEXT_DOMAIN), '<strong>' . esc_html($wpbpjm_plugin) . '</strong>', '<strong>' . esc_html($bp_plugin) . '</strong>', '<strong>' . esc_html($wpjm_plugin) . '</strong>', '<strong>' . esc_html($wpjm_applications_plugin) . '</strong>', '<strong>' . esc_html($wpjm_resumes_plugin) . '</strong>')
     . '</p></div>';
     if (isset($_GET['activate'])) unset($_GET['activate']);
 }
