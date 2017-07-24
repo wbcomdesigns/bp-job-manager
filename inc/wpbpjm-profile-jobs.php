@@ -6,62 +6,64 @@ add_action( 'bp_setup_nav', 'wpbpjm_jobs_tab', 301 );
 function wpbpjm_jobs_tab(){
   global $bp_job_manager;
   $displayed_user_id = bp_displayed_user_id();
-  $displayed_user_caps = get_user_meta( $displayed_user_id, 'wp_capabilities', true );
-  reset( $displayed_user_caps );
-  $displayed_user_cap = key( $displayed_user_caps );
+  if( $displayed_user_id != 0 ) {
+    $displayed_user_caps = get_user_meta( $displayed_user_id, 'wp_capabilities', true );
+    reset( $displayed_user_caps );
+    $displayed_user_cap = key( $displayed_user_caps );
 
-  if( in_array( $displayed_user_cap, $bp_job_manager->job_user_roles ) ){
-    //Count jobs
-    $args = array(
-      'post_type'         => 'job_listing',
-      'post_status'       => 'any',
-      'author'            => $displayed_user_id,
-      'posts_per_page'    => -1,
-      'orderby'           => 'post_date',
-      'order'             => 'ASC',
-    );
-    $my_jobs_count = count( get_posts( $args ) );
+    if( in_array( $displayed_user_cap, $bp_job_manager->job_user_roles ) ){
+      //Count jobs
+      $args = array(
+        'post_type'         => 'job_listing',
+        'post_status'       => 'any',
+        'author'            => $displayed_user_id,
+        'posts_per_page'    => -1,
+        'orderby'           => 'post_date',
+        'order'             => 'ASC',
+      );
+      $my_jobs_count = count( get_posts( $args ) );
 
-  	global $bp;
-  	$name = bp_get_displayed_user_username();
-  	$tab_args = array(
-  		'name' => 'Jobs <span class="no-count">'.$my_jobs_count.'</span>',
-  		'slug' => 'jobs',
-  		'screen_function' => 'jobs_tab_function_to_show_screen',
-  		'position' => 75,
-  		'default_subnav_slug' => 'my_jobs',
-  		'show_for_displayed_user' => true,
-  	);
-  	bp_core_new_nav_item( $tab_args );
+      global $bp;
+      $name = bp_get_displayed_user_username();
+      $tab_args = array(
+        'name' => 'Jobs <span class="no-count">'.$my_jobs_count.'</span>',
+        'slug' => 'jobs',
+        'screen_function' => 'jobs_tab_function_to_show_screen',
+        'position' => 75,
+        'default_subnav_slug' => 'my_jobs',
+        'show_for_displayed_user' => true,
+      );
+      bp_core_new_nav_item( $tab_args );
 
-  	$parent_slug = 'jobs';
+      $parent_slug = 'jobs';
 
-  	//Add subnav my jobs - list all my jobs
-  	bp_core_new_subnav_item(
-  		array(
-  			'name' => 'My Jobs',
-  			'slug' => 'my_jobs',
-  			'parent_url' => $bp->loggedin_user->domain . $parent_slug.'/',
-  			'parent_slug' => $parent_slug,
-  			'screen_function' => 'wpbpjm_my_jobs_show_screen',
-  			'position' => 100,
-  			'link' => site_url()."/members/$name/$parent_slug/my_jobs/",
-  		)
-  	);
+      //Add subnav my jobs - list all my jobs
+      bp_core_new_subnav_item(
+        array(
+          'name' => 'My Jobs',
+          'slug' => 'my_jobs',
+          'parent_url' => $bp->loggedin_user->domain . $parent_slug.'/',
+          'parent_slug' => $parent_slug,
+          'screen_function' => 'wpbpjm_my_jobs_show_screen',
+          'position' => 100,
+          'link' => site_url()."/members/$name/$parent_slug/my_jobs/",
+        )
+      );
 
-    if( bp_loggedin_user_id() === bp_displayed_user_id() ) {
-      //Add subnav post a job
-    	bp_core_new_subnav_item(
-    		array(
-    			'name' => 'Post A Job',
-    			'slug' => 'post_a_job',
-    			'parent_url' => $bp->loggedin_user->domain . $parent_slug.'/',
-    			'parent_slug' => $parent_slug,
-    			'screen_function' => 'wpbpjm_post_a_job_show_screen',
-    			'position' => 100,
-    			'link' => site_url()."/members/$name/$parent_slug/post_a_job/",
-    		)
-    	);
+      if( bp_loggedin_user_id() === bp_displayed_user_id() ) {
+        //Add subnav post a job
+        bp_core_new_subnav_item(
+          array(
+            'name' => 'Post A Job',
+            'slug' => 'post_a_job',
+            'parent_url' => $bp->loggedin_user->domain . $parent_slug.'/',
+            'parent_slug' => $parent_slug,
+            'screen_function' => 'wpbpjm_post_a_job_show_screen',
+            'position' => 100,
+            'link' => site_url()."/members/$name/$parent_slug/post_a_job/",
+          )
+        );
+      }
     }
   }
 }
