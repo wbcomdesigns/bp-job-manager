@@ -24,6 +24,8 @@ if( !$my_jobs ) {
   <ul id="members-list" class="item-list" aria-live="assertive" aria-relevant="all">
     <?php foreach( $my_jobs as $job ) {?>
       <?php
+      //echo '<pre>'; print_r( get_post_meta( $job->ID ) ); die;
+
       $job_author_id = $job->post_author;
       $avatar_url = bp_core_fetch_avatar(array(
           'item_id' => $job_author_id,
@@ -32,7 +34,7 @@ if( !$my_jobs ) {
       ));
       $job_author_link = bp_core_get_user_domain( $job_author_id );
       $job_author_details = get_userdata( $job_author_id );
-      //echo '<pre>'; print_r( $job_author_details ); die;
+      
       $job_author_name = $job_author_details->data->display_name;
 
       $job_title = $job->post_title;
@@ -63,7 +65,13 @@ if( !$my_jobs ) {
       <div class="action">
         <?php if( is_user_logged_in() ) {?>
           <!-- APPLY FOR A JOB -->
-          <?php if ( bp_get_member_type( get_current_user_id() ) === 'candidate' && $job_status === 'publish' ) {?>
+          <?php 
+            global $bp_job_manager;
+            $displayed_user_caps = get_user_meta( $displayed_user_id, 'wp_capabilities', true );
+            reset( $divsplayed_user_caps );
+            $displayed_user_cap = key( $displayed_user_caps );
+          ?>
+          <?php if ( in_array( $displayed_user_cap, $bp_job_manager->resume_user_roles ) && $job_status === 'publish' ) {?>
             <div class="generic-button">
               <?php $job_apply_url = $job_author_link.'jobs?apply='.$job->ID;?>
               <a href="<?php echo $job_apply_url;?>" class="wpbpjm-apply-for-job">

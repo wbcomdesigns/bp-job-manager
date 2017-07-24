@@ -57,7 +57,13 @@ if( !$my_saved_jobs ) {
       <div class="action">
         <?php if( is_user_logged_in() ) {?>
           <!-- APPLY FOR A JOB -->
-          <?php if ( bp_get_member_type( get_current_user_id() ) === 'candidate' && $job_status === 'publish' ) {?>
+          <?php 
+            global $bp_job_manager;
+            $loggedin_user_caps = get_user_meta( $loggedin_user_id, 'wp_capabilities', true );
+            reset( $loggedin_user_caps );
+            $loggedin_user_cap = key( $loggedin_user_caps );
+          ?>
+          <?php if ( in_array( $loggedin_user_cap, $bp_job_manager->resume_user_roles ) && $job_status === 'publish' ) {?>
             <div class="generic-button">
               <?php $job_apply_url = $job_author_link.'jobs?apply='.$job_id;?>
               <a href="<?php echo $job_apply_url;?>" class="wpbpjm-apply-for-job">

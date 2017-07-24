@@ -4,8 +4,13 @@ defined( 'ABSPATH' ) || exit;
 
 add_action( 'bp_setup_nav', 'wpbpjm_jobs_tab', 301 );
 function wpbpjm_jobs_tab(){
+  global $bp_job_manager;
   $displayed_user_id = bp_displayed_user_id();
-  if( bp_get_member_type( bp_displayed_user_id() ) === 'employer' ) {
+  $displayed_user_caps = get_user_meta( $displayed_user_id, 'wp_capabilities', true );
+  reset( $displayed_user_caps );
+  $displayed_user_cap = key( $displayed_user_caps );
+
+  if( in_array( $displayed_user_cap, $bp_job_manager->job_user_roles ) ){
     //Count jobs
     $args = array(
       'post_type'         => 'job_listing',

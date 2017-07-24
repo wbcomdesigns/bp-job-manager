@@ -11,6 +11,7 @@ if( !class_exists( 'Wpbpjm_ScriptsStyles' ) ) {
 		 */
 		function __construct() {
 			add_action( 'wp_enqueue_scripts', array( $this, 'wpbpjm_front_scripts_styles' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'wpbpjm_admin_scripts_styles' ) );
 		}
 
 		/**
@@ -34,6 +35,14 @@ if( !class_exists( 'Wpbpjm_ScriptsStyles' ) ) {
 			if (!wp_script_is( $handle, $list )) {
 				wp_enqueue_style( 'wpbpjm-fa',WPBPJM_PLUGIN_URL.'assets/css/font-awesome.min.css' );
 			}
+		}
+
+		/**
+		 * Actions performed for enqueuing scripts and styles for site admin
+		 */
+		function wpbpjm_admin_scripts_styles() {
+			wp_enqueue_style( 'wpbpjm-admin-css', WPBPJM_PLUGIN_URL.'admin/assets/css/wpbpjm-admin.css' );
+			wp_enqueue_script( 'wpbpjm-admin-js', WPBPJM_PLUGIN_URL.'admin/assets/js/wpbpjm-admin.js', array( 'jquery' ) );
 		}
 	}
 	new Wpbpjm_ScriptsStyles();

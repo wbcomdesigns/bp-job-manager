@@ -4,11 +4,17 @@ defined( 'ABSPATH' ) || exit;
 
 add_action( 'bp_setup_nav', 'wpbpjm_saved_jobs_tab', 301 );
 function wpbpjm_saved_jobs_tab(){
-  global $bp;
+  global $bp, $bp_job_manager;
   $displayed_user_id = bp_displayed_user_id();
+  $curr_user_id = get_current_user_id();
   $name = bp_get_displayed_user_username();
+
+  $curr_user_caps = get_user_meta( $curr_user_id, 'wp_capabilities', true );
+  reset( $curr_user_caps );
+  $curr_user_cap = key( $curr_user_caps );
+
   //If the current user is a candidate
-  if( bp_get_member_type( get_current_user_id() ) === 'candidate' ) {
+  if( in_array( $curr_user_cap, $bp_job_manager->resume_user_roles ) ) {
     $my_saved_jobs_count = count( get_user_meta( get_current_user_id(), 'my_saved_jobs', true ) );
   	$tab_args = array(
   		'name' => 'Saved Jobs <span class="no-count">'.$my_saved_jobs_count.'</span>',
@@ -22,7 +28,7 @@ function wpbpjm_saved_jobs_tab(){
   }
 
   //If the current user is a employer
-  if( bp_get_member_type( get_current_user_id() ) === 'employer' ) {
+  if( in_array( $curr_user_cap, $bp_job_manager->job_user_roles ) ) {
     if( bp_loggedin_user_id() === bp_displayed_user_id() ) {
       $parent_slug = 'jobs';
       bp_core_new_subnav_item(

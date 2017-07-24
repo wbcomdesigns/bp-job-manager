@@ -1,9 +1,14 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+global $bp_job_manager;
+$curr_user_id = get_current_user_id();
+$curr_user_caps = get_user_meta( $curr_user_id, 'wp_capabilities', true );
+reset( $curr_user_caps );
+$curr_user_cap = key( $curr_user_caps );
 ?>
 <section id="wpbpjm-job-applicants-content" class="widget">
   <h2 class="widget-title"><?php echo $show_title;?></h2>
-  <?php if ( bp_get_member_type( get_current_user_id() ) != 'employer' ) {?>
+  <?php if ( in_array( $curr_user_cap, $bp_job_manager->job_user_roles ) ) {?>
     <p><?php _e( "This section is available only for employers.", WPBPJM_TEXT_DOMAIN );?></p>
   <?php } else {?>
     <?php
