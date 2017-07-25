@@ -46,7 +46,7 @@ function wpbpjm_jobs_tab(){
           'parent_slug' => $parent_slug,
           'screen_function' => 'wpbpjm_my_jobs_show_screen',
           'position' => 100,
-          'link' => site_url()."/members/$name/$parent_slug/my_jobs/",
+          'link' => bp_core_get_userlink( $displayed_user_id, false, true ).'my_jobs/',
         )
       );
 
@@ -60,7 +60,7 @@ function wpbpjm_jobs_tab(){
             'parent_slug' => $parent_slug,
             'screen_function' => 'wpbpjm_post_a_job_show_screen',
             'position' => 100,
-            'link' => site_url()."/members/$name/$parent_slug/post_a_job/",
+            'link' => bp_core_get_userlink( $displayed_user_id, false, true ).'post_a_job/',
           )
         );
       }

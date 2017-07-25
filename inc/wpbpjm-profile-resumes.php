@@ -46,7 +46,7 @@ function wpbpjm_resumes_tab() {
           'parent_slug' => $parent_slug,
           'screen_function' => 'wpbpjm_my_resumes_show_screen',
           'position' => 100,
-          'link' => site_url()."/members/$name/$parent_slug/my_resumes/",
+          'link' => bp_core_get_userlink( $displayed_user_id, false, true ).'my_resumes/',
         )
       );
     }
