@@ -18,8 +18,6 @@ define( 'WPBPJM_PLUGIN_PATH', plugin_dir_path(__FILE__) );
 define( 'WPBPJM_PLUGIN_URL', plugin_dir_url(__FILE__) );
 define( 'WPBPJM_TEXT_DOMAIN', 'wp-bp-job-manager' );
 
-global $bp_job_manager;
-
 /**
  * Load plugin textdomain.
  *
@@ -70,6 +68,7 @@ function wpbpjm_admin_settings_link( $links ) {
  * to be installed and active.
  */
 function wpbpjm_plugin_init() {
+  global $bp_job_manager;
   $wpjm_active = in_array('wp-job-manager/wp-job-manager.php', get_option('active_plugins'));
   $bp_active = in_array('buddypress/bp-loader.php', get_option('active_plugins'));
   $wpjm_applications_active = in_array('wp-job-manager-applications/wp-job-manager-applications.php', get_option('active_plugins'));
@@ -82,6 +81,10 @@ function wpbpjm_plugin_init() {
     }
     run_wp_bp_job_manager();
     add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'wpbpjm_admin_settings_link' );
+
+    if( empty( $bp_job_manager->job_user_roles ) || empty( $bp_job_manager->resume_user_roles ) ) {
+      add_action( 'admin_notices', 'wpbpjm_empty_admin_settings_notice' );
+    }
   }
 }
 add_action('plugins_loaded', 'wpbpjm_plugin_init');
@@ -97,4 +100,9 @@ function wpbpjm_plugin_admin_notice() {
     . sprintf(__('%1$s is ineffective now as it requires %2$s, %3$s, %4$s and %5$s to function correctly.', WPBPJM_TEXT_DOMAIN), '<strong>' . esc_html($wpbpjm_plugin) . '</strong>', '<strong>' . esc_html($bp_plugin) . '</strong>', '<strong>' . esc_html($wpjm_plugin) . '</strong>', '<strong>' . esc_html($wpjm_applications_plugin) . '</strong>', '<strong>' . esc_html($wpjm_resumes_plugin) . '</strong>')
     . '</p></div>';
     if (isset($_GET['activate'])) unset($_GET['activate']);
+}
+
+// Throw an Alert to tell the Admin that the admin settings are blank, which needs to be saved
+function wpbpjm_empty_admin_settings_notice() {
+    echo '<div class="error"><p>Please set the user roles that can manage the jobs and resumes on your site. Make it <a href="'.admin_url('options-general.php?page=bp-job-manager-settings').'" title="BP Job Manager Settings">here</a>.</p></div>';
 }
