@@ -67,11 +67,11 @@ if( !$my_jobs ) {
           <!-- APPLY FOR A JOB -->
           <?php 
             global $bp_job_manager;
-            $displayed_user_caps = get_user_meta( $displayed_user_id, 'wp_capabilities', true );
-            reset( $displayed_user_caps );
-            $displayed_user_cap = key( $displayed_user_caps );
+            $logged_user_caps = get_user_meta( $loggedin_user_id, 'wp_capabilities', true );
+            reset( $logged_user_caps );
+            $logged_user_cap = key( $logged_user_caps );
           ?>
-          <?php if ( in_array( $displayed_user_cap, $bp_job_manager->resume_user_roles ) && $job_status === 'publish' ) {?>
+          <?php if ( in_array( $logged_user_cap, $bp_job_manager->resume_user_roles ) && $job_status === 'publish' ) {?>
             <div class="generic-button">
               <?php $job_apply_url = $job_author_link.'jobs?apply='.$job->ID;?>
               <a href="<?php echo $job_apply_url;?>" class="wpbpjm-apply-for-job">

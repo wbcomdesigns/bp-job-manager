@@ -57,8 +57,11 @@ function run_wp_bp_job_manager() {
 }
 
 function wpbpjm_admin_settings_link( $links ) {
-    $settings_link = array( '<a href="'.admin_url('options-general.php?page=bp-job-manager-settings').'">'.__( 'Settings', WPBPJM_TEXT_DOMAIN ).'</a>' );
-    return array_merge( $links, $settings_link );
+    $wpbpjm_links = array(
+      '<a href="'.admin_url('options-general.php?page=bp-job-manager-settings').'">'.__( 'Settings', WPBPJM_TEXT_DOMAIN ).'</a>',
+      '<a href="https://wbcomdesigns.com/contact/" target="_blank">'.__( 'Support', WPBPJM_TEXT_DOMAIN ).'</a>'
+    );
+    return array_merge( $links, $wpbpjm_links );
 }
 
 /**

@@ -8,9 +8,9 @@ global $bp_job_manager, $wp_roles;
 	<div class='wpbpjm-general-settings-container'>
 		<table class="form-table">
 			<tbody>
-				<!-- MEMBER TYPES ALLOWED FOR JOB MGMT -->
+				<!-- ROLES ALLOWED FOR JOB MGMT -->
 				<tr>
-					<th scope="row"><label for="wpbpjm-job-member-types"><?php _e( 'Member Types for Job Management', WPBPJM_TEXT_DOMAIN );?></label></th>
+					<th scope="row"><label for="wpbpjm-job-member-types"><?php _e( 'Roles for Job Management', WPBPJM_TEXT_DOMAIN );?></label></th>
 					<td>
 						<?php foreach( $wp_roles->roles as $slug => $wp_role ) {?>
 							<input id="job-role-<?php echo $slug;?>" type="checkbox" name="wpbpjm-job-user-roles[]" value="<?php echo $slug;?>" <?php echo ( !empty( $bp_job_manager->job_user_roles ) && in_array( $slug, $bp_job_manager->job_user_roles ) ) ? 'checked' : '';?>/>
@@ -20,9 +20,9 @@ global $bp_job_manager, $wp_roles;
 					</td>
 				</tr>
 
-				<!-- MEMBER TYPES ALLOWED FOR RESUME MGMT -->
+				<!-- ROLES ALLOWED FOR RESUME MGMT -->
 				<tr>
-					<th scope="row"><label for="wpbpjm-resume-member-types"><?php _e( 'Member Types for Resume Management', WPBPJM_TEXT_DOMAIN );?></label></th>
+					<th scope="row"><label for="wpbpjm-resume-member-types"><?php _e( 'Roles for Resume Management', WPBPJM_TEXT_DOMAIN );?></label></th>
 					<td>
 						<?php foreach( $wp_roles->roles as $slug => $wp_role ) {?>
 							<input id="resume-role-<?php echo $slug;?>" type="checkbox" name="wpbpjm-resume-user-roles[]" value="<?php echo $slug;?>" <?php echo ( !empty( $bp_job_manager->resume_user_roles ) && in_array( $slug, $bp_job_manager->resume_user_roles ) ) ? 'checked' : '';?>/>
