@@ -17,7 +17,7 @@ global $bp_job_manager, $wp_roles;
 								<option <?php echo ( !empty( $bp_job_manager->job_user_roles ) && in_array( $slug, $bp_job_manager->job_user_roles ) ) ? 'selected' : '';?> value="<?php echo $slug;?>"><?php echo $wp_role['name'];?></option>
 							<?php }?>
 						</select>
-						<p class="description"><?php _e( 'Here you can select the roles that can manage the <strong>Job</strong> section.', BPFIT_TEXT_DOMAIN );?></p>
+						<p class="description"><?php _e( 'Here you can select the roles that can manage the <strong>Job</strong> section.', WPBPJM_TEXT_DOMAIN );?></p>
 					</td>
 				</tr>
 

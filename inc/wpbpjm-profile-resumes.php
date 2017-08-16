@@ -10,7 +10,7 @@ function wpbpjm_resumes_tab() {
     reset( $displayed_user_caps );
     $displayed_user_cap = key( $displayed_user_caps );
       
-    if( in_array( $displayed_user_cap, $bp_job_manager->resume_user_roles ) ){
+    if( !empty( $bp_job_manager->resume_user_roles ) && in_array( $displayed_user_cap, $bp_job_manager->resume_user_roles ) ){
       //Count resumes
       $displayed_user_id = bp_displayed_user_id();
       $args = array(
