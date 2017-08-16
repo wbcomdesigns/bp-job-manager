@@ -104,5 +104,5 @@ function wpbpjm_plugin_admin_notice() {
 
 // Throw an Alert to tell the Admin that the admin settings are blank, which needs to be saved
 function wpbpjm_empty_admin_settings_notice() {
-    echo '<div class="error"><p>Please set the user roles that can manage the jobs and resumes on your site. Make it <a href="'.admin_url('options-general.php?page=bp-job-manager-settings').'" title="BP Job Manager Settings">here</a>.</p></div>';
+    echo '<div class="error"><p><strong>BP Job Manager </strong>: Please set the user roles that can manage the jobs and resumes on your site. Make it <a href="'.admin_url('options-general.php?page=bp-job-manager-settings').'" title="BP Job Manager Settings">here</a>.</p></div>';
 }
