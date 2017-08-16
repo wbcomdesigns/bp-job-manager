@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 $loggedin_user_id = bp_loggedin_user_id();
 $displayed_user_id = bp_displayed_user_id();
 
-$my_saved_jobs = get_user_meta( get_current_user_id(), 'my_saved_jobs', true );
+$my_saved_jobs = get_user_meta( bp_displayed_user_id(), 'my_saved_jobs' );
 
 if( !$my_saved_jobs ) {
   ?>
