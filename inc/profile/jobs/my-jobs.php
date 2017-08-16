@@ -68,7 +68,7 @@ if( !$my_jobs ) {
           <?php 
             global $bp_job_manager;
             $displayed_user_caps = get_user_meta( $displayed_user_id, 'wp_capabilities', true );
-            reset( $divsplayed_user_caps );
+            reset( $displayed_user_caps );
             $displayed_user_cap = key( $displayed_user_caps );
           ?>
           <?php if ( in_array( $displayed_user_cap, $bp_job_manager->resume_user_roles ) && $job_status === 'publish' ) {?>

@@ -12,11 +12,10 @@ global $bp_job_manager, $wp_roles;
 				<tr>
 					<th scope="row"><label for="wpbpjm-job-member-types"><?php _e( 'Member Types for Job Management', WPBPJM_TEXT_DOMAIN );?></label></th>
 					<td>
-						<select class="wpbpjm-user-roles" name="wpbpjm-job-user-roles[]" required multiple>
-							<?php foreach( $wp_roles->roles as $slug => $wp_role ) {?>
-								<option <?php echo ( !empty( $bp_job_manager->job_user_roles ) && in_array( $slug, $bp_job_manager->job_user_roles ) ) ? 'selected' : '';?> value="<?php echo $slug;?>"><?php echo $wp_role['name'];?></option>
-							<?php }?>
-						</select>
+						<?php foreach( $wp_roles->roles as $slug => $wp_role ) {?>
+							<input id="job-role-<?php echo $slug;?>" type="checkbox" name="wpbpjm-job-user-roles[]" value="<?php echo $slug;?>" <?php echo ( !empty( $bp_job_manager->job_user_roles ) && in_array( $slug, $bp_job_manager->job_user_roles ) ) ? 'checked' : '';?>/>
+							<label for="job-role-<?php echo $slug;?>"><?php echo $wp_role['name'];?></label><br />
+						<?php }?>
 						<p class="description"><?php _e( 'Here you can select the roles that can manage the <strong>Job</strong> section.', WPBPJM_TEXT_DOMAIN );?></p>
 					</td>
 				</tr>
@@ -25,11 +24,10 @@ global $bp_job_manager, $wp_roles;
 				<tr>
 					<th scope="row"><label for="wpbpjm-resume-member-types"><?php _e( 'Member Types for Resume Management', WPBPJM_TEXT_DOMAIN );?></label></th>
 					<td>
-						<select class="wpbpjm-user-roles" name="wpbpjm-resume-user-roles[]" required multiple>
-							<?php foreach( $wp_roles->roles as $slug => $wp_role ) {?>
-								<option <?php echo ( !empty( $bp_job_manager->resume_user_roles ) && in_array( $slug, $bp_job_manager->resume_user_roles ) ) ? 'selected' : '';?> value="<?php echo $slug;?>"><?php echo $wp_role['name'];?></option>
-							<?php }?>
-						</select>
+						<?php foreach( $wp_roles->roles as $slug => $wp_role ) {?>
+							<input id="resume-role-<?php echo $slug;?>" type="checkbox" name="wpbpjm-resume-user-roles[]" value="<?php echo $slug;?>" <?php echo ( !empty( $bp_job_manager->resume_user_roles ) && in_array( $slug, $bp_job_manager->resume_user_roles ) ) ? 'checked' : '';?>/>
+							<label for="resume-role-<?php echo $slug;?>"><?php echo $wp_role['name'];?></label><br />
+						<?php }?>
 						<p class="description"><?php _e( 'Here you can select the roles that can manage the <strong>Resume</strong> section.', WPBPJM_TEXT_DOMAIN );?></p>
 					</td>
 				</tr>
