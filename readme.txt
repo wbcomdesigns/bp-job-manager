@@ -3,8 +3,8 @@ Contributors: wbcomdesigns
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, wp-job-manager, job-manager-applications, job-manager-resumes
 Requires at least: 3.0.1
-Tested up to: 4.8
-Stable tag: 1.0.0
+Tested up to: 4.8.1
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,3 +42,12 @@ The screenshots are present in the root of the plugin folder.
 == Changelog ==
 = 1.0.0 =
 * first version.
+= 1.0.1 =
+* Fix - Warning display on the page.
+* Fix - When the user submits listing it blocks page and display warning.  
+* Fix - After plugin install error generated on backend and frontend.
+* Fix - Error in plugin settings page
+* Fix - HTML display with applied jobs in Jobs page 
+* Fix - Error in user profile job tab
+* Fix - Settings are not working correctly 
+* Fix - Saved jobs display incorrect count number and "save job" button is missing.
