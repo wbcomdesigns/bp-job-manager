@@ -14,6 +14,7 @@ This plugin does the following:
 1. Creates two BuddyPress Member Types : Employer & Candidate
 2. Incorporates BuddyPress with the WP Job Manager plugin by creating specific tabs in employer's and candidate's profiles.
 3. Creates a widget that shows the applicants per job, useful for employers.
+* [Plugin Homepage ](https://wbcomdesigns.com/downloads/buddypress-job-manager/)
  
 == Installation ==
  
