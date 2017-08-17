@@ -2,7 +2,7 @@
 /**
  * Plugin Name: BP Job Manager
  * Description: This plugin manages user's jobs.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Wbcom Designs
  * Author URI: https://wbcomdesigns.com/
  * License: GPLv2+
