@@ -28,7 +28,7 @@ $my_applied_jobs = get_posts( $args );
 		</thead>
 		<tbody>
 			<?php if( empty( $my_applied_jobs ) ) {?>
-				<tr><td colspan="2"><?php _e( 'You have not applied to any jobs yet.', BPJM_TEXT_DOMAIN );?></td></tr>
+				<tr><td colspan="3"><?php _e( 'You have not applied to any jobs yet.', BPJM_TEXT_DOMAIN );?></td></tr>
 			<?php } else {?>
 				<?php foreach( $my_applied_jobs as $applied_job ) {?>
 					<?php 

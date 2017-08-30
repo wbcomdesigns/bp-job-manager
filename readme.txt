@@ -38,11 +38,10 @@ Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to 
 == Screenshots ==
 
 The screenshots are present in the root of the plugin folder.
-1. screenshot-1 - shows the jobs tab in employer's profile.
-2. screenshot-2 - shows the widget for the employers to see the applicants in their jobs.
-3. screenshot-3 - shows the resumes tab in candidates profiles.
-4. screenshot-4 - shows the saved jobs by candidates in their profile.
-5. screenshot-5 - is the plugin listing page.
+1. screenshot-1 - shows the plugin general settings
+2. screenshot-2 - shows the support tab content in the admin section.
+3. screenshot-3 - shows the jobs tab in employer's profile.
+4. screenshot-4 - shows the resumes tab in candidate's profile.
 
 == Changelog ==
 = 1.0.0 =
