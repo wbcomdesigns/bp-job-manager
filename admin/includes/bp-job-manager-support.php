@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 								<li><a href="https://wpjobmanager.com/add-ons/applications/" target="_blank">WordPress Job Manager - Applications</a> - <i><?php _e( 'Paid Addon', BPJM_TEXT_DOMAIN )?></i></li>
 								<li><a href="https://wpjobmanager.com/add-ons/resume-manager/" target="_blank">WordPress Job Manager - Resume Manager</a> - <i><?php _e( 'Paid Addon', BPJM_TEXT_DOMAIN )?></i></li>
 								<li><a href="https://wpjobmanager.com/add-ons/bookmarks/" target="_blank">WordPress Job Manager - Bookmarks</a> - <i><?php _e( 'Paid Addon - Optional for this plugin', BPJM_TEXT_DOMAIN )?></i></li>
-								<li><a href="https://wpjobmanager.com/add-ons/job-alerts/" target="_blank">WordPress Job Manager - Alerts</a> - <i><?php _e( 'Paid Addon - Optional for this plugin', BPJM_TEXT_DOMAIN )?></i></li>
+								<li><a href="https://wpjobmanager.com/add-ons/job-alerts/" target="_blank">WordPress Job Manager - Job Alerts</a> - <i><?php _e( 'Paid Addon - Optional for this plugin', BPJM_TEXT_DOMAIN )?></i></li>
 							</ol>
 						</p>
 					</div>
