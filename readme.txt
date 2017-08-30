@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, wp-job-manager, job-manager-applications, job-manager-resumes, Job Manager, BuddyPress Jobs
 Requires at least: 3.0.1
 Tested up to: 4.8.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,7 +50,7 @@ The screenshots are present in the root of the plugin folder.
 3. screenshot-3 
 4. screenshot-4
 5. screenshot-5
-6. creenshot-6
+6. screenshot-6
 
 == Changelog ==
 = 1.0.2 =
