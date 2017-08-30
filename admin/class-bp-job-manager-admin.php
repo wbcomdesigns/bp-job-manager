@@ -261,7 +261,7 @@ class Bp_Job_Manager_Admin {
 					$wp_admin_bar->add_menu( array(
 						'parent' => 'my-account-' . $profile_menu_slug,
 						'id'	 => 'my-account-' . $profile_menu_slug . '-' . 'post-job',
-						'title'	 => __( 'Post Job', BPJM_TEXT_DOMAIN ),
+						'title'	 => __( 'Post a New Job', BPJM_TEXT_DOMAIN ),
 						'href'	 => trailingslashit( $post_job_url )
 					) );
 				}
