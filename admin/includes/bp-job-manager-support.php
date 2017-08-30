@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 					<div class="panel">
 						<p>
 							<?php _e( 'Since this plugin deals with jobs, in buddypress user profiles, so to have the plugin fully functional, you must have the following plugins:', BPJM_TEXT_DOMAIN );?>
-							<ol type="1">
-								<li>BuddyPress</li>
-								<li>WordPress Job Manager</li>
-								<li>WordPress Job Manager - Applications</li>
-								<li>WordPress Job Manager - Resume Manager</li>
+							<ol type="1" class="bpjm-required-plugins-links">
+								<li><a href="https://buddypress.org/download/" target="_blank">BuddyPress</a> - <i><?php _e( 'Free Available', BPJM_TEXT_DOMAIN )?></i></li>
+								<li><a href="https://wpjobmanager.com/" target="_blank">WordPress Job Manager</a> - <i><?php _e( 'Free Available', BPJM_TEXT_DOMAIN )?></i></li>
+								<li><a href="https://wpjobmanager.com/add-ons/applications/" target="_blank">WordPress Job Manager - Applications</a> - <i><?php _e( 'Paid Addon', BPJM_TEXT_DOMAIN )?></i></li>
+								<li><a href="https://wpjobmanager.com/add-ons/resume-manager/" target="_blank">WordPress Job Manager - Resume Manager</a> - <i><?php _e( 'Paid Addon', BPJM_TEXT_DOMAIN )?></i></li>
 							</ol>
 						</p>
 					</div>

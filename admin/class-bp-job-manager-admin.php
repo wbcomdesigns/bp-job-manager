@@ -199,4 +199,118 @@ class Bp_Job_Manager_Admin {
 		}
 	}
 
+	/**
+	 * This function will list the jobs and resumes link in the dropdown list
+	 */
+	public function bpjm_setup_admin_bar_links( $wp_admin_nav = array() ) {
+		global $wp_admin_bar, $bp_job_manager;
+		if( is_user_logged_in() ) {
+			$curr_user = wp_get_current_user();
+			if( !empty( $curr_user->roles ) ) {
+				/**
+				 * Jobs menu - for the roles allowed for job posting
+				 */
+				$match_post_job_roles = array_intersect( $bp_job_manager->post_job_user_roles, $curr_user->roles );
+				if( !empty( $match_post_job_roles ) ) {
+					$profile_menu_slug = 'jobs';
+					$profile_menu_title = 'Jobs';
+
+					//Count jobs
+					$args = array(
+						'post_type' 		=> 'job_listing',
+						'post_status' 		=> 'any',
+						'author' 			=> get_current_user_id(),
+						'posts_per_page' 	=> -1,
+						'orderby' 			=> 'post_date',
+						'order' 			=> 'ASC',
+					);
+					$my_jobs_count = count( get_posts( $args ) );
+
+					$base_url		 = bp_loggedin_user_domain() . $profile_menu_slug;
+					$post_job_url	 = $base_url . '/post-job';
+					$my_jobs_url	 = $base_url . '/my-jobs';
+
+					$wp_admin_bar->add_menu( array(
+						'parent' => 'my-account-buddypress',
+						'id'	 => 'my-account-' . $profile_menu_slug,
+						'title'	 => __( $profile_menu_title.' <span class="count">' . $my_jobs_count . '</span>', BPJM_TEXT_DOMAIN ),
+						'href'	 => trailingslashit( $my_jobs_url )
+					) );
+
+					// Add add-new submenu
+					$wp_admin_bar->add_menu( array(
+						'parent' => 'my-account-' . $profile_menu_slug,
+						'id'	 => 'my-account-' . $profile_menu_slug . '-' . 'my-jobs',
+						'title'	 => __( 'My Jobs', BPJM_TEXT_DOMAIN ),
+						'href'	 => trailingslashit( $my_jobs_url )
+					) );
+
+					// Add add-new submenu
+					$wp_admin_bar->add_menu( array(
+						'parent' => 'my-account-' . $profile_menu_slug,
+						'id'	 => 'my-account-' . $profile_menu_slug . '-' . 'post-job',
+						'title'	 => __( 'Post Job', BPJM_TEXT_DOMAIN ),
+						'href'	 => trailingslashit( $post_job_url )
+					) );
+				}
+
+				/**
+				 * Resumes menu - for the roles allowed for job posting
+				 */
+				$match_apply_job_roles = array_intersect( $bp_job_manager->apply_job_user_roles, $curr_user->roles );
+				if( !empty( $match_apply_job_roles ) ) {
+					$profile_menu_slug = 'resumes';
+					$profile_menu_title = 'Resumes';
+
+					//Count resumes
+					$args = array(
+						'post_type' 		=> 'resume',
+						'post_status' 		=> 'any',
+						'author' 			=> get_current_user_id(),
+						'posts_per_page' 	=> -1,
+						'orderby' 			=> 'post_date',
+						'order' 			=> 'ASC',
+					);
+					$my_resumes_count = count( get_posts( $args ) );
+
+					$base_url		 	= bp_loggedin_user_domain() . $profile_menu_slug;
+					$my_resumes_url	 	= $base_url . '/my-resumes';
+					$applied_jobs_url	= $base_url . '/applied-jobs';
+					$add_resume_url	 	= $base_url . '/add-resume';
+
+					$wp_admin_bar->add_menu( array(
+						'parent' => 'my-account-buddypress',
+						'id'	 => 'my-account-' . $profile_menu_slug,
+						'title'	 => __( $profile_menu_title.' <span class="count">' . $my_resumes_count . '</span>', BPJM_TEXT_DOMAIN ),
+						'href'	 => trailingslashit( $my_resumes_url )
+					) );
+
+					// Add add-new submenu
+					$wp_admin_bar->add_menu( array(
+						'parent' => 'my-account-' . $profile_menu_slug,
+						'id'	 => 'my-account-' . $profile_menu_slug . '-' . 'my-resumes',
+						'title'	 => __( 'My Resumes', BPJM_TEXT_DOMAIN ),
+						'href'	 => trailingslashit( $my_resumes_url )
+					) );
+
+					// Add add-new submenu
+					$wp_admin_bar->add_menu( array(
+						'parent' => 'my-account-' . $profile_menu_slug,
+						'id'	 => 'my-account-' . $profile_menu_slug . '-' . 'applied-jobs',
+						'title'	 => __( 'Applied Jobs', BPJM_TEXT_DOMAIN ),
+						'href'	 => trailingslashit( $applied_jobs_url )
+					) );
+
+					// Add add-new submenu
+					$wp_admin_bar->add_menu( array(
+						'parent' => 'my-account-' . $profile_menu_slug,
+						'id'	 => 'my-account-' . $profile_menu_slug . '-' . 'add-resume',
+						'title'	 => __( 'Add Resume', BPJM_TEXT_DOMAIN ),
+						'href'	 => trailingslashit( $add_resume_url )
+					) );
+				}
+			}
+		}
+	}
+
 }

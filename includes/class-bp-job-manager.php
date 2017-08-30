@@ -162,6 +162,7 @@ class Bp_Job_Manager {
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'bpjm_add_options_page' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'bpjm_general_settings' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'bpjm_support' );
+		$this->loader->add_action( 'bp_setup_admin_bar', $plugin_admin, 'bpjm_setup_admin_bar_links', 70 );
 
 	}
 
@@ -173,37 +174,17 @@ class Bp_Job_Manager {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
-		global $bp_job_manager;
 		$plugin_public 	= new Bp_Job_Manager_Public( $this->get_plugin_name(), $this->get_version() );
-		$curr_user 		= wp_get_current_user();
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
-		if( !empty( $curr_user->roles ) ) {
-			/**
-			 * Jobs tab - for the roles allowed for job posting
-			 */
-			$match_post_job_roles = array_intersect( $bp_job_manager->post_job_user_roles, $curr_user->roles );
-			if( !empty( $match_post_job_roles ) ) {
-				$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_jobs_tab' );
-			}
-
-			/**
-			 * Jobs tab - for the roles allowed for job posting
-			 */
-			$match_apply_job_roles = array_intersect( $bp_job_manager->apply_job_user_roles, $curr_user->roles );
-			if( !empty( $match_apply_job_roles ) ) {
-				$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_resumes_tab' );
-			}
-		}
-
+		$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_jobs_tab' );
+		$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_resumes_tab' );
 		$this->loader->add_filter( 'page_template', $plugin_public, 'bpjm_job_application_page' );
 		$this->loader->add_filter( 'job_manager_get_dashboard_jobs_args', $plugin_public, 'bpjm_job_dashboard_user_id', 10, 1 );
 		$this->loader->add_filter( 'job_manager_user_can_edit_pending_submissions', $plugin_public, 'bpjm_allow_user_to_edit_pending_jobs', 10, 1 );
 		$this->loader->add_filter( 'job_manager_my_job_actions', $plugin_public, 'bpjm_job_dashboard_job_actions', 10, 2 );
 		$this->loader->add_filter( 'job_manager_job_dashboard_columns', $plugin_public, 'bpjm_job_dashboard_cols', 10, 1 );
 		$this->loader->add_action( 'job_manager_job_dashboard_column_actions', $plugin_public, 'bpjm_job_dashboard_actions_col_content', 10, 1 );
-		
 		$this->loader->add_filter( 'resume_manager_get_dashboard_resumes_args', $plugin_public, 'bpjm_resume_dashboard_user_id', 10, 1 );
 		$this->loader->add_filter( 'resume_manager_my_resume_actions', $plugin_public, 'bpjm_candidate_dashboard_resume_actions', 10, 2 );
 		

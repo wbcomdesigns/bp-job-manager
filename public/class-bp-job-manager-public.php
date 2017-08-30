@@ -106,56 +106,68 @@ class Bp_Job_Manager_Public {
 	 * @since    1.0.0
 	 */
 	public function bpjm_member_profile_jobs_tab() {
-		$displayed_uid = bp_displayed_user_id();
+		global $bp_job_manager;
+		$displayed_uid 		= bp_displayed_user_id();
+		$displayed_user 	= get_userdata( $displayed_uid );
+		$curr_user 			= wp_get_current_user();
 
-		//Count jobs
-		$args = array(
-			'post_type' 		=> 'job_listing',
-			'post_status' 		=> 'any',
-			'author' 			=> $displayed_uid,
-			'posts_per_page' 	=> -1,
-			'orderby' 			=> 'post_date',
-			'order' 			=> 'ASC',
-		);
-		$my_jobs_count = count( get_posts( $args ) );
+		if( !empty( $curr_user->roles ) && !empty( $displayed_user->roles ) ) {
+			/**
+			 * Jobs tab - for the roles allowed for job posting
+			 */
+			$match_post_job_roles_curr_usr = array_intersect( $bp_job_manager->post_job_user_roles, $curr_user->roles );
+			$match_post_job_roles_disp_usr = array_intersect( $bp_job_manager->post_job_user_roles, $displayed_user->roles );
+			if( !empty( $match_post_job_roles_curr_usr ) || !empty( $match_post_job_roles_disp_usr ) ) {
+				//Count jobs
+				$args = array(
+					'post_type' 		=> 'job_listing',
+					'post_status' 		=> 'any',
+					'author' 			=> $displayed_uid,
+					'posts_per_page' 	=> -1,
+					'orderby' 			=> 'post_date',
+					'order' 			=> 'ASC',
+				);
+				$my_jobs_count = count( get_posts( $args ) );
 
-		$parent_slug = 'jobs';
-		$jobs_tab_link = bp_core_get_userlink( $displayed_uid, false, true ).$parent_slug.'/';
+				$parent_slug = 'jobs';
+				$jobs_tab_link = bp_core_get_userlink( $displayed_uid, false, true ).$parent_slug.'/';
 
-		bp_core_new_nav_item(
-			array(
-				'name' => __( 'Jobs <span class="no-count">'.$my_jobs_count.'</span>', BPJM_TEXT_DOMAIN ),
-				'slug' => $parent_slug,
-				'screen_function' => array($this, 'bpjm_jobs_tab_function_to_show_screen'),
-				'position' => 75,
-				'default_subnav_slug' => 'my-jobs',
-				'show_for_displayed_user' => true,
-			)
-		);
-		if( $displayed_uid == get_current_user_id() ) {
-			bp_core_new_subnav_item(
-				array(
-					'name' => __( 'Post Job', BPJM_TEXT_DOMAIN ),
-					'slug' => 'post-job',
-					'parent_url' => $jobs_tab_link.'post-job',
-					'parent_slug' => $parent_slug,
-					'screen_function' => array($this, 'bpjm_post_job_show_screen'),
-					'position' => 200,
-					'link' => $jobs_tab_link.'post-job',
-				)
-			);
+				bp_core_new_nav_item(
+					array(
+						'name' => __( 'Jobs <span class="no-count">'.$my_jobs_count.'</span>', BPJM_TEXT_DOMAIN ),
+						'slug' => $parent_slug,
+						'screen_function' => array($this, 'bpjm_jobs_tab_function_to_show_screen'),
+						'position' => 75,
+						'default_subnav_slug' => 'my-jobs',
+						'show_for_displayed_user' => true,
+					)
+				);
+				bp_core_new_subnav_item(
+					array(
+						'name' => __( 'My Jobs', BPJM_TEXT_DOMAIN ),
+						'slug' => 'my-jobs',
+						'parent_url' => $jobs_tab_link.'my-jobs',
+						'parent_slug' => $parent_slug,
+						'screen_function' => array($this, 'bpjm_my_jobs_show_screen'),
+						'position' => 100,
+						'link' => $jobs_tab_link.'my-jobs',
+					)
+				);
+				if( $displayed_uid == get_current_user_id() ) {
+					bp_core_new_subnav_item(
+						array(
+							'name' => __( 'Post Job', BPJM_TEXT_DOMAIN ),
+							'slug' => 'post-job',
+							'parent_url' => $jobs_tab_link.'post-job',
+							'parent_slug' => $parent_slug,
+							'screen_function' => array($this, 'bpjm_post_job_show_screen'),
+							'position' => 200,
+							'link' => $jobs_tab_link.'post-job',
+						)
+					);
+				}
+			}
 		}
-		bp_core_new_subnav_item(
-			array(
-				'name' => __( 'My Jobs', BPJM_TEXT_DOMAIN ),
-				'slug' => 'my-jobs',
-				'parent_url' => $jobs_tab_link.'my-jobs',
-				'parent_slug' => $parent_slug,
-				'screen_function' => array($this, 'bpjm_my_jobs_show_screen'),
-				'position' => 100,
-				'link' => $jobs_tab_link.'my-jobs',
-			)
-		);
 	}
 
 	/**
@@ -261,7 +273,9 @@ class Bp_Job_Manager_Public {
 		$job_application_page = get_permalink( $bp_job_manager->job_application_pgid );
 		$job_application_page .= '?args='.$job->ID;
 		?>
-		<input type="button" value="<?php _e( 'Apply', BPJM_TEXT_DOMAIN );?>" onclick="window.open('<?php echo $job_application_page;?>', '_blank');">
+		<div class="generic-button" id="bpjm-job-application-btn">
+			<a href="javascript:void(0);" data-url="<?php echo $job_application_page;?>"><?php _e( 'Apply', BPJM_TEXT_DOMAIN );?></a>
+		</div>
 		<?php
 	}
 
@@ -285,56 +299,83 @@ class Bp_Job_Manager_Public {
 	 * @since    1.0.0
 	 */
 	public function bpjm_member_profile_resumes_tab() {
-		$displayed_uid = bp_displayed_user_id();
+		global $bp_job_manager;
+		$displayed_uid 		= bp_displayed_user_id();
+		$displayed_user 	= get_userdata( $displayed_uid );
+		$curr_user 			= wp_get_current_user();
 
-		//Count jobs
-		$args = array(
-			'post_type' 		=> 'resume',
-			'post_status' 		=> 'any',
-			'author' 			=> $displayed_uid,
-			'posts_per_page' 	=> -1,
-			'orderby' 			=> 'post_date',
-			'order' 			=> 'ASC',
-		);
-		$my_resumes_count = count( get_posts( $args ) );
+		if( !empty( $curr_user->roles ) && !empty( $displayed_user->roles ) ) {
+			/**
+			 * Resumes tab - for the roles allowed for job posting
+			 */
+			$match_apply_job_roles_curr_usr = array_intersect( $bp_job_manager->apply_job_user_roles, $curr_user->roles );
+			$match_apply_job_roles_disp_usr = array_intersect( $bp_job_manager->apply_job_user_roles, $displayed_user->roles );
+			if( !empty( $match_apply_job_roles_curr_usr ) || !empty( $match_apply_job_roles_disp_usr ) ) {
+				//Count resumes
+				$args = array(
+					'post_type' 		=> 'resume',
+					'post_status' 		=> 'any',
+					'author' 			=> $displayed_uid,
+					'posts_per_page' 	=> -1,
+					'orderby' 			=> 'post_date',
+					'order' 			=> 'ASC',
+				);
+				$my_resumes_count = count( get_posts( $args ) );
 
-		$parent_slug = 'resumes';
-		$resumes_tab_link = bp_core_get_userlink( $displayed_uid, false, true ).$parent_slug.'/';
+				$parent_slug = 'resumes';
+				$resumes_tab_link = bp_core_get_userlink( $displayed_uid, false, true ).$parent_slug.'/';
 
-		bp_core_new_nav_item(
-			array(
-				'name' => __( 'Resumes <span class="no-count">'.$my_resumes_count.'</span>', BPJM_TEXT_DOMAIN ),
-				'slug' => $parent_slug,
-				'screen_function' => array($this, 'bpjm_resumes_tab_function_to_show_screen'),
-				'position' => 75,
-				'default_subnav_slug' => 'my-resumes',
-				'show_for_displayed_user' => true,
-			)
-		);
-		if( $displayed_uid == get_current_user_id() ) {
-			bp_core_new_subnav_item(
-				array(
-					'name' => __( 'Add Resume', BPJM_TEXT_DOMAIN ),
-					'slug' => 'add-resume',
-					'parent_url' => $resumes_tab_link.'add-resume',
-					'parent_slug' => $parent_slug,
-					'screen_function' => array($this, 'bpjm_add_resume_show_screen'),
-					'position' => 200,
-					'link' => $resumes_tab_link.'add-resume',
-				)
-			);
+				bp_core_new_nav_item(
+					array(
+						'name' => __( 'Resumes <span class="no-count">'.$my_resumes_count.'</span>', BPJM_TEXT_DOMAIN ),
+						'slug' => $parent_slug,
+						'screen_function' => array($this, 'bpjm_resumes_tab_function_to_show_screen'),
+						'position' => 75,
+						'default_subnav_slug' => 'my-resumes',
+						'show_for_displayed_user' => true,
+					)
+				);
+				//My Resumes
+				bp_core_new_subnav_item(
+					array(
+						'name' => __( 'My Resumes', BPJM_TEXT_DOMAIN ),
+						'slug' => 'my-resumes',
+						'parent_url' => $resumes_tab_link.'my-resumes',
+						'parent_slug' => $parent_slug,
+						'screen_function' => array($this, 'bpjm_my_resumes_show_screen'),
+						'position' => 100,
+						'link' => $resumes_tab_link.'my-resumes',
+					)
+				);
+
+				if( $displayed_uid == get_current_user_id() ) {
+					//Applied Jobs
+					bp_core_new_subnav_item(
+						array(
+							'name' => __( 'Applied Jobs', BPJM_TEXT_DOMAIN ),
+							'slug' => 'applied-jobs',
+							'parent_url' => $resumes_tab_link.'applied-jobs',
+							'parent_slug' => $parent_slug,
+							'screen_function' => array($this, 'bpjm_applied_jobs_show_screen'),
+							'position' => 200,
+							'link' => $resumes_tab_link.'applied-jobs',
+						)
+					);
+					//Add Resume
+					bp_core_new_subnav_item(
+						array(
+							'name' => __( 'Add Resume', BPJM_TEXT_DOMAIN ),
+							'slug' => 'add-resume',
+							'parent_url' => $resumes_tab_link.'add-resume',
+							'parent_slug' => $parent_slug,
+							'screen_function' => array($this, 'bpjm_add_resume_show_screen'),
+							'position' => 200,
+							'link' => $resumes_tab_link.'add-resume',
+						)
+					);
+				}
+			}
 		}
-		bp_core_new_subnav_item(
-			array(
-				'name' => __( 'My Resumes', BPJM_TEXT_DOMAIN ),
-				'slug' => 'my-resumes',
-				'parent_url' => $resumes_tab_link.'my-resumes',
-				'parent_slug' => $parent_slug,
-				'screen_function' => array($this, 'bpjm_my_resumes_show_screen'),
-				'position' => 100,
-				'link' => $resumes_tab_link.'my-resumes',
-			)
-		);
 	}
 
 	/**
@@ -381,6 +422,32 @@ class Bp_Job_Manager_Public {
 	 */
 	function bpjm_my_resumes_tab_function_to_show_content() {
 		echo do_shortcode( '[candidate_dashboard]' );
+	}
+
+	/**
+	 * Screen function for listing all applied jobs in menu item
+	 */
+	function bpjm_applied_jobs_show_screen() {
+		add_action('bp_template_title', array($this, 'bpjm_applied_jobs_tab_function_to_show_title'));
+		add_action('bp_template_content', array($this, 'bpjm_applied_jobs_tab_function_to_show_content'));
+		bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
+	}
+
+	/**
+	 * Applied Jobs - Title
+	 */
+	function bpjm_applied_jobs_tab_function_to_show_title() {
+		_e( 'Applied jobs', BPJM_TEXT_DOMAIN );
+	}
+
+	/**
+	 * Applied Jobs - Content
+	 */
+	function bpjm_applied_jobs_tab_function_to_show_content() {
+		$file = BPJM_PLUGIN_PATH . 'public/templates/bpjm-my-applied-jobs.php';
+		if( file_exists( $file ) ) {
+			include $file;
+		}
 	}
 
 	/**
