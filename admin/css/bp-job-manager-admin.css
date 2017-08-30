@@ -69,7 +69,11 @@ button.bpjm-accordion.active::after {
 }
 .bpjm-header .bpjm-extra-actions {
 	float: right;
+	padding-bottom: 10px;
 }
 ol.bpjm-required-plugins-links a {
 	text-decoration: none;
+}
+.notice-success, div.updated {
+	clear: both;
 }

@@ -101,12 +101,12 @@ class Bp_Job_Manager_Admin {
 		?>
 		<div class="wrap">
 			<div class="bpjm-header">
-				<h2 class="bpjm-plugin-heading"><?php _e( 'BuddyPress Job Manager', BPJM_TEXT_DOMAIN );?></h2>
 				<div class="bpjm-extra-actions">
 					<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/contact/', '_blank');"><i class="fa fa-envelope" aria-hidden="true"></i> <?php _e( 'Email Support', BPJM_TEXT_DOMAIN )?></button>
 					<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/helpdesk/article-categories/buddypress-job-manager/', '_blank');"><i class="fa fa-file" aria-hidden="true"></i> <?php _e( 'User Manual', BPJM_TEXT_DOMAIN )?></button>
 					<button type="button" class="button button-secondary" onclick="window.open('https://wordpress.org/support/plugin/bp-job-manager/reviews/', '_blank');"><i class="fa fa-star" aria-hidden="true"></i> <?php _e( 'Rate Us on WordPress.org', BPJM_TEXT_DOMAIN )?></button>
 				</div>
+				<h2 class="bpjm-plugin-heading"><?php _e( 'BuddyPress Job Manager', BPJM_TEXT_DOMAIN );?></h2>
 			</div>
 			<?php $this->bpjm_plugin_settings_tabs();?>
 			<?php do_settings_sections( $tab );?>
