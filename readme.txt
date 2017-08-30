@@ -26,10 +26,10 @@ This plugin does the following:
 = What are the plugin requirements? =
 
 The plugin requires plugins : 
-1. BuddyPress (https://buddypress.org/download/)
-2. WordPress Job Manager (https://wpjobmanager.com/)
-3. WordPress Job Manager - Applications (https://wpjobmanager.com/add-ons/applications/)
-4. WordPress Job Manager - Resume Manager (https://wpjobmanager.com/add-ons/resume-manager/)
+1. [BuddyPress ](https://buddypress.org/download/)
+2. [WordPress Job Manager ](https://wpjobmanager.com/)
+3. [WordPress Job Manager - Applications ](https://wpjobmanager.com/add-ons/applications/)
+4. [WordPress Job Manager - Resume Manager ](https://wpjobmanager.com/add-ons/resume-manager/)
 
 = Where Do I Ask for support? =
 
