@@ -199,7 +199,7 @@ class Bp_Job_Manager_Public {
 	 * Post Job - Title
 	 */
 	function bpjm_post_job_tab_function_to_show_title() {
-		_e( 'Post job', BPJM_TEXT_DOMAIN );
+		_e( 'Post a New Job', BPJM_TEXT_DOMAIN );
 	}
 
 	/**
@@ -245,7 +245,7 @@ class Bp_Job_Manager_Public {
 	 * My Bookmarked Jobs - Title
 	 */
 	function bpjm_bookmarked_jobs_tab_function_to_show_title() {
-		_e( 'My jobs', BPJM_TEXT_DOMAIN );
+		_e( 'My Jobs', BPJM_TEXT_DOMAIN );
 	}
 
 	/**
