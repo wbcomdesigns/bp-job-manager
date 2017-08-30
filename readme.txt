@@ -28,10 +28,10 @@ You can also check details at our plugin document page
 = What are the plugin requirements? =
 
 The plugin requires plugins : 
-1. [BuddyPress ](https://buddypress.org/download/)
-2. [WordPress Job Manager ](https://wpjobmanager.com/)
-3. [WordPress Job Manager - Applications ](https://wpjobmanager.com/add-ons/applications/)
-4. [WordPress Job Manager - Resume Manager ](https://wpjobmanager.com/add-ons/resume-manager/)
+1. [BuddyPress](https://buddypress.org/download/)
+2. [WordPress Job Manager](https://wpjobmanager.com/)
+3. [WordPress Job Manager - Applications](https://wpjobmanager.com/add-ons/applications/)
+4. [WordPress Job Manager - Resume Manager](https://wpjobmanager.com/add-ons/resume-manager/)
 
 Optional Plugin
 
@@ -50,7 +50,7 @@ The screenshots are present in the root of the plugin folder.
 3. screenshot-3 
 4. screenshot-4
 5. screenshot-5
-s6. creenshot-6
+6. creenshot-6
 
 == Changelog ==
 = 1.0.2 =
