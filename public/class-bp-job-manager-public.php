@@ -172,7 +172,7 @@ class Bp_Job_Manager_Public {
 
 					bp_core_new_subnav_item(
 						array(
-							'name' => __( 'Post Job', BPJM_TEXT_DOMAIN ),
+							'name' => __( 'Post a New Job', BPJM_TEXT_DOMAIN ),
 							'slug' => 'post-job',
 							'parent_url' => $jobs_tab_link.'post-job',
 							'parent_slug' => $parent_slug,
