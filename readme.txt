@@ -33,7 +33,7 @@ The plugin requires plugins :
 
 = Where Do I Ask for support? =
 
-Please visit [wbcomdesigns] (http://wbcomdesigns.com/) for any query related to plugin and Buddypress.
+You can also contact at our website [wbcomdesigns.com](https://wbcomdesigns.com/contact) for any query related to plugin and Buddypress.
 
 == Screenshots ==
 
