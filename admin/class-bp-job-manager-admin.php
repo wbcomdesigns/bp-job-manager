@@ -247,13 +247,25 @@ class Bp_Job_Manager_Admin {
 
 					$wpjm_bookmarks_active = $wpjm_active = in_array('wp-job-manager-bookmarks/wp-job-manager-bookmarks.php', get_option('active_plugins'));
 					if( $wpjm_bookmarks_active === true ) {
-						$bookmarked_jobs_url	 = $base_url . '/bookmarked-jobs';
+						$bookmarked_jobs_url	 = $base_url . '/my-bookmarks';
 						// Add add-new submenu
 						$wp_admin_bar->add_menu( array(
 							'parent' => 'my-account-' . $profile_menu_slug,
-							'id'	 => 'my-account-' . $profile_menu_slug . '-' . 'bookmarked-jobs',
-							'title'	 => __( 'Bookmarked Jobs', BPJM_TEXT_DOMAIN ),
+							'id'	 => 'my-account-' . $profile_menu_slug . '-' . 'my-bookmarks',
+							'title'	 => __( 'My Bookmarks', BPJM_TEXT_DOMAIN ),
 							'href'	 => trailingslashit( $bookmarked_jobs_url )
+						) );
+					}
+
+					$wpjm_alerts_active = $wpjm_active = in_array('wp-job-manager-alerts/wp-job-manager-alerts.php', get_option('active_plugins'));
+					if( $wpjm_alerts_active === true ) {
+						$job_alerts_url	 = $base_url . '/job-alerts';
+						// Add add-new submenu
+						$wp_admin_bar->add_menu( array(
+							'parent' => 'my-account-' . $profile_menu_slug,
+							'id'	 => 'my-account-' . $profile_menu_slug . '-' . 'job-alerts',
+							'title'	 => __( 'Job Alerts', BPJM_TEXT_DOMAIN ),
+							'href'	 => trailingslashit( $job_alerts_url )
 						) );
 					}
 
