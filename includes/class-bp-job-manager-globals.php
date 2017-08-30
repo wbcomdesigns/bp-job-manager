@@ -86,7 +86,7 @@ class Bp_Job_Manager_Globals {
 			$this->post_job_user_roles = array_merge( $this->post_job_user_roles, $settings['post_job_user_roles'] );
 		}
 		
-		$this->apply_job_user_roles = array( 'administrator', 'candidate' );
+		$this->apply_job_user_roles = array( 'administrator', 'candidate', 'subscriber' );
 		if( !empty( $settings['apply_job_user_roles'] ) ) {
 			$this->apply_job_user_roles = array_merge( $this->apply_job_user_roles, $settings['apply_job_user_roles'] );
 		}
