@@ -1,0 +1,275 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: BuddyPress Job Manager\n"
+"POT-Creation-Date: 2017-08-31 02:31+0530\n"
+"PO-Revision-Date: 2017-08-31 02:22+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: bp-job-manager.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: admin/class-bp-job-manager-admin.php:93
+msgid "BuddyPress Job Manager Settings"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:93
+msgid "BP Job Manager"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:105
+msgid "Email Support"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:106
+msgid "User Manual"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:107
+msgid "Rate Us on WordPress.org"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+#: admin/class-bp-job-manager-admin.php:109
+msgid "BuddyPress Job Manager"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:134
+msgid "General"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:152 bp-job-manager.php:132
+msgid "Support"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:183
+#: admin/class-bp-job-manager-admin.php:190
+msgid "Settings Saved."
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:195
+msgid ""
+"User roles cannot be same for posting the jobs and the ones allowed for job "
+"applications."
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:236
+#: admin/class-bp-job-manager-admin.php:308
+msgid " <span class=\"count\">"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:244
+#: public/class-bp-job-manager-public.php:147
+msgid "My Jobs"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:255
+#: public/class-bp-job-manager-public.php:162
+msgid "My Bookmarks"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:267
+#: public/class-bp-job-manager-public.php:177
+msgid "Job Alerts"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:276
+#: public/class-bp-job-manager-public.php:190
+#: public/class-bp-job-manager-public.php:217
+msgid "Post a New Job"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:316
+#: public/class-bp-job-manager-public.php:418
+msgid "My Resumes"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:324
+#: public/class-bp-job-manager-public.php:432
+msgid "Applied Jobs"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:332
+#: public/class-bp-job-manager-public.php:444
+#: public/class-bp-job-manager-public.php:471
+msgid "Add Resume"
+msgstr ""
+
+#: admin/includes/bp-job-manager-general-settings.php:7
+msgid "General Settings"
+msgstr ""
+
+#: admin/includes/bp-job-manager-general-settings.php:13
+msgid "Post Job Roles"
+msgstr ""
+
+#: admin/includes/bp-job-manager-general-settings.php:22
+msgid "Select the user roles that are allowed to post jobs on your site."
+msgstr ""
+
+#: admin/includes/bp-job-manager-general-settings.php:28
+msgid "Apply Job Roles"
+msgstr ""
+
+#: admin/includes/bp-job-manager-general-settings.php:37
+msgid ""
+"Select the user roles that are allowed to apply for the jobs on your site."
+msgstr ""
+
+#: admin/includes/bp-job-manager-general-settings.php:44
+msgid "Save Changes"
+msgstr ""
+
+#: admin/includes/bp-job-manager-support.php:5
+msgid "Have some questions?"
+msgstr ""
+
+#: admin/includes/bp-job-manager-support.php:10
+msgid "What plugin does this plugin require?"
+msgstr ""
+
+#: admin/includes/bp-job-manager-support.php:13
+msgid ""
+"Since this plugin deals with jobs, in buddypress user profiles, so to have "
+"the plugin fully functional, you must have the following plugins:"
+msgstr ""
+
+#: admin/includes/bp-job-manager-support.php:15
+#: admin/includes/bp-job-manager-support.php:16
+msgid "Free Available"
+msgstr ""
+
+#: admin/includes/bp-job-manager-support.php:17
+#: admin/includes/bp-job-manager-support.php:18
+msgid "Paid Addon"
+msgstr ""
+
+#: admin/includes/bp-job-manager-support.php:19
+#: admin/includes/bp-job-manager-support.php:20
+msgid "Paid Addon - Optional for this plugin"
+msgstr ""
+
+#: admin/includes/bp-job-manager-support.php:29
+msgid "How does this plugin work?"
+msgstr ""
+
+#: admin/includes/bp-job-manager-support.php:31
+msgid ""
+"This plugin integrates the WordPress Job Manager with the big name, "
+"BuddyPress. The site members can post the jobs from their profiles and other "
+"members can apply to the same jobs."
+msgstr ""
+
+#: admin/includes/bp-job-manager-support.php:38
+msgid "How to go for any custom development?"
+msgstr ""
+
+#: admin/includes/bp-job-manager-support.php:40
+msgid ""
+"If you need additional help you can contact us for <a href=\"https://"
+"wbcomdesigns.com/contact/\" target=\"_blank\" title=\"Custom Development by "
+"Wbcom Designs\">Custom Development</a>."
+msgstr ""
+
+#: bp-job-manager.php:124
+#, php-format
+msgid ""
+"%1$s is ineffective now as it requires %2$s, %3$s, %4$s and %5$s to be "
+"installed and active."
+msgstr ""
+
+#: bp-job-manager.php:131
+msgid "Settings"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:137
+msgid "Jobs <span class=\"no-count\">"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:240
+msgid "My jobs"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:263
+msgid "My bookmarks"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:286
+msgid "Job alerts"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:338
+msgid "Actions"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:354
+msgid "Apply"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:407
+msgid "Resumes <span class=\"no-count\">"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:494
+msgid "My resumes"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:517
+msgid "Applied jobs"
+msgstr ""
+
+#: public/templates/bpjm-job-application.php:30
+msgid "No content available."
+msgstr ""
+
+#: public/templates/bpjm-my-applied-jobs.php:20
+msgid "Your applied jobs are shown in the table below."
+msgstr ""
+
+#: public/templates/bpjm-my-applied-jobs.php:24
+msgid "Applied For"
+msgstr ""
+
+#: public/templates/bpjm-my-applied-jobs.php:25
+msgid "Date Applied"
+msgstr ""
+
+#: public/templates/bpjm-my-applied-jobs.php:26
+msgid "Attachment"
+msgstr ""
+
+#: public/templates/bpjm-my-applied-jobs.php:31
+msgid "You have not applied to any jobs yet."
+msgstr ""
+
+#: public/templates/bpjm-my-applied-jobs.php:49
+msgid "File"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://wbcomdesigns.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"This plugin integrates <strong>WordPress Job Manager</strong> with "
+"<strong>BuddyPress</strong>. Allows the members to post jobs, and others to "
+"apply for those posted jobs."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Wbcom Designs"
+msgstr ""
