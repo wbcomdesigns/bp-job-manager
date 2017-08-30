@@ -154,6 +154,22 @@ class Bp_Job_Manager_Public {
 					)
 				);
 				if( $displayed_uid == get_current_user_id() ) {
+
+					$wpjm_bookmarks_active = $wpjm_active = in_array('wp-job-manager-bookmarks/wp-job-manager-bookmarks.php', get_option('active_plugins'));
+					if( $wpjm_bookmarks_active === true ) {
+						bp_core_new_subnav_item(
+							array(
+								'name' => __( 'Bookmarked Jobs', BPJM_TEXT_DOMAIN ),
+								'slug' => 'bookmarked-jobs',
+								'parent_url' => $jobs_tab_link.'bookmarked-jobs',
+								'parent_slug' => $parent_slug,
+								'screen_function' => array($this, 'bpjm_bookmarked_jobs_show_screen'),
+								'position' => 200,
+								'link' => $jobs_tab_link.'bookmarked-jobs',
+							)
+						);
+					}
+
 					bp_core_new_subnav_item(
 						array(
 							'name' => __( 'Post Job', BPJM_TEXT_DOMAIN ),
@@ -214,6 +230,29 @@ class Bp_Job_Manager_Public {
 	 */
 	function bpjm_my_jobs_tab_function_to_show_content() {
 		echo do_shortcode( '[job_dashboard]' );
+	}
+
+	/**
+	 * Screen function for listing all my bookmarked jobs in menu item
+	 */
+	function bpjm_bookmarked_jobs_show_screen() {
+		add_action('bp_template_title', array($this, 'bpjm_bookmarked_jobs_tab_function_to_show_title'));
+		add_action('bp_template_content', array($this, 'bpjm_bookmarked_jobs_tab_function_to_show_content'));
+		bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
+	}
+
+	/**
+	 * My Bookmarked Jobs - Title
+	 */
+	function bpjm_bookmarked_jobs_tab_function_to_show_title() {
+		_e( 'My jobs', BPJM_TEXT_DOMAIN );
+	}
+
+	/**
+	 * My Bookmarked Jobs - Content
+	 */
+	function bpjm_bookmarked_jobs_tab_function_to_show_content() {
+		echo do_shortcode( '[my_bookmarks]' );
 	}
 
 	/**

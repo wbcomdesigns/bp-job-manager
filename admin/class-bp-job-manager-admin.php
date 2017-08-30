@@ -245,6 +245,18 @@ class Bp_Job_Manager_Admin {
 						'href'	 => trailingslashit( $my_jobs_url )
 					) );
 
+					$wpjm_bookmarks_active = $wpjm_active = in_array('wp-job-manager-bookmarks/wp-job-manager-bookmarks.php', get_option('active_plugins'));
+					if( $wpjm_bookmarks_active === true ) {
+						$bookmarked_jobs_url	 = $base_url . '/bookmarked-jobs';
+						// Add add-new submenu
+						$wp_admin_bar->add_menu( array(
+							'parent' => 'my-account-' . $profile_menu_slug,
+							'id'	 => 'my-account-' . $profile_menu_slug . '-' . 'bookmarked-jobs',
+							'title'	 => __( 'Bookmarked Jobs', BPJM_TEXT_DOMAIN ),
+							'href'	 => trailingslashit( $bookmarked_jobs_url )
+						) );
+					}
+
 					// Add add-new submenu
 					$wp_admin_bar->add_menu( array(
 						'parent' => 'my-account-' . $profile_menu_slug,
