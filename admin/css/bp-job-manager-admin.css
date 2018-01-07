@@ -50,7 +50,7 @@ button.bpjm-accordion.active::after {
 	color:white;
 }
 .bpjm-admin-row{
-	clear: both;  
+	clear: both;
 	overflow: hidden;
 	padding-bottom: 5px;
 }

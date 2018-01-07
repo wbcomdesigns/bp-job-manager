@@ -33,15 +33,15 @@ class Bp_Job_Manager_Activator {
 		/**
 		 * Create a page - Apply To Job
 		 */
-		if( function_exists( 'get_page_by_title' ) ) {
-			/******************** Job Application Page ********************/
+		if ( function_exists( 'get_page_by_title' ) ) {
+			/******************** Job Application Page */
 			$page_title = 'Apply To Job';
-			$page = get_page_by_title( $page_title );
-			if( empty( $page ) ) {
-				$args = array(
-					'post_type' => 'page',
-					'post_title' => $page_title,
-					'post_status' => 'publish'
+			$page       = get_page_by_title( $page_title );
+			if ( empty( $page ) ) {
+				$args  = array(
+					'post_type'   => 'page',
+					'post_title'  => $page_title,
+					'post_status' => 'publish',
 				);
 				$pg_id = wp_insert_post( $args );
 				update_option( 'bpjm_job_application_pgid', $pg_id );

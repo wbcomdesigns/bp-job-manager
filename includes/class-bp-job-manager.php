@@ -69,7 +69,7 @@ class Bp_Job_Manager {
 	public function __construct() {
 
 		$this->plugin_name = 'bp-job-manager';
-		$this->version = '1.0.0';
+		$this->version     = '1.0.0';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -174,7 +174,7 @@ class Bp_Job_Manager {
 	 * @access   private
 	 */
 	private function define_public_hooks() {
-		$plugin_public 	= new Bp_Job_Manager_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Bp_Job_Manager_Public( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_jobs_tab' );
@@ -187,7 +187,7 @@ class Bp_Job_Manager {
 		$this->loader->add_action( 'job_manager_job_dashboard_column_actions', $plugin_public, 'bpjm_job_dashboard_actions_col_content', 10, 1 );
 		$this->loader->add_filter( 'resume_manager_get_dashboard_resumes_args', $plugin_public, 'bpjm_resume_dashboard_user_id', 10, 1 );
 		$this->loader->add_filter( 'resume_manager_my_resume_actions', $plugin_public, 'bpjm_candidate_dashboard_resume_actions', 10, 2 );
-		
+
 	}
 
 	/**
