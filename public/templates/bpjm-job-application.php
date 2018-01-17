@@ -27,7 +27,7 @@ global $post;
 					?>
 					<div>
 						<p>
-							<?php _e( 'No content available.', BPJM_TEXT_DOMAIN ); ?>
+							<?php _e( 'No content available.', 'bp-job-manager' ); ?>
 						</p>
 					</div>
 					<?php

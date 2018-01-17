@@ -29,10 +29,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! defined( 'BPJM_TEXT_DOMAIN' ) ) {
-	define( 'BPJM_TEXT_DOMAIN', 'bp-job-manager' );
-}
-
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-bp-job-manager-activator.php
@@ -120,7 +116,7 @@ function bpjm_required_plugin_admin_notice() {
 	$wpjm_applications_plugin = 'WP Job Manager - Applications';
 	$wpjm_resumes_plugin      = 'WP Job Manager - Resume Manager';
 	echo '<div class="error"><p>'
-	. sprintf( __( '%1$s is ineffective now as it requires %2$s, %3$s, %4$s and %5$s to be installed and active.', BPJM_TEXT_DOMAIN ), '<strong>' . esc_html( $bpjm_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_applications_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_resumes_plugin ) . '</strong>' )
+	. sprintf( __( '%1$s is ineffective now as it requires %2$s, %3$s, %4$s and %5$s to be installed and active.', 'bp-job-manager' ), '<strong>' . esc_html( $bpjm_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_applications_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_resumes_plugin ) . '</strong>' )
 	. '</p></div>';
 	if ( isset( $_GET['activate'] ) ) {
 		unset( $_GET['activate'] );
@@ -129,8 +125,8 @@ function bpjm_required_plugin_admin_notice() {
 
 function bpjm_plugin_links( $links ) {
 	$bpjm_links = array(
-		'<a href="' . admin_url( 'options-general.php?page=bp-job-manager' ) . '">' . __( 'Settings', BPJM_TEXT_DOMAIN ) . '</a>',
-		'<a href="https://wbcomdesigns.com/contact/" target="_blank">' . __( 'Support', BPJM_TEXT_DOMAIN ) . '</a>',
+		'<a href="' . admin_url( 'options-general.php?page=bp-job-manager' ) . '">' . __( 'Settings', 'bp-job-manager' ) . '</a>',
+		'<a href="https://wbcomdesigns.com/contact/" target="_blank">' . __( 'Support', 'bp-job-manager' ) . '</a>',
 	);
 	return array_merge( $links, $bpjm_links );
 }

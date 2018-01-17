@@ -90,7 +90,7 @@ class Bp_Job_Manager_Admin {
 	 * @since    1.0.0
 	 */
 	public function bpjm_add_options_page() {
-		add_options_page( __( 'BuddyPress Job Manager Settings', BPJM_TEXT_DOMAIN ), __( 'BP Job Manager', BPJM_TEXT_DOMAIN ), 'manage_options', $this->plugin_name, array( $this, 'bpjm_admin_settings_page' ) );
+		add_options_page( __( 'BuddyPress Job Manager Settings', 'bp-job-manager' ), __( 'BP Job Manager', 'bp-job-manager' ), 'manage_options', $this->plugin_name, array( $this, 'bpjm_admin_settings_page' ) );
 	}
 
 	/**
@@ -102,11 +102,11 @@ class Bp_Job_Manager_Admin {
 		<div class="wrap">
 			<div class="bpjm-header">
 				<div class="bpjm-extra-actions">
-					<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/contact/', '_blank');"><i class="fa fa-envelope" aria-hidden="true"></i> <?php _e( 'Email Support', BPJM_TEXT_DOMAIN ); ?></button>
-					<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/helpdesk/article-categories/buddypress-job-manager/', '_blank');"><i class="fa fa-file" aria-hidden="true"></i> <?php _e( 'User Manual', BPJM_TEXT_DOMAIN ); ?></button>
-					<button type="button" class="button button-secondary" onclick="window.open('https://wordpress.org/support/plugin/bp-job-manager/reviews/', '_blank');"><i class="fa fa-star" aria-hidden="true"></i> <?php _e( 'Rate Us on WordPress.org', BPJM_TEXT_DOMAIN ); ?></button>
+					<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/contact/', '_blank');"><i class="fa fa-envelope" aria-hidden="true"></i> <?php _e( 'Email Support', 'bp-job-manager' ); ?></button>
+					<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/helpdesk/article-categories/buddypress-job-manager/', '_blank');"><i class="fa fa-file" aria-hidden="true"></i> <?php _e( 'User Manual', 'bp-job-manager' ); ?></button>
+					<button type="button" class="button button-secondary" onclick="window.open('https://wordpress.org/support/plugin/bp-job-manager/reviews/', '_blank');"><i class="fa fa-star" aria-hidden="true"></i> <?php _e( 'Rate Us on WordPress.org', 'bp-job-manager' ); ?></button>
 				</div>
-				<h2 class="bpjm-plugin-heading"><?php _e( 'BuddyPress Job Manager', BPJM_TEXT_DOMAIN ); ?></h2>
+				<h2 class="bpjm-plugin-heading"><?php _e( 'BuddyPress Job Manager', 'bp-job-manager' ); ?></h2>
 			</div>
 			<?php $this->bpjm_plugin_settings_tabs(); ?>
 			<?php do_settings_sections( $tab ); ?>
@@ -131,7 +131,7 @@ class Bp_Job_Manager_Admin {
 	 * General Tab
 	 */
 	public function bpjm_general_settings() {
-		$this->plugin_settings_tabs[ $this->plugin_name ] = __( 'General', BPJM_TEXT_DOMAIN );
+		$this->plugin_settings_tabs[ $this->plugin_name ] = __( 'General', 'bp-job-manager' );
 		register_setting( $this->plugin_name, $this->plugin_name );
 		add_settings_section( 'bp-job-manager-section', ' ', array( &$this, 'bpjm_general_settings_content' ), $this->plugin_name );
 	}
@@ -149,7 +149,7 @@ class Bp_Job_Manager_Admin {
 	 * Support Tab
 	 */
 	public function bpjm_support() {
-		$this->plugin_settings_tabs[ $this->plugin_name . '-support' ] = __( 'Support', BPJM_TEXT_DOMAIN );
+		$this->plugin_settings_tabs[ $this->plugin_name . '-support' ] = __( 'Support', 'bp-job-manager' );
 		register_setting( $this->plugin_name . '-support', $this->plugin_name . '-support' );
 		add_settings_section( 'bp-job-manager-support-section', ' ', array( &$this, 'bpjm_support_content' ), $this->plugin_name . '-support' );
 	}
@@ -180,19 +180,19 @@ class Bp_Job_Manager_Admin {
 		if ( empty( $matching_user_roles ) ) {
 			update_option( 'bpjm_general_settings', $bpjm_general_settings );
 			$success_msg  = "<div class='notice updated' id='message'>";
-			$success_msg .= '<p>' . __( 'Settings Saved.', BPJM_TEXT_DOMAIN ) . '</p>';
+			$success_msg .= '<p>' . __( 'Settings Saved.', 'bp-job-manager' ) . '</p>';
 			$success_msg .= '</div>';
 			echo $success_msg;
 		} else {
 			if ( $matching_roles_count == 1 && $matching_user_roles[0] == 'administrator' ) {
 				update_option( 'bpjm_general_settings', $bpjm_general_settings );
 				$success_msg  = "<div class='notice updated' id='message'>";
-				$success_msg .= '<p>' . __( 'Settings Saved.', BPJM_TEXT_DOMAIN ) . '</p>';
+				$success_msg .= '<p>' . __( 'Settings Saved.', 'bp-job-manager' ) . '</p>';
 				$success_msg .= '</div>';
 				echo $success_msg;
 			} else {
 				$err_msg  = "<div class='error' id='message'>";
-				$err_msg .= '<p>' . __( 'User roles cannot be same for posting the jobs and the ones allowed for job applications.', BPJM_TEXT_DOMAIN ) . '</p>';
+				$err_msg .= '<p>' . __( 'User roles cannot be same for posting the jobs and the ones allowed for job applications.', 'bp-job-manager' ) . '</p>';
 				$err_msg .= '</div>';
 				echo $err_msg;
 			}
@@ -234,7 +234,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-buddypress',
 							'id'     => 'my-account-' . $profile_menu_slug,
-							'title'  => __( $profile_menu_title . ' <span class="count">' . $my_jobs_count . '</span>', BPJM_TEXT_DOMAIN ),
+							'title'  => __( $profile_menu_title . ' <span class="count">' . $my_jobs_count . '</span>', 'bp-job-manager' ),
 							'href'   => trailingslashit( $my_jobs_url ),
 						)
 					);
@@ -244,7 +244,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
 							'id'     => 'my-account-' . $profile_menu_slug . '-' . 'my-jobs',
-							'title'  => __( 'My Jobs', BPJM_TEXT_DOMAIN ),
+							'title'  => __( 'My Jobs', 'bp-job-manager' ),
 							'href'   => trailingslashit( $my_jobs_url ),
 						)
 					);
@@ -257,7 +257,7 @@ class Bp_Job_Manager_Admin {
 							array(
 								'parent' => 'my-account-' . $profile_menu_slug,
 								'id'     => 'my-account-' . $profile_menu_slug . '-' . 'my-bookmarks',
-								'title'  => __( 'My Bookmarks', BPJM_TEXT_DOMAIN ),
+								'title'  => __( 'My Bookmarks', 'bp-job-manager' ),
 								'href'   => trailingslashit( $bookmarked_jobs_url ),
 							)
 						);
@@ -271,7 +271,7 @@ class Bp_Job_Manager_Admin {
 							array(
 								'parent' => 'my-account-' . $profile_menu_slug,
 								'id'     => 'my-account-' . $profile_menu_slug . '-' . 'job-alerts',
-								'title'  => __( 'Job Alerts', BPJM_TEXT_DOMAIN ),
+								'title'  => __( 'Job Alerts', 'bp-job-manager' ),
 								'href'   => trailingslashit( $job_alerts_url ),
 							)
 						);
@@ -282,7 +282,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
 							'id'     => 'my-account-' . $profile_menu_slug . '-' . 'post-job',
-							'title'  => __( 'Post a New Job', BPJM_TEXT_DOMAIN ),
+							'title'  => __( 'Post a New Job', 'bp-job-manager' ),
 							'href'   => trailingslashit( $post_job_url ),
 						)
 					);
@@ -316,7 +316,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-buddypress',
 							'id'     => 'my-account-' . $profile_menu_slug,
-							'title'  => __( $profile_menu_title . ' <span class="count">' . $my_resumes_count . '</span>', BPJM_TEXT_DOMAIN ),
+							'title'  => __( $profile_menu_title . ' <span class="count">' . $my_resumes_count . '</span>', 'bp-job-manager' ),
 							'href'   => trailingslashit( $my_resumes_url ),
 						)
 					);
@@ -326,7 +326,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
 							'id'     => 'my-account-' . $profile_menu_slug . '-' . 'my-resumes',
-							'title'  => __( 'My Resumes', BPJM_TEXT_DOMAIN ),
+							'title'  => __( 'My Resumes', 'bp-job-manager' ),
 							'href'   => trailingslashit( $my_resumes_url ),
 						)
 					);
@@ -336,7 +336,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
 							'id'     => 'my-account-' . $profile_menu_slug . '-' . 'applied-jobs',
-							'title'  => __( 'Applied Jobs', BPJM_TEXT_DOMAIN ),
+							'title'  => __( 'Applied Jobs', 'bp-job-manager' ),
 							'href'   => trailingslashit( $applied_jobs_url ),
 						)
 					);
@@ -346,7 +346,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
 							'id'     => 'my-account-' . $profile_menu_slug . '-' . 'add-resume',
-							'title'  => __( 'Add Resume', BPJM_TEXT_DOMAIN ),
+							'title'  => __( 'Add Resume', 'bp-job-manager' ),
 							'href'   => trailingslashit( $add_resume_url ),
 						)
 					);

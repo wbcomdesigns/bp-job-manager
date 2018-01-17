@@ -134,7 +134,7 @@ class Bp_Job_Manager_Public {
 
 				bp_core_new_nav_item(
 					array(
-						'name'                    => __( 'Jobs <span class="no-count">' . $my_jobs_count . '</span>', BPJM_TEXT_DOMAIN ),
+						'name'                    => __( 'Jobs <span class="no-count">' . $my_jobs_count . '</span>', 'bp-job-manager' ),
 						'slug'                    => $parent_slug,
 						'screen_function'         => array( $this, 'bpjm_jobs_tab_function_to_show_screen' ),
 						'position'                => 75,
@@ -144,7 +144,7 @@ class Bp_Job_Manager_Public {
 				);
 				bp_core_new_subnav_item(
 					array(
-						'name'            => __( 'My Jobs', BPJM_TEXT_DOMAIN ),
+						'name'            => __( 'My Jobs', 'bp-job-manager' ),
 						'slug'            => 'my-jobs',
 						'parent_url'      => $jobs_tab_link . 'my-jobs',
 						'parent_slug'     => $parent_slug,
@@ -159,7 +159,7 @@ class Bp_Job_Manager_Public {
 					if ( $wpjm_bookmarks_active === true ) {
 						bp_core_new_subnav_item(
 							array(
-								'name'            => __( 'My Bookmarks', BPJM_TEXT_DOMAIN ),
+								'name'            => __( 'My Bookmarks', 'bp-job-manager' ),
 								'slug'            => 'my-bookmarks',
 								'parent_url'      => $jobs_tab_link . 'my-bookmarks',
 								'parent_slug'     => $parent_slug,
@@ -174,7 +174,7 @@ class Bp_Job_Manager_Public {
 					if ( $wpjm_alerts_active === true ) {
 						bp_core_new_subnav_item(
 							array(
-								'name'            => __( 'Job Alerts', BPJM_TEXT_DOMAIN ),
+								'name'            => __( 'Job Alerts', 'bp-job-manager' ),
 								'slug'            => 'job-alerts',
 								'parent_url'      => $jobs_tab_link . 'job-alerts',
 								'parent_slug'     => $parent_slug,
@@ -187,7 +187,7 @@ class Bp_Job_Manager_Public {
 
 					bp_core_new_subnav_item(
 						array(
-							'name'            => __( 'Post a New Job', BPJM_TEXT_DOMAIN ),
+							'name'            => __( 'Post a New Job', 'bp-job-manager' ),
 							'slug'            => 'post-job',
 							'parent_url'      => $jobs_tab_link . 'post-job',
 							'parent_slug'     => $parent_slug,
@@ -214,7 +214,7 @@ class Bp_Job_Manager_Public {
 	 * Post Job - Title
 	 */
 	function bpjm_post_job_tab_function_to_show_title() {
-		_e( 'Post a New Job', BPJM_TEXT_DOMAIN );
+		_e( 'Post a New Job', 'bp-job-manager' );
 	}
 
 	/**
@@ -237,7 +237,7 @@ class Bp_Job_Manager_Public {
 	 * My Jobs - Title
 	 */
 	function bpjm_my_jobs_tab_function_to_show_title() {
-		_e( 'My jobs', BPJM_TEXT_DOMAIN );
+		_e( 'My jobs', 'bp-job-manager' );
 	}
 
 	/**
@@ -260,7 +260,7 @@ class Bp_Job_Manager_Public {
 	 * My Bookmarked Jobs - Title
 	 */
 	function bpjm_bookmarked_jobs_tab_function_to_show_title() {
-		_e( 'My bookmarks', BPJM_TEXT_DOMAIN );
+		_e( 'My bookmarks', 'bp-job-manager' );
 	}
 
 	/**
@@ -283,7 +283,7 @@ class Bp_Job_Manager_Public {
 	 * My Bookmarked Jobs - Title
 	 */
 	function bpjm_job_alerts_tab_function_to_show_title() {
-		_e( 'Job alerts', BPJM_TEXT_DOMAIN );
+		_e( 'Job alerts', 'bp-job-manager' );
 	}
 
 	/**
@@ -335,7 +335,7 @@ class Bp_Job_Manager_Public {
 	 */
 	function bpjm_job_dashboard_cols( $job_dashboard_cols ) {
 		$column             = array(
-			'actions' => __( 'Actions', BPJM_TEXT_DOMAIN ),
+			'actions' => __( 'Actions', 'bp-job-manager' ),
 		);
 		$job_dashboard_cols = array_merge( $job_dashboard_cols, $column );
 		return $job_dashboard_cols;
@@ -351,7 +351,7 @@ class Bp_Job_Manager_Public {
 		$job_application_page .= '?args=' . $job->ID;
 		?>
 		<div class="generic-button" id="bpjm-job-application-btn">
-			<a href="javascript:void(0);" data-url="<?php echo $job_application_page; ?>"><?php _e( 'Apply', BPJM_TEXT_DOMAIN ); ?></a>
+			<a href="javascript:void(0);" data-url="<?php echo $job_application_page; ?>"><?php _e( 'Apply', 'bp-job-manager' ); ?></a>
 		</div>
 		<?php
 	}
@@ -404,7 +404,7 @@ class Bp_Job_Manager_Public {
 
 				bp_core_new_nav_item(
 					array(
-						'name'                    => __( 'Resumes <span class="no-count">' . $my_resumes_count . '</span>', BPJM_TEXT_DOMAIN ),
+						'name'                    => __( 'Resumes <span class="no-count">' . $my_resumes_count . '</span>', 'bp-job-manager' ),
 						'slug'                    => $parent_slug,
 						'screen_function'         => array( $this, 'bpjm_resumes_tab_function_to_show_screen' ),
 						'position'                => 75,
@@ -415,7 +415,7 @@ class Bp_Job_Manager_Public {
 				// My Resumes
 				bp_core_new_subnav_item(
 					array(
-						'name'            => __( 'My Resumes', BPJM_TEXT_DOMAIN ),
+						'name'            => __( 'My Resumes', 'bp-job-manager' ),
 						'slug'            => 'my-resumes',
 						'parent_url'      => $resumes_tab_link . 'my-resumes',
 						'parent_slug'     => $parent_slug,
@@ -429,7 +429,7 @@ class Bp_Job_Manager_Public {
 					// Applied Jobs
 					bp_core_new_subnav_item(
 						array(
-							'name'            => __( 'Applied Jobs', BPJM_TEXT_DOMAIN ),
+							'name'            => __( 'Applied Jobs', 'bp-job-manager' ),
 							'slug'            => 'applied-jobs',
 							'parent_url'      => $resumes_tab_link . 'applied-jobs',
 							'parent_slug'     => $parent_slug,
@@ -441,7 +441,7 @@ class Bp_Job_Manager_Public {
 					// Add Resume
 					bp_core_new_subnav_item(
 						array(
-							'name'            => __( 'Add Resume', BPJM_TEXT_DOMAIN ),
+							'name'            => __( 'Add Resume', 'bp-job-manager' ),
 							'slug'            => 'add-resume',
 							'parent_url'      => $resumes_tab_link . 'add-resume',
 							'parent_slug'     => $parent_slug,
@@ -468,7 +468,7 @@ class Bp_Job_Manager_Public {
 	 * Add Resume - Title
 	 */
 	function bpjm_add_resume_tab_function_to_show_title() {
-		_e( 'Add Resume', BPJM_TEXT_DOMAIN );
+		_e( 'Add Resume', 'bp-job-manager' );
 	}
 
 	/**
@@ -491,7 +491,7 @@ class Bp_Job_Manager_Public {
 	 * My Resumes - Title
 	 */
 	function bpjm_my_resumes_tab_function_to_show_title() {
-		_e( 'My resumes', BPJM_TEXT_DOMAIN );
+		_e( 'My resumes', 'bp-job-manager' );
 	}
 
 	/**
@@ -514,7 +514,7 @@ class Bp_Job_Manager_Public {
 	 * Applied Jobs - Title
 	 */
 	function bpjm_applied_jobs_tab_function_to_show_title() {
-		_e( 'Applied jobs', BPJM_TEXT_DOMAIN );
+		_e( 'Applied jobs', 'bp-job-manager' );
 	}
 
 	/**
