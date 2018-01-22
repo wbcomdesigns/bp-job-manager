@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -85,7 +84,7 @@ class Bp_Job_Manager {
 	 * Include the following files that make up the plugin:
 	 *
 	 * - Bp_Job_Manager_Loader. Orchestrates the hooks of the plugin.
-	 * - Bp_Job_Manager_i18n. Defines internationalization functionality.
+	 * - Bp_Job_Manager_I18n. Defines internationalization functionality.
 	 * - Bp_Job_Manager_Admin. Defines all hooks for the admin area.
 	 * - Bp_Job_Manager_Public. Defines all hooks for the public side of the site.
 	 *
@@ -132,7 +131,7 @@ class Bp_Job_Manager {
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Bp_Job_Manager_i18n class in order to set the domain and to register the hook
+	 * Uses the Bp_Job_Manager_I18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -140,7 +139,7 @@ class Bp_Job_Manager {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Bp_Job_Manager_i18n();
+		$plugin_i18n = new Bp_Job_Manager_I18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 

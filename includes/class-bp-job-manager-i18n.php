@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define the internationalization functionality
  *
@@ -24,9 +23,8 @@
  * @subpackage Bp_Job_Manager/includes
  * @author     Wbcom Designs <admin@wbcomdesigns.com>
  */
-class Bp_Job_Manager_i18n {
-
-
+class Bp_Job_Manager_I18n {
+	
 	/**
 	 * Load the plugin text domain for translation.
 	 *

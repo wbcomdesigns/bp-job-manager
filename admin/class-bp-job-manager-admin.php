@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -102,11 +101,11 @@ class Bp_Job_Manager_Admin {
 		<div class="wrap">
 			<div class="bpjm-header">
 				<div class="bpjm-extra-actions">
-					<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/contact/', '_blank');"><i class="fa fa-envelope" aria-hidden="true"></i> <?php _e( 'Email Support', 'bp-job-manager' ); ?></button>
-					<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/helpdesk/article-categories/buddypress-job-manager/', '_blank');"><i class="fa fa-file" aria-hidden="true"></i> <?php _e( 'User Manual', 'bp-job-manager' ); ?></button>
-					<button type="button" class="button button-secondary" onclick="window.open('https://wordpress.org/support/plugin/bp-job-manager/reviews/', '_blank');"><i class="fa fa-star" aria-hidden="true"></i> <?php _e( 'Rate Us on WordPress.org', 'bp-job-manager' ); ?></button>
+					<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/contact/', '_blank');"><i class="fa fa-envelope" aria-hidden="true"></i> <?php esc_attr_e( 'Email Support', 'bp-job-manager' ); ?></button>
+					<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/helpdesk/article-categories/buddypress-job-manager/', '_blank');"><i class="fa fa-file" aria-hidden="true"></i> <?php esc_attr_e( 'User Manual', 'bp-job-manager' ); ?></button>
+					<button type="button" class="button button-secondary" onclick="window.open('https://wordpress.org/support/plugin/bp-job-manager/reviews/', '_blank');"><i class="fa fa-star" aria-hidden="true"></i> <?php esc_attr_e( 'Rate Us on WordPress.org', 'bp-job-manager' ); ?></button>
 				</div>
-				<h2 class="bpjm-plugin-heading"><?php _e( 'BuddyPress Job Manager', 'bp-job-manager' ); ?></h2>
+				<h2 class="bpjm-plugin-heading"><?php esc_attr_e( 'BuddyPress Job Manager', 'bp-job-manager' ); ?></h2>
 			</div>
 			<?php $this->bpjm_plugin_settings_tabs(); ?>
 			<?php do_settings_sections( $tab ); ?>

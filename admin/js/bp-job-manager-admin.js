@@ -2,7 +2,7 @@ jQuery( document ).ready(
 	function( $ ) {
 		'use strict';
 
-		// Support Tab
+		// Support Tab.
 		var acc = document.getElementsByClassName( "bpjm-accordion" );
 		var i;
 		for (i = 0; i < acc.length; i++) {
