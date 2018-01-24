@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) || exit; // Exit if accessed directly
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 get_header();
 global $post;
 ?>
@@ -27,7 +27,7 @@ global $post;
 					?>
 					<div>
 						<p>
-							<?php _e( 'No content available.', 'bp-job-manager' ); ?>
+							<?php esc_attr_e( 'No content available.', 'bp-job-manager' ); ?>
 						</p>
 					</div>
 					<?php

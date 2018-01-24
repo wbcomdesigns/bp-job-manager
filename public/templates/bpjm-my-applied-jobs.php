@@ -1,5 +1,5 @@
 <?php
-defined( 'ABSPATH' ) || exit; // Exit if accessed directly
+defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 $args            = array(
 	'post_type'      => 'job_application',
 	'post_status'    => 'any',
@@ -17,18 +17,18 @@ $args            = array(
 $my_applied_jobs = get_posts( $args );
 ?>
 <div id="job-manager-job-dashboard">
-	<p><?php _e( 'Your applied jobs are shown in the table below.', 'bp-job-manager' ); ?></p>
+	<p><?php esc_attr_e( 'Your applied jobs are shown in the table below.', 'bp-job-manager' ); ?></p>
 	<table class="job-manager-jobs">
 		<thead>
 			<tr>
-				<th><?php _e( 'Applied For', 'bp-job-manager' ); ?></th>
-				<th><?php _e( 'Date Applied', 'bp-job-manager' ); ?></th>
-				<th><?php _e( 'Attachment', 'bp-job-manager' ); ?></th>
+				<th><?php esc_attr_e( 'Applied For', 'bp-job-manager' ); ?></th>
+				<th><?php esc_attr_e( 'Date Applied', 'bp-job-manager' ); ?></th>
+				<th><?php esc_attr_e( 'Attachment', 'bp-job-manager' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php if ( empty( $my_applied_jobs ) ) { ?>
-				<tr><td colspan="3"><?php _e( 'You have not applied to any jobs yet.', 'bp-job-manager' ); ?></td></tr>
+				<tr><td colspan="3"><?php esc_attr_e( 'You have not applied to any jobs yet.', 'bp-job-manager' ); ?></td></tr>
 			<?php } else { ?>
 				<?php foreach ( $my_applied_jobs as $applied_job ) { ?>
 					<?php
@@ -46,7 +46,7 @@ $my_applied_jobs = get_posts( $args );
 						<td><?php echo date( 'F jS, Y', strtotime( $applied_job->post_date ) ); ?></td>
 						<td>
 							<?php if ( ! empty( $applied_job_meta['_attachment'] ) ) { ?>
-								<a href="<?php echo $attachment; ?>" download><?php _e( 'File', 'bp-job-manager' ); ?></a>
+								<a href="<?php echo $attachment; ?>" download><?php esc_attr_e( 'File', 'bp-job-manager' ); ?></a>
 							<?php } ?>
 						</td>
 					</tr>

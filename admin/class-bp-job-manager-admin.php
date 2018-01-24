@@ -238,7 +238,7 @@ class Bp_Job_Manager_Admin {
 						)
 					);
 
-					// Add add-new submenu
+					// Add add-new submenu.
 					$wp_admin_bar->add_menu(
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
@@ -251,7 +251,7 @@ class Bp_Job_Manager_Admin {
 					$wpjm_bookmarks_active = $wpjm_active = in_array( 'wp-job-manager-bookmarks/wp-job-manager-bookmarks.php', get_option( 'active_plugins' ) );
 					if ( $wpjm_bookmarks_active === true ) {
 						$bookmarked_jobs_url = $base_url . '/my-bookmarks';
-						// Add add-new submenu
+						// Add add-new submenu.
 						$wp_admin_bar->add_menu(
 							array(
 								'parent' => 'my-account-' . $profile_menu_slug,
@@ -265,7 +265,7 @@ class Bp_Job_Manager_Admin {
 					$wpjm_alerts_active = $wpjm_active = in_array( 'wp-job-manager-alerts/wp-job-manager-alerts.php', get_option( 'active_plugins' ) );
 					if ( $wpjm_alerts_active === true ) {
 						$job_alerts_url = $base_url . '/job-alerts';
-						// Add add-new submenu
+						// Add add-new submenu.
 						$wp_admin_bar->add_menu(
 							array(
 								'parent' => 'my-account-' . $profile_menu_slug,
@@ -276,7 +276,7 @@ class Bp_Job_Manager_Admin {
 						);
 					}
 
-					// Add add-new submenu
+					// Add add-new submenu.
 					$wp_admin_bar->add_menu(
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
@@ -295,7 +295,7 @@ class Bp_Job_Manager_Admin {
 					$profile_menu_slug  = 'resumes';
 					$profile_menu_title = 'Resumes';
 
-					// Count resumes
+					// Count resumes.
 					$args             = array(
 						'post_type'      => 'resume',
 						'post_status'    => 'any',
@@ -320,7 +320,7 @@ class Bp_Job_Manager_Admin {
 						)
 					);
 
-					// Add add-new submenu
+					// Add add-new submenu.
 					$wp_admin_bar->add_menu(
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
@@ -330,7 +330,7 @@ class Bp_Job_Manager_Admin {
 						)
 					);
 
-					// Add add-new submenu
+					// Add add-new submenu.
 					$wp_admin_bar->add_menu(
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
@@ -340,7 +340,7 @@ class Bp_Job_Manager_Admin {
 						)
 					);
 
-					// Add add-new submenu
+					// Add add-new submenu.
 					$wp_admin_bar->add_menu(
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
