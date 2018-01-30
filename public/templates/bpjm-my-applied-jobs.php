@@ -1,5 +1,14 @@
 <?php
-defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
+/**
+ * Exit if accessed directly.
+ *
+ * @package bp-job-manager
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 $args            = array(
 	'post_type'      => 'job_application',
 	'post_status'    => 'any',
@@ -17,18 +26,18 @@ $args            = array(
 $my_applied_jobs = get_posts( $args );
 ?>
 <div id="job-manager-job-dashboard">
-	<p><?php esc_attr_e( 'Your applied jobs are shown in the table below.', 'bp-job-manager' ); ?></p>
+	<p><?php esc_html_e( 'Your applied jobs are shown in the table below.', 'bp-job-manager' ); ?></p>
 	<table class="job-manager-jobs">
 		<thead>
 			<tr>
-				<th><?php esc_attr_e( 'Applied For', 'bp-job-manager' ); ?></th>
-				<th><?php esc_attr_e( 'Date Applied', 'bp-job-manager' ); ?></th>
-				<th><?php esc_attr_e( 'Attachment', 'bp-job-manager' ); ?></th>
+				<th><?php esc_html_e( 'Applied For', 'bp-job-manager' ); ?></th>
+				<th><?php esc_html_e( 'Date Applied', 'bp-job-manager' ); ?></th>
+				<th><?php esc_html_e( 'Attachment', 'bp-job-manager' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php if ( empty( $my_applied_jobs ) ) { ?>
-				<tr><td colspan="3"><?php esc_attr_e( 'You have not applied to any jobs yet.', 'bp-job-manager' ); ?></td></tr>
+				<tr><td colspan="3"><?php esc_html_e( 'You have not applied to any jobs yet.', 'bp-job-manager' ); ?></td></tr>
 			<?php } else { ?>
 				<?php foreach ( $my_applied_jobs as $applied_job ) { ?>
 					<?php
@@ -42,11 +51,11 @@ $my_applied_jobs = get_posts( $args );
 					}
 					?>
 					<tr>
-						<td class="job_title"><a href="<?php echo $job_permalink; ?>"><?php echo $applied_job_meta['_job_applied_for'][0]; ?></a></td>
-						<td><?php echo date( 'F jS, Y', strtotime( $applied_job->post_date ) ); ?></td>
+						<td class="job_title"><a href="<?php echo esc_attr( $job_permalink ); ?>"><?php echo esc_html( $applied_job_meta['_job_applied_for'][0], 'bp-job-manager' ); ?></a></td>
+						<td><?php echo esc_html( date( 'F jS, Y', strtotime( $applied_job->post_date ) ), 'bp-job-manager' ); ?></td>
 						<td>
 							<?php if ( ! empty( $applied_job_meta['_attachment'] ) ) { ?>
-								<a href="<?php echo $attachment; ?>" download><?php esc_attr_e( 'File', 'bp-job-manager' ); ?></a>
+								<a href="<?php echo esc_attr( $attachment ); ?>" download><?php esc_html_e( 'File', 'bp-job-manager' ); ?></a>
 							<?php } ?>
 						</td>
 					</tr>

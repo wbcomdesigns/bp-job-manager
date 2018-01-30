@@ -51,7 +51,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div>
 					<button class="bpjm-accordion"><?php esc_attr_e( 'How to go for any custom development?', 'bp-job-manager' ); ?></button>
 					<div class="panel">
-						<p><?php esc_attr_e( 'If you need additional help you can contact us for <a href="https://wbcomdesigns.com/contact/" target="_blank" title="Custom Development by Wbcom Designs">Custom Development</a>.', 'bp-job-manager' ); ?></p>
+						<p><?php esc_attr_e( 'If you need additional help you can contact us for', 'bp-job-manager' ); ?>
+							<a href="https://wbcomdesigns.com/contact/" target="_blank" title="<?php esc_attr_e( 'Custom Development by Wbcom Designs', 'bp-job-manager' ); ?>"><?php esc_attr_e( 'Custom Development', 'bp-job-manager' ); ?></a></p>
 					</div>
 				</div>
 			</div>
