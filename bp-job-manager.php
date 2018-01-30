@@ -30,8 +30,10 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-bp-job-manager-activator.php
+ * The code that runs during plugin activation. This action is documented in includes/class-bp-job-manager-activator.php
+ *
+ * @author  wbcomdesigns
+ * @since   1.0.0
  */
 function activate_bp_job_manager() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bp-job-manager-activator.php';
@@ -41,6 +43,9 @@ function activate_bp_job_manager() {
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-bp-job-manager-deactivator.php
+ *
+ * @author  wbcomdesigns
+ * @since   1.0.0
  */
 function deactivate_bp_job_manager() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bp-job-manager-deactivator.php';
@@ -89,13 +94,20 @@ function run_bp_job_manager() {
  * to be installed and active.
  */
 add_action( 'plugins_loaded', 'wpbpjm_plugin_init' );
+
+/**
+ * Check plugin requirement on plugins loaded.
+ *
+ * @author  wbcomdesigns
+ * @since   1.0.0
+ */
 function wpbpjm_plugin_init() {
 	$wpjm_active              = in_array( 'wp-job-manager/wp-job-manager.php', get_option( 'active_plugins' ) );
 	$bp_active                = in_array( 'buddypress/bp-loader.php', get_option( 'active_plugins' ) );
 	$wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) );
 	$wpjm_resumes_active      = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
 
-	if ( current_user_can( 'activate_plugins' ) && ( $wpjm_active !== true || $bp_active !== true || $wpjm_applications_active !== true || $wpjm_resumes_active !== true ) ) {
+	if ( current_user_can( 'activate_plugins' ) && ( true !== $wpjm_active || true !== $bp_active || true !== $wpjm_applications_active || true !== $wpjm_resumes_active ) ) {
 		add_action( 'admin_notices', 'bpjm_required_plugin_admin_notice' );
 	} else {
 		if ( ! defined( 'BPJM_PLUGIN_BASENAME' ) ) {
@@ -107,7 +119,10 @@ function wpbpjm_plugin_init() {
 }
 
 /**
- * Throw an Alert to tell the Admin why it didn't activate
+ * Throw an Alert to tell the Admin why it didn't activate.
+ *
+ * @author  wbcomdesigns
+ * @since   1.0.0
  */
 function bpjm_required_plugin_admin_notice() {
 	$bpjm_plugin              = 'BuddyPress Job Manager';
@@ -115,14 +130,21 @@ function bpjm_required_plugin_admin_notice() {
 	$wpjm_plugin              = 'WP Job Manager';
 	$wpjm_applications_plugin = 'WP Job Manager - Applications';
 	$wpjm_resumes_plugin      = 'WP Job Manager - Resume Manager';
-	echo '<div class="error"><p>'
-	. sprintf( __( '%1$s is ineffective now as it requires %2$s, %3$s, %4$s and %5$s to be installed and active.', 'bp-job-manager' ), '<strong>' . esc_html( $bpjm_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_applications_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_resumes_plugin ) . '</strong>' )
-	. '</p></div>';
+	echo '<div class="error"><p>';
+	echo sprintf( __( '%1$s is ineffective now as it requires %2$s, %3$s, %4$s and %5$s to be installed and active.', 'bp-job-manager' ), '<strong>' . esc_html( $bpjm_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_applications_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_resumes_plugin ) . '</strong>' );
+	echo '</p></div>';
 	if ( isset( $_GET['activate'] ) ) {
 		unset( $_GET['activate'] );
 	}
 }
 
+/**
+ * Throw an Alert to tell the Admin why it didn't activate.
+ *
+ * @author  wbcomdesigns
+ * @since   1.0.0
+ * @param  string $links contains plugin's setting links.
+ */
 function bpjm_plugin_links( $links ) {
 	$bpjm_links = array(
 		'<a href="' . admin_url( 'options-general.php?page=bp-job-manager' ) . '">' . __( 'Settings', 'bp-job-manager' ) . '</a>',
