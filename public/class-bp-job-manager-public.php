@@ -100,9 +100,11 @@ class Bp_Job_Manager_Public {
 	}
 
 	/**
-	 * Register a new tab in member's profile - Jobs
+	 * Register a new tab in member's profile - Jobs.
 	 *
 	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
 	public function bpjm_member_profile_jobs_tab() {
 		global $bp_job_manager;
@@ -112,7 +114,7 @@ class Bp_Job_Manager_Public {
 
 		if ( ! empty( $curr_user->roles ) && ! empty( $displayed_user->roles ) ) {
 			/**
-			 * Jobs tab - for the roles allowed for job posting
+			 * Jobs tab - for the roles allowed for job posting.
 			 */
 			$match_post_job_roles_curr_usr = array_intersect( $bp_job_manager->post_job_user_roles, $curr_user->roles );
 			$match_post_job_roles_disp_usr = array_intersect( $bp_job_manager->post_job_user_roles, $displayed_user->roles );
@@ -152,10 +154,10 @@ class Bp_Job_Manager_Public {
 						'link'            => $jobs_tab_link . 'my-jobs',
 					)
 				);
-				if ( $displayed_uid == get_current_user_id() ) {
+				if ( get_current_user_id() == $displayed_uid ) {
 
 					$wpjm_bookmarks_active = $wpjm_active = in_array( 'wp-job-manager-bookmarks/wp-job-manager-bookmarks.php', get_option( 'active_plugins' ) );
-					if ( $wpjm_bookmarks_active === true ) {
+					if ( true === $wpjm_bookmarks_active ) {
 						bp_core_new_subnav_item(
 							array(
 								'name'            => __( 'My Bookmarks', 'bp-job-manager' ),
@@ -170,7 +172,7 @@ class Bp_Job_Manager_Public {
 					}
 
 					$wpjm_alerts_active = $wpjm_active = in_array( 'wp-job-manager-alerts/wp-job-manager-alerts.php', get_option( 'active_plugins' ) );
-					if ( $wpjm_alerts_active === true ) {
+					if ( true === $wpjm_alerts_active ) {
 						bp_core_new_subnav_item(
 							array(
 								'name'            => __( 'Job Alerts', 'bp-job-manager' ),
@@ -201,102 +203,157 @@ class Bp_Job_Manager_Public {
 	}
 
 	/**
-	 * Screen function for post job menu item
+	 * Screen function for post job menu item.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_post_job_show_screen() {
+	public function bpjm_post_job_show_screen() {
 		add_action( 'bp_template_title', array( $this, 'bpjm_post_job_tab_function_to_show_title' ) );
 		add_action( 'bp_template_content', array( $this, 'bpjm_post_job_tab_function_to_show_content' ) );
 		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
 	}
 
 	/**
-	 * Post Job - Title
+	 * Post Job - Title.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_post_job_tab_function_to_show_title() {
-		esc_attr_e( 'Post a New Job', 'bp-job-manager' );
+	public function bpjm_post_job_tab_function_to_show_title() {
+		esc_html_e( 'Post a New Job', 'bp-job-manager' );
 	}
 
 	/**
-	 * Post Job - Content
+	 * Post Job - Content.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_post_job_tab_function_to_show_content() {
+	public function bpjm_post_job_tab_function_to_show_content() {
 		echo do_shortcode( '[submit_job_form]' );
 	}
 
 	/**
-	 * Screen function for listing all my jobs in menu item
+	 * Screen function for listing all my jobs in menu item.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_my_jobs_show_screen() {
+	public function bpjm_my_jobs_show_screen() {
 		add_action( 'bp_template_title', array( $this, 'bpjm_my_jobs_tab_function_to_show_title' ) );
 		add_action( 'bp_template_content', array( $this, 'bpjm_my_jobs_tab_function_to_show_content' ) );
 		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
 	}
 
 	/**
-	 * My Jobs - Title
+	 * My Jobs - Title.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_my_jobs_tab_function_to_show_title() {
-		_e( 'My jobs', 'bp-job-manager' );
+	public function bpjm_my_jobs_tab_function_to_show_title() {
+		esc_html_e( 'My jobs', 'bp-job-manager' );
 	}
 
 	/**
-	 * My Jobs - Content
+	 * My Jobs - Content.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_my_jobs_tab_function_to_show_content() {
+	public function bpjm_my_jobs_tab_function_to_show_content() {
 		echo do_shortcode( '[job_dashboard]' );
 	}
 
 	/**
-	 * Screen function for listing all my bookmarked jobs in menu item
+	 * Screen function for listing all my bookmarked jobs in menu item.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_bookmarked_jobs_show_screen() {
+	public function bpjm_bookmarked_jobs_show_screen() {
 		add_action( 'bp_template_title', array( $this, 'bpjm_bookmarked_jobs_tab_function_to_show_title' ) );
 		add_action( 'bp_template_content', array( $this, 'bpjm_bookmarked_jobs_tab_function_to_show_content' ) );
 		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
 	}
 
 	/**
-	 * My Bookmarked Jobs - Title
+	 * My Bookmarked Jobs - Title.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_bookmarked_jobs_tab_function_to_show_title() {
-		_e( 'My bookmarks', 'bp-job-manager' );
+	public function bpjm_bookmarked_jobs_tab_function_to_show_title() {
+		esc_html_e( 'My bookmarks', 'bp-job-manager' );
 	}
 
 	/**
-	 * My Bookmarked Jobs - Content
+	 * My Bookmarked Jobs - Content.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_bookmarked_jobs_tab_function_to_show_content() {
+	public function bpjm_bookmarked_jobs_tab_function_to_show_content() {
 		echo do_shortcode( '[my_bookmarks]' );
 	}
 
 	/**
-	 * Screen function for listing all my bookmarked jobs in menu item
+	 * Screen function for listing all my bookmarked jobs in menu item.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_job_alerts_show_screen() {
+	public function bpjm_job_alerts_show_screen() {
 		add_action( 'bp_template_title', array( $this, 'bpjm_job_alerts_tab_function_to_show_title' ) );
 		add_action( 'bp_template_content', array( $this, 'bpjm_job_alerts_tab_function_to_show_content' ) );
 		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
 	}
 
 	/**
-	 * My Bookmarked Jobs - Title
+	 * My Bookmarked Jobs - Title.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_job_alerts_tab_function_to_show_title() {
-		_e( 'Job alerts', 'bp-job-manager' );
+	public function bpjm_job_alerts_tab_function_to_show_title() {
+		esc_html_e( 'Job alerts', 'bp-job-manager' );
 	}
 
 	/**
-	 * My Bookmarked Jobs - Content
+	 * My Bookmarked Jobs - Content.
+	 * the job listing by [job_dashboard] by wp-job-manager plugin.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_job_alerts_tab_function_to_show_content() {
+	public function bpjm_job_alerts_tab_function_to_show_content() {
 		echo do_shortcode( '[job_alerts]' );
 	}
 
 	/**
-	 * Action performed to override the arguments passed in job listing process
-	 * the job listing by [job_dashboard] by wp-job-manager plugin
+	 * Action performed to override the arguments passed in job listing process.
+	 * the job listing by [job_dashboard] by wp-job-manager plugin.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
+	 * @param    string $job_dashboard_job_listing_args job listing arguments.
+	 * @return   string $job_dashboard_job_listing_args return job listing arguments.
 	 */
-	function bpjm_job_dashboard_user_id( $job_dashboard_job_listing_args ) {
+	public function bpjm_job_dashboard_user_id( $job_dashboard_job_listing_args ) {
 		$job_dashboard_job_listing_args = array(
 			'post_type'           => 'job_listing',
 			'post_status'         => 'any',
@@ -311,18 +368,31 @@ class Bp_Job_Manager_Public {
 	}
 
 	/**
-	 * Action performed to override whether the user is allowed to edit the pending jobs
+	 * Action performed to override whether the user is allowed to edit the pending jobs.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
+	 * @param    string $allowed members pending job post.
+	 * @return   string $allowed return true or false for members pending job post.
 	 */
-	function bpjm_allow_user_to_edit_pending_jobs( $allowed ) {
+	public function bpjm_allow_user_to_edit_pending_jobs( $allowed ) {
 		$allowed = true;
 		return $allowed;
 	}
 
 	/**
-	 * Action performed to hide the actions on job dashboard
-	 * when the loggedin user id != displayed user id
+	 * Action performed to hide the actions on job dashboard.
+	 * when the loggedin user id != displayed user id.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
+	 * @param    string $actions contain job action.
+	 * @param    string $job contain job data.
+	 * @return   string $actions contain job action.
 	 */
-	function bpjm_job_dashboard_job_actions( $actions, $job ) {
+	public function bpjm_job_dashboard_job_actions( $actions, $job ) {
 		if ( bp_displayed_user_id() != get_current_user_id() ) {
 			$actions = array();
 		}
@@ -330,9 +400,14 @@ class Bp_Job_Manager_Public {
 	}
 
 	/**
-	 * Action performed to add a column in job dashboard table
+	 * Action performed to add a column in job dashboard table.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
+	 * @param    string $job_dashboard_cols contain dashboard column data.
 	 */
-	function bpjm_job_dashboard_cols( $job_dashboard_cols ) {
+	public function bpjm_job_dashboard_cols( $job_dashboard_cols ) {
 		$column             = array(
 			'actions' => __( 'Actions', 'bp-job-manager' ),
 		);
@@ -341,24 +416,34 @@ class Bp_Job_Manager_Public {
 	}
 
 	/**
-	 * Action performed to add a column content in job dashboard
-	 * Column added above - Actions
+	 * Action performed to add a column content in job dashboard.
+	 * Column added above - Actions.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
+	 * @param    string $job contain job data.
 	 */
-	function bpjm_job_dashboard_actions_col_content( $job ) {
+	public function bpjm_job_dashboard_actions_col_content( $job ) {
 		global $bp_job_manager;
 		$job_application_page  = get_permalink( $bp_job_manager->job_application_pgid );
 		$job_application_page .= '?args=' . $job->ID;
 		?>
 		<div class="generic-button" id="bpjm-job-application-btn">
-			<a href="javascript:void(0);" data-url="<?php echo $job_application_page; ?>"><?php _e( 'Apply', 'bp-job-manager' ); ?></a>
+			<a href="javascript:void(0);" data-url="<?php echo esc_attr( $job_application_page ); ?>"><?php esc_html_e( 'Apply', 'bp-job-manager' ); ?></a>
 		</div>
 		<?php
 	}
 
 	/**
-	 * Action performed to override the template of the page - Apply To Job
+	 * Action performed to override the template of the page - Apply To Job.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
+	 * @param    string $template contain page template data.
 	 */
-	function bpjm_job_application_page( $template ) {
+	public function bpjm_job_application_page( $template ) {
 		global $bp_job_manager, $post;
 		if ( ! empty( $post ) && $bp_job_manager->job_application_pgid == $post->ID ) {
 			$file = BPJM_PLUGIN_PATH . 'public/templates/bpjm-job-application.php';
@@ -370,9 +455,11 @@ class Bp_Job_Manager_Public {
 	}
 
 	/**
-	 * Register a new tab in member's profile - Resumes
+	 * Register a new tab in member's profile - Resumes.
 	 *
 	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
 	public function bpjm_member_profile_resumes_tab() {
 		global $bp_job_manager;
@@ -382,12 +469,12 @@ class Bp_Job_Manager_Public {
 
 		if ( ! empty( $curr_user->roles ) && ! empty( $displayed_user->roles ) ) {
 			/**
-			 * Resumes tab - for the roles allowed for job posting
+			 * Resumes tab - for the roles allowed for job posting.
 			 */
 			$match_apply_job_roles_curr_usr = array_intersect( $bp_job_manager->apply_job_user_roles, $curr_user->roles );
 			$match_apply_job_roles_disp_usr = array_intersect( $bp_job_manager->apply_job_user_roles, $displayed_user->roles );
 			if ( ! empty( $match_apply_job_roles_curr_usr ) || ! empty( $match_apply_job_roles_disp_usr ) ) {
-				// Count resumes
+				// Count resumes.
 				$args             = array(
 					'post_type'      => 'resume',
 					'post_status'    => 'any',
@@ -411,7 +498,7 @@ class Bp_Job_Manager_Public {
 						'show_for_displayed_user' => true,
 					)
 				);
-				// My Resumes
+				// My Resumes.
 				bp_core_new_subnav_item(
 					array(
 						'name'            => __( 'My Resumes', 'bp-job-manager' ),
@@ -424,8 +511,8 @@ class Bp_Job_Manager_Public {
 					)
 				);
 
-				if ( $displayed_uid == get_current_user_id() ) {
-					// Applied Jobs
+				if ( get_current_user_id() == $displayed_uid ) {
+					// Applied Jobs.
 					bp_core_new_subnav_item(
 						array(
 							'name'            => __( 'Applied Jobs', 'bp-job-manager' ),
@@ -437,7 +524,7 @@ class Bp_Job_Manager_Public {
 							'link'            => $resumes_tab_link . 'applied-jobs',
 						)
 					);
-					// Add Resume
+					// Add Resume.
 					bp_core_new_subnav_item(
 						array(
 							'name'            => __( 'Add Resume', 'bp-job-manager' ),
@@ -455,71 +542,107 @@ class Bp_Job_Manager_Public {
 	}
 
 	/**
-	 * Screen function for add resume menu item
+	 * Screen function for add resume menu item.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_add_resume_show_screen() {
+	public function bpjm_add_resume_show_screen() {
 		add_action( 'bp_template_title', array( $this, 'bpjm_add_resume_tab_function_to_show_title' ) );
 		add_action( 'bp_template_content', array( $this, 'bpjm_add_resume_tab_function_to_show_content' ) );
 		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
 	}
 
 	/**
-	 * Add Resume - Title
+	 * Add Resume - Title.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_add_resume_tab_function_to_show_title() {
-		_e( 'Add Resume', 'bp-job-manager' );
+	public function bpjm_add_resume_tab_function_to_show_title() {
+		esc_html_e( 'Add Resume', 'bp-job-manager' );
 	}
 
 	/**
-	 * Add Resume - Content
+	 * Add Resume - Content.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_add_resume_tab_function_to_show_content() {
+	public function bpjm_add_resume_tab_function_to_show_content() {
 		echo do_shortcode( '[submit_resume_form]' );
 	}
 
 	/**
-	 * Screen function for listing all my resumes in menu item
+	 * Screen function for listing all my resumes in menu item.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_my_resumes_show_screen() {
+	public function bpjm_my_resumes_show_screen() {
 		add_action( 'bp_template_title', array( $this, 'bpjm_my_resumes_tab_function_to_show_title' ) );
 		add_action( 'bp_template_content', array( $this, 'bpjm_my_resumes_tab_function_to_show_content' ) );
 		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
 	}
 
 	/**
-	 * My Resumes - Title
+	 * My Resumes - Title.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_my_resumes_tab_function_to_show_title() {
-		_e( 'My resumes', 'bp-job-manager' );
+	public function bpjm_my_resumes_tab_function_to_show_title() {
+		esc_html_e( 'My resumes', 'bp-job-manager' );
 	}
 
 	/**
-	 * My Resumes - Content
+	 * My Resumes - Content.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_my_resumes_tab_function_to_show_content() {
+	public function bpjm_my_resumes_tab_function_to_show_content() {
 		echo do_shortcode( '[candidate_dashboard]' );
 	}
 
 	/**
-	 * Screen function for listing all applied jobs in menu item
+	 * Screen function for listing all applied jobs in menu item.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_applied_jobs_show_screen() {
+	public function bpjm_applied_jobs_show_screen() {
 		add_action( 'bp_template_title', array( $this, 'bpjm_applied_jobs_tab_function_to_show_title' ) );
 		add_action( 'bp_template_content', array( $this, 'bpjm_applied_jobs_tab_function_to_show_content' ) );
 		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
 	}
 
 	/**
-	 * Applied Jobs - Title
+	 * Applied Jobs - Title.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_applied_jobs_tab_function_to_show_title() {
-		_e( 'Applied jobs', 'bp-job-manager' );
+	public function bpjm_applied_jobs_tab_function_to_show_title() {
+		esc_html_e( 'Applied jobs', 'bp-job-manager' );
 	}
 
 	/**
-	 * Applied Jobs - Content
+	 * Applied Jobs - Content.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
 	 */
-	function bpjm_applied_jobs_tab_function_to_show_content() {
+	public function bpjm_applied_jobs_tab_function_to_show_content() {
 		$file = BPJM_PLUGIN_PATH . 'public/templates/bpjm-my-applied-jobs.php';
 		if ( file_exists( $file ) ) {
 			include $file;
@@ -527,10 +650,16 @@ class Bp_Job_Manager_Public {
 	}
 
 	/**
-	 * Action performed to override the arguments passed in resume listing process
-	 * the job listing by [candidate_dashboard] by wp-job-manager-resumes plugin
+	 * Action performed to override the arguments passed in resume listing process.
+	 * the job listing by [candidate_dashboard] by wp-job-manager-resumes plugin.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
+	 * @param    string $candidate_dashboard_resume_listing_args resume listing arguments.
+	 * @return   string $candidate_dashboard_resume_listing_args resume listing arguments.
 	 */
-	function bpjm_resume_dashboard_user_id( $candidate_dashboard_resume_listing_args ) {
+	public function bpjm_resume_dashboard_user_id( $candidate_dashboard_resume_listing_args ) {
 		$candidate_dashboard_resume_listing_args = array(
 			'post_type'           => 'resume',
 			'post_status'         => 'any',
@@ -545,10 +674,16 @@ class Bp_Job_Manager_Public {
 	}
 
 	/**
-	 * Action performed to hide the actions on candidate dashboard
-	 * when the loggedin user id != displayed user id
+	 * Action performed to hide the actions on candidate dashboard.
+	 * when the loggedin user id != displayed user id.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
+	 * @param    string $actions contain job action.
+	 * @param    string $job contain job data.
 	 */
-	function bpjm_candidate_dashboard_resume_actions( $actions, $job ) {
+	public function bpjm_candidate_dashboard_resume_actions( $actions, $job ) {
 		if ( bp_displayed_user_id() != get_current_user_id() ) {
 			$actions = array();
 		}
