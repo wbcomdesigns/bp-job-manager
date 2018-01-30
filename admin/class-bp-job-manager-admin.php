@@ -203,8 +203,8 @@ class Bp_Job_Manager_Admin {
 	 */
 	public function bpjm_save_general_settings() {
 		$bpjm_general_settings = array();
-		$post_job_user_roles   = sanitize_text_field( wp_unslash( $_POST['bpjm-post-jobs-user-roles'] ) );
-		$apply_job_user_roles  = sanitize_text_field( wp_unslash( $_POST['bpjm-apply-jobs-user-roles'] ) );
+		$post_job_user_roles   = array_map( 'sanitize_text_field', wp_unslash( $_POST['bpjm-post-jobs-user-roles'] ) );
+		$apply_job_user_roles  = array_map( 'sanitize_text_field', wp_unslash( $_POST['bpjm-apply-jobs-user-roles'] ) );
 		$matching_user_roles   = array_intersect( $post_job_user_roles, $apply_job_user_roles );
 		$matching_roles_count  = count( $matching_user_roles );
 		$bpjm_general_settings = array(
