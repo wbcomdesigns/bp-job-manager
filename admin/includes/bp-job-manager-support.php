@@ -1,4 +1,16 @@
 <?php
+/**
+ * Provide a admin area view for Export X-Profile fields data.
+ *
+ * This file is used to markup the admin-facing aspects of the plugin.
+ *
+ * @link       www.wbcomdesigns.com
+ * @since      1.0.0
+ *
+ * @package    bp-job-manager
+ * @subpackage bp-job-manager/admin/includes
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }

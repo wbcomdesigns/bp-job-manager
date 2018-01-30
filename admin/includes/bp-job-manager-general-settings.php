@@ -1,4 +1,16 @@
 <?php
+/**
+ * Provide a admin area view for Export X-Profile fields data.
+ *
+ * This file is used to markup the admin-facing aspects of the plugin.
+ *
+ * @link       www.wbcomdesigns.com
+ * @since      1.0.0
+ *
+ * @package    bp-job-manager
+ * @subpackage bp-job-manager/admin/includes
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -17,7 +29,7 @@ global $bp_job_manager, $wp_roles;
 							<?php if ( isset( $wp_roles->roles ) ) { ?>
 								<select multiple required name="bpjm-post-jobs-user-roles[]" class="bpjm-user-roles">
 									<?php foreach ( $wp_roles->roles as $slug => $wp_role ) { ?>
-										<option value="<?php echo $slug; ?>" <?php echo ( ! empty( $bp_job_manager->post_job_user_roles ) && in_array( $slug, $bp_job_manager->post_job_user_roles, TRUE ) ) ? 'selected' : ''; ?>><?php echo $wp_role['name']; ?></option>
+										<option value="<?php echo esc_html( $slug ); ?>" <?php echo ( ! empty( $bp_job_manager->post_job_user_roles ) && in_array( $slug, $bp_job_manager->post_job_user_roles, true ) ) ? 'selected' : ''; ?>><?php echo esc_html( $wp_role['name'] ); ?></option>
 									<?php } ?>
 								</select>
 							<?php } ?>
@@ -32,7 +44,7 @@ global $bp_job_manager, $wp_roles;
 							<?php if ( isset( $wp_roles->roles ) ) { ?>
 								<select multiple required name="bpjm-apply-jobs-user-roles[]" class="bpjm-user-roles">
 									<?php foreach ( $wp_roles->roles as $slug => $wp_role ) { ?>
-										<option value="<?php echo $slug; ?>" <?php echo ( ! empty( $bp_job_manager->apply_job_user_roles ) && in_array( $slug, $bp_job_manager->apply_job_user_roles, TRUE ) ) ? 'selected' : ''; ?>><?php echo $wp_role['name']; ?></option>
+										<option value="<?php echo esc_attr( $slug ); ?>" <?php echo ( ! empty( $bp_job_manager->apply_job_user_roles ) && in_array( $slug, $bp_job_manager->apply_job_user_roles, true ) ) ? 'selected' : ''; ?>><?php echo esc_html( $wp_role['name'] ); ?></option>
 									<?php } ?>
 								</select>
 							<?php } ?>
