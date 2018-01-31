@@ -1,10 +1,10 @@
 === BuddyPress Job Manager ===
-Contributors: wbcomdesigns
+Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, wp-job-manager, job-manager-applications, job-manager-resumes, Job Manager, BuddyPress Jobs
 Requires at least: 3.0.1
-Tested up to: 4.8.1
-Stable tag: 1.0.2
+Tested up to: 4.9.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,9 +15,9 @@ This plugin does the following:
 2. Incorporates BuddyPress with the WP Job Manager plugin by creating specific tabs in employer's and candidate's profiles.
 
 You can also check details at our plugin document page
-
+== Links ==
 * [Plugin Homepage](https://wbcomdesigns.com/downloads/buddypress-job-manager/)
- 
+* [GitHub](https://github.com/wbcomdesigns/bp-job-manager/)
 == Installation ==
  
 1. Upload the entire `bp-job-manager` folder to the /wp-content/plugins/ directory.
@@ -53,6 +53,10 @@ The screenshots are present in the root of the plugin folder.
 6. screenshot-6
 
 == Changelog ==
+
+= 1.0.3 =
+* Enhancement - Code Quality enhancement with WPCS
+
 = 1.0.2 =
 * Fix - Post a Job for employer is not working when member slug is different
 * Fix - Fixed 404 errors on certain tabs
