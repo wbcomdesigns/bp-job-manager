@@ -273,7 +273,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-buddypress',
 							'id'     => 'my-account-' . $profile_menu_slug,
-							'title'  => __( $profile_menu_title . ' <span class="count">' . $my_jobs_count . '</span>', 'bp-job-manager' ),
+							'title'  => esc_html( $profile_menu_title ) . ' <span class="count">' . esc_html( $my_jobs_count ) . '</span>',
 							'href'   => trailingslashit( $my_jobs_url ),
 						)
 					);
@@ -355,7 +355,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-buddypress',
 							'id'     => 'my-account-' . $profile_menu_slug,
-							'title'  => __( $profile_menu_title . ' <span class="count">' . $my_resumes_count . '</span>', 'bp-job-manager' ),
+							'title'  => esc_html( $profile_menu_title, 'bp-job-manager' ) . ' <span class="count">' . esc_html( $my_resumes_count ) . '</span>',
 							'href'   => trailingslashit( $my_resumes_url ),
 						)
 					);
