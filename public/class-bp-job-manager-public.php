@@ -258,7 +258,7 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_my_jobs_tab_function_to_show_title() {
-		esc_html_e( 'My jobs', 'bp-job-manager' );
+		esc_html_e( 'My Jobs', 'bp-job-manager' );
 	}
 
 	/**
@@ -293,7 +293,7 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_bookmarked_jobs_tab_function_to_show_title() {
-		esc_html_e( 'My bookmarks', 'bp-job-manager' );
+		esc_html_e( 'My Bookmarks', 'bp-job-manager' );
 	}
 
 	/**
@@ -328,7 +328,7 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_job_alerts_tab_function_to_show_title() {
-		esc_html_e( 'Job alerts', 'bp-job-manager' );
+		esc_html_e( 'Job Alerts', 'bp-job-manager' );
 	}
 
 	/**
@@ -597,7 +597,7 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_my_resumes_tab_function_to_show_title() {
-		esc_html_e( 'My resumes', 'bp-job-manager' );
+		esc_html_e( 'My Resumes', 'bp-job-manager' );
 	}
 
 	/**
@@ -632,7 +632,7 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_applied_jobs_tab_function_to_show_title() {
-		esc_html_e( 'Applied jobs', 'bp-job-manager' );
+		esc_html_e( 'Applied Jobs', 'bp-job-manager' );
 	}
 
 	/**
