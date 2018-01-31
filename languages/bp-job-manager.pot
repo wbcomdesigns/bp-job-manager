@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-31 13:12:48+00:00\n"
+"POT-Creation-Date: 2018-01-31 13:21:14+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -127,7 +127,7 @@ msgid "Have some questions?"
 msgstr ""
 
 #: admin/includes/bp-job-manager-support.php:24
-msgid "What plugin does this plugin require?"
+msgid "How many additional plugins we will need?"
 msgstr ""
 
 #: admin/includes/bp-job-manager-support.php:27
@@ -163,7 +163,7 @@ msgid ""
 msgstr ""
 
 #: admin/includes/bp-job-manager-support.php:52
-msgid "How to go for any custom development?"
+msgid "I need some help?"
 msgstr ""
 
 #: admin/includes/bp-job-manager-support.php:54
@@ -209,7 +209,7 @@ msgid "Applied For"
 msgstr ""
 
 #: public/templates/bpjm-my-applied-jobs.php:34
-msgid "Date Applied"
+msgid "Applied Date"
 msgstr ""
 
 #: public/templates/bpjm-my-applied-jobs.php:35

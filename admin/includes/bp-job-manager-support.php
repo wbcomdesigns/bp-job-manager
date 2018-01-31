@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div id="bpjm-settings-tbl">
 			<div class="bpjm-admin-row">
 				<div>
-					<button class="bpjm-accordion"><?php esc_attr_e( 'What plugin does this plugin require?', 'bp-job-manager' ); ?></button>
+					<button class="bpjm-accordion"><?php esc_attr_e( 'How many additional plugins we will need?', 'bp-job-manager' ); ?></button>
 					<div class="panel">
 						<p>
 							<?php esc_attr_e( 'Since this plugin deals with jobs, in buddypress user profiles, so to have the plugin fully functional, you must have the following plugins:', 'bp-job-manager' ); ?>
@@ -49,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="bpjm-admin-row">
 				<div>
-					<button class="bpjm-accordion"><?php esc_attr_e( 'How to go for any custom development?', 'bp-job-manager' ); ?></button>
+					<button class="bpjm-accordion"><?php esc_attr_e( 'I need some help?', 'bp-job-manager' ); ?></button>
 					<div class="panel">
 						<p><?php esc_attr_e( 'If you need additional help you can contact us for', 'bp-job-manager' ); ?>
 							<a href="https://wbcomdesigns.com/contact/" target="_blank" title="<?php esc_attr_e( 'Custom Development by Wbcom Designs', 'bp-job-manager' ); ?>"><?php esc_attr_e( 'Custom Development', 'bp-job-manager' ); ?></a></p>

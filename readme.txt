@@ -9,7 +9,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
- 
+
 This plugin does the following:
 1. Creates two BuddyPress Member Types : Employer & Candidate
 2. Incorporates BuddyPress with the WP Job Manager plugin by creating specific tabs in employer's and candidate's profiles.
@@ -19,15 +19,15 @@ You can also check details at our plugin document page
 * [Plugin Homepage](https://wbcomdesigns.com/downloads/buddypress-job-manager/)
 * [GitHub](https://github.com/wbcomdesigns/bp-job-manager/)
 == Installation ==
- 
+
 1. Upload the entire `bp-job-manager` folder to the /wp-content/plugins/ directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
- 
+
 == Frequently Asked Questions ==
 
 = What are the plugin requirements? =
 
-The plugin requires plugins : 
+The plugin requires plugins :
 1. [BuddyPress](https://buddypress.org/download/)
 2. [WordPress Job Manager](https://wpjobmanager.com/)
 3. [WordPress Job Manager - Applications](https://wpjobmanager.com/add-ons/applications/)
@@ -38,16 +38,16 @@ Optional Plugin
 * [WordPress Job Manager - Bookmarks](https://wpjobmanager.com/add-ons/bookmarks/)
 * [WordPress Job Manager - Alerts](https://wpjobmanager.com/add-ons/job-alerts/)
 
-= Where Do I Ask for support? =
+= For support, You can contact us at our website. =
 
-You can also contact at our website [wbcomdesigns.com](https://wbcomdesigns.com/contact) for any query related to plugin and Buddypress.
+You can contact at our website [wbcomdesigns.com](https://wbcomdesigns.com/contact) for any query related to plugin and BuddyPress.
 
 == Screenshots ==
 
 The screenshots are present in the root of the plugin folder.
-1. screenshot-1 
-2. screenshot-2 
-3. screenshot-3 
+1. screenshot-1
+2. screenshot-2
+3. screenshot-3
 4. screenshot-4
 5. screenshot-5
 6. screenshot-6
@@ -60,7 +60,7 @@ The screenshots are present in the root of the plugin folder.
 = 1.0.2 =
 * Fix - Post a Job for employer is not working when member slug is different
 * Fix - Fixed 404 errors on certain tabs
-* Fix - PHP warning and errors 
+* Fix - PHP warning and errors
 * Tweak - Tab name changed to Post a New Job for Employer
 * Enhancement - Add tab for Applied Job list
 * Enhancement - Added options to display Job and Resume menu inside BuddyPress admin bar
@@ -69,12 +69,12 @@ The screenshots are present in the root of the plugin folder.
 
 = 1.0.1 =
 * Fix - Warning display on the page.
-* Fix - When the user submits listing it blocks page and display warning.  
+* Fix - When the user submits listing it blocks page and display warning.
 * Fix - After plugin install error generated on backend and frontend.
 * Fix - Error in plugin settings page
-* Fix - HTML display with applied jobs in Jobs page 
+* Fix - HTML display with applied jobs in Jobs page
 * Fix - Error in user profile job tab
-* Fix - Settings are not working correctly 
+* Fix - Settings are not working.
 * Fix - Saved jobs display incorrect count number and "save job" button is missing.
 
 = 1.0.0 =
