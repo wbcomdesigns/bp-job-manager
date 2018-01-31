@@ -31,7 +31,7 @@ $my_applied_jobs = get_posts( $args );
 		<thead>
 			<tr>
 				<th><?php esc_html_e( 'Applied For', 'bp-job-manager' ); ?></th>
-				<th><?php esc_html_e( 'Date Applied', 'bp-job-manager' ); ?></th>
+				<th><?php esc_html_e( 'Applied Date', 'bp-job-manager' ); ?></th>
 				<th><?php esc_html_e( 'Attachment', 'bp-job-manager' ); ?></th>
 			</tr>
 		</thead>

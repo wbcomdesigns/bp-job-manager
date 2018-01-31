@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-17 13:43:44+00:00\n"
+"POT-Creation-Date: 2018-01-31 13:21:14+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,223 +24,202 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n1.0.1\n"
 
-#: admin/class-bp-job-manager-admin.php:93
+#: admin/class-bp-job-manager-admin.php:100
 msgid "BuddyPress Job Manager Settings"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:93
+#: admin/class-bp-job-manager-admin.php:100
 msgid "BP Job Manager"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:105
+#: admin/class-bp-job-manager-admin.php:116
 msgid "Email Support"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:106
+#: admin/class-bp-job-manager-admin.php:117
 msgid "User Manual"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:107
+#: admin/class-bp-job-manager-admin.php:118
 msgid "Rate Us on WordPress.org"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:109
+#: admin/class-bp-job-manager-admin.php:120
 msgid "BuddyPress Job Manager"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:134
+#: admin/class-bp-job-manager-admin.php:153
 msgid "General"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:152 bp-job-manager.php:129
+#: admin/class-bp-job-manager-admin.php:179 bp-job-manager.php:151
 msgid "Support"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:183
-#: admin/class-bp-job-manager-admin.php:190
-msgid "Settings Saved."
-msgstr ""
-
-#: admin/class-bp-job-manager-admin.php:195
-msgid ""
-"User roles cannot be same for posting the jobs and the ones allowed for job "
-"applications."
-msgstr ""
-
-#: admin/class-bp-job-manager-admin.php:247
-#: public/class-bp-job-manager-public.php:147
+#: admin/class-bp-job-manager-admin.php:286
+#: public/class-bp-job-manager-public.php:148
+#: public/class-bp-job-manager-public.php:261
 msgid "My Jobs"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:260
-#: public/class-bp-job-manager-public.php:162
+#: admin/class-bp-job-manager-admin.php:299
+#: public/class-bp-job-manager-public.php:163
+#: public/class-bp-job-manager-public.php:296
 msgid "My Bookmarks"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:274
-#: public/class-bp-job-manager-public.php:177
+#: admin/class-bp-job-manager-admin.php:313
+#: public/class-bp-job-manager-public.php:178
+#: public/class-bp-job-manager-public.php:331
 msgid "Job Alerts"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:285
-#: public/class-bp-job-manager-public.php:190
-#: public/class-bp-job-manager-public.php:217
+#: admin/class-bp-job-manager-admin.php:324
+#: public/class-bp-job-manager-public.php:191
+#: public/class-bp-job-manager-public.php:226
 msgid "Post a New Job"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:329
-#: public/class-bp-job-manager-public.php:418
+#: admin/class-bp-job-manager-admin.php:368
+#: public/class-bp-job-manager-public.php:504
+#: public/class-bp-job-manager-public.php:600
 msgid "My Resumes"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:339
-#: public/class-bp-job-manager-public.php:432
+#: admin/class-bp-job-manager-admin.php:378
+#: public/class-bp-job-manager-public.php:518
+#: public/class-bp-job-manager-public.php:635
 msgid "Applied Jobs"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:349
-#: public/class-bp-job-manager-public.php:444
-#: public/class-bp-job-manager-public.php:471
+#: admin/class-bp-job-manager-admin.php:388
+#: public/class-bp-job-manager-public.php:530
+#: public/class-bp-job-manager-public.php:565
 msgid "Add Resume"
 msgstr ""
 
-#: admin/includes/bp-job-manager-general-settings.php:9
+#: admin/includes/bp-job-manager-general-settings.php:21
 msgid "General Settings"
 msgstr ""
 
-#: admin/includes/bp-job-manager-general-settings.php:15
+#: admin/includes/bp-job-manager-general-settings.php:27
 msgid "Post Job Roles"
 msgstr ""
 
-#: admin/includes/bp-job-manager-general-settings.php:24
+#: admin/includes/bp-job-manager-general-settings.php:36
 msgid "Select the user roles that are allowed to post jobs on your site."
 msgstr ""
 
-#: admin/includes/bp-job-manager-general-settings.php:30
+#: admin/includes/bp-job-manager-general-settings.php:42
 msgid "Apply Job Roles"
 msgstr ""
 
-#: admin/includes/bp-job-manager-general-settings.php:39
+#: admin/includes/bp-job-manager-general-settings.php:51
 msgid "Select the user roles that are allowed to apply for the jobs on your site."
 msgstr ""
 
-#: admin/includes/bp-job-manager-general-settings.php:46
+#: admin/includes/bp-job-manager-general-settings.php:58
 msgid "Save Changes"
 msgstr ""
 
-#: admin/includes/bp-job-manager-support.php:7
+#: admin/includes/bp-job-manager-support.php:19
 msgid "Have some questions?"
 msgstr ""
 
-#: admin/includes/bp-job-manager-support.php:12
-msgid "What plugin does this plugin require?"
+#: admin/includes/bp-job-manager-support.php:24
+msgid "How many additional plugins we will need?"
 msgstr ""
 
-#: admin/includes/bp-job-manager-support.php:15
+#: admin/includes/bp-job-manager-support.php:27
 msgid ""
 "Since this plugin deals with jobs, in buddypress user profiles, so to have "
 "the plugin fully functional, you must have the following plugins:"
 msgstr ""
 
-#: admin/includes/bp-job-manager-support.php:17
-#: admin/includes/bp-job-manager-support.php:18
+#: admin/includes/bp-job-manager-support.php:29
+#: admin/includes/bp-job-manager-support.php:30
 msgid "Free Available"
 msgstr ""
 
-#: admin/includes/bp-job-manager-support.php:19
-#: admin/includes/bp-job-manager-support.php:20
+#: admin/includes/bp-job-manager-support.php:31
+#: admin/includes/bp-job-manager-support.php:32
 msgid "Paid Addon"
 msgstr ""
 
-#: admin/includes/bp-job-manager-support.php:21
-#: admin/includes/bp-job-manager-support.php:22
+#: admin/includes/bp-job-manager-support.php:33
+#: admin/includes/bp-job-manager-support.php:34
 msgid "Paid Addon - Optional for this plugin"
 msgstr ""
 
-#: admin/includes/bp-job-manager-support.php:31
+#: admin/includes/bp-job-manager-support.php:43
 msgid "How does this plugin work?"
 msgstr ""
 
-#: admin/includes/bp-job-manager-support.php:33
+#: admin/includes/bp-job-manager-support.php:45
 msgid ""
 "This plugin integrates the WordPress Job Manager with the big name, "
 "BuddyPress. The site members can post the jobs from their profiles and "
 "other members can apply to the same jobs."
 msgstr ""
 
-#: admin/includes/bp-job-manager-support.php:40
-msgid "How to go for any custom development?"
+#: admin/includes/bp-job-manager-support.php:52
+msgid "I need some help?"
 msgstr ""
 
-#: admin/includes/bp-job-manager-support.php:42
-msgid ""
-"If you need additional help you can contact us for <a "
-"href=\"https://wbcomdesigns.com/contact/\" target=\"_blank\" title=\"Custom "
-"Development by Wbcom Designs\">Custom Development</a>."
+#: admin/includes/bp-job-manager-support.php:54
+msgid "If you need additional help you can contact us for"
 msgstr ""
 
-#: bp-job-manager.php:119
+#: admin/includes/bp-job-manager-support.php:55
+msgid "Custom Development by Wbcom Designs"
+msgstr ""
+
+#: admin/includes/bp-job-manager-support.php:55
+msgid "Custom Development"
+msgstr ""
+
+#: bp-job-manager.php:134
 msgid ""
 "%1$s is ineffective now as it requires %2$s, %3$s, %4$s and %5$s to be "
 "installed and active."
 msgstr ""
 
-#: bp-job-manager.php:128
+#: bp-job-manager.php:150
 msgid "Settings"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:240
-msgid "My jobs"
-msgstr ""
-
-#: public/class-bp-job-manager-public.php:263
-msgid "My bookmarks"
-msgstr ""
-
-#: public/class-bp-job-manager-public.php:286
-msgid "Job alerts"
-msgstr ""
-
-#: public/class-bp-job-manager-public.php:338
+#: public/class-bp-job-manager-public.php:412
 msgid "Actions"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:354
+#: public/class-bp-job-manager-public.php:433
 msgid "Apply"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:494
-msgid "My resumes"
-msgstr ""
-
-#: public/class-bp-job-manager-public.php:517
-msgid "Applied jobs"
-msgstr ""
-
-#: public/templates/bpjm-job-application.php:30
+#: public/templates/bpjm-job-application.php:39
 msgid "No content available."
 msgstr ""
 
-#: public/templates/bpjm-my-applied-jobs.php:20
+#: public/templates/bpjm-my-applied-jobs.php:29
 msgid "Your applied jobs are shown in the table below."
 msgstr ""
 
-#: public/templates/bpjm-my-applied-jobs.php:24
+#: public/templates/bpjm-my-applied-jobs.php:33
 msgid "Applied For"
 msgstr ""
 
-#: public/templates/bpjm-my-applied-jobs.php:25
-msgid "Date Applied"
+#: public/templates/bpjm-my-applied-jobs.php:34
+msgid "Applied Date"
 msgstr ""
 
-#: public/templates/bpjm-my-applied-jobs.php:26
+#: public/templates/bpjm-my-applied-jobs.php:35
 msgid "Attachment"
 msgstr ""
 
-#: public/templates/bpjm-my-applied-jobs.php:31
+#: public/templates/bpjm-my-applied-jobs.php:40
 msgid "You have not applied to any jobs yet."
 msgstr ""
 
-#: public/templates/bpjm-my-applied-jobs.php:49
+#: public/templates/bpjm-my-applied-jobs.php:58
 msgid "File"
 msgstr ""
