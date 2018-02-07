@@ -51,6 +51,14 @@ global $bp_job_manager, $wp_roles;
 							<p class="description"><?php esc_attr_e( 'Select the user roles that are allowed to apply for the jobs on your site.', 'bp-job-manager' ); ?></p>
 						</td>
 					</tr>
+					<!-- ROLES ALLOWED FOR JOB APPLY -->
+					<tr>
+						<th scope="row"><label for="wpbpjm-resume-profile-view"><?php esc_attr_e( 'Display resume at BuddyPress Profile', 'bp-job-manager' ); ?></label></th>
+						<td>
+							<input type="checkbox" name="bpjm-resume-at-profile" value="yes" <?php if(isset($bp_job_manager->bpjm_resume_at_profile))checked($bp_job_manager->bpjm_resume_at_profile, 'yes'); ?>>
+							<p class="description"><?php esc_attr_e( 'Check this option if you want to list the last updated resume at BuddyPress profile.', 'bp-job-manager' ); ?></p>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 			<p class="submit">

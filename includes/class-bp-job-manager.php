@@ -124,6 +124,12 @@ class Bp_Job_Manager {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-bp-job-manager-public.php';
 
+		/**
+		 * The class responsible for defining all actions that occur in the public-facing
+		 * side of the site.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . '/public/templates/profile-content-single-resume.php';
+
 		$this->loader = new Bp_Job_Manager_Loader();
 
 	}
@@ -186,6 +192,11 @@ class Bp_Job_Manager {
 		$this->loader->add_action( 'job_manager_job_dashboard_column_actions', $plugin_public, 'bpjm_job_dashboard_actions_col_content', 10, 1 );
 		$this->loader->add_filter( 'resume_manager_get_dashboard_resumes_args', $plugin_public, 'bpjm_resume_dashboard_user_id', 10, 1 );
 		$this->loader->add_filter( 'resume_manager_my_resume_actions', $plugin_public, 'bpjm_candidate_dashboard_resume_actions', 10, 2 );
+		/*Action to render resume content at buddypress profile page*/
+		$this->loader->add_action( 'bp_after_profile_loop_content', $plugin_public, 'bpjm_bp_profile_field_item');
+
+		$this->loader->add_action( 'bp_core_xprofile_settings_before_submit', $plugin_public, 'bpjm_resume_settings_before_submit' );
+		$this->loader->add_action( 'bp_init', $plugin_public, 'custom_bp_init' );
 
 	}
 

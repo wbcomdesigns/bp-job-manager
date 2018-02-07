@@ -207,9 +207,15 @@ class Bp_Job_Manager_Admin {
 		$apply_job_user_roles  = array_map( 'sanitize_text_field', wp_unslash( $_POST['bpjm-apply-jobs-user-roles'] ) );
 		$matching_user_roles   = array_intersect( $post_job_user_roles, $apply_job_user_roles );
 		$matching_roles_count  = count( $matching_user_roles );
+		if(isset($_POST['bpjm-resume-at-profile'])){
+			$bpjm_resume_at_profile = 'yes';
+		}else{
+			$bpjm_resume_at_profile = 'no';
+		}
 		$bpjm_general_settings = array(
 			'post_job_user_roles'  => $post_job_user_roles,
 			'apply_job_user_roles' => $apply_job_user_roles,
+			'bpjm_resume_at_profile' => $bpjm_resume_at_profile
 		);
 
 		if ( empty( $matching_user_roles ) ) {

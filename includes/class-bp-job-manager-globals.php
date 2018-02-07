@@ -91,6 +91,8 @@ class Bp_Job_Manager_Globals {
 			$this->apply_job_user_roles = array_merge( $this->apply_job_user_roles, $settings['apply_job_user_roles'] );
 		}
 
+		$this->bpjm_resume_at_profile = $settings['bpjm_resume_at_profile'];
+
 		$this->job_application_pgid = get_option( 'bpjm_job_application_pgid' );
 	}
 }

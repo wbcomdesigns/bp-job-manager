@@ -689,4 +689,115 @@ class Bp_Job_Manager_Public {
 		}
 		return $actions;
 	}
+
+	public function bpjm_bp_profile_field_item(){
+		global $bp_job_manager;
+		$user_id = bp_displayed_user_id();
+		$where = get_posts_by_author_sql( 'resume', true, $user_id, '');
+		global $wpdb;
+		$query = "SELECT ID FROM $wpdb->posts $where ORDER BY post_modified DESC";
+		$post = $wpdb->get_row( $query );
+		if( $post && isset( $bp_job_manager->bpjm_resume_at_profile ) && $bp_job_manager->bpjm_resume_at_profile == 'yes' ){
+			bpjm_show_resume_at_profile($post->ID);
+		}
+		
+	}
+
+	public function bpjm_resume_settings_before_submit(){
+		$user_id = bp_displayed_user_id();
+		$where = get_posts_by_author_sql( 'resume', true, $user_id, '');
+		global $wpdb, $bp_job_manager;
+		$query = "SELECT ID, post_title FROM $wpdb->posts $where ORDER BY post_modified DESC";
+		$post = $wpdb->get_results( $query );
+		$single_post = $wpdb->get_row( $query );
+		if(get_option('bpjm_profile_resume_show_id')){
+			$selected_post = get_option('bpjm_profile_resume_show_id');
+		}else{
+			$selected_post = $single_post->ID;
+		}
+
+		$fields_display = get_option( 'bpjm_display_fields' );
+		if( $post && isset( $bp_job_manager->bpjm_resume_at_profile ) && $bp_job_manager->bpjm_resume_at_profile == 'yes' ){
+		?>
+		<table class="profile-settings">
+			<thead>
+				<tr>
+					<th class="title field-group-name"><?php _e( 'BuddyPress Resumes', 'buddypress' ); ?></th>
+					<th class="title"><?php _e( 'Available Resumes', 'buddypress' ); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="field_name field_type_textbox">
+					<td class="field-name"><?php _e( 'Select resume to display at profile', 'buddypress' ); ?></td>
+					<td class="field-visibility">
+						<select name="bpjm_prof_resume_show_postid">
+						<?php foreach ($post as $key => $value) {
+							echo "<option value='".$value->ID."' ".selected($selected_post,$value->ID,false).">".get_the_candidate_title($value->ID)."</option>";
+						} ?>
+						</select>
+					</td>
+				</tr>
+				<tr class="field_name field_type_textbox">
+					<td class="field-name"><?php _e( 'Display e-mail field', 'buddypress' ); ?></td>
+					<td class="field-visibility">
+						<input type="checkbox" value="yes" name="bpjm_display[email]" <?php if(!empty($fields_display['email'])) checked($fields_display['email'],'yes'); ?>>
+					</td>
+				</tr>
+				<tr class="field_name field_type_textbox">
+					<td class="field-name"><?php _e( 'Display professional title', 'buddypress' ); ?></td>
+					<td class="field-visibility">
+						<input type="checkbox" value="yes" name="bpjm_display[prof_title]" <?php if(!empty($fields_display['prof_title'])) checked($fields_display['prof_title'],'yes'); ?>>
+					</td>
+				</tr>
+				<tr class="field_name field_type_textbox">
+					<td class="field-name"><?php _e( 'Display location', 'buddypress' ); ?></td>
+					<td class="field-visibility">
+						<input type="checkbox" value="yes" name="bpjm_display[location]" <?php if(!empty($fields_display['location'])) checked($fields_display['location'],'yes'); ?>>
+					</td>
+				</tr>
+				<tr class="field_name field_type_textbox">
+					<td class="field-name"><?php _e( 'Display video link', 'buddypress' ); ?></td>
+					<td class="field-visibility">
+						<input type="checkbox" value="yes" name="bpjm_display[video]" <?php if(!empty($fields_display['video'])) checked($fields_display['video'],'yes'); ?>>
+					</td>
+				</tr>
+				<tr class="field_name field_type_textbox">
+					<td class="field-name"><?php _e( 'Display resume contents(description)', 'buddypress' ); ?></td>
+					<td class="field-visibility">
+						<input type="checkbox" value="yes" name="bpjm_display[description]" <?php if(!empty($fields_display['description'])) checked($fields_display['description'],'yes'); ?>>
+					</td>
+				</tr>
+				<tr class="field_name field_type_textbox">
+					<td class="field-name"><?php _e( 'Display URL(s)', 'buddypress' ); ?></td>
+					<td class="field-visibility">
+						<input type="checkbox" value="yes" name="bpjm_display[url]" <?php if(!empty($fields_display['url'])) checked($fields_display['url'],'yes'); ?>>
+					</td>
+				</tr>
+				<tr class="field_name field_type_textbox">
+					<td class="field-name"><?php _e( 'Display education', 'buddypress' ); ?></td>
+					<td class="field-visibility">
+						<input type="checkbox" value="yes" name="bpjm_display[education]" <?php if(!empty($fields_display['education'])) checked($fields_display['education'],'yes'); ?>>
+					</td>
+				</tr>
+				<tr class="field_name field_type_textbox">
+					<td class="field-name"><?php _e( 'Display experience', 'buddypress' ); ?></td>
+					<td class="field-visibility">
+						<input type="checkbox" value="yes" name="bpjm_display[experience]" <?php if(!empty($fields_display['experience'])) checked($fields_display['experience'],'yes'); ?>>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<?php }
+	}
+
+	public function custom_bp_init(){
+		if(isset($_POST['xprofile-settings-submit']) && isset($_POST['bpjm_prof_resume_show_postid'])){
+			$resume_id = $_POST['bpjm_prof_resume_show_postid'];
+			update_option('bpjm_profile_resume_show_id',$resume_id);
+		}
+		if(isset($_POST['xprofile-settings-submit'])){
+			$display_fields = $_POST['bpjm_display'];
+			update_option( 'bpjm_display_fields', $display_fields );
+		}
+	}
 }
