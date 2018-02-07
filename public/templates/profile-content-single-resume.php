@@ -13,14 +13,14 @@ function bpjm_show_resume_at_profile($post_id) {
 					if( isset( $fields_display['email'] ) ){
 						$email   = get_post_meta( $post_id, '_candidate_email', true );
 						echo "<tr>
-								<td class='label'>". __('E-mail', 'buddypress') ."</td>
+								<td class='label'>". __('E-mail', 'bp-job-manager') ."</td>
 								<td class='data'>".$email."</td>
 							  </tr>";
 					}
 					if( isset( $fields_display['prof_title'] ) ){
 						?>
 						<tr>
-							<td class="label"><?php _e('Professional Title', 'buddypress') ?></td>
+							<td class="label"><?php _e('Professional Title', 'bp-job-manager') ?></td>
 							<td class="data"><?php the_candidate_title(); ?></td>
 						</tr>
 						<?php
@@ -28,7 +28,7 @@ function bpjm_show_resume_at_profile($post_id) {
 					if( isset( $fields_display['location'] ) ){
 						?>
 						<tr>
-							<td class="label"><?php _e('Location', 'buddypress') ?></td>
+							<td class="label"><?php _e('Location', 'bp-job-manager') ?></td>
 							<td class="data"><?php the_candidate_location(); ?></td>
 						</tr>
 						<?php
@@ -36,7 +36,7 @@ function bpjm_show_resume_at_profile($post_id) {
 					if( isset( $fields_display['video'] ) ){
 						?>
 						<tr>
-							<td class="label"><?php _e('Video', 'buddypress') ?></td>
+							<td class="label"><?php _e('Video', 'bp-job-manager') ?></td>
 							<td class="data"><?php the_candidate_video(); ?></td>
 						</tr>
 						<?php
@@ -44,7 +44,7 @@ function bpjm_show_resume_at_profile($post_id) {
 					if( isset( $fields_display['description'] ) ){
 						?>
 						<tr>
-							<td class="label"><?php _e('Description', 'buddypress') ?></td>
+							<td class="label"><?php _e('Description', 'bp-job-manager') ?></td>
 							<td class="data"><?php echo apply_filters( 'the_resume_description', get_the_content() ); ?></td>
 						</tr>
 						<?php
@@ -60,7 +60,7 @@ function bpjm_show_resume_at_profile($post_id) {
 			<h2><?php echo apply_filters( 'bpjm_profile_urls_txt', 'URL(s)' ); ?></h2>
 			<table class="profile-fields">
 				<tr>
-					<td class="label"><?php _e('URL(s)', 'buddypress') ?></td>
+					<td class="label"><?php _e('URL(s)', 'bp-job-manager') ?></td>
 					<td class="data"><?php the_resume_links(); ?></td>
 				</tr>
 			</table>
@@ -82,19 +82,19 @@ function bpjm_show_resume_at_profile($post_id) {
 					$setclass = 'bpjm-set-odd';
 				}
 				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('School Name','buddypress').'</td>
+						<td class="label">'.__('School Name','bp-job-manager').'</td>
 						<td class="data">'.esc_html( $item['location'] ).'</td>
 					 </tr>';
 				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('Qualification','buddypress').'</td>
+						<td class="label">'.__('Qualification','bp-job-manager').'</td>
 						<td class="data">'.esc_html( $item['qualification'] ).'</td>
 					 </tr>';	 
 				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('Date','buddypress').'</td>
+						<td class="label">'.__('Date','bp-job-manager').'</td>
 						<td class="data">'.esc_html( $item['date'] ).'</td>
 					 </tr>';
 				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('Notes','buddypress').'</td>
+						<td class="label">'.__('Notes','bp-job-manager').'</td>
 						<td class="data">'.wpautop( wptexturize( $item['notes'] ) ).'</td>
 					 </tr>';
 				$c++;
@@ -120,19 +120,19 @@ function bpjm_show_resume_at_profile($post_id) {
 					$setclass = 'bpjm-set-odd';
 				}
 				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('Employer','buddypress').'</td>
+						<td class="label">'.__('Employer','bp-job-manager').'</td>
 						<td class="data">'.esc_html( $item['employer'] ).'</td>
 					 </tr>';
 				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('Job Title','buddypress').'</td>
+						<td class="label">'.__('Job Title','bp-job-manager').'</td>
 						<td class="data">'.esc_html( $item['job_title'] ).'</td>
 					 </tr>';	 
 				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('Date','buddypress').'</td>
+						<td class="label">'.__('Date','bp-job-manager').'</td>
 						<td class="data">'.esc_html( $item['date'] ).'</td>
 					 </tr>';
 				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('Notes','buddypress').'</td>
+						<td class="label">'.__('Notes','bp-job-manager').'</td>
 						<td class="data">'.wpautop( wptexturize( $item['notes'] ) ).'</td>
 					 </tr>';
 				$c++;

@@ -690,6 +690,13 @@ class Bp_Job_Manager_Public {
 		return $actions;
 	}
 
+	/**
+	 * Function to show resume fields at buddypress profile page.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
+	 */
 	public function bpjm_bp_profile_field_item(){
 		global $bp_job_manager;
 		$user_id = bp_displayed_user_id();
@@ -703,6 +710,13 @@ class Bp_Job_Manager_Public {
 		
 	}
 
+	/**
+	 * Function to add settings under profile visibility-buddypress.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
+	 */
 	public function bpjm_resume_settings_before_submit(){
 		$user_id = bp_displayed_user_id();
 		$where = get_posts_by_author_sql( 'resume', true, $user_id, '');
@@ -790,6 +804,13 @@ class Bp_Job_Manager_Public {
 		<?php }
 	}
 
+	/**
+	 * Function to update bp job manager resume fields at profile page options.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
+	 */
 	public function custom_bp_init(){
 		if(isset($_POST['xprofile-settings-submit']) && isset($_POST['bpjm_prof_resume_show_postid'])){
 			$resume_id = $_POST['bpjm_prof_resume_show_postid'];
