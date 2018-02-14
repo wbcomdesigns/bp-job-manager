@@ -54,6 +54,10 @@ The screenshots are present in the root of the plugin folder.
 
 == Changelog ==
 
+= 1.0.4 =
+* Enhancement - Setting to show recently updated or desired resume at buddypress profile view.
+* Enhancement - Resume listing at buddypress profile.
+
 = 1.0.3 =
 * Enhancement - Code Quality enhancement with WPCS
 

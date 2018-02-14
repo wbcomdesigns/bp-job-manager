@@ -1,4 +1,9 @@
-<?php 
+<?php
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 function bpjm_show_resume_at_profile($post_id) {
 	global $post;
 	$fields_display = get_option( 'bpjm_display_fields' );

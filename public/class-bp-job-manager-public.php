@@ -698,16 +698,21 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_bp_profile_field_item(){
-		global $bp_job_manager;
-		$user_id = bp_displayed_user_id();
-		$where = get_posts_by_author_sql( 'resume', true, $user_id, '');
-		global $wpdb;
-		$query = "SELECT ID FROM $wpdb->posts $where ORDER BY post_modified DESC";
-		$post = $wpdb->get_row( $query );
-		if( $post && isset( $bp_job_manager->bpjm_resume_at_profile ) && $bp_job_manager->bpjm_resume_at_profile == 'yes' ){
-			bpjm_show_resume_at_profile($post->ID);
-		}
-		
+		if(get_option('bpjm_profile_resume_show_id')){
+			$selected_post = get_option('bpjm_profile_resume_show_id');
+			bpjm_show_resume_at_profile($selected_post);
+		}else{
+			$selected_post = $single_post->ID;
+			global $bp_job_manager;
+			$user_id = bp_displayed_user_id();
+			$where = get_posts_by_author_sql( 'resume', true, $user_id, '');
+			global $wpdb;
+			$query = "SELECT ID FROM $wpdb->posts $where ORDER BY post_modified DESC";
+			$post = $wpdb->get_row( $query );
+			if( $post && isset( $bp_job_manager->bpjm_resume_at_profile ) && $bp_job_manager->bpjm_resume_at_profile == 'yes' ){
+				bpjm_show_resume_at_profile($post->ID);
+			}
+		}	
 	}
 
 	/**
