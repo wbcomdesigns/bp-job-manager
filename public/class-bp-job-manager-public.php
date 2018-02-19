@@ -702,7 +702,7 @@ class Bp_Job_Manager_Public {
 		if(get_option('bpjm_profile_resume_show_id')){
 			$selected_post = get_option('bpjm_profile_resume_show_id');
 			if( isset( $bp_job_manager->bpjm_resume_at_profile ) && $bp_job_manager->bpjm_resume_at_profile == 'yes' ){
-				bpjm_show_resume_at_profile($post->ID);
+				bpjm_show_resume_at_profile($selected_post);
 			}
 		}else{
 			$selected_post = $single_post->ID;
