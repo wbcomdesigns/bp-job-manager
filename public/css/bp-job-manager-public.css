@@ -5,3 +5,7 @@
  .profile-fields .bpjm-set-odd{
  	background: #cccccc1a;
  }
+ .profile-fields ul.resume-links {
+     list-style: none;
+     margin-bottom: 0px;
+ }
