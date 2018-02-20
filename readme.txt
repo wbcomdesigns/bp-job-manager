@@ -13,6 +13,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 This plugin does the following:
 1. Creates two BuddyPress Member Types : Employer & Candidate
 2. Incorporates BuddyPress with the WP Job Manager plugin by creating specific tabs in employer's and candidate's profiles.
+3. Resume manager allows candidates to add multiple resumes, using BuddyPress Resume Manager you have choice to display your latest resume at your BuddyPress Profile. It also allows to choice which resume fields should be visible at BuddyPress Profile page.
 
 You can also check details at our plugin document page
 == Links ==
@@ -45,18 +46,20 @@ You can contact at our website [wbcomdesigns.com](https://wbcomdesigns.com/conta
 == Screenshots ==
 
 The screenshots are present in the root of the plugin folder.
-1. screenshot-1
+1. screenshot-1 
 2. screenshot-2
 3. screenshot-3
 4. screenshot-4
 5. screenshot-5
 6. screenshot-6
+7. screenshot-7 : Lastest or selected resumes at your BuddyPress Profile
+8. screenshot-8 : You can find options for member's resume fields at Settings >> Profile Privacy
 
 == Changelog ==
 
 = 1.0.4 =
-* Enhancement - Setting to show recently updated or desired resume at buddypress profile view.
-* Enhancement - Resume listing at buddypress profile.
+* Enhancement - Setting to show recently updated or desired resume at BuddyPress profile view.
+* Enhancement - Resume listing at BuddyPress profile.
 
 = 1.0.3 =
 * Enhancement - Code Quality enhancement with WPCS
