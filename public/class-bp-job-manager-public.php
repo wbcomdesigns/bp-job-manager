@@ -145,7 +145,7 @@ class Bp_Job_Manager_Public {
 				);
 				bp_core_new_subnav_item(
 					array(
-						'name'            => _x( 'My Jobs', 'bp-job-manager' ),
+						'name'            => __( 'My Jobs', 'bp-job-manager' ),
 						'slug'            => 'my-jobs',
 						'parent_url'      => $jobs_tab_link . 'my-jobs',
 						'parent_slug'     => $parent_slug,
@@ -160,7 +160,7 @@ class Bp_Job_Manager_Public {
 					if ( true === $wpjm_bookmarks_active ) {
 						bp_core_new_subnav_item(
 							array(
-								'name'            => _x( 'My Bookmarks', 'bp-job-manager' ),
+								'name'            => __( 'My Bookmarks', 'bp-job-manager' ),
 								'slug'            => 'my-bookmarks',
 								'parent_url'      => $jobs_tab_link . 'my-bookmarks',
 								'parent_slug'     => $parent_slug,
@@ -175,7 +175,7 @@ class Bp_Job_Manager_Public {
 					if ( true === $wpjm_alerts_active ) {
 						bp_core_new_subnav_item(
 							array(
-								'name'            => _x( 'Job Alerts', 'bp-job-manager' ),
+								'name'            => __( 'Job Alerts', 'bp-job-manager' ),
 								'slug'            => 'job-alerts',
 								'parent_url'      => $jobs_tab_link . 'job-alerts',
 								'parent_slug'     => $parent_slug,
@@ -188,7 +188,7 @@ class Bp_Job_Manager_Public {
 
 					bp_core_new_subnav_item(
 						array(
-							'name'            => _x( 'Post a New Job', 'bp-job-manager' ),
+							'name'            => __( 'Post a New Job', 'bp-job-manager' ),
 							'slug'            => 'post-job',
 							'parent_url'      => $jobs_tab_link . 'post-job',
 							'parent_slug'     => $parent_slug,
@@ -501,7 +501,7 @@ class Bp_Job_Manager_Public {
 				// My Resumes.
 				bp_core_new_subnav_item(
 					array(
-						'name'            => _x( 'My Resumes', 'bp-job-manager' ),
+						'name'            => __( 'My Resumes', 'bp-job-manager' ),
 						'slug'            => 'my-resumes',
 						'parent_url'      => $resumes_tab_link . 'my-resumes',
 						'parent_slug'     => $parent_slug,
@@ -515,7 +515,7 @@ class Bp_Job_Manager_Public {
 					// Applied Jobs.
 					bp_core_new_subnav_item(
 						array(
-							'name'            => _x( 'Applied Jobs', 'bp-job-manager' ),
+							'name'            => __( 'Applied Jobs', 'bp-job-manager' ),
 							'slug'            => 'applied-jobs',
 							'parent_url'      => $resumes_tab_link . 'applied-jobs',
 							'parent_slug'     => $parent_slug,
@@ -527,7 +527,7 @@ class Bp_Job_Manager_Public {
 					// Add Resume.
 					bp_core_new_subnav_item(
 						array(
-							'name'            => _x( 'Add Resume', 'bp-job-manager' ),
+							'name'            => __( 'Add Resume', 'bp-job-manager' ),
 							'slug'            => 'add-resume',
 							'parent_url'      => $resumes_tab_link . 'add-resume',
 							'parent_slug'     => $parent_slug,
