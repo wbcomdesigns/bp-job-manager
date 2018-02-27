@@ -135,7 +135,7 @@ class Bp_Job_Manager_Public {
 
 				bp_core_new_nav_item(
 					array(
-						'name'                    => sprintf( __( 'Jobs <span class="no-count" >%d</span>', 'bp-job-manager' ), $my_jobs_count ),
+						'name'                    => sprintf( __( 'Jobs <span>%d</span>', 'bp-job-manager' ), $my_jobs_count ),
 						'slug'                    => $parent_slug,
 						'screen_function'         => array( $this, 'bpjm_jobs_tab_function_to_show_screen' ),
 						'position'                => 75,
@@ -490,7 +490,7 @@ class Bp_Job_Manager_Public {
 
 				bp_core_new_nav_item(
 					array(
-						'name'                    => sprintf( __( 'Resumes <span class="no-count">%d</span>', 'bp-job-manager' ), $my_resumes_count ),
+						'name'                    => sprintf( __( 'Resumes <span>%d</span>', 'bp-job-manager' ), $my_resumes_count ),
 						'slug'                    => $parent_slug,
 						'screen_function'         => array( $this, 'bpjm_resumes_tab_function_to_show_screen' ),
 						'position'                => 75,
