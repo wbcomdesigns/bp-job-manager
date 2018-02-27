@@ -135,7 +135,7 @@ class Bp_Job_Manager_Public {
 
 				bp_core_new_nav_item(
 					array(
-						'name'                    => __( 'Jobs', 'bp-job-manager' ) . '<span class="no-count">' . esc_html( $my_jobs_count ) . '</span>',
+						'name'                    => sprintf( __( 'Jobs <span class="no-count" >%d</span>', 'bp-job-manager' ), $my_jobs_count ),
 						'slug'                    => $parent_slug,
 						'screen_function'         => array( $this, 'bpjm_jobs_tab_function_to_show_screen' ),
 						'position'                => 75,
@@ -145,7 +145,7 @@ class Bp_Job_Manager_Public {
 				);
 				bp_core_new_subnav_item(
 					array(
-						'name'            => __( 'My Jobs', 'bp-job-manager' ),
+						'name'            => _x( 'My Jobs', 'bp-job-manager' ),
 						'slug'            => 'my-jobs',
 						'parent_url'      => $jobs_tab_link . 'my-jobs',
 						'parent_slug'     => $parent_slug,
@@ -160,7 +160,7 @@ class Bp_Job_Manager_Public {
 					if ( true === $wpjm_bookmarks_active ) {
 						bp_core_new_subnav_item(
 							array(
-								'name'            => __( 'My Bookmarks', 'bp-job-manager' ),
+								'name'            => _x( 'My Bookmarks', 'bp-job-manager' ),
 								'slug'            => 'my-bookmarks',
 								'parent_url'      => $jobs_tab_link . 'my-bookmarks',
 								'parent_slug'     => $parent_slug,
@@ -175,7 +175,7 @@ class Bp_Job_Manager_Public {
 					if ( true === $wpjm_alerts_active ) {
 						bp_core_new_subnav_item(
 							array(
-								'name'            => __( 'Job Alerts', 'bp-job-manager' ),
+								'name'            => _x( 'Job Alerts', 'bp-job-manager' ),
 								'slug'            => 'job-alerts',
 								'parent_url'      => $jobs_tab_link . 'job-alerts',
 								'parent_slug'     => $parent_slug,
@@ -188,7 +188,7 @@ class Bp_Job_Manager_Public {
 
 					bp_core_new_subnav_item(
 						array(
-							'name'            => __( 'Post a New Job', 'bp-job-manager' ),
+							'name'            => _x( 'Post a New Job', 'bp-job-manager' ),
 							'slug'            => 'post-job',
 							'parent_url'      => $jobs_tab_link . 'post-job',
 							'parent_slug'     => $parent_slug,
@@ -490,7 +490,7 @@ class Bp_Job_Manager_Public {
 
 				bp_core_new_nav_item(
 					array(
-						'name'                    => __( 'Resumes', 'bp-job-manager' ) . '<span class="no-count">' . $my_resumes_count . '</span>',
+						'name'                    => sprintf( __( 'Resumes <span class="no-count">%d</span>', 'bp-job-manager' ), $my_resumes_count ),
 						'slug'                    => $parent_slug,
 						'screen_function'         => array( $this, 'bpjm_resumes_tab_function_to_show_screen' ),
 						'position'                => 75,
@@ -501,7 +501,7 @@ class Bp_Job_Manager_Public {
 				// My Resumes.
 				bp_core_new_subnav_item(
 					array(
-						'name'            => __( 'My Resumes', 'bp-job-manager' ),
+						'name'            => _x( 'My Resumes', 'bp-job-manager' ),
 						'slug'            => 'my-resumes',
 						'parent_url'      => $resumes_tab_link . 'my-resumes',
 						'parent_slug'     => $parent_slug,
@@ -515,7 +515,7 @@ class Bp_Job_Manager_Public {
 					// Applied Jobs.
 					bp_core_new_subnav_item(
 						array(
-							'name'            => __( 'Applied Jobs', 'bp-job-manager' ),
+							'name'            => _x( 'Applied Jobs', 'bp-job-manager' ),
 							'slug'            => 'applied-jobs',
 							'parent_url'      => $resumes_tab_link . 'applied-jobs',
 							'parent_slug'     => $parent_slug,
@@ -527,7 +527,7 @@ class Bp_Job_Manager_Public {
 					// Add Resume.
 					bp_core_new_subnav_item(
 						array(
-							'name'            => __( 'Add Resume', 'bp-job-manager' ),
+							'name'            => _x( 'Add Resume', 'bp-job-manager' ),
 							'slug'            => 'add-resume',
 							'parent_url'      => $resumes_tab_link . 'add-resume',
 							'parent_slug'     => $parent_slug,
