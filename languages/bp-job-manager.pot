@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-19 19:55:37+00:00\n"
+"POT-Creation-Date: 2018-02-27 18:09:27+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -198,12 +198,20 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
+#: public/class-bp-job-manager-public.php:138
+msgid "Jobs"
+msgstr ""
+
 #: public/class-bp-job-manager-public.php:412
 msgid "Actions"
 msgstr ""
 
 #: public/class-bp-job-manager-public.php:433
 msgid "Apply"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:493
+msgid "Resumes"
 msgstr ""
 
 #: public/class-bp-job-manager-public.php:746

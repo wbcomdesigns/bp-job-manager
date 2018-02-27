@@ -135,7 +135,7 @@ class Bp_Job_Manager_Public {
 
 				bp_core_new_nav_item(
 					array(
-						'name'                    => esc_html( 'Jobs', 'bp-job-manager' ) . '<span class="no-count">' . esc_html( $my_jobs_count ) . '</span>',
+						'name'                    => __( 'Jobs', 'bp-job-manager' ) . '<span class="no-count">' . esc_html( $my_jobs_count ) . '</span>',
 						'slug'                    => $parent_slug,
 						'screen_function'         => array( $this, 'bpjm_jobs_tab_function_to_show_screen' ),
 						'position'                => 75,
@@ -490,7 +490,7 @@ class Bp_Job_Manager_Public {
 
 				bp_core_new_nav_item(
 					array(
-						'name'                    => esc_html( 'Resumes', 'bp-job-manager' ) . '<span class="no-count">' . $my_resumes_count . '</span>',
+						'name'                    => __( 'Resumes', 'bp-job-manager' ) . '<span class="no-count">' . $my_resumes_count . '</span>',
 						'slug'                    => $parent_slug,
 						'screen_function'         => array( $this, 'bpjm_resumes_tab_function_to_show_screen' ),
 						'position'                => 75,
@@ -714,7 +714,7 @@ class Bp_Job_Manager_Public {
 			if( $post && isset( $bp_job_manager->bpjm_resume_at_profile ) && $bp_job_manager->bpjm_resume_at_profile == 'yes' ){
 				bpjm_show_resume_at_profile($post->ID);
 			}
-		}	
+		}
 	}
 
 	/**
