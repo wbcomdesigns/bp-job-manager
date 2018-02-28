@@ -147,7 +147,7 @@ class Bp_Job_Manager {
 
 		$plugin_i18n = new Bp_Job_Manager_I18n();
 
-		$this->loader->add_action( 'init', $plugin_i18n, 'load_plugin_textdomain' );
+		$this->loader->add_action( 'bp_loaded', $plugin_i18n, 'load_plugin_textdomain');
 
 	}
 
