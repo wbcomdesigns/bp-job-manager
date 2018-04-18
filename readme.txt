@@ -11,14 +11,16 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 == Description ==
 
 This plugin does the following:
-1. Creates two BuddyPress Member Types : Employer & Candidate
-2. Incorporates BuddyPress with the WP Job Manager plugin by creating specific tabs in employer's and candidate's profiles.
-3. Resume manager allows candidates to add multiple resumes, using BuddyPress Resume Manager you have choice to display your latest resume at your BuddyPress Profile. It also allows to choice which resume fields should be visible at BuddyPress Profile page.
+1. Incorporates BuddyPress with the WP Job Manager plugin by creating specific tabs in employer's and candidate's profiles.
+2. Resume manager allows candidates to add multiple resumes, using BuddyPress Resume Manager You have choice to display your latest resume at your BuddyPress Profile. It also allows to choice which resume fields should be visible at BuddyPress Profile page.
+3) Allow to enable user roles to post jobs.
+4) Apply to enable user roles to apply for jobs.
 
 You can also check details at our plugin document page
 == Links ==
 * [Plugin Homepage](https://wbcomdesigns.com/downloads/buddypress-job-manager/)
 * [GitHub](https://github.com/wbcomdesigns/bp-job-manager/)
+
 == Installation ==
 
 1. Upload the entire `bp-job-manager` folder to the /wp-content/plugins/ directory.
@@ -43,6 +45,10 @@ Optional Plugin
 
 You can contact at our website [wbcomdesigns.com](https://wbcomdesigns.com/contact) for any query related to plugin and BuddyPress.
 
+= EXTEND BUDDYPRESS JOB MANAGER WITH 'Jobmate' =
+
+BuddyPress Job Manager is built by the experienced developers at Wbcom Designs who also offer a premium Job Direcotry solution called [JobMate - Jobs & Resumes Listing](https://wbcomdesigns.com/downloads/jobmate-theme/).
+
 == Screenshots ==
 
 The screenshots are present in the root of the plugin folder.
@@ -56,6 +62,9 @@ The screenshots are present in the root of the plugin folder.
 8. screenshot-8 : You can find options for member's resume fields at Settings >> Profile Privacy
 
 == Changelog ==
+
+= 1.0.5 =
+* Fix - Translation fixes
 
 = 1.0.4 =
 * Enhancement - Setting to show recently updated or desired resume at BuddyPress profile view.
