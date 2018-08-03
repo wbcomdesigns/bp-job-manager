@@ -393,8 +393,10 @@ class Bp_Job_Manager_Public {
 	 * @return   string $actions contain job action.
 	 */
 	public function bpjm_job_dashboard_job_actions( $actions, $job ) {
-		if ( bp_displayed_user_id() != get_current_user_id() ) {
-			$actions = array();
+		if( bp_is_user_profile() ) {
+			if ( bp_displayed_user_id() != get_current_user_id() ) {
+				$actions = array();
+			}
 		}
 		return $actions;
 	}

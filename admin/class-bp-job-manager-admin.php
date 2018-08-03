@@ -53,9 +53,6 @@ class Bp_Job_Manager_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
-		if ( isset( $_POST['bpjm-general-settings-submit'] ) && wp_verify_nonce( $_POST['bpjm-general-settings-nonce'], 'bpjm-general' ) ) {
-			$this->bpjm_save_general_settings();
-		}
 	}
 
 	/**
@@ -151,7 +148,7 @@ class Bp_Job_Manager_Admin {
 	 */
 	public function bpjm_general_settings() {
 		$this->plugin_settings_tabs[ $this->plugin_name ] = __( 'General', 'bp-job-manager' );
-		register_setting( $this->plugin_name, $this->plugin_name );
+		register_setting( 'bpjm_general_settings', 'bpjm_general_settings' );
 		add_settings_section( 'bp-job-manager-section', ' ', array( &$this, 'bpjm_general_settings_content' ), $this->plugin_name );
 	}
 
@@ -195,52 +192,6 @@ class Bp_Job_Manager_Admin {
 	}
 
 	/**
-	 * Actions performed to save general settings of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @author   wbcomdesigns
-	 * @access   public
-	 */
-	public function bpjm_save_general_settings() {
-		$bpjm_general_settings = array();
-		$post_job_user_roles   = array_map( 'sanitize_text_field', wp_unslash( $_POST['bpjm-post-jobs-user-roles'] ) );
-		$apply_job_user_roles  = array_map( 'sanitize_text_field', wp_unslash( $_POST['bpjm-apply-jobs-user-roles'] ) );
-		$matching_user_roles   = array_intersect( $post_job_user_roles, $apply_job_user_roles );
-		$matching_roles_count  = count( $matching_user_roles );
-		if(isset($_POST['bpjm-resume-at-profile'])){
-			$bpjm_resume_at_profile = 'yes';
-		}else{
-			$bpjm_resume_at_profile = 'no';
-		}
-		$bpjm_general_settings = array(
-			'post_job_user_roles'  => $post_job_user_roles,
-			'apply_job_user_roles' => $apply_job_user_roles,
-			'bpjm_resume_at_profile' => $bpjm_resume_at_profile
-		);
-
-		if ( empty( $matching_user_roles ) ) {
-			update_option( 'bpjm_general_settings', $bpjm_general_settings );
-			$success_msg  = "<div class='notice updated' id='message'>";
-			$success_msg .= '<p>' . esc_html( 'Settings Saved.', 'bp-job-manager' ) . '</p>';
-			$success_msg .= '</div>';
-			echo $success_msg;
-		} else {
-			if ( 1 == $matching_roles_count && 'administrator' == $matching_user_roles[0] ) {
-				update_option( 'bpjm_general_settings', $bpjm_general_settings );
-				$success_msg  = "<div class='notice updated' id='message'>";
-				$success_msg .= '<p>' . esc_html( 'Settings Saved.', 'bp-job-manager' ) . '</p>';
-				$success_msg .= '</div>';
-				echo $success_msg;
-			} else {
-				$err_msg  = "<div class='error' id='message'>";
-				$err_msg .= '<p>' . esc_html( 'User roles cannot be same for posting the jobs and the ones allowed for job applications.', 'bp-job-manager' ) . '</p>';
-				$err_msg .= '</div>';
-				echo $err_msg;
-			}
-		}
-	}
-
-	/**
 	 * This function will list the jobs and resumes link in the dropdown list.
 	 *
 	 * @since    1.0.0
@@ -259,7 +210,7 @@ class Bp_Job_Manager_Admin {
 				$match_post_job_roles = array_intersect( $bp_job_manager->post_job_user_roles, $curr_user->roles );
 				if ( ! empty( $match_post_job_roles ) ) {
 					$profile_menu_slug  = 'jobs';
-					$profile_menu_title = 'Jobs';
+					$profile_menu_title = __( 'Jobs', 'bp-job-manager' );
 
 					$args          = array(
 						'post_type'      => 'job_listing',
@@ -339,7 +290,7 @@ class Bp_Job_Manager_Admin {
 				$match_apply_job_roles = array_intersect( $bp_job_manager->apply_job_user_roles, $curr_user->roles );
 				if ( ! empty( $match_apply_job_roles ) ) {
 					$profile_menu_slug  = 'resumes';
-					$profile_menu_title = 'Resumes';
+					$profile_menu_title = __( 'Resumes', 'bp-job-manager' );
 
 					// Count resumes.
 					$args             = array(

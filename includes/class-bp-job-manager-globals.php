@@ -81,17 +81,25 @@ class Bp_Job_Manager_Globals {
 	public function setup_plugin_global() {
 		$settings = get_option( 'bpjm_general_settings' );
 
-		$this->post_job_user_roles = array( 'administrator', 'employer' );
-		if ( ! empty( $settings['post_job_user_roles'] ) ) {
-			$this->post_job_user_roles = array_merge( $this->post_job_user_roles, $settings['post_job_user_roles'] );
-		}
+		if( empty( $settings ) ) {
+			$this->apply_job_user_roles = array( 'administrator', 'candidate', 'subscriber' );
+			$this->post_job_user_roles = array( 'administrator', 'employer' );
+			$this->bpjm_resume_at_profile = 'yes';
+		} else {
+			if ( ! empty( $settings['apply_job_user_roles'] ) ) {
+				$this->apply_job_user_roles = $settings['apply_job_user_roles'];
+			}
+			if ( ! empty( $settings['post_job_user_roles'] ) ) {
+				$this->post_job_user_roles = $settings['post_job_user_roles'];
+			}
 
-		$this->apply_job_user_roles = array( 'administrator', 'candidate', 'subscriber' );
-		if ( ! empty( $settings['apply_job_user_roles'] ) ) {
-			$this->apply_job_user_roles = array_merge( $this->apply_job_user_roles, $settings['apply_job_user_roles'] );
+			if( array_key_exists( 'bpjm_resume_at_profile', $settings ) ) {
+				$this->bpjm_resume_at_profile = 'yes';
+			} else {
+				$this->bpjm_resume_at_profile = 'no';
+			}
 		}
-
-		$this->bpjm_resume_at_profile = $settings['bpjm_resume_at_profile'];
+		
 
 		$this->job_application_pgid = get_option( 'bpjm_job_application_pgid' );
 	}
