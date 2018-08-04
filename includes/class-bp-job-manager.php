@@ -186,6 +186,9 @@ class Bp_Job_Manager {
 		$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_resumes_tab' );
 		$this->loader->add_filter( 'page_template', $plugin_public, 'bpjm_job_application_page' );
 		$this->loader->add_filter( 'job_manager_get_dashboard_jobs_args', $plugin_public, 'bpjm_job_dashboard_user_id', 10, 1 );
+		/*** Call function for mark filled ***/
+		$this->loader->add_action( 'wp', $plugin_public, 'bpjm_shortcode_action_handler' );
+
 		$this->loader->add_filter( 'job_manager_user_can_edit_pending_submissions', $plugin_public, 'bpjm_allow_user_to_edit_pending_jobs', 10, 1 );
 		$this->loader->add_filter( 'job_manager_my_job_actions', $plugin_public, 'bpjm_job_dashboard_job_actions', 10, 2 );
 		$this->loader->add_filter( 'job_manager_job_dashboard_columns', $plugin_public, 'bpjm_job_dashboard_cols', 10, 1 );

@@ -830,4 +830,19 @@ class Bp_Job_Manager_Public {
 			update_option( 'bpjm_display_fields', $display_fields );
 		}
 	}
+
+	/**
+	 * Function to call wp job manager plugin's WP_Job_Manager_Shortcodes class job_dashboard_handler function for mark filled functionality on buddypress job tab.
+	 *
+	 * @since    1.0.6
+	 * @author   wbcomdesigns
+	 * @access   public
+	 */
+	public function bpjm_shortcode_action_handler() {
+		global $bp;
+		if( bp_is_user() ) {
+			$wbjob_shortcode_object = new WP_Job_Manager_Shortcodes();
+			$wbjob_shortcode_object->job_dashboard_handler();
+		}		
+	}
 }
