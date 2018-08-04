@@ -845,4 +845,22 @@ class Bp_Job_Manager_Public {
 			$wbjob_shortcode_object->job_dashboard_handler();
 		}		
 	}
+
+	/**
+	 * Function for filter redirect url when duplicate any job on buddypress job tab.
+	 *
+	 * @since    1.0.6
+	 * @author   wbcomdesigns
+	 * @access   public
+	 */
+	public function bpjm_filter_redirect_duplicate_post_url( $location, $status ) {
+		if ( bp_is_user() && bp_is_my_profile() ) {
+			$query_str = parse_url( $location , PHP_URL_QUERY );
+			$job_arr  = explode( '=', $query_str );
+			if ( ( 'job_id' == $job_arr[0] ) && ( '0' != $job_arr[1] ) ) {
+				$location = bp_core_get_user_domain( bp_displayed_user_id() ).'jobs/post-job/?job_id='. $job_arr[1];
+			}
+		}
+		return $location;
+	}
 }
