@@ -47,7 +47,10 @@ $my_applied_jobs = get_posts( $args );
 					$applied_job_meta = get_post_meta( $applied_job->ID );
 
 					if ( ! empty( $applied_job_meta['_attachment'] ) ) {
-						$attachment = unserialize( $applied_job_meta['_attachment'][0] )[0];
+						$attach_unserialized = unserialize( $applied_job_meta['_attachment'][0] );						
+						if( $attach_unserialized ) {
+							$attachment = unserialize( $applied_job_meta['_attachment'][0] )[0];
+						}
 					}
 					?>
 					<tr>

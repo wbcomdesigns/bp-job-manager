@@ -191,6 +191,8 @@ class Bp_Job_Manager {
 		$this->loader->add_filter( 'wp_redirect', $plugin_public, 'bpjm_filter_redirect_duplicate_post_url', 10, 2 );
 		$this->loader->add_action( 'wp', $plugin_public, 'bpjm_shortcode_action_handler' );
 
+		$this->loader->add_filter( 'job_manager_user_can_edit_published_submissions', $plugin_public, 'bpjm_filter_wpjm_user_can_edit_published_submissions', 10, 1 );
+
 		$this->loader->add_filter( 'job_manager_user_can_edit_pending_submissions', $plugin_public, 'bpjm_allow_user_to_edit_pending_jobs', 10, 1 );
 		$this->loader->add_filter( 'job_manager_my_job_actions', $plugin_public, 'bpjm_job_dashboard_job_actions', 10, 2 );
 		$this->loader->add_filter( 'job_manager_job_dashboard_columns', $plugin_public, 'bpjm_job_dashboard_cols', 10, 1 );

@@ -381,6 +381,11 @@ class Bp_Job_Manager_Public {
 		return $allowed;
 	}
 
+	public function bpjm_filter_wpjm_user_can_edit_published_submissions( $allowed ) {
+		$allowed = true;
+		return $allowed;
+	}
+
 	/**
 	 * Action performed to hide the actions on job dashboard.
 	 * when the loggedin user id != displayed user id.
@@ -840,8 +845,8 @@ class Bp_Job_Manager_Public {
 	 */
 	public function bpjm_shortcode_action_handler() {
 		global $bp;
-		if( bp_is_user() ) {
-			$wbjob_shortcode_object = new WP_Job_Manager_Shortcodes();
+		if( bp_is_user() && isset( $_GET['action'] ) && ( 'mark_filled' == $_GET['action'] || 'mark_not_filled' == $_GET['action'] || 'duplicate' == $_GET['action'] ) ) {
+			$wbjob_shortcode_object = new WP_Job_Manager_Shortcodes(); 
 			$wbjob_shortcode_object->job_dashboard_handler();
 		}		
 	}
