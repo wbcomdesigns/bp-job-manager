@@ -670,6 +670,7 @@ class Bp_Job_Manager_Public {
 		if( bp_is_user() ) {
 			$candidate_dashboard_resume_listing_args = array(
 				'post_type'           => 'resume',
+				'post_status'         => array( 'publish', 'expired', 'pending', 'hidden' ),
 				'ignore_sticky_posts' => 1,
 				'posts_per_page'      => 25,
 				'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * 25,
@@ -848,9 +849,17 @@ class Bp_Job_Manager_Public {
 	 */
 	public function bpjm_shortcode_action_handler() {
 		global $bp;
-		if( bp_is_user() && isset( $_GET['action'] ) && ( 'mark_filled' == $_GET['action'] || 'mark_not_filled' == $_GET['action'] || 'duplicate' == $_GET['action'] || 'delete' == $_GET['action'] ) ) {
-			$wbjob_shortcode_object = new WP_Job_Manager_Shortcodes();
-			$wbjob_shortcode_object->job_dashboard_handler();
+		if( bp_is_user() && isset( $_GET['action'] ) ) {
+
+			if( ( 'mark_filled' == $_GET['action'] || 'mark_not_filled' == $_GET['action'] || 'duplicate' == $_GET['action'] || 'delete' == $_GET['action'] ) && isset( $_GET['job_id'] ) ) {
+				$wbjob_shortcode_object = new WP_Job_Manager_Shortcodes();
+				$wbjob_shortcode_object->job_dashboard_handler();
+			}
+
+			if( ( 'delete' == $_GET['action'] || 'hide' == $_GET['action'] || 'publish' == $_GET['action'] ) && isset( $_GET['resume_id'] ) ) {
+				$wb_resume_shortcode_object = new WP_Resume_Manager_Shortcodes();
+				$wb_resume_shortcode_object->candidate_dashboard_handler();
+			}
 		}		
 	}
 
