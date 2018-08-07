@@ -848,15 +848,16 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_shortcode_action_handler() {
-		global $bp;
-		if( bp_is_user() && isset( $_GET['action'] ) ) {
+		$action          = filter_input( INPUT_GET, 'action' );
+		$job_id_param    = filter_input( INPUT_GET, 'job_id' );
+		$resume_id_param = filter_input( INPUT_GET, 'resume_id' );
 
-			if( ( 'mark_filled' == $_GET['action'] || 'mark_not_filled' == $_GET['action'] || 'duplicate' == $_GET['action'] || 'delete' == $_GET['action'] ) && isset( $_GET['job_id'] ) ) {
+		if( bp_is_user() && ( null !== $action ) ) {
+			if( ( 'mark_filled' == $action || 'mark_not_filled' == $action || 'duplicate' == $action || 'delete' == $action ) && ( null !== $job_id_param ) ) {
 				$wbjob_shortcode_object = new WP_Job_Manager_Shortcodes();
 				$wbjob_shortcode_object->job_dashboard_handler();
 			}
-
-			if( ( 'delete' == $_GET['action'] || 'hide' == $_GET['action'] || 'publish' == $_GET['action'] ) && isset( $_GET['resume_id'] ) ) {
+			if( ( 'delete' == $action || 'hide' == $action || 'publish' == $action ) && ( null !== $resume_id_param ) ) {
 				$wb_resume_shortcode_object = new WP_Resume_Manager_Shortcodes();
 				$wb_resume_shortcode_object->candidate_dashboard_handler();
 			}
