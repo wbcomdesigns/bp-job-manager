@@ -667,16 +667,17 @@ class Bp_Job_Manager_Public {
 	 * @return   string $candidate_dashboard_resume_listing_args resume listing arguments.
 	 */
 	public function bpjm_resume_dashboard_user_id( $candidate_dashboard_resume_listing_args ) {
-		$candidate_dashboard_resume_listing_args = array(
-			'post_type'           => 'resume',
-			'post_status'         => 'any',
-			'ignore_sticky_posts' => 1,
-			'posts_per_page'      => 25,
-			'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * 25,
-			'orderby'             => 'date',
-			'order'               => 'desc',
-			'author'              => bp_displayed_user_id(),
-		);
+		if( bp_is_user() ) {
+			$candidate_dashboard_resume_listing_args = array(
+				'post_type'           => 'resume',
+				'ignore_sticky_posts' => 1,
+				'posts_per_page'      => 25,
+				'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * 25,
+				'orderby'             => 'date',
+				'order'               => 'desc',
+				'author'              => bp_displayed_user_id(),
+			);
+		}
 		return $candidate_dashboard_resume_listing_args;
 	}
 
@@ -691,8 +692,10 @@ class Bp_Job_Manager_Public {
 	 * @param    string $job contain job data.
 	 */
 	public function bpjm_candidate_dashboard_resume_actions( $actions, $job ) {
-		if ( bp_displayed_user_id() != get_current_user_id() ) {
-			$actions = array();
+		if( bp_is_user() ) {
+			if ( bp_displayed_user_id() != get_current_user_id() ) {
+				$actions = array();
+			}
 		}
 		return $actions;
 	}
