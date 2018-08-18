@@ -45,10 +45,12 @@ $my_applied_jobs = get_posts( $args );
 					$job              = get_post( $job_id );
 					$job_permalink    = get_permalink( $job_id );
 					$applied_job_meta = get_post_meta( $applied_job->ID );
+					$attachment       = '';
 
 					if ( ! empty( $applied_job_meta['_attachment'] ) ) {
 						$attach_unserialized = unserialize( $applied_job_meta['_attachment'][0] );						
-						if( $attach_unserialized ) {
+							
+						if( !empty( $attach_unserialized ) ) {
 							$attachment = unserialize( $applied_job_meta['_attachment'][0] )[0];
 						}
 					}
@@ -57,9 +59,11 @@ $my_applied_jobs = get_posts( $args );
 						<td class="job_title"><a href="<?php echo esc_attr( $job_permalink ); ?>"><?php echo esc_html( $applied_job_meta['_job_applied_for'][0], 'bp-job-manager' ); ?></a></td>
 						<td><?php echo esc_html( date( 'F jS, Y', strtotime( $applied_job->post_date ) ), 'bp-job-manager' ); ?></td>
 						<td>
-							<?php if ( ! empty( $applied_job_meta['_attachment'] ) ) { ?>
+							<?php if ( ! empty( $attachment ) ) { ?>
 								<a href="<?php echo esc_attr( $attachment ); ?>" download><?php esc_html_e( 'File', 'bp-job-manager' ); ?></a>
-							<?php } ?>
+							<?php } else {
+								esc_html_e( 'No Attachment', 'bp-job-manager' );
+							} ?>
 						</td>
 					</tr>
 				<?php } ?>
