@@ -354,16 +354,18 @@ class Bp_Job_Manager_Public {
 	 * @return   string $job_dashboard_job_listing_args return job listing arguments.
 	 */
 	public function bpjm_job_dashboard_user_id( $job_dashboard_job_listing_args ) {
-		$job_dashboard_job_listing_args = array(
-			'post_type'           => 'job_listing',
-			'post_status'         => 'any',
-			'ignore_sticky_posts' => 1,
-			'posts_per_page'      => 25,
-			'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * 25,
-			'orderby'             => 'date',
-			'order'               => 'desc',
-			'author'              => bp_displayed_user_id(),
-		);
+		if( bp_is_user_profile() ) {
+			$job_dashboard_job_listing_args = array(
+				'post_type'           => 'job_listing',
+				'post_status'         => 'any',
+				'ignore_sticky_posts' => 1,
+				'posts_per_page'      => 25,
+				'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * 25,
+				'orderby'             => 'date',
+				'order'               => 'desc',
+				'author'              => bp_displayed_user_id(),
+			);
+		}
 		return $job_dashboard_job_listing_args;
 	}
 
