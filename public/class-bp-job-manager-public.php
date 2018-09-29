@@ -883,4 +883,17 @@ class Bp_Job_Manager_Public {
 		}
 		return $location;
 	}
+
+	/**
+	 * Function for add private message link on contact candidate button.
+	 *
+	 * @since    1.0.6
+	 * @author   wbcomdesigns
+	 * @access   public
+	 */
+	public function bpjm_add_private_message_link() {
+        $url = wp_nonce_url( bp_loggedin_user_domain() . bp_get_messages_slug() . '/compose/?r=' . bp_core_get_username( get_the_author_meta( 'ID' ) ) );
+
+        echo '<a href="'. $url .'" title="Private Message">'. __( 'Private Message', 'bp-job-manager' ). '</a>';
+    }
 }

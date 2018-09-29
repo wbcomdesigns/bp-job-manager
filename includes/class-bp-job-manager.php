@@ -205,6 +205,9 @@ class Bp_Job_Manager {
 		$this->loader->add_action( 'bp_core_xprofile_settings_before_submit', $plugin_public, 'bpjm_resume_settings_before_submit' );
 		$this->loader->add_action( 'bp_init', $plugin_public, 'custom_bp_init' );
 
+		/* Action to add private message link on candidate contact button */
+		$this->loader->add_action( 'resume_manager_contact_details', $plugin_public, 'bpjm_add_private_message_link' );
+
 	}
 
 	/**
