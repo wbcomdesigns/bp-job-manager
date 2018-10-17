@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, wp-job-manager, job-manager-applications, job-manager-resumes, Job Manager, BuddyPress Jobs
 Requires at least: 3.0.1
 Tested up to: 4.9.8
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,9 @@ The screenshots are present in the root of the plugin folder.
 8. screenshot-8 : You can find options for member's resume fields at Settings >> Profile Privacy
 
 == Changelog ==
+
+= 1.0.7 =
+* Fix - Fixed profile page error.
 
 = 1.0.6 =
 * Fix - Fixed issues with WP Job Manager listing page.
