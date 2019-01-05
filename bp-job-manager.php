@@ -1,11 +1,5 @@
 <?php
 /**
- * The plugin bootstrap file
- *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
  *
  * @link              https://wbcomdesigns.com/
  * @since             1.0.0
@@ -14,8 +8,8 @@
  * @wordpress-plugin
  * Plugin Name:       BuddyPress Job Manager
  * Plugin URI:        https://wbcomdesigns.com/
- * Description:       This plugin integrates <strong>WordPress Job Manager</strong> with <strong>BuddyPress</strong>. Allows the members to post jobs, and others to apply for those posted jobs.
- * Version:           1.0.7
+ * Description:       This plugin integrates WordPress Job Manager with BuddyPress. Allows the members to post jobs, and others to apply for those posted jobs.
+ * Version:           2.0.0
  * Author:            Wbcom Designs
  * Author URI:        https://wbcomdesigns.com/
  * License:           GPL-2.0+
@@ -125,13 +119,13 @@ function wpbpjm_plugin_init() {
  * @since   1.0.0
  */
 function bpjm_required_plugin_admin_notice() {
-	$bpjm_plugin              = 'BuddyPress Job Manager';
-	$bp_plugin                = 'BuddyPress';
-	$wpjm_plugin              = 'WP Job Manager';
-	$wpjm_applications_plugin = 'WP Job Manager - Applications';
-	$wpjm_resumes_plugin      = 'WP Job Manager - Resume Manager';
+	$bpjm_plugin              = esc_html__( 'BuddyPress Job Manager', 'bp-job-manager' );
+	$bp_plugin                = esc_html__( 'BuddyPress', 'bp-job-manager' );
+	$wpjm_plugin              = esc_html__( 'WP Job Manager', 'bp-job-manager' );
+	$wpjm_applications_plugin = esc_html__( 'WP Job Manager - Applications', 'bp-job-manager' );
+	$wpjm_resumes_plugin      = esc_html__( 'WP Job Manager - Resume Manager', 'bp-job-manager' );
 	echo '<div class="error"><p>';
-	echo sprintf( __( '%1$s is ineffective now as it requires %2$s, %3$s, %4$s and %5$s to be installed and active.', 'bp-job-manager' ), '<strong>' . esc_html( $bpjm_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_applications_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_resumes_plugin ) . '</strong>' );
+	echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s, %3$s, %4$s and %5$s to be installed and active.', 'bp-job-manager' ), '<strong>' . esc_html( $bpjm_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_applications_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_resumes_plugin ) . '</strong>' );
 	echo '</p></div>';
 	if ( isset( $_GET['activate'] ) ) {
 		unset( $_GET['activate'] );
@@ -147,8 +141,8 @@ function bpjm_required_plugin_admin_notice() {
  */
 function bpjm_plugin_links( $links ) {
 	$bpjm_links = array(
-		'<a href="' . admin_url( 'options-general.php?page=bp-job-manager' ) . '">' . __( 'Settings', 'bp-job-manager' ) . '</a>',
-		'<a href="https://wbcomdesigns.com/contact/" target="_blank">' . __( 'Support', 'bp-job-manager' ) . '</a>',
+		'<a href="' . admin_url("admin.php?page=bp-job-manager") . '">' . esc_html__( 'Settings', 'bp-job-manager' ) . '</a>',
+		'<a href="https://wbcomdesigns.com/contact/" target="_blank">' . esc_html__( 'Support', 'bp-job-manager' ) . '</a>',
 	);
 	return array_merge( $links, $bpjm_links );
 }

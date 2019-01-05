@@ -2,67 +2,7 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
- /*SUPPORT*/
-.bpjm-adming-setting{
-	float: left;
-	width: 90%;
-}
-button.bpjm-accordion {
-	background-color: hsl(0, 0%, 87%);
-	border: medium none;
-	border-top-right-radius: 10px;
-	border-top-left-radius: 10px;
-	color: hsl(0, 0%, 27%);
-	cursor: pointer;
-	font-size: 15px;
-	margin: 0 5%;
-	outline: medium none;
-	padding: 15px 20px;
-	text-align: left;
-	transition: all 0.4s ease 0s;
-	width: 90%;
-}
-button.bpjm-accordion.active, button.bpjm-accordion:hover {
-	background-color: hsl(207, 90%, 54%);
-	color:white;
-}
-div.panel {
-	padding: 0 18px;
-	background-color: white;
-	max-height: 0;
-	overflow: hidden;
-	transition: max-height 0.2s ease-out;
-	margin:0px 5%;
-}
-button.bpjm-accordion::after {
-	color: hsl(0, 0%, 47%);
-	content: "+";
-	float: right;
-	font-size: 13px;
-	font-weight: bold;
-	margin-left: 5px;
-}
-button.bpjm-accordion::after:hover {
-	color: white;
-}
-button.bpjm-accordion.active::after {
-	content: "−";
-	color:white;
-}
-.bpjm-admin-row{
-	clear: both;
-	overflow: hidden;
-	padding-bottom: 5px;
-}
-.bpjm-tab-header h3{
-	margin-left: 5%;
-}
-/*SUPPORT*/
-.bpjm-header {
-	float: left;
-	width: 100%;
-	padding: 10px 0px;
-}
+
 .bpjm-header .bpjm-plugin-heading {
 	float: left;
 	margin: 0px;

@@ -63,12 +63,11 @@ class Bp_Job_Manager_Admin {
 	 * @access   public
 	 */
 	public function enqueue_styles() {
-		if ( isset( $_SERVER['REQUEST_URI'] ) && stripos( $_SERVER['REQUEST_URI'], $this->plugin_name ) !== false ) {
-			wp_enqueue_style( $this->plugin_name . '-font-awesome', plugin_dir_url( __FILE__ ) . 'css/font-awesome.min.css' );
+		$screen = get_current_screen();
+		if ( 'wb-plugins_page_bp-job-manager' === $screen->base ) {
 			wp_enqueue_style( $this->plugin_name . '-selectize', plugin_dir_url( __FILE__ ) . 'css/selectize.css' );
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-admin.css' );
 		}
-
 	}
 
 	/**
@@ -79,7 +78,8 @@ class Bp_Job_Manager_Admin {
 	 * @access   public
 	 */
 	public function enqueue_scripts() {
-		if ( isset( $_SERVER['REQUEST_URI'] ) && stripos( $_SERVER['REQUEST_URI'], $this->plugin_name ) !== false ) {
+		$screen = get_current_screen();
+		if ( 'wb-plugins_page_bp-job-manager' === $screen->base ) {
 			wp_enqueue_script( $this->plugin_name . '-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ) );
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-admin.js', array( 'jquery' ) );
 		}
@@ -94,7 +94,11 @@ class Bp_Job_Manager_Admin {
 	 * @access   public
 	 */
 	public function bpjm_add_options_page() {
-		add_options_page( __( 'BuddyPress Job Manager Settings', 'bp-job-manager' ), __( 'BP Job Manager', 'bp-job-manager' ), 'manage_options', $this->plugin_name, array( $this, 'bpjm_admin_settings_page' ) );
+		if ( empty ( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
+			add_menu_page( esc_html__( 'WB Plugins', 'bp-job-manager' ), esc_html__( 'WB Plugins', 'bp-job-manager' ), 'manage_options', 'wbcomplugins', array( $this, 'bpjm_admin_settings_page' ), 'dashicons-lightbulb', 59 );
+		 	add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'bp-job-manager' ), esc_html__( 'General', 'bp-job-manager' ), 'manage_options', 'wbcomplugins' );
+		}
+		add_submenu_page( 'wbcomplugins', esc_html__( 'BP Job Manager', 'bp-job-manager' ), esc_html__( 'BP Job Manager', 'bp-job-manager' ), 'manage_options', $this->plugin_name, array( $this, 'bpjm_admin_settings_page' ) );
 	}
 
 	/**
@@ -109,15 +113,18 @@ class Bp_Job_Manager_Admin {
 		?>
 		<div class="wrap">
 			<div class="bpjm-header">
-				<div class="bpjm-extra-actions">
-					<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/contact/', '_blank');"><i class="fa fa-envelope" aria-hidden="true"></i> <?php esc_attr_e( 'Email Support', 'bp-job-manager' ); ?></button>
-					<button type="button" class="button button-secondary" onclick="window.open('https://wbcomdesigns.com/helpdesk/article-categories/buddypress-job-manager/', '_blank');"><i class="fa fa-file" aria-hidden="true"></i> <?php esc_attr_e( 'User Manual', 'bp-job-manager' ); ?></button>
-					<button type="button" class="button button-secondary" onclick="window.open('https://wordpress.org/support/plugin/bp-job-manager/reviews/', '_blank');"><i class="fa fa-star" aria-hidden="true"></i> <?php esc_attr_e( 'Rate Us on WordPress.org', 'bp-job-manager' ); ?></button>
-				</div>
-				<h2 class="bpjm-plugin-heading"><?php esc_attr_e( 'BuddyPress Job Manager', 'bp-job-manager' ); ?></h2>
+				<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
+				<h1 class="wbcom-plugin-heading">
+					<?php esc_html_e( 'BuddyPress Job Manager Settings', 'bp-job-manager' ); ?>
+				</h1>
 			</div>
-			<?php $this->bpjm_plugin_settings_tabs(); ?>
-			<?php do_settings_sections( $tab ); ?>
+			<?php settings_errors(); ?>
+			<div class="wbcom-admin-settings-page">
+				<?php
+				$this->bpjm_plugin_settings_tabs(); 
+				do_settings_sections( $tab );
+				?>
+			</div>
 		</div>
 		<?php
 	}
@@ -131,12 +138,12 @@ class Bp_Job_Manager_Admin {
 	 */
 	public function bpjm_plugin_settings_tabs() {
 		$current_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : $this->plugin_name;
-		echo '<h2 class="nav-tab-wrapper">';
+		echo '<div class="wbcom-tabs-section"><h2 class="nav-tab-wrapper">';
 		foreach ( $this->plugin_settings_tabs as $tab_key => $tab_caption ) {
 			$active = $current_tab == $tab_key ? 'nav-tab-active' : '';
 			echo '<a class="nav-tab ' . esc_attr( $active ) . '" id="' . esc_attr( $tab_key ) . '-tab" href="?page=' . esc_attr( $this->plugin_name ) . '&tab=' . esc_attr( $tab_key ) . '">' . esc_html( $tab_caption, 'bp-job-manager' ) . '</a>';
 		}
-		echo '</h2>';
+		echo '</h2></div>';
 	}
 
 	/**
@@ -162,32 +169,6 @@ class Bp_Job_Manager_Admin {
 	public function bpjm_general_settings_content() {
 		if ( file_exists( dirname( __FILE__ ) . '/includes/bp-job-manager-general-settings.php' ) ) {
 			require_once dirname( __FILE__ ) . '/includes/bp-job-manager-general-settings.php';
-		}
-	}
-
-	/**
-	 * Actions performed to create Support Tab.
-	 *
-	 * @since    1.0.0
-	 * @author   wbcomdesigns
-	 * @access   public
-	 */
-	public function bpjm_support() {
-		$this->plugin_settings_tabs[ $this->plugin_name . '-support' ] = __( 'Support', 'bp-job-manager' );
-		register_setting( $this->plugin_name . '-support', $this->plugin_name . '-support' );
-		add_settings_section( 'bp-job-manager-support-section', ' ', array( &$this, 'bpjm_support_content' ), $this->plugin_name . '-support' );
-	}
-
-	/**
-	 * Actions performed to create Support Tab Content.
-	 *
-	 * @since    1.0.0
-	 * @author   wbcomdesigns
-	 * @access   public
-	 */
-	public function bpjm_support_content() {
-		if ( file_exists( dirname( __FILE__ ) . '/includes/bp-job-manager-support.php' ) ) {
-			require_once dirname( __FILE__ ) . '/includes/bp-job-manager-support.php';
 		}
 	}
 
@@ -240,7 +221,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
 							'id'     => 'my-account-' . $profile_menu_slug . '-my-jobs',
-							'title'  => __( 'My Jobs', 'bp-job-manager' ),
+							'title'  => esc_html__( 'My Jobs', 'bp-job-manager' ),
 							'href'   => trailingslashit( $my_jobs_url ),
 						)
 					);
@@ -253,7 +234,7 @@ class Bp_Job_Manager_Admin {
 							array(
 								'parent' => 'my-account-' . $profile_menu_slug,
 								'id'     => 'my-account-' . $profile_menu_slug . '-my-bookmarks',
-								'title'  => __( 'My Bookmarks', 'bp-job-manager' ),
+								'title'  => esc_html__( 'My Bookmarks', 'bp-job-manager' ),
 								'href'   => trailingslashit( $bookmarked_jobs_url ),
 							)
 						);
@@ -267,7 +248,7 @@ class Bp_Job_Manager_Admin {
 							array(
 								'parent' => 'my-account-' . $profile_menu_slug,
 								'id'     => 'my-account-' . $profile_menu_slug . '-job-alerts',
-								'title'  => __( 'Job Alerts', 'bp-job-manager' ),
+								'title'  => esc_html__( 'Job Alerts', 'bp-job-manager' ),
 								'href'   => trailingslashit( $job_alerts_url ),
 							)
 						);
@@ -278,7 +259,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
 							'id'     => 'my-account-' . $profile_menu_slug . '-post-job',
-							'title'  => __( 'Post a New Job', 'bp-job-manager' ),
+							'title'  => esc_html__( 'Post a New Job', 'bp-job-manager' ),
 							'href'   => trailingslashit( $post_job_url ),
 						)
 					);
@@ -290,7 +271,7 @@ class Bp_Job_Manager_Admin {
 				$match_apply_job_roles = array_intersect( $bp_job_manager->apply_job_user_roles, $curr_user->roles );
 				if ( ! empty( $match_apply_job_roles ) ) {
 					$profile_menu_slug  = 'resumes';
-					$profile_menu_title = __( 'Resumes', 'bp-job-manager' );
+					$profile_menu_title = esc_html__( 'Resumes', 'bp-job-manager' );
 
 					// Count resumes.
 					$args             = array(
@@ -312,7 +293,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-buddypress',
 							'id'     => 'my-account-' . $profile_menu_slug,
-							'title'  => esc_html( $profile_menu_title, 'bp-job-manager' ) . ' <span class="count">' . esc_html( $my_resumes_count ) . '</span>',
+							'title'  => esc_html( $profile_menu_title ) . ' <span class="count">' . esc_html( $my_resumes_count ) . '</span>',
 							'href'   => trailingslashit( $my_resumes_url ),
 						)
 					);
@@ -322,7 +303,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
 							'id'     => 'my-account-' . $profile_menu_slug . '-my-resumes',
-							'title'  => __( 'My Resumes', 'bp-job-manager' ),
+							'title'  => esc_html__( 'My Resumes', 'bp-job-manager' ),
 							'href'   => trailingslashit( $my_resumes_url ),
 						)
 					);
@@ -332,7 +313,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
 							'id'     => 'my-account-' . $profile_menu_slug . '-applied-jobs',
-							'title'  => __( 'Applied Jobs', 'bp-job-manager' ),
+							'title'  => esc_html__( 'Applied Jobs', 'bp-job-manager' ),
 							'href'   => trailingslashit( $applied_jobs_url ),
 						)
 					);
@@ -342,7 +323,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
 							'id'     => 'my-account-' . $profile_menu_slug . '-add-resume',
-							'title'  => __( 'Add Resume', 'bp-job-manager' ),
+							'title'  => esc_html__( 'Add Resume', 'bp-job-manager' ),
 							'href'   => trailingslashit( $add_resume_url ),
 						)
 					);

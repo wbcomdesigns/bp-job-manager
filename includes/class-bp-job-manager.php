@@ -111,6 +111,7 @@ class Bp_Job_Manager {
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-admin-settings.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-bp-job-manager-admin.php';
 
 		/**
@@ -166,7 +167,6 @@ class Bp_Job_Manager {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'bpjm_add_options_page' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'bpjm_general_settings' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'bpjm_support' );
 		$this->loader->add_action( 'bp_setup_admin_bar', $plugin_admin, 'bpjm_setup_admin_bar_links', 70 );
 
 	}
