@@ -1,0 +1,962 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: BuddyPress Job Manager\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-06 20:28:02+00:00\n"
+"PO-Revision-Date: 2019-01-07 02:24+0530\n"
+"Last-Translator: Varun Dubey <varun@wbcomdesigns.com>\n"
+"Language-Team: jean-pierre michaud <translation@wpenhancer.agency>\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: bp-job-manager.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: admin/class-bp-job-manager-admin.php:98
+msgid "WB Plugins"
+msgstr "Plugins WB"
+
+#: admin/class-bp-job-manager-admin.php:99
+#: admin/class-bp-job-manager-admin.php:157
+msgid "General"
+msgstr "Général"
+
+#: admin/class-bp-job-manager-admin.php:101
+msgid "BP Job Manager"
+msgstr "BP Job Manager"
+
+#: admin/class-bp-job-manager-admin.php:118
+msgid "BuddyPress Job Manager Settings"
+msgstr "BuddyPress Job Manager Settings"
+
+#: admin/class-bp-job-manager-admin.php:194
+msgid "Jobs"
+msgstr "Emplois"
+
+#: admin/class-bp-job-manager-admin.php:224
+#: public/class-bp-job-manager-public.php:148
+#: public/class-bp-job-manager-public.php:261
+msgid "My Jobs"
+msgstr "Mes emplois"
+
+#: admin/class-bp-job-manager-admin.php:237
+#: public/class-bp-job-manager-public.php:163
+#: public/class-bp-job-manager-public.php:296
+msgid "My Bookmarks"
+msgstr "Mes Favoris"
+
+#: admin/class-bp-job-manager-admin.php:251
+#: public/class-bp-job-manager-public.php:178
+#: public/class-bp-job-manager-public.php:331
+msgid "Job Alerts"
+msgstr "Alertes emploi"
+
+#: admin/class-bp-job-manager-admin.php:262
+#: public/class-bp-job-manager-public.php:191
+#: public/class-bp-job-manager-public.php:226
+msgid "Post a New Job"
+msgstr "Publier une nouvelle mission"
+
+#: admin/class-bp-job-manager-admin.php:274
+msgid "Resumes"
+msgstr "CVs"
+
+#: admin/class-bp-job-manager-admin.php:306
+#: public/class-bp-job-manager-public.php:513
+#: public/class-bp-job-manager-public.php:609
+msgid "My Resumes"
+msgstr "Mes CVs"
+
+#: admin/class-bp-job-manager-admin.php:316
+#: public/class-bp-job-manager-public.php:527
+#: public/class-bp-job-manager-public.php:644
+msgid "Applied Jobs"
+msgstr "Offres postulées"
+
+#: admin/class-bp-job-manager-admin.php:326
+#: public/class-bp-job-manager-public.php:539
+#: public/class-bp-job-manager-public.php:574
+msgid "Add Resume"
+msgstr "Ajouter un CV"
+
+#: admin/includes/bp-job-manager-general-settings.php:31
+msgid "Post Job Roles"
+msgstr "Rôles du type de poste"
+
+#: admin/includes/bp-job-manager-general-settings.php:40
+msgid "Select the user roles that are allowed to post jobs on your site."
+msgstr ""
+"Sélectionnez les rôles d'utilisateur autorisés à publier des travaux sur "
+"votre site."
+
+#: admin/includes/bp-job-manager-general-settings.php:46
+msgid "Apply Job Roles"
+msgstr "Appliquer des rôles de travail"
+
+#: admin/includes/bp-job-manager-general-settings.php:55
+msgid ""
+"Select the user roles that are allowed to apply for the jobs on your site."
+msgstr ""
+"Sélectionnez les rôles d'utilisateur autorisés à postuler pour les travaux "
+"sur votre site."
+
+#: admin/includes/bp-job-manager-general-settings.php:60
+msgid "Display resume at BuddyPress Profile"
+msgstr "Affichage CVs sur le profil BuddyPress"
+
+#: admin/includes/bp-job-manager-general-settings.php:63
+msgid ""
+"Check this option if you want to list the last updated resume at BuddyPress "
+"profile."
+msgstr ""
+"Cochez cette option si vous souhaitez lister le dernier curriculum vitae mis "
+"à jour sur le profil BuddyPress."
+
+#: admin/includes/bp-job-manager-general-settings.php:70
+msgid "Save Changes"
+msgstr "Enregistrer les modifications"
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:8
+msgid "Free Addons"
+msgstr "Addons gratuits"
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:14
+msgid "Install"
+msgstr "Installer"
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:18
+#: admin/wbcom/wbcom-admin-settings.php:488
+msgid "Activate"
+msgstr "Activer"
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:22
+#: admin/wbcom/wbcom-admin-settings.php:489
+msgid "Deactivate"
+msgstr "Désactiver"
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:50
+msgid "Paid Addons"
+msgstr "Addons payants"
+
+#: admin/wbcom/templates/wbcom-plugins-page.php:67
+msgid "View"
+msgstr "Voir"
+
+#: admin/wbcom/templates/wbcom-support-page.php:3
+#: admin/wbcom/wbcom-admin-settings.php:525
+#: admin/wbcom/wbcom-admin-settings.php:610 bp-job-manager.php:145
+msgid "Support"
+msgstr "Support"
+
+#: admin/wbcom/templates/wbcom-support-page.php:5
+msgid "Having any question or issue ?"
+msgstr "Vous avez une question ou un problème?"
+
+#: admin/wbcom/templates/wbcom-support-page.php:7
+msgid ""
+"Our team is here to help you out at anytime. If you have any idea about how "
+"we could improve. You can share access to your site on our helpdesk if it "
+"can help getting faster. There are two ways to in touch with us :"
+msgstr ""
+"Notre équipe est là pour vous aider à tout moment. Si vous avez une idée sur "
+"la façon dont nous pourrions améliorer. Vous pouvez partager l'accès à votre "
+"site sur notre helpdesk si cela peut vous aider à obtenir plus rapidement. "
+"Il y a deux façons de nous contacter:"
+
+#: admin/wbcom/templates/wbcom-support-page.php:19
+msgid "Tickets Support"
+msgstr "Support des tickets"
+
+#: admin/wbcom/templates/wbcom-support-page.php:20
+msgid ""
+"Open a ticket on our helpdesk, we don't guarantee a fast response but within "
+"a week. Except if you've purchased one of our product we'll reply within 24 "
+"hours."
+msgstr ""
+"Ouvrez un ticket sur notre helpdesk, nous ne garantissons pas une réponse "
+"rapide, mais dans une semaine. Sauf si vous avez acheté l'un de nos "
+"produits, nous vous répondrons dans les 24 heures."
+
+#: admin/wbcom/templates/wbcom-support-page.php:24
+msgid "Open a ticket"
+msgstr "Créer un Billet"
+
+#: admin/wbcom/templates/wbcom-support-page.php:39
+#: admin/wbcom/templates/wbcom-support-page.php:44
+msgid "Contact Us"
+msgstr "Contactez-nous"
+
+#: admin/wbcom/templates/wbcom-support-page.php:40
+msgid ""
+"Create a new thread on our plugin page, participation is open to anyone from "
+"all around the world. We'll be there to help as well but can't guarantee any "
+"delay."
+msgstr ""
+"Créer un nouveau fil sur notre page de plugin, la participation est ouverte "
+"à toute personne de partout dans le monde. Nous serons là pour vous aider "
+"ainsi mais ne pouvons pas garantir n'importe quel retard."
+
+#: admin/wbcom/templates/wbcom-themes-page.php:4
+msgid "Reign BuddyPress"
+msgstr "Règne BuddyPress"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:12
+msgid "REIGN Community"
+msgstr "Communauté REIGN"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:14
+msgid "Multiple Member Directory Layout"
+msgstr "Présentation de plusieurs répertoires de membres"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:15
+msgid "Multiple Member Header Layout"
+msgstr "Disposition d'en-tête de membre multiple"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:16
+msgid "Multiple Group Directory Layout"
+msgstr "Mise en page d'annuaire de groupes multiples"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:17
+msgid "Multiple Group Header Layout"
+msgstr "Disposition d'en-tête de groupe multiple"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:18
+msgid "BuddyPress Customization Options"
+msgstr "Options de personnalisation BuddyPress"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:19
+msgid "BuddyPress Extra Widgets"
+msgstr "BuddyPress widgets supplémentaires"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:20
+msgid "Inbuilt Social Profile Module"
+msgstr "Module de profil social intégré"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:23
+#: admin/wbcom/templates/wbcom-themes-page.php:49
+#: admin/wbcom/templates/wbcom-themes-page.php:73
+#: admin/wbcom/templates/wbcom-themes-page.php:96
+msgid "Purchase"
+msgstr "Acheter"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:24
+#: admin/wbcom/templates/wbcom-themes-page.php:50
+#: admin/wbcom/templates/wbcom-themes-page.php:74
+#: admin/wbcom/templates/wbcom-themes-page.php:97
+msgid "Preview"
+msgstr "Aperçu"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:30
+msgid "LearnMate"
+msgstr "LearnMate"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:38
+msgid "Learnmate"
+msgstr "Learnmate"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:40
+msgid "Add Review to your course"
+msgstr "Ajouter un avis à votre cours"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:41
+msgid "Course Coming Soon"
+msgstr "Cours prochainement"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:42
+#: admin/wbcom/templates/wbcom-themes-page.php:69
+msgid "Grid And List Layout"
+msgstr "Grille et mise en page de liste"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:43
+msgid "Learndash/LifterLMS Extra Widgets"
+msgstr "Learndash/LifterLMS extra widgets"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:44
+msgid "Unparalleled Course Layout"
+msgstr "Agencement de cours inégalé"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:45
+msgid "Awesome Learndash/LifterLMS Pages"
+msgstr "Awesome Learndash/LifterLMS pages"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:46
+msgid "Distraction Free Reading"
+msgstr "Lecture sans distraction"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:56
+msgid "StoreMate"
+msgstr "StoreMate"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:64
+msgid "ShopMate Dokan"
+msgstr "Dokan StoreMate"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:66
+msgid "Dokan Extra Widgets"
+msgstr "Widgets extra Dokan"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:67
+msgid "Unique Single Product Page Customization"
+msgstr "Personnalisation unique des pages de produits uniques"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:68
+msgid "Awesome WooCommerce Pages"
+msgstr "Awesome pages WooCommerce"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:70
+msgid "Automated Mega Menu Support"
+msgstr "Support de méga menu automatisé"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:80
+msgid "Jobmate"
+msgstr "Jobmate"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:88
+msgid "Jobmate Theme"
+msgstr "Jobmate thème"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:90
+msgid "Simple live searching and filtering"
+msgstr "Simple recherche et filtrage en direct"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:91
+msgid "Unique Job listing Page"
+msgstr "Page de liste d'emplois unique"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:92
+msgid "Awesome Resume list Page"
+msgstr "Page de liste de résumé impressionnant"
+
+#: admin/wbcom/templates/wbcom-themes-page.php:93
+msgid "Outstanding all job maanger pagesLayout"
+msgstr "Remarquable tous les emplois gestionnaire pageslayout"
+
+#: admin/wbcom/wbcom-admin-settings.php:179
+msgid "Custom Font Uploader"
+msgstr "Uploader de polices personnalisé"
+
+#: admin/wbcom/wbcom-admin-settings.php:181
+msgid ""
+"It also allows you to upload your own custom font to your site and use them "
+"using custom css."
+msgstr ""
+"Il vous permet également de télécharger votre propre police personnalisée "
+"sur votre site et de les utiliser en utilisant CSS personnalisé."
+
+#: admin/wbcom/wbcom-admin-settings.php:187
+msgid "BuddyPress Activity Filter"
+msgstr "BuddyPress Filtrage des Activités"
+
+#: admin/wbcom/wbcom-admin-settings.php:189
+msgid ""
+"Admin can set default and customised activities to be listed on front-end."
+msgstr ""
+"Admin peut définir des activités par défaut et personnalisées à figurer sur "
+"le front-end."
+
+#: admin/wbcom/wbcom-admin-settings.php:195
+msgid "BuddyPress Activity Social Share"
+msgstr "Partage d'Activité Sociale"
+
+#: admin/wbcom/wbcom-admin-settings.php:197
+msgid ""
+"This plugin allows anyone easily share BuddyPress Activites on major social "
+"media (Facebook, Twitter, Google+, Linkedin )."
+msgstr ""
+"Ce plugin permet à n'importe qui de partager facilement les activités "
+"BuddyPress sur les principaux médias sociaux (Facebook, Twitter, Google +, "
+"LinkedIn)."
+
+#: admin/wbcom/wbcom-admin-settings.php:203
+msgid "BuddyPress Create Group Type"
+msgstr "BuddyPress créer un type de groupe"
+
+#: admin/wbcom/wbcom-admin-settings.php:205
+msgid "It will help to create group type for BuddyPress Groups."
+msgstr ""
+"Il aidera à créer le type de groupe pour les groupes de presse de BuddyPress."
+
+#: admin/wbcom/wbcom-admin-settings.php:211
+msgid "BuddyPress Member Reviews"
+msgstr "BuddyPress Évaluation des Membres"
+
+#: admin/wbcom/wbcom-admin-settings.php:213
+msgid ""
+"This plugin allows only site members to add reviews to the buddypress "
+"members on the site and even rate the member’s profile out of 5 points with "
+"multiple review criteria."
+msgstr ""
+"Ce plugin permet uniquement aux membres du site d'ajouter des commentaires "
+"aux membres BuddyPress sur le site et même de noter le profil du membre sur "
+"5 points avec plusieurs critères d'examen."
+
+#: admin/wbcom/wbcom-admin-settings.php:219
+msgid "BuddyPress Group Reviews"
+msgstr "BuddyPress Group comptes rendus"
+
+#: admin/wbcom/wbcom-admin-settings.php:221
+msgid ""
+"This plugin allows the BuddyPress Members to give reviews to the BuddyPress "
+"groups on the site. The review form allows the users to give text review, "
+"even rate the group on the basis of multiple criterias."
+msgstr ""
+"Ce plugin permet aux membres BuddyPress de donner des avis aux Groupes "
+"BuddyPress sur le site. Le formulaire d'évaluation permet aux utilisateurs "
+"de donner leur avis en évaluant le groupe basé sur des critères de "
+"classement et leur avis personnel."
+
+#: admin/wbcom/wbcom-admin-settings.php:227
+msgid "BuddyPress Favorite Notification"
+msgstr "BuddyPress Notification des Favoris"
+
+#: admin/wbcom/wbcom-admin-settings.php:229
+msgid ""
+"BuddyPress Favorite Notification adds a notification for BuddyPress activity."
+msgstr ""
+"BuddyPress favori notification ajoute une notification pour l'activité "
+"BuddyPress."
+
+#: admin/wbcom/wbcom-admin-settings.php:235
+msgid "Custom Email Options"
+msgstr "Options de messagerie personnalisées"
+
+#: admin/wbcom/wbcom-admin-settings.php:237
+msgid "Override default email options of Worpdress."
+msgstr "Substituez les options de messagerie par défaut de Worppress."
+
+#: admin/wbcom/wbcom-admin-settings.php:243
+msgid "BuddyPress Checkins"
+msgstr "BuddyPress checkins"
+
+#: admin/wbcom/wbcom-admin-settings.php:245
+msgid ""
+"This plugin allows BuddyPress members to share their location when they are "
+"posting activities, you can add places where you visited, nearby locations "
+"based on google places."
+msgstr ""
+"Ce plugin permet aux membres de BuddyPress de partager leur emplacement "
+"quand ils sont affichant des activités, vous pouvez ajouter des endroits où "
+"vous avez visité, emplacements à proximité basés sur des endroits de Google."
+
+#: admin/wbcom/wbcom-admin-settings.php:251 bp-job-manager.php:122
+msgid "BuddyPress Job Manager"
+msgstr "BuddyPress Job Manager"
+
+#: admin/wbcom/wbcom-admin-settings.php:253
+msgid ""
+"Incorporates BuddyPress with the WP Job Manager plugin by creating specific "
+"tabs in employer’s and candidate’s profiles."
+msgstr ""
+"Incorpore BuddyPress avec le plugin WP Job Manager en créant des onglets "
+"spécifiques dans les profils de l'employeur et du candidat."
+
+#: admin/wbcom/wbcom-admin-settings.php:259
+msgid "BuddyPress user ToDo List"
+msgstr "Liste des tâches utilisateur BuddyPress"
+
+#: admin/wbcom/wbcom-admin-settings.php:261
+msgid ""
+"This plugin allows you to create your personal task list with timestamp. You "
+"can mark them complete when you are done with them. It will also send "
+"reminder when you have any overdue task."
+msgstr ""
+"Ce plugin vous permet de créer votre liste de tâches personnelles avec "
+"timestamp. Vous pouvez les marquer complète lorsque vous en avez terminé "
+"avec eux. Il enverra également le rappel quand vous avez n'importe quelle "
+"tâche en retard."
+
+#: admin/wbcom/wbcom-admin-settings.php:267
+msgid "Shortcodes for BuddyPress"
+msgstr "Shortcodes pour BuddyPress"
+
+#: admin/wbcom/wbcom-admin-settings.php:269
+msgid ""
+"This plugin will add an extended feature to the big name “BuddyPress” that "
+"will generate Shortcode for Listing Activity Streams , Members and Groups on "
+"any post/page in website."
+msgstr ""
+"Ce plugin ajoutera une fonction étendue au grand nom «BuddyPress» qui "
+"générera shortcode pour énumérer des flux d'activité, des membres et des "
+"groupes sur n'importe quel poteau/page dans le site Web."
+
+#: admin/wbcom/wbcom-admin-settings.php:275
+msgid "Woo Open Graph"
+msgstr "Woo Open Graph"
+
+#: admin/wbcom/wbcom-admin-settings.php:277
+msgid ""
+"This plugin will add an extended feature to the big name “WooCommerce” that "
+"will adds well executed and accurate Open Graph Meta Tags to your site with "
+"title,description and WooCommerce featured image."
+msgstr ""
+"Ce plugin ajoutera une fonction étendue au grand nom \"WooCommerce\" qui "
+"ajoutera bien exécuté et précis les balises Meta de graphique ouvert à votre "
+"emplacement avec le titre, la description et l'image en vedette de "
+"WooCommerce."
+
+#: admin/wbcom/wbcom-admin-settings.php:283
+msgid "BuddyPress Lock"
+msgstr "Vérouillage BuddyPress"
+
+#: admin/wbcom/wbcom-admin-settings.php:285
+msgid ""
+"This plugin allows the administrator to lock the certain parts of their "
+"site. It help to create private BuddyPress community by locking certain "
+"BuddyPress Components, WordPress Pages, Custom Post Types for public view "
+"without using any membership plugin."
+msgstr ""
+"Ce plugin permet à l'administrateur de verrouiller les certaines parties de "
+"leur site. Il aider à créer la communauté BuddyPress privé en verrouillant "
+"certains composants BuddyPress, pages WordPress, types de post personnalisé "
+"pour la vue publique sans utiliser n'importe quel plugin d'adhésion."
+
+#: admin/wbcom/wbcom-admin-settings.php:291
+msgid "Woo Audio Preview"
+msgstr "Woo Extrait Audio"
+
+#: admin/wbcom/wbcom-admin-settings.php:293
+msgid ""
+"This plugin Allows playing the audio files in sample mode to prevent "
+"unauthorized downloading of the audio files. It helps to display sample "
+"files at single product page."
+msgstr ""
+"Ce plugin permet de lire les fichiers audio en mode échantillon pour "
+"empêcher le téléchargement non autorisé des fichiers audio. Il permet "
+"d'afficher des exemples de fichiers sur une seule page de produit."
+
+#: admin/wbcom/wbcom-admin-settings.php:299
+msgid "WordPress System Log"
+msgstr "Log système WordPress"
+
+#: admin/wbcom/wbcom-admin-settings.php:301
+msgid ""
+"This plugin helps administrators of the site see their environment on which "
+"the site is currently running that includes WordPress environment, tha "
+"database it requires, Server Environment and the plugins installed and "
+"activated on the site."
+msgstr ""
+"Ce plugin aide les administrateurs du site voir leur environnement sur "
+"lequel le site est en cours d'exécution qui comprend l'environnement "
+"WordPress, la base de données, il nécessite, Server Environment et les "
+"plugins installés et activés sur le site."
+
+#: admin/wbcom/wbcom-admin-settings.php:307
+msgid "BP Post From Anywhere"
+msgstr "Poteau de BP de n'importe où"
+
+#: admin/wbcom/wbcom-admin-settings.php:309
+msgid ""
+"This plugin will generate shortcode and widgets for post updates section for "
+"activities so you can post update from anywhere, it might be sidebar, some "
+"page or any template file."
+msgstr ""
+"Ce plugin va générer shortcode et widgets pour la section post mises à jour "
+"pour les activités de sorte que vous pouvez poster la mise à jour de "
+"n'importe où, il pourrait être encadré, une page ou un fichier de modèle."
+
+#: admin/wbcom/wbcom-admin-settings.php:315
+msgid "Woo Document Preview"
+msgstr "Woo Aperçu de Document"
+
+#: admin/wbcom/wbcom-admin-settings.php:317
+msgid ""
+"This will allow you to add document preview at single product page. Which "
+"helps to offer more better idea when you are selling ebooks, pdf or some "
+"documents."
+msgstr ""
+"Cela vous permettra d'ajouter l'aperçu de document sur une seule page de "
+"produit. Ce qui aide à offrir une meilleure idée lorsque vous vendez des "
+"ebooks, PDF ou certains documents."
+
+#: admin/wbcom/wbcom-admin-settings.php:323
+msgid "WordPress Media Category"
+msgstr "Catégories de Médias Wordpress"
+
+#: admin/wbcom/wbcom-admin-settings.php:325
+#: admin/wbcom/wbcom-admin-settings.php:341
+msgid ""
+"This plugin helps administrators of the site categorize their wordpress "
+"media."
+msgstr ""
+"Ce plugin aide les administrateurs du site catégoriser leurs médias "
+"WordPress."
+
+#: admin/wbcom/wbcom-admin-settings.php:331
+msgid "Woo Price Quotes"
+msgstr "Woo prix citations"
+
+#: admin/wbcom/wbcom-admin-settings.php:333
+msgid ""
+"This plugin helps in quoting the products that admin wishes to hide its "
+"purchasing details."
+msgstr ""
+"Ce plugin aide à citer les produits qui admin souhaite cacher ses détails "
+"d'achat."
+
+#: admin/wbcom/wbcom-admin-settings.php:339
+msgid "EDD Service Extended"
+msgstr "Service EDD étendu"
+
+#: admin/wbcom/wbcom-admin-settings.php:347
+msgid "WB Ads Rotator with Split Test"
+msgstr "WB ADS Rotator avec Split test"
+
+#: admin/wbcom/wbcom-admin-settings.php:349
+msgid ""
+"This plugin is designed for the SPLIT TESTING, you can check performance of "
+"your ads layout and on the basis of them you can select one of them for your "
+"regular use."
+msgstr ""
+"Ce plugin est conçu pour le SPLIT TESTING, vous pouvez vérifier les "
+"performances de votre mise en page des annonces et sur la base d'entre eux, "
+"vous pouvez sélectionner l'un d'eux pour votre utilisation régulière."
+
+#: admin/wbcom/wbcom-admin-settings.php:367
+msgid "BuddyPress Moderation Pro"
+msgstr "BuddyPress Moderation Pro"
+
+#: admin/wbcom/wbcom-admin-settings.php:368
+msgid ""
+"BuddyPress Community Moderation offers a solution for site owners to keep "
+"their communities straight. With community policing strategy, members of the "
+"community have an option for moderation sitewide by attaching flags to "
+"content created within the various components."
+msgstr ""
+"La modération communautaire de BuddyPress offre une solution pour que les "
+"propriétaires de sites gardent leurs communautés droites. Avec la stratégie "
+"de police communautaire, les membres de la communauté ont une option pour la "
+"modération du SiteWide en attachant des drapeaux au contenu créé au sein des "
+"différents composants."
+
+#: admin/wbcom/wbcom-admin-settings.php:373
+msgid "BuddyPress Polls"
+msgstr "Sondages BuddyPress"
+
+#: admin/wbcom/wbcom-admin-settings.php:374
+msgid ""
+"Use BuddyPress Polls plugin to create polls inside the activity, let your "
+"user response to your polls. Members can create pools like activities, "
+"easily votes on them."
+msgstr ""
+"Utilisez BuddyPress sondages plugin pour créer des sondages à l'intérieur de "
+"l'activité, laissez votre réponse de l'utilisateur à vos sondages. Les "
+"membres peuvent créer des pools comme des activités, voter facilement sur "
+"eux."
+
+#: admin/wbcom/wbcom-admin-settings.php:379
+msgid "BuddyPress Resume Manager"
+msgstr "BuddyPress gestionnaire de CV"
+
+#: admin/wbcom/wbcom-admin-settings.php:380
+msgid ""
+"BuddyPress Resume Manager adds a separate BuddyPress Resume menu at a user’s "
+"BuddyPress Profile Page to display individual member resume. We have added "
+"predefined fields for the resumes and site admin and enable and disable them."
+msgstr ""
+"BuddyPress Resume Manager ajoute un menu de résumé BuddyPress distinct sur "
+"la page profil de BuddyPress de l'utilisateur pour afficher le curriculum "
+"vitae de chaque membre. Nous avons ajouté des champs prédéfinis pour les "
+"curriculum vitae et admin du site et les activer et les désactiver."
+
+#: admin/wbcom/wbcom-admin-settings.php:385
+msgid "BuddyPress Profanity"
+msgstr "BuddyPress Filtre de Grossièreté"
+
+#: admin/wbcom/wbcom-admin-settings.php:386
+msgid ""
+"Use BuddyPress Profanity plugin to censor content in your community! Easily "
+"Censor all the unwanted words in activities, private messages contents by "
+"specifying a list of keywords to be filtered."
+msgstr ""
+"Utilisez BuddyPress Profanity plugin pour censurer le contenu de votre "
+"communauté! Censurer facilement tous les mots indésirables dans les "
+"activités, le contenu des messages privés en spécifiant une liste de mots "
+"clés à filtrer."
+
+#: admin/wbcom/wbcom-admin-settings.php:391
+msgid "BuddyPress Private Community Pro"
+msgstr "BuddyPress Communauté Privée Pro"
+
+#: admin/wbcom/wbcom-admin-settings.php:392
+msgid ""
+"This plugin offers a lockdown for BuddyPress Component and will ask users to "
+"log in go further to check profile or any other protected details."
+msgstr ""
+"Ce plugin offre un verrouillage pour le composant BuddyPress et demandera "
+"aux utilisateurs de se connecter aller plus loin pour vérifier le profil ou "
+"tout autre détail protégé."
+
+#: admin/wbcom/wbcom-admin-settings.php:397
+msgid "BuddyPress Profile Pro"
+msgstr "Profil BuddyPress Pro"
+
+#: admin/wbcom/wbcom-admin-settings.php:398
+msgid ""
+"This plugin gives you the power to extend BuddyPress Profiles with repeater "
+"fields and groups. You can easily add multiple field groups and display them "
+"at member’s profile."
+msgstr ""
+"Ce plugin vous donne le pouvoir d'étendre les profils BuddyPress avec des "
+"champs répétiteurs et des groupes. Vous pouvez facilement ajouter plusieurs "
+"groupes de champs et les afficher au profil du membre."
+
+#: admin/wbcom/wbcom-admin-settings.php:519
+#: admin/wbcom/wbcom-admin-settings.php:598
+msgid "Components"
+msgstr "Composants"
+
+#: admin/wbcom/wbcom-admin-settings.php:522
+#: admin/wbcom/wbcom-admin-settings.php:604
+msgid "Themes"
+msgstr "Thèmes"
+
+#: admin/wbcom/wbcom-admin-settings.php:592 bp-job-manager.php:144
+msgid "Settings"
+msgstr "Paramètres"
+
+#: bp-job-manager.php:123
+msgid "BuddyPress"
+msgstr "BuddyPress"
+
+#: bp-job-manager.php:124
+msgid "WP Job Manager"
+msgstr "WP Job Manager"
+
+#: bp-job-manager.php:125
+msgid "WP Job Manager - Applications"
+msgstr "WP Job Manager - Candidatures"
+
+#: bp-job-manager.php:126
+msgid "WP Job Manager - Resume Manager"
+msgstr "WP Job Manager - CV Manager"
+
+#: bp-job-manager.php:128
+msgid ""
+"%1$s is ineffective now as it requires %2$s, %3$s, %4$s and %5$s to be "
+"installed and active."
+msgstr ""
+"%1$s est inefficace maintenant car il nécessite que%2$s,%3$s,%4$s et%5$s "
+"soient installés et actifs."
+
+#: public/class-bp-job-manager-public.php:138
+msgid "Jobs <span>%d</span>"
+msgstr "Emplois<span>%d</span>"
+
+#: public/class-bp-job-manager-public.php:421
+msgid "Actions"
+msgstr "Actions"
+
+#: public/class-bp-job-manager-public.php:442
+msgid "Apply"
+msgstr "Appliquer"
+
+#: public/class-bp-job-manager-public.php:502
+msgid "Resumes <span>%d</span>"
+msgstr "CVs <span>% d</span>"
+
+#: public/class-bp-job-manager-public.php:761
+msgid "BuddyPress Resumes"
+msgstr "Résumés sur Buddypress"
+
+#: public/class-bp-job-manager-public.php:762
+msgid "Available Resumes"
+msgstr "CV Disponibles"
+
+#: public/class-bp-job-manager-public.php:767
+msgid "Select resume to display at profile"
+msgstr "Sélectionnez le CV à afficher sur le profil"
+
+#: public/class-bp-job-manager-public.php:777
+msgid "Display e-mail field"
+msgstr "Afficher le champ mail"
+
+#: public/class-bp-job-manager-public.php:783
+msgid "Display professional title"
+msgstr "Afficher le titre professionnel"
+
+#: public/class-bp-job-manager-public.php:789
+msgid "Display location"
+msgstr "Afficher l’emplacement"
+
+#: public/class-bp-job-manager-public.php:795
+msgid "Display video link"
+msgstr "Afficher la vidéo"
+
+#: public/class-bp-job-manager-public.php:801
+msgid "Display resume contents(description)"
+msgstr "Afficher le contenu du CV (description)"
+
+#: public/class-bp-job-manager-public.php:807
+msgid "Display URL(s)"
+msgstr "Afficher URL(s)"
+
+#: public/class-bp-job-manager-public.php:813
+msgid "Display education"
+msgstr "Parcours d’école"
+
+#: public/class-bp-job-manager-public.php:819
+msgid "Display experience"
+msgstr "Afficher la section « expérience »"
+
+#: public/class-bp-job-manager-public.php:899
+msgid "Private Message"
+msgstr "Message privé"
+
+#: public/templates/bpjm-job-application.php:39
+msgid "No content available."
+msgstr "Aucun contenu disponible."
+
+#: public/templates/bpjm-my-applied-jobs.php:29
+msgid "Your applied jobs are shown in the table below."
+msgstr ""
+"Les postulations déjà effectués sont indiqués dans le tableau ci-dessous."
+
+#: public/templates/bpjm-my-applied-jobs.php:33
+msgid "Applied For"
+msgstr "Postulé pour"
+
+#: public/templates/bpjm-my-applied-jobs.php:34
+msgid "Applied Date"
+msgstr "Date de candidature"
+
+#: public/templates/bpjm-my-applied-jobs.php:35
+msgid "Attachment"
+msgstr "Pièce jointe"
+
+#: public/templates/bpjm-my-applied-jobs.php:40
+msgid "You have not applied to any jobs yet."
+msgstr "Vous n'avez pas encore postulé à un emploi."
+
+#: public/templates/bpjm-my-applied-jobs.php:63
+msgid "File"
+msgstr "Fichier"
+
+#: public/templates/bpjm-my-applied-jobs.php:65
+msgid "No Attachment"
+msgstr "Aucune pièce-jointe"
+
+#: public/templates/profile-content-single-resume.php:21
+msgid "E-mail"
+msgstr "E-mail"
+
+#: public/templates/profile-content-single-resume.php:28
+msgid "Professional Title"
+msgstr "Titre Professionnel"
+
+#: public/templates/profile-content-single-resume.php:36
+msgid "Location"
+msgstr "Lieu"
+
+#: public/templates/profile-content-single-resume.php:44
+msgid "Video"
+msgstr "Vidéo"
+
+#: public/templates/profile-content-single-resume.php:52
+msgid "Description"
+msgstr "Description"
+
+#: public/templates/profile-content-single-resume.php:68
+msgid "URL(s)"
+msgstr "Lien(s)"
+
+#: public/templates/profile-content-single-resume.php:90
+msgid "School Name"
+msgstr "Nom de l'école"
+
+#: public/templates/profile-content-single-resume.php:94
+msgid "Qualification"
+msgstr "Qualification"
+
+#: public/templates/profile-content-single-resume.php:98
+#: public/templates/profile-content-single-resume.php:136
+msgid "Date"
+msgstr "Date"
+
+#: public/templates/profile-content-single-resume.php:102
+#: public/templates/profile-content-single-resume.php:140
+msgid "Notes"
+msgstr "Notes"
+
+#: public/templates/profile-content-single-resume.php:128
+msgid "Employer"
+msgstr "Employeur"
+
+#: public/templates/profile-content-single-resume.php:132
+msgid "Job Title"
+msgstr "Titre du poste"
+
+#~ msgid "User Manual"
+#~ msgstr "Manuel d’Instructions"
+
+#~ msgid "Rate Us on WordPress.org"
+#~ msgstr "Évaluez-nous sur WordPress.org"
+
+#~ msgid "General Settings"
+#~ msgstr "Paramètres généraux"
+
+#~ msgid "How many additional plugins we will need?"
+#~ msgstr "Combien de plugins supplémentaires, nous aurons besoin ?"
+
+#~ msgid ""
+#~ "Since this plugin deals with jobs, in buddypress user profiles, so to "
+#~ "have the plugin fully functional, you must have the following plugins:"
+#~ msgstr ""
+#~ "Puisque ce plugin s'occupe des jobs, dans les profils utilisateur de "
+#~ "buddypress, pour que le plugin soit complètement fonctionnel, vous devez "
+#~ "avoir les plugins suivants:"
+
+#~ msgid "Free Available"
+#~ msgstr "Disponible gratuitement"
+
+#~ msgid "Paid Addon - Optional for this plugin"
+#~ msgstr "Addon payant - facultatif pour ce plugin"
+
+#~ msgid "How does this plugin work?"
+#~ msgstr "Comment fonctionne ce plugin ?"
+
+#~ msgid ""
+#~ "This plugin integrates the WordPress Job Manager plugin with BuddyPress. "
+#~ "The site members can post the jobs from their profiles and other members "
+#~ "can apply to the same jobs."
+#~ msgstr ""
+#~ "Ce plugin intègre le plugin WordPress Job Manager avec BuddyPress. Permet "
+#~ "aux membres de poster des emplois, et d'autres à postuler pour ces "
+#~ "emplois affichés."
+
+#~ msgid "I need some help?"
+#~ msgstr "J'ai besoin d'aide?"
+
+#~ msgid "If you need additional help you can contact us for"
+#~ msgstr ""
+#~ "Si vous avez besoin d'aide supplémentaire, vous pouvez nous contacter pour"
+
+#~ msgid "Custom Development by Wbcom Designs"
+#~ msgstr "Développement personnalisé par Wbcom Designs"
+
+#~ msgid "Custom Development"
+#~ msgstr "Développement sur mesure"
+
+#~ msgid "https://wbcomdesigns.com/"
+#~ msgstr "https://wbcomdesigns.com/"
+
+#~ msgid ""
+#~ "This plugin integrates the WordPress Job Manager plugin with BuddyPress. "
+#~ "Allows the members to post jobs, and others to apply for those posted "
+#~ "jobs."
+#~ msgstr ""
+#~ "Ce plugin intègre le plugin WordPress Job Manager avec BuddyPress. Permet "
+#~ "aux membres de poster des emplois, et d'autres à postuler pour ces "
+#~ "emplois affichés."
+
+#~ msgid "Wbcom Designs"
+#~ msgstr "Wbcom Designs"
