@@ -4,3 +4,4 @@ node_modules/
 error_log
 
 # *.json
+*.json
