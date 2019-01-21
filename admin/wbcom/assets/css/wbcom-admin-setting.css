@@ -521,18 +521,20 @@
     margin-right: 5px;
 }
 
-@media screen and (max-width: 767px) {
-    .reign-demos-inner-wrapper,
-    .wbcom_boxes_list {
-        display: block;
-    }
-
+@media screen and (max-width: 1100px) {
     .wbcom-req-plugin-card,
     .wbcom_single_box {
         -webkit-box-flex: 0;
         -ms-flex: 0 0 100%;
         flex: 0 0 100%;
         max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .reign-demos-inner-wrapper,
+    .wbcom_boxes_list {
+        display: block;
     }
 }
 /* Components/Support style : End */
@@ -543,11 +545,206 @@
 }
 /* Support style : End */
 
-/* Media Queries : Start */
+/* License style : Start */
+.wb-plugins-license-tables-wrap {
+    -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.1);
+    -moz-box-shadow: 0 2px 10px rgba(0,0,0,.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,.1);
+}
 
+.wb-license-form-table {
+    margin: 0;
+    border: 1px solid #ddd;
+    border-bottom: 0;
+}
+
+.wb-license-form-table thead,
+.wb-license-form-table tfoot {
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+.wb-license-form-table tr td:first-child {
+    padding-left: 20px;
+}
+
+.wb-license-form-table tr td:last-child {
+    padding-right: 20px;
+    text-align: right;
+}
+
+.wb-license-form-table thead th,
+.wb-license-form-table tfoot th {
+    padding: 20px 10px;
+}
+
+.wb-license-form-table thead th:first-child,
+.wb-license-form-table tfoot th:first-child {
+    padding-left: 20px;
+}
+
+.wb-license-form-table td.wb-plugin-name,
+.wb-license-form-table th.wb-product-th {
+    width: 20%;
+}
+
+.wb-license-form-table td.wb-plugin-version,
+.wb-license-form-table th.wb-version-th {
+    width: 10%;
+}
+
+.wb-license-form-table td.wb-plugin-license-key,
+.wb-license-form-table th.wb-key-th {
+    width: 30%;
+}
+
+.wb-license-form-table td.wb-license-status,
+.wb-license-form-table th.wb-status-th {
+    width: 10%;
+}
+
+.wb-license-form-table td.wb-license-action,
+.wb-license-form-table th.wb-action-th {
+    width: 15%;
+}
+
+.wb-license-form-table td.wb-plugin-license-key input {
+    width: 100%;
+}
+
+.wb-license-form-table .submit {
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+
+.wb-license-form-table td.wb-plugin-name {
+    font-weight: 600;
+}
+
+.wb-license-form-table td.wb-plugin-version {
+    color: #54ef17;
+    font-weight: 500;
+}
+
+.wb-license-form-table td.wb-license-status {
+    color: #FF0000;
+}
+
+.wb-license-form-table td.wb-license-status.active {
+    color: #54ef17;
+}
+
+.wb-license-form-table .button {
+    font-size: 14px;
+    text-shadow: none;
+    font-weight: 600;
+    border: 0;
+    box-shadow: none;
+}
+
+.wb-license-form-table .wb-license-action .button-secondary {
+    width: 100%;
+    font-size: 14px;
+    text-shadow: none;
+    font-weight: 600;
+    box-shadow: none;
+}
+
+.mobile-license-headings {
+    display: none;
+}
+/* License style : End */
+
+/* Media Queries : Start */
 @media screen and (max-width: 1199px) {
     .wbcom-demo-title ul li {
         width: 100%;
+    }
+}
+
+/* License style */
+@media (max-width: 782px) {
+    .wb-license-form-table > tbody > tr:nth-of-type(odd),
+    .wb-license-form-table > tbody > tr:nth-of-type(odd){
+        background-color: transparent;
+    }
+
+    /* Force table to not be like tables anymore */
+    .wb-license-form-table table,
+    .wb-license-form-table thead,
+    .wb-license-form-table tbody,
+    .wb-license-form-table th,
+    .wb-license-form-table td,
+    .wb-license-form-table tr {
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    .wb-license-form-table thead tr {
+        position: absolute;
+        /*        top: -9999px;
+                left: -9999px;*/
+    }
+
+    .wb-license-form-table td {
+        /* Behave  like a "row" */
+        border: none;
+        position: relative;
+        padding-left: 40% !important;
+        white-space: normal;
+        text-align:left;
+    }
+
+    .wb-license-form-table td:before {
+        position: absolute;
+        top: 8px;
+        left: 10px;
+        width: 28%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align:left;
+        font-weight: bold;
+    }
+
+    /*
+    Label the data
+    */
+    .wb-license-form-table td:before {
+        content: attr(data-title);
+    }
+
+    .wb-license-form-table tfoot {
+        display: none;
+    }
+
+    .wb-license-form-table td.wb-plugin-name, .wb-license-form-table th.wb-product-th,
+    .wb-license-form-table td.wb-plugin-version, .wb-license-form-table th.wb-version-th,
+    .wb-license-form-table td.wb-plugin-license-key, .wb-license-form-table th.wb-key-th,
+    .wb-license-form-table td.wb-license-status, .wb-license-form-table th.wb-status-th,
+    .wb-license-form-table td.wb-license-action, .wb-license-form-table th.wb-action-th {
+        width: auto;
+        padding: 15px 20px;
+    }
+
+    .wb-license-form-table thead th {
+        padding: 15px 20px;
+    }
+
+    .wb-license-form-table thead .wb-key-th {
+        padding-bottom: 40px;
+    }
+
+    .wb-license-form-table .wb-license-action .button-secondary {
+        max-width: 160px;
+    }
+
+    .wb-plugins-license-tables-wrap .mobile-license-headings {
+        display: block;
+    }
+
+    .desktop-license-headings {
+        display: none;
     }
 }
 
@@ -560,6 +757,11 @@
     #wb_admin_header #wb_admin_nav ul li.wb_admin_nav_item a {
         min-width: inherit;
         padding: 26px 15px;
+    }
+
+    .wbcom-tab-content .blpro-support-setting {
+        float: none;
+        width: 100%;
     }
 }
 
@@ -622,5 +824,4 @@
         margin: 15px 0;
     }
 }
-
 /* Media Queries : End */
