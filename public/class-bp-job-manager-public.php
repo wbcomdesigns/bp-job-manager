@@ -156,6 +156,23 @@ class Bp_Job_Manager_Public {
 				);
 				if ( get_current_user_id() == $displayed_uid ) {
 
+					// check if BuddyPress Job manager - Application manager is active.
+					$wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) );
+					if( $wpjm_applications_active == true ) {
+						//Applied Jobs
+						bp_core_new_subnav_item(
+							array(
+								'name'            => __( 'Applied Jobs', 'bp-job-manager' ),
+								'slug'            => 'applied-jobs',
+								'parent_url'      => $jobs_tab_link . 'applied-jobs',
+								'parent_slug'     => $parent_slug,
+								'screen_function' => array( $this, 'bpjm_applied_jobs_show_screen' ),
+								'position'        => 200,
+								'link'            => $jobs_tab_link . 'applied-jobs',
+							)
+						);
+					}
+					
 					$wpjm_bookmarks_active = $wpjm_active = in_array( 'wp-job-manager-bookmarks/wp-job-manager-bookmarks.php', get_option( 'active_plugins' ) );
 					if ( true === $wpjm_bookmarks_active ) {
 						bp_core_new_subnav_item(
@@ -521,18 +538,6 @@ class Bp_Job_Manager_Public {
 				);
 
 				if ( get_current_user_id() == $displayed_uid ) {
-					// Applied Jobs.
-					bp_core_new_subnav_item(
-						array(
-							'name'            => __( 'Applied Jobs', 'bp-job-manager' ),
-							'slug'            => 'applied-jobs',
-							'parent_url'      => $resumes_tab_link . 'applied-jobs',
-							'parent_slug'     => $parent_slug,
-							'screen_function' => array( $this, 'bpjm_applied_jobs_show_screen' ),
-							'position'        => 200,
-							'link'            => $resumes_tab_link . 'applied-jobs',
-						)
-					);
 					// Add Resume.
 					bp_core_new_subnav_item(
 						array(

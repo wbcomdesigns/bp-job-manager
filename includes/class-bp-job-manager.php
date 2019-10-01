@@ -183,7 +183,13 @@ class Bp_Job_Manager {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_jobs_tab' );
-		$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_resumes_tab' );
+		
+		/* Check if Resume Manager plugin active to add tab. */
+		$wpjm_resumes_active      = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
+		if( $wpjm_resumes_active ) {
+			$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_resumes_tab' );
+		}
+		
 		$this->loader->add_filter( 'page_template', $plugin_public, 'bpjm_job_application_page' );
 		$this->loader->add_filter( 'job_manager_get_dashboard_jobs_args', $plugin_public, 'bpjm_job_dashboard_user_id', 10, 1 );
 
