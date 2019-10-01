@@ -98,10 +98,9 @@ add_action( 'plugins_loaded', 'wpbpjm_plugin_init' );
 function wpbpjm_plugin_init() {
 	$wpjm_active              = in_array( 'wp-job-manager/wp-job-manager.php', get_option( 'active_plugins' ) );
 	$bp_active                = in_array( 'buddypress/bp-loader.php', get_option( 'active_plugins' ) );
-	$wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) );
-	$wpjm_resumes_active      = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
+	// $wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) );
+	// $wpjm_resumes_active      = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
 
-	// if ( current_user_can( 'activate_plugins' ) && ( true !== $wpjm_active || true !== $bp_active || true !== $wpjm_applications_active || true !== $wpjm_resumes_active ) ) {
 	if ( current_user_can( 'activate_plugins' ) && ( true !== $wpjm_active || true !== $bp_active ) ) {
 		add_action( 'admin_notices', 'bpjm_required_plugin_admin_notice' );
 	} else {
