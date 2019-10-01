@@ -758,6 +758,12 @@ class Bp_Job_Manager_Public {
 
 		if( !empty( $selected_post ) ) {
 			$fields_display = get_option( 'bpjm_display_fields' );
+			$display_resume = ( isset( $fields_display['display_resume'] ) )?$fields_display['display_resume']:'no';
+			if( $display_resume == 'yes' ){
+				$display_class = 'display-true';
+			}else{
+				$display_class = 'display-false';
+			}
 			if( $post && isset( $bp_job_manager->bpjm_resume_at_profile ) && $bp_job_manager->bpjm_resume_at_profile == 'yes' ){
 			?>
 			<table class="profile-settings">
@@ -769,6 +775,12 @@ class Bp_Job_Manager_Public {
 				</thead>
 				<tbody>
 					<tr class="field_name field_type_textbox">
+						<td class="field-name"><?php _e( 'Display resume at profile page', 'buddypress' ); ?></td>
+						<td class="field-visibility">
+							<input class="bpjm-display-resume-checkbox" type="checkbox" value="yes" name="bpjm_display[display_resume]" <?php if(!empty($fields_display['display_resume'])) checked($fields_display['display_resume'],'yes'); ?>>
+						</td>
+					</tr>
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
 						<td class="field-name"><?php _e( 'Select resume to display at profile', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<select name="bpjm_prof_resume_show_postid">
@@ -778,49 +790,49 @@ class Bp_Job_Manager_Public {
 							</select>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox">
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
 						<td class="field-name"><?php _e( 'Display e-mail field', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[email]" <?php if(!empty($fields_display['email'])) checked($fields_display['email'],'yes'); ?>>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox">
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
 						<td class="field-name"><?php _e( 'Display professional title', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[prof_title]" <?php if(!empty($fields_display['prof_title'])) checked($fields_display['prof_title'],'yes'); ?>>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox">
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
 						<td class="field-name"><?php _e( 'Display location', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[location]" <?php if(!empty($fields_display['location'])) checked($fields_display['location'],'yes'); ?>>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox">
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
 						<td class="field-name"><?php _e( 'Display video link', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[video]" <?php if(!empty($fields_display['video'])) checked($fields_display['video'],'yes'); ?>>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox">
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
 						<td class="field-name"><?php _e( 'Display resume contents(description)', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[description]" <?php if(!empty($fields_display['description'])) checked($fields_display['description'],'yes'); ?>>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox">
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
 						<td class="field-name"><?php _e( 'Display URL(s)', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[url]" <?php if(!empty($fields_display['url'])) checked($fields_display['url'],'yes'); ?>>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox">
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
 						<td class="field-name"><?php _e( 'Display education', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[education]" <?php if(!empty($fields_display['education'])) checked($fields_display['education'],'yes'); ?>>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox">
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
 						<td class="field-name"><?php _e( 'Display experience', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[experience]" <?php if(!empty($fields_display['experience'])) checked($fields_display['experience'],'yes'); ?>>

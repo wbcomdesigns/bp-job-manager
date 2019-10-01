@@ -9,5 +9,12 @@ jQuery( document ).ready(
 			}
 		);
 
+		$( document ).on(
+			'click', '.bpjm-display-resume-checkbox', function(){
+			$(".resume-fields-row").animate({
+				height: 'toggle'
+			});
+		});
+
 	}
 );

@@ -7,6 +7,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 function bpjm_show_resume_at_profile($post_id) {
 	global $post;
 	$fields_display = get_option( 'bpjm_display_fields' );
+
+	$display_resume = ( isset( $fields_display['display_resume'] ) )?$fields_display['display_resume']:'no';
+
+	if( $display_resume != 'yes' ) {
+		return;
+	}
+
 	$post = get_post( $post_id, OBJECT );
 	setup_postdata( $post );
 	if(isset($fields_display['email']) || isset($fields_display['prof_title']) || isset($fields_display['location']) || isset($fields_display['video']) || isset($fields_display['description'])){

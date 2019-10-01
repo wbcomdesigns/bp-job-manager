@@ -56,13 +56,17 @@ global $bp_job_manager, $wp_roles;
 							</td>
 						</tr>
 						<!-- ROLES ALLOWED FOR JOB APPLY -->
-						<tr>
-							<th scope="row"><label for="wpbpjm-resume-profile-view"><?php esc_attr_e( 'Display resume at BuddyPress Profile', 'bp-job-manager' ); ?></label></th>
-							<td>
-								<input type="checkbox" name="bpjm_general_settings[bpjm_resume_at_profile]" <?php if( isset($bp_job_manager->bpjm_resume_at_profile) ) { checked( $bp_job_manager->bpjm_resume_at_profile, 'yes'); } ?>>
-								<p class="description"><?php esc_attr_e( 'Check this option if you want to list the last updated resume at BuddyPress profile.', 'bp-job-manager' ); ?></p>
-							</td>
-						</tr>
+						<?php 
+							$wpjm_resumes_active      = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
+							if( $wpjm_resumes_active == true ) { ?>
+								<tr>
+									<th scope="row"><label for="wpbpjm-resume-profile-view"><?php esc_attr_e( 'Display resume at BuddyPress Profile', 'bp-job-manager' ); ?></label></th>
+									<td>
+										<input type="checkbox" name="bpjm_general_settings[bpjm_resume_at_profile]" <?php if( isset($bp_job_manager->bpjm_resume_at_profile) ) { checked( $bp_job_manager->bpjm_resume_at_profile, 'yes'); } ?>>
+										<p class="description"><?php esc_attr_e( 'Check this option if you want to list the last updated resume at BuddyPress profile.', 'bp-job-manager' ); ?></p>
+									</td>
+								</tr>
+							<?php } ?>
 					</tbody>
 				</table>
 				<p class="submit">
