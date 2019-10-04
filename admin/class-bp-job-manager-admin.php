@@ -331,4 +331,23 @@ class Bp_Job_Manager_Admin {
 			}
 		}
 	}
+
+	public function bpjm_publish_job_listing( $ID, $post ) {
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'bp_activity';
+		if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name) {
+			$check = $wpdb->get_results("SELECT * FROM $table_name WHERE item_id = $post->ID AND type IN ('bpjm_job_post')");
+			if( !$check ) {
+				$args['type'] = 'bpjm_job_post';
+				$job_permalink = '<a href="'.get_permalink($post->ID).'">'.$post->post_title.'</a>';
+				$args['action'] = sprintf(__('%s posted a new job %s', 'bp-job-manager'), bp_core_get_userlink($post->post_author), $job_permalink );
+				$args['component'] = 'activity';
+				$args['user_id'] = $post->post_author;
+				$args['item_id'] = $post->ID;
+				$args['content'] = $post->post_content;
+
+				bp_activity_add( $args );
+			}
+		}
+	}
 }

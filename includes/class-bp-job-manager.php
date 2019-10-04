@@ -168,7 +168,7 @@ class Bp_Job_Manager {
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'bpjm_add_options_page' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'bpjm_general_settings' );
 		$this->loader->add_action( 'bp_setup_admin_bar', $plugin_admin, 'bpjm_setup_admin_bar_links', 70 );
-
+		$this->loader->add_action( 'publish_job_listing', $plugin_admin, 'bpjm_publish_job_listing', 999, 2 );
 	}
 
 	/**
@@ -214,6 +214,14 @@ class Bp_Job_Manager {
 
 		/* Action to add private message link on candidate contact button */
 		$this->loader->add_action( 'resume_manager_contact_details', $plugin_public, 'bpjm_add_private_message_link' );
+
+		/* Register job post type activity*/
+		$this->loader->add_filter( 'bp_activity_check_activity_types', $plugin_public, 'bpjm_add_job_post_type_activity', 10, 1 );
+
+		/* Register job post type activity action */
+		//$this->loader->add_action( 'bp_register_activity_actions', $plugin_public, 'bpjm_register_job_post_activity_actions' );
+
+		//$this->loader->add_filter( 'bp_get_activity_action_pre_meta' , $plugin_public,'bpjm_activity_action_wall_posts', 9999, 2 );
 
 	}
 
