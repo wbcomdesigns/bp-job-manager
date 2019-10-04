@@ -59,7 +59,10 @@ global $bp_job_manager, $wp_roles;
 						<tr>
 							<th scope="row"><label for="wpbpjm-resume-profile-view"><?php esc_attr_e( 'BuddyPress activity on posting job', 'bp-job-manager' ); ?></label></th>
 							<td>
-								<input type="checkbox" name="bpjm_general_settings[bpjm_job_post_activity]" <?php if( isset($bp_job_manager->bpjm_job_post_activity) ) { checked( $bp_job_manager->bpjm_job_post_activity, 'yes'); } ?>>
+								<label class="blpro-switch">
+									<input type="checkbox" name="bpjm_general_settings[bpjm_job_post_activity]" <?php if( isset($bp_job_manager->bpjm_job_post_activity) ) { checked( $bp_job_manager->bpjm_job_post_activity, 'yes'); } ?>>
+									<div class="blpro-slider blpro-round"></div>
+								</label>
 								<p class="description"><?php esc_attr_e( 'Check this option if you want create buddypress activity on posting job.', 'bp-job-manager' ); ?></p>
 							</td>
 						</tr>
@@ -67,17 +70,23 @@ global $bp_job_manager, $wp_roles;
 							$wpjm_resumes_active      = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
 							if( $wpjm_resumes_active == true ) { ?>
 								<tr>
-									<th scope="row"><label for="wpbpjm-resume-profile-view"><?php esc_attr_e( 'Display resume at BuddyPress Profile', 'bp-job-manager' ); ?></label></th>
+									<th scope="row"><label for="wpbpjm-resume-profile-view"><?php esc_attr_e( 'BuddyPress activity on posting resume', 'bp-job-manager' ); ?></label></th>
 									<td>
-										<input type="checkbox" name="bpjm_general_settings[bpjm_resume_at_profile]" <?php if( isset($bp_job_manager->bpjm_resume_at_profile) ) { checked( $bp_job_manager->bpjm_resume_at_profile, 'yes'); } ?>>
-										<p class="description"><?php esc_attr_e( 'Check this option if you want to list the last updated resume at BuddyPress profile.', 'bp-job-manager' ); ?></p>
+										<label class="blpro-switch">
+											<input type="checkbox" name="bpjm_general_settings[bpjm_resume_activity]" <?php if( isset($bp_job_manager->bpjm_resume_activity) ) { checked( $bp_job_manager->bpjm_resume_activity, 'yes'); } ?>>
+											<div class="blpro-slider blpro-round"></div>
+										</label>
+										<p class="description"><?php esc_attr_e( 'Check this option if you want create buddypress activity on posting resume.', 'bp-job-manager' ); ?></p>
 									</td>
 								</tr>
 								<tr>
-									<th scope="row"><label for="wpbpjm-resume-profile-view"><?php esc_attr_e( 'BuddyPress activity on posting resume', 'bp-job-manager' ); ?></label></th>
+									<th scope="row"><label for="wpbpjm-resume-profile-view"><?php esc_attr_e( 'Display resume at BuddyPress Profile', 'bp-job-manager' ); ?></label></th>
 									<td>
-										<input type="checkbox" name="bpjm_general_settings[bpjm_resume_activity]" <?php if( isset($bp_job_manager->bpjm_resume_activity) ) { checked( $bp_job_manager->bpjm_resume_activity, 'yes'); } ?>>
-										<p class="description"><?php esc_attr_e( 'Check this option if you want create buddypress activity on posting resume.', 'bp-job-manager' ); ?></p>
+										<label class="blpro-switch">
+											<input type="checkbox" name="bpjm_general_settings[bpjm_resume_at_profile]" <?php if( isset($bp_job_manager->bpjm_resume_at_profile) ) { checked( $bp_job_manager->bpjm_resume_at_profile, 'yes'); } ?>>
+											<div class="blpro-slider blpro-round"></div>
+										</label>
+										<p class="description"><?php esc_attr_e( 'Check this option if you want to list the last updated resume at BuddyPress profile.', 'bp-job-manager' ); ?></p>
 									</td>
 								</tr>
 							<?php } ?>
