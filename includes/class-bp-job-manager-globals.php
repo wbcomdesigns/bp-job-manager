@@ -98,6 +98,18 @@ class Bp_Job_Manager_Globals {
 			} else {
 				$this->bpjm_resume_at_profile = 'no';
 			}
+
+			if( array_key_exists( 'bpjm_resume_activity', $settings ) ) {
+				$this->bpjm_resume_activity = 'yes';
+			} else {
+				$this->bpjm_resume_activity = 'no';
+			}
+
+			if( array_key_exists( 'bpjm_job_post_activity', $settings ) ) {
+				$this->bpjm_job_post_activity = 'yes';
+			} else {
+				$this->bpjm_job_post_activity = 'no';
+			}
 		}
 		
 

@@ -169,6 +169,7 @@ class Bp_Job_Manager {
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'bpjm_general_settings' );
 		$this->loader->add_action( 'bp_setup_admin_bar', $plugin_admin, 'bpjm_setup_admin_bar_links', 70 );
 		$this->loader->add_action( 'publish_job_listing', $plugin_admin, 'bpjm_publish_job_listing', 999, 2 );
+		$this->loader->add_action( 'publish_resume', $plugin_admin, 'bpjm_publish_resume', 999, 2 );
 	}
 
 	/**
