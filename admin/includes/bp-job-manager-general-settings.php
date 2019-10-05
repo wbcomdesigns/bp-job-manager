@@ -90,6 +90,20 @@ global $bp_job_manager, $wp_roles;
 									</td>
 								</tr>
 							<?php } ?>
+							<?php 
+							$wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) ); 
+							if( $wpjm_applications_active == true ){ ?>
+								<tr>
+									<th scope="row"><label for="wpbpjm-resume-profile-view"><?php esc_attr_e( 'Add buddypress notification on sending job application', 'bp-job-manager' ); ?></label></th>
+									<td>
+										<label class="blpro-switch">
+											<input type="checkbox" name="bpjm_general_settings[bpjm_app_notify]" <?php if( isset($bp_job_manager->bpjm_app_notify) ) { checked( $bp_job_manager->bpjm_app_notify, 'yes'); } ?>>
+											<div class="blpro-slider blpro-round"></div>
+										</label>
+										<p class="description"><?php esc_attr_e( 'Check this option if you want send bp notification when someone applies to job.', 'bp-job-manager' ); ?></p>
+									</td>
+								</tr>
+							<?php } ?>
 					</tbody>
 				</table>
 				<p class="submit">

@@ -110,6 +110,12 @@ class Bp_Job_Manager_Globals {
 			} else {
 				$this->bpjm_job_post_activity = 'no';
 			}
+
+			if( array_key_exists( 'bpjm_app_notify', $settings ) ) {
+				$this->bpjm_app_notify = 'yes';
+			} else {
+				$this->bpjm_app_notify = 'no';
+			}
 		}
 		
 
