@@ -217,7 +217,7 @@ class Bp_Job_Manager {
 		$this->loader->add_action( 'resume_manager_contact_details', $plugin_public, 'bpjm_add_private_message_link' );
 
 		/* Register job post type activity*/
-		$this->loader->add_filter( 'bp_activity_check_activity_types', $plugin_public, 'bpjm_add_job_post_type_activity', 10, 1 );
+		//$this->loader->add_filter( 'bp_activity_check_activity_types', $plugin_public, 'bpjm_add_job_post_type_activity', 10, 1 );
 
 		/* Register job post type activity action */
 		//$this->loader->add_action( 'bp_register_activity_actions', $plugin_public, 'bpjm_register_job_post_activity_actions' );
