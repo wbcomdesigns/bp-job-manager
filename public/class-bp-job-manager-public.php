@@ -50,7 +50,7 @@ class Bp_Job_Manager_Public {
 
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
-
+		add_filter( 'job_manager_get_dashboard_jobs_args', [ $this, 'bpjm_job_dashboard_user_id' ] );
 	}
 
 	/**
@@ -264,6 +264,7 @@ class Bp_Job_Manager_Public {
 	public function bpjm_my_jobs_show_screen() {
 		add_action( 'bp_template_title', array( $this, 'bpjm_my_jobs_tab_function_to_show_title' ) );
 		add_action( 'bp_template_content', array( $this, 'bpjm_my_jobs_tab_function_to_show_content' ) );
+		add_filter( 'job_manager_my_job_actions', array( $this, 'hide_job_actions' ), 999, 2 );
 		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
 	}
 
@@ -275,7 +276,13 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_my_jobs_tab_function_to_show_title() {
-		esc_html_e( 'My Jobs', 'bp-job-manager' );
+		if( bp_loggedin_user_id() == bp_displayed_user_id() ){
+            esc_html_e( 'My Jobs', 'bp-job-manager' );
+        }else{
+            $author_name = bp_core_get_user_displayname( bp_displayed_user_id() );
+            esc_html_e( $author_name.'\'s'.' '.'Jobs', 'bp-job-manager' );
+
+        }
 	}
 
 	/**
@@ -286,9 +293,17 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_my_jobs_tab_function_to_show_content() {
-		echo do_shortcode( '[job_dashboard]' );
+		echo do_shortcode( '[job_dashboard posts_per_page="10"]' );
 	}
-
+	public function hide_job_actions( $job_actions, $job ){
+	    if( bp_loggedin_user_id() != bp_displayed_user_id() ){
+	        if( !empty($job) && $job->post_status == 'publish' ){
+                unset($job_actions['edit']);
+                unset($job_actions['delete']);
+                return $job_actions;
+            }
+        }
+    }
 	/**
 	 * Screen function for listing all my bookmarked jobs in menu item.
 	 *
@@ -371,19 +386,24 @@ class Bp_Job_Manager_Public {
 	 * @return   string $job_dashboard_job_listing_args return job listing arguments.
 	 */
 	public function bpjm_job_dashboard_user_id( $job_dashboard_job_listing_args ) {
-		if( bp_is_user_profile() ) {
-			$job_dashboard_job_listing_args = array(
-				'post_type'           => 'job_listing',
-				'post_status'         => 'any',
-				'ignore_sticky_posts' => 1,
-				'posts_per_page'      => 25,
-				'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * 25,
-				'orderby'             => 'date',
-				'order'               => 'desc',
-				'author'              => bp_displayed_user_id(),
-			);
-		}
-		return $job_dashboard_job_listing_args;
+		$displayed_uid  = bp_displayed_user_id();
+        $displayed_user = get_userdata( $displayed_uid );
+        $curr_user      = wp_get_current_user();
+
+        if ( ! empty( $curr_user->roles ) && ! empty( $displayed_user->roles ) ) {
+            $job_dashboard_job_listing_args = array(
+                'post_type'           => 'job_listing',
+                'post_status'         => 'any',
+                'ignore_sticky_posts' => 1,
+                'posts_per_page'      => 10,
+                'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * 25,
+                'orderby'             => 'date',
+                'order'               => 'desc',
+                'author'              => bp_displayed_user_id(),
+            );
+
+        }
+        return $job_dashboard_job_listing_args;
 	}
 
 	/**
@@ -424,15 +444,15 @@ class Bp_Job_Manager_Public {
 		}
 		return $actions;
 	}
-
-	/**
-	 * Action performed to add a column in job dashboard table.
-	 *
-	 * @since    1.0.0
-	 * @author   wbcomdesigns
-	 * @access   public
-	 * @param    string $job_dashboard_cols contain dashboard column data.
-	 */
+/**
+     * Action performed to add a column in job dashboard table.
+     *
+     * @param string $job_dashboard_cols contain dashboard column data.
+     * @return array|string
+     * @since    1.0.0
+     * @author   wbcomdesigns
+     * @access   public
+     */
 	public function bpjm_job_dashboard_cols( $job_dashboard_cols ) {
 		$column             = array(
 			'actions' => __( 'Actions', 'bp-job-manager' ),
@@ -462,13 +482,14 @@ class Bp_Job_Manager_Public {
 	}
 
 	/**
-	 * Action performed to override the template of the page - Apply To Job.
-	 *
-	 * @since    1.0.0
-	 * @author   wbcomdesigns
-	 * @access   public
-	 * @param    string $template contain page template data.
-	 */
+     * Action performed to override the template of the page - Apply To Job.
+     *
+     * @param string $template contain page template data.
+     * @return string
+     * @since    1.0.0
+     * @author   wbcomdesigns
+     * @access   public
+     */
 	public function bpjm_job_application_page( $template ) {
 		global $bp_job_manager, $post;
 		if ( ! empty( $post ) && $bp_job_manager->job_application_pgid == $post->ID ) {
