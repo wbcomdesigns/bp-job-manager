@@ -295,14 +295,23 @@ class Bp_Job_Manager_Public {
 	public function bpjm_my_jobs_tab_function_to_show_content() {
 		echo do_shortcode( '[job_dashboard posts_per_page="10"]' );
 	}
+
+    /** Hide job actions from display member profile.
+     * @param $job_actions
+     * @param $job
+     * @return mixed
+     */
 	public function hide_job_actions( $job_actions, $job ){
-	    if( bp_loggedin_user_id() != bp_displayed_user_id() ){
+	    if( ( bp_loggedin_user_id() != bp_displayed_user_id() ) && !bp_is_user_profile() ){
 	        if( !empty($job) && $job->post_status == 'publish' ){
                 unset($job_actions['edit']);
                 unset($job_actions['delete']);
-                return $job_actions;
+                unset($job_actions['mark_filled']);
+                unset($job_actions['duplicate']);
+
             }
         }
+        return $job_actions;
     }
 	/**
 	 * Screen function for listing all my bookmarked jobs in menu item.
