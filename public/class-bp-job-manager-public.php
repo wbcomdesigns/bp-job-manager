@@ -118,7 +118,7 @@ class Bp_Job_Manager_Public {
 			 */
 			$match_post_job_roles_curr_usr = array_intersect( $bp_job_manager->post_job_user_roles, $curr_user->roles );
 			$match_post_job_roles_disp_usr = array_intersect( $bp_job_manager->post_job_user_roles, $displayed_user->roles );
-			if ( ! empty( $match_post_job_roles_curr_usr ) || ! empty( $match_post_job_roles_disp_usr ) ) {
+			if ( ! empty( $match_post_job_roles_curr_usr ) && ! empty( $match_post_job_roles_disp_usr ) ) {
 				// Count jobs.
 				$args          = array(
 					'post_type'      => 'job_listing',
