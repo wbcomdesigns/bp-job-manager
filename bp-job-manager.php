@@ -9,7 +9,7 @@
  * Plugin Name:       BuddyPress Job Manager
  * Plugin URI:        https://wbcomdesigns.com/
  * Description:       This plugin integrates WordPress Job Manager with BuddyPress. Allows the members to post jobs, and others to apply for those posted jobs.
- * Version:           2.1.0
+ * Version:           2.2.0
  * Author:            Wbcom Designs
  * Author URI:        https://wbcomdesigns.com/
  * License:           GPL-2.0+
