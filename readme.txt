@@ -63,6 +63,9 @@ The screenshots are present in the root of the plugin folder.
 
 == Changelog ==
 
+= 2.2.1 =
+* Fix: updated Job Tab condition logic to display on selected user roles.
+
 = 2.2.0 =
 * Fix: Job Listing at displayed user profile
 
