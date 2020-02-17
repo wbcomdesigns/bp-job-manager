@@ -265,7 +265,6 @@ class Bp_Job_Manager_Public {
 		add_action( 'bp_template_title', array( $this, 'bpjm_my_jobs_tab_function_to_show_title' ) );
 		add_action( 'bp_template_content', array( $this, 'bpjm_my_jobs_tab_function_to_show_content' ) );
 		add_filter( 'job_manager_my_job_actions', array( $this, 'bpjm_hide_job_actions' ), 999, 2 );
-		add_filter( 'job_manager_job_dashboard_column_actions', array( $this, 'bpjm_check_applied_jobs' ) );
 		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
 	}
 
@@ -314,23 +313,6 @@ class Bp_Job_Manager_Public {
 			}
 		}
 		return $job_actions;
-	}
-
-	/**
-	 * [bpjm_check_applied_jobs description] Remove Apply button from member dashboard job listin.
-	 *
-	 * @param  [type] $job [description] Object of job
-	 */
-	public function bpjm_check_applied_jobs( $job ) {
-			$user_id = get_current_user_id();
-		if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
-			get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
-			?>
-			<script type="text/javascript">
-				jQuery( '#bpjm-job-application-btn' ).remove();
-			</script>
-			<?php
-		}
 	}
 
 	/**
@@ -483,10 +465,13 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_job_dashboard_cols( $job_dashboard_cols ) {
-		$column             = array(
-			'actions' => __( 'Actions', 'bp-job-manager' ),
-		);
-		$job_dashboard_cols = array_merge( $job_dashboard_cols, $column );
+		if ( ! bp_is_user_profile() && ( bp_loggedin_user_id() != bp_displayed_user_id() ) ) {
+			$column             = array(
+				'actions' => __( 'Actions', 'bp-job-manager' ),
+			);
+			$job_dashboard_cols = array_merge( $job_dashboard_cols, $column );
+		}
+
 		return $job_dashboard_cols;
 	}
 
@@ -501,13 +486,21 @@ class Bp_Job_Manager_Public {
 	 */
 	public function bpjm_job_dashboard_actions_col_content( $job ) {
 		global $bp_job_manager;
-		$job_application_page  = get_permalink( $bp_job_manager->job_application_pgid );
-		$job_application_page .= '?args=' . $job->ID;
-		?>
-		<div class="generic-button" id="bpjm-job-application-btn">
-			<a href="javascript:void(0);" data-url="<?php echo esc_attr( $job_application_page ); ?>"><?php esc_html_e( 'Apply', 'bp-job-manager' ); ?></a>
-		</div>
-		<?php
+		if ( ! bp_is_user_profile() && ( bp_loggedin_user_id() != bp_displayed_user_id() ) ) {
+			$user_id               = get_current_user_id();
+			$job_application_page  = get_permalink( $bp_job_manager->job_application_pgid );
+			$job_application_page .= '?args=' . $job->ID;
+			if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
+				get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
+			} else {
+				?>
+				<div class="generic-button" id="bpjm-job-application-btn">
+					<a href="javascript:void(0);" data-url="<?php echo esc_attr( $job_application_page ); ?>"><?php esc_html_e( 'Apply', 'bp-job-manager' ); ?></a>
+				</div>
+				<?php
+			}
+		}
+
 	}
 
 	/**
@@ -828,10 +821,10 @@ class Bp_Job_Manager_Public {
 						<td class="field-name"><?php _e( 'Display resume at profile page', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input class="bpjm-display-resume-checkbox" type="checkbox" value="yes" name="bpjm_display[display_resume]"
-							<?php
-							if ( ! empty( $fields_display['display_resume'] ) ) {
-								checked( $fields_display['display_resume'], 'yes' );}
-							?>
+						<?php
+						if ( ! empty( $fields_display['display_resume'] ) ) {
+							checked( $fields_display['display_resume'], 'yes' );}
+						?>
 								>
 						</td>
 					</tr>
@@ -937,7 +930,7 @@ class Bp_Job_Manager_Public {
 					</tr>
 				</tbody>
 			</table>
-				<?php
+					<?php
 			}
 		}
 	}
