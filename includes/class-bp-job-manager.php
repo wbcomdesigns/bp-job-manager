@@ -115,6 +115,11 @@ class Bp_Job_Manager {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-bp-job-manager-admin.php';
 
 		/**
+		 * The class responsible for admin review that apper after 7 days.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/bp-job-manager-admin-feedback.php';
+
+		/**
 		 * The class responsible for defining the global variable of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-bp-job-manager-globals.php';
@@ -148,7 +153,7 @@ class Bp_Job_Manager {
 
 		$plugin_i18n = new Bp_Job_Manager_I18n();
 
-		$this->loader->add_action( 'bp_loaded', $plugin_i18n, 'load_plugin_textdomain');
+		$this->loader->add_action( 'bp_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
 	}
 
@@ -184,22 +189,22 @@ class Bp_Job_Manager {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_jobs_tab' );
-		
+
 		/* Check if Resume Manager plugin active to add tab. */
-		$wpjm_resumes_active      = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
-		if( $wpjm_resumes_active ) {
+		$wpjm_resumes_active = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
+		if ( $wpjm_resumes_active ) {
 			$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_resumes_tab' );
 			/*Action to render resume content at buddypress profile page*/
-			$this->loader->add_action( 'bp_after_profile_loop_content', $plugin_public, 'bpjm_bp_profile_field_item');
+			$this->loader->add_action( 'bp_after_profile_loop_content', $plugin_public, 'bpjm_bp_profile_field_item' );
 
 			$this->loader->add_action( 'bp_core_xprofile_settings_before_submit', $plugin_public, 'bpjm_resume_settings_before_submit' );
 			$this->loader->add_action( 'bp_init', $plugin_public, 'custom_bp_init' );
 		}
-		
+
 		$this->loader->add_filter( 'page_template', $plugin_public, 'bpjm_job_application_page' );
 		$this->loader->add_filter( 'job_manager_get_dashboard_jobs_args', $plugin_public, 'bpjm_job_dashboard_user_id', 10, 1 );
 
-		/*** Call function for mark filled ***/
+		/*** Call function for mark filled */
 		$this->loader->add_filter( 'wp_redirect', $plugin_public, 'bpjm_filter_redirect_duplicate_post_url', 10, 2 );
 		$this->loader->add_action( 'wp', $plugin_public, 'bpjm_shortcode_action_handler' );
 
@@ -211,23 +216,24 @@ class Bp_Job_Manager {
 		$this->loader->add_action( 'job_manager_job_dashboard_column_actions', $plugin_public, 'bpjm_job_dashboard_actions_col_content', 10, 1 );
 		$this->loader->add_filter( 'resume_manager_get_dashboard_resumes_args', $plugin_public, 'bpjm_resume_dashboard_user_id', 10, 1 );
 		$this->loader->add_filter( 'resume_manager_my_resume_actions', $plugin_public, 'bpjm_candidate_dashboard_resume_actions', 10, 2 );
-		
 
 		/* Action to add private message link on candidate contact button */
 		$this->loader->add_action( 'resume_manager_contact_details', $plugin_public, 'bpjm_add_private_message_link' );
 
-		/* Register job post type activity*/
-		//$this->loader->add_filter( 'bp_activity_check_activity_types', $plugin_public, 'bpjm_add_job_post_type_activity', 10, 1 );
+		/*
+		 Register job post type activity*/
+		// $this->loader->add_filter( 'bp_activity_check_activity_types', $plugin_public, 'bpjm_add_job_post_type_activity', 10, 1 );
 
-		/* Register job post type activity action */
-		//$this->loader->add_action( 'bp_register_activity_actions', $plugin_public, 'bpjm_register_job_post_activity_actions' );
+		/*
+		 Register job post type activity action */
+		// $this->loader->add_action( 'bp_register_activity_actions', $plugin_public, 'bpjm_register_job_post_activity_actions' );
 
-		//$this->loader->add_filter( 'bp_get_activity_action_pre_meta' , $plugin_public,'bpjm_activity_action_wall_posts', 9999, 2 );
+		// $this->loader->add_filter( 'bp_get_activity_action_pre_meta' , $plugin_public,'bpjm_activity_action_wall_posts', 9999, 2 );
 
 		$this->loader->add_action( 'new_job_application', $plugin_public, 'bpjm_add_bp_notification_for_job_post', 10, 2 );
 
 		/* add component for notification. */
-		$this->loader->add_filter( 'bp_notifications_get_registered_components',  $plugin_public, 'bpjm_comment_get_registered_components' );
+		$this->loader->add_filter( 'bp_notifications_get_registered_components', $plugin_public, 'bpjm_comment_get_registered_components' );
 
 		$this->loader->add_filter( 'bp_notifications_get_notifications_for_user', $plugin_public, 'bpjm_job_application_notifications', 11, 7 );
 
