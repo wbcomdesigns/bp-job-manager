@@ -8,6 +8,7 @@
     "grunt": "^1.0.4",
     "grunt-check-dependencies": "~1.0.0",
     "grunt-checktextdomain": "^1.0.1",
+    "minimist": ">=1.2.2",
     "grunt-wp-i18n": "^1.0.0"
   },
   "engines": {
