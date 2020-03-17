@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-28 05:23:08+00:00\n"
+"POT-Creation-Date: 2020-03-17 09:16:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,6 +24,86 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
+#: admin/bp-job-manager-admin-feedback.php:88
+#. translators: Number of years
+msgid "%s years"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:90
+msgid "a year"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:97
+#. translators: Number of weeks
+msgid "%s weeks"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:99
+msgid "a week"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:106
+#. translators: Number of days
+msgid "%s days"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:108
+msgid "a day"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:115
+#. translators: Number of hours
+msgid "%s hours"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:117
+msgid "an hour"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:124
+#. translators: Number of minutes
+msgid "%s minutes"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:126
+msgid "a minute"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:133
+#. translators: Number of seconds
+msgid "%s seconds"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:135
+msgid "a second"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:271
+#: admin/bp-job-manager-admin-feedback.php:311
+#: admin/wbcom/wbcom-admin-settings.php:251 bp-job-manager.php:122
+msgid "BuddyPress Job Manager"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:274
+msgid "Are you enjoying BuddyPress Job Manager?"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:277
+#. translators: 1. Name
+msgid ""
+"We hope you're enjoying %1$s! Could you please do us a BIG favor and give "
+"it a 5-star rating on WordPress to help us spread the word and boost our "
+"motivation?"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:281
+msgid "Leave a Review"
+msgstr ""
+
+#: admin/bp-job-manager-admin-feedback.php:282
+msgid "No thanks / I already have"
+msgstr ""
+
 #: admin/class-bp-job-manager-admin.php:98
 msgid "WB Plugins"
 msgstr ""
@@ -42,7 +122,7 @@ msgid "BuddyPress Job Manager Settings"
 msgstr ""
 
 #: admin/class-bp-job-manager-admin.php:194
-#: public/class-bp-job-manager-public.php:967
+#: public/class-bp-job-manager-public.php:976
 msgid "Jobs"
 msgstr ""
 
@@ -54,13 +134,13 @@ msgstr ""
 
 #: admin/class-bp-job-manager-admin.php:237
 #: public/class-bp-job-manager-public.php:180
-#: public/class-bp-job-manager-public.php:328
+#: public/class-bp-job-manager-public.php:337
 msgid "My Bookmarks"
 msgstr ""
 
 #: admin/class-bp-job-manager-admin.php:251
 #: public/class-bp-job-manager-public.php:195
-#: public/class-bp-job-manager-public.php:363
+#: public/class-bp-job-manager-public.php:372
 msgid "Job Alerts"
 msgstr ""
 
@@ -75,20 +155,20 @@ msgid "Resumes"
 msgstr ""
 
 #: admin/class-bp-job-manager-admin.php:306
-#: public/class-bp-job-manager-public.php:551
-#: public/class-bp-job-manager-public.php:635
+#: public/class-bp-job-manager-public.php:560
+#: public/class-bp-job-manager-public.php:644
 msgid "My Resumes"
 msgstr ""
 
 #: admin/class-bp-job-manager-admin.php:316
 #: public/class-bp-job-manager-public.php:165
-#: public/class-bp-job-manager-public.php:670
+#: public/class-bp-job-manager-public.php:679
 msgid "Applied Jobs"
 msgstr ""
 
 #: admin/class-bp-job-manager-admin.php:326
-#: public/class-bp-job-manager-public.php:565
-#: public/class-bp-job-manager-public.php:600
+#: public/class-bp-job-manager-public.php:574
+#: public/class-bp-job-manager-public.php:609
 msgid "Add Resume"
 msgstr ""
 
@@ -448,10 +528,6 @@ msgid ""
 "based on google places."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:251 bp-job-manager.php:122
-msgid "BuddyPress Job Manager"
-msgstr ""
-
 #: admin/wbcom/wbcom-admin-settings.php:253
 msgid ""
 "Incorporates BuddyPress with the WP Job Manager plugin by creating specific "
@@ -691,83 +767,83 @@ msgstr ""
 msgid "Jobs <span>%d</span>"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:458
+#: public/class-bp-job-manager-public.php:467
 msgid "Actions"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:479
+#: public/class-bp-job-manager-public.php:488
 msgid "Apply"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:540
+#: public/class-bp-job-manager-public.php:549
 msgid "Resumes <span>%d</span>"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:793
+#: public/class-bp-job-manager-public.php:802
 msgid "BuddyPress Resumes"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:794
+#: public/class-bp-job-manager-public.php:803
 msgid "Available Resumes"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:799
+#: public/class-bp-job-manager-public.php:808
 msgid "Display resume at profile page"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:805
+#: public/class-bp-job-manager-public.php:814
 msgid "Select resume to display at profile"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:815
+#: public/class-bp-job-manager-public.php:824
 msgid "Display e-mail field"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:821
+#: public/class-bp-job-manager-public.php:830
 msgid "Display professional title"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:827
+#: public/class-bp-job-manager-public.php:836
 msgid "Display location"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:833
+#: public/class-bp-job-manager-public.php:842
 msgid "Display video link"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:839
+#: public/class-bp-job-manager-public.php:848
 msgid "Display resume contents(description)"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:845
+#: public/class-bp-job-manager-public.php:854
 msgid "Display URL(s)"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:851
+#: public/class-bp-job-manager-public.php:860
 msgid "Display education"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:857
+#: public/class-bp-job-manager-public.php:866
 msgid "Display experience"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:937
+#: public/class-bp-job-manager-public.php:946
 msgid "Private Message"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:965
+#: public/class-bp-job-manager-public.php:974
 msgid "Jobs Update"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:983
+#: public/class-bp-job-manager-public.php:992
 msgid "%s posted a new job update"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1006
+#: public/class-bp-job-manager-public.php:1015
 msgid "%s posted a job update"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1071
+#: public/class-bp-job-manager-public.php:1080
 msgid "%s has applied to the job post."
 msgstr ""
 
