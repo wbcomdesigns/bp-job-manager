@@ -5,16 +5,10 @@
   "license": "GPL-2.0+",
   "description": "WP Job Manager Support for BuddyPress",
   "devDependencies": {
-    "eslint": "^4.15.0",
-    "eslint-plugin-wordpress": "^0.1.0",
     "grunt": "^1.0.4",
     "grunt-check-dependencies": "~1.0.0",
     "grunt-checktextdomain": "^1.0.1",
-    "grunt-jsvalidate": "~0.2.2",
-    "grunt-stylelint": "^0.8.0",
-    "grunt-wp-i18n": "^1.0.0",
-    "stylelint": "^11.0.0",
-    "stylelint-config-wordpress": "^14.0.0"
+    "grunt-wp-i18n": "^1.0.0"
   },
   "engines": {
     "node": ">=6.9.1"
