@@ -166,7 +166,7 @@ class Bp_Job_Manager_Public {
 	 */
 	public function bpjm_job_dashboard_teplate( $template, $template_name, $template_path ) {
 		if ( 'job-dashboard.php' === $template_name ) {
-			$template = BPJM_PLUGIN_PATH . 'public\templates\job-dashboard.php';
+			$template = BPJM_PLUGIN_PATH . 'public/templates/job-dashboard.php';
 		}
 		return $template;
 	}
@@ -184,6 +184,7 @@ class Bp_Job_Manager_Public {
 				'filled'    => __( 'Filled?', 'bp-job-manager' ),
 				'date'      => __( 'Date Posted', 'bp-job-manager' ),
 				'expires'   => __( 'Listing Expires', 'bp-job-manager' ),
+				'actions'   => __( 'Actions', 'bp-job-manager' ),
 			);
 
 			$args = array(
@@ -267,7 +268,6 @@ class Bp_Job_Manager_Public {
 											'label' => __( 'Delete', 'bp-job-manager' ),
 											'nonce' => true,
 										);
-
 										foreach ( $actions as $action => $value ) {
 
 											$action_url = add_query_arg(
@@ -290,6 +290,7 @@ class Bp_Job_Manager_Public {
 							<?php elseif ( 'filled' === $key ) : ?>
 								<?php echo is_position_filled( $job ) ? '&#10004;' : '&ndash;'; ?>
 							<?php else : ?>
+								<?php do_action( 'job_manager_job_dashboard_column_' . $key, $job ); ?>
 							<?php endif; ?>
 						</td>
 					<?php endforeach; ?>

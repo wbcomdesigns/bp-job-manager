@@ -135,6 +135,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</tbody>
 	</table>
 	<?php if ( 'my-jobs' == bp_current_action() ) : ?>
-		<a href="javascript:void(0)" id="inifiniteLoader">Load More</a>
+		<a id="inifiniteLoader" href="#" style="display:none;"><strong><?php echo esc_html__( 'Loading...', 'bp-job-manager' ); ?></strong></a>
 	<?php endif; ?>
 </div>
