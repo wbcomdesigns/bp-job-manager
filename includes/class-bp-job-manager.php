@@ -115,6 +115,11 @@ class Bp_Job_Manager {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-bp-job-manager-admin.php';
 
 		/**
+		 * The class responsible for admin review.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-bp-job-manager-admin-feedback.php';
+
+		/**
 		 * The class responsible for defining the global variable of the plugin.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-bp-job-manager-globals.php';
