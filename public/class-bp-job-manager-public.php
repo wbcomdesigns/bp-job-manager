@@ -209,6 +209,7 @@ class Bp_Job_Manager_Public {
 									<?php wpjm_the_job_title( $job ); ?> <small>(<?php the_job_status( $job ); ?>)</small>
 								<?php endif; ?>
 								<?php echo is_position_featured( $job ) ? '<span class="featured-job-icon" title="' . esc_attr__( 'Featured Job', 'bp-job-manager' ) . '"></span>' : ''; ?>
+								<?php if ( bp_loggedin_user_id() == bp_displayed_user_id() ) { ?>
 								<ul class="job-dashboard-actions">
 									<?php
 										$actions = array();
@@ -279,10 +280,13 @@ class Bp_Job_Manager_Public {
 											if ( $value['nonce'] ) {
 												$action_url = wp_nonce_url( $action_url, 'job_manager_my_job_actions' );
 											}
-											echo '<li><a href="' . esc_url( $action_url ) . '" class="job-dashboard-action-' . esc_attr( $action ) . '">' . esc_html( $value['label'] ) . '</a></li>';
+												echo '<li><a href="' . esc_url( $action_url ) . '" class="job-dashboard-action-' . esc_attr( $action ) . '">' . esc_html( $value['label'] ) . '</a></li>';
+
 										}
 										?>
 								</ul>
+							<?php } ?>
+
 							<?php elseif ( 'date' === $key ) : ?>
 								<?php echo esc_html( date_i18n( get_option( 'date_format' ), strtotime( $job->post_date ) ) ); ?>
 							<?php elseif ( 'expires' === $key ) : ?>
@@ -512,6 +516,7 @@ class Bp_Job_Manager_Public {
 				unset( $job_actions['delete'] );
 				unset( $job_actions['mark_filled'] );
 				unset( $job_actions['duplicate'] );
+				unset( $job_actions['mark_not_filled'] );
 			}
 		}
 		return $job_actions;
@@ -667,16 +672,14 @@ class Bp_Job_Manager_Public {
 	 */
 	public function bpjm_job_dashboard_cols( $job_dashboard_cols ) {
 		if ( ! bp_is_user_profile() && ( bp_loggedin_user_id() != bp_displayed_user_id() ) ) {
-			$column = array(
+			$column             = array(
 				'actions' => __( 'Actions', 'bp-job-manager' ),
 			);
-			if ( array_key_exists( 'applications', $job_dashboard_cols ) ) {
-
-				unset( $job_dashboard_cols['applications'] );
-			}
 			$job_dashboard_cols = array_merge( $job_dashboard_cols, $column );
 		}
-
+		if ( array_key_exists( 'applications', $job_dashboard_cols ) ) {
+			unset( $job_dashboard_cols['applications'] );
+		}
 		return $job_dashboard_cols;
 	}
 
@@ -695,17 +698,18 @@ class Bp_Job_Manager_Public {
 			$user_id               = get_current_user_id();
 			$job_application_page  = get_permalink( $bp_job_manager->job_application_pgid );
 			$job_application_page .= '?args=' . $job->ID;
-			if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
-				get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
-			} else {
-				?>
-				<div class="generic-button" id="bpjm-job-application-btn">
-					<a href="javascript:void(0);" data-url="<?php echo esc_attr( $job_application_page ); ?>"><?php esc_html_e( 'Apply', 'bp-job-manager' ); ?></a>
-				</div>
-				<?php
+			if ( ! is_position_filled( $job ) ) {
+				if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
+					get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
+				} else {
+					?>
+					<div class="generic-button" id="bpjm-job-application-btn">
+						<a href="javascript:void(0);" data-url="<?php echo esc_attr( $job_application_page ); ?>"><?php esc_html_e( 'Apply', 'bp-job-manager' ); ?></a>
+					</div>
+					<?php
+				}
 			}
 		}
-
 	}
 
 	/**
