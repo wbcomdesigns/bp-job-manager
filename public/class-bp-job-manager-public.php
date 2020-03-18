@@ -667,9 +667,13 @@ class Bp_Job_Manager_Public {
 	 */
 	public function bpjm_job_dashboard_cols( $job_dashboard_cols ) {
 		if ( ! bp_is_user_profile() && ( bp_loggedin_user_id() != bp_displayed_user_id() ) ) {
-			$column             = array(
+			$column = array(
 				'actions' => __( 'Actions', 'bp-job-manager' ),
 			);
+			if ( array_key_exists( 'applications', $job_dashboard_cols ) ) {
+
+				unset( $job_dashboard_cols['applications'] );
+			}
 			$job_dashboard_cols = array_merge( $job_dashboard_cols, $column );
 		}
 
