@@ -39,6 +39,8 @@ class Bp_Job_Manager_Public {
 	 */
 	private $version;
 
+	public $max_num_pages = '';
+
 	/**
 	 * Initialize the class and set its properties.
 	 *
@@ -47,11 +49,35 @@ class Bp_Job_Manager_Public {
 	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
-
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 		add_filter( 'job_manager_get_dashboard_jobs_args', array( $this, 'bpjm_job_dashboard_user_id' ) );
+		add_filter( 'job_manager_locate_template', array( $this, 'bpjm_job_dashboard_teplate' ), 10, 3 );
+		add_filter( 'has_wpjm_shortcode', array( $this, 'bpjm_has_wpjm_shortcode' ) );
+		add_action( 'wp_ajax_bpjm_load_more_jobs', array( $this, 'bpjm_load_more_jobs' ) );
+		add_action( 'wp_ajax_nopriv_bpjm_load_more_jobs', array( $this, 'bpjm_load_more_jobs' ) );
+
 	}
+
+	public function get_jobs_max_num_pages() {
+		if ( 'my-jobs' == bp_current_action() ) {
+			$args = array(
+				'post_type'           => 'job_listing',
+				'post_status'         => array( 'publish', 'expired', 'pending', 'draft', 'preview' ),
+				'ignore_sticky_posts' => 1,
+				'posts_per_page'      => 10,
+				'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * 25,
+				'orderby'             => 'date',
+				'order'               => 'desc',
+				'author'              => bp_displayed_user_id(),
+			);
+
+			$jobs                = new WP_Query( $args );
+			$this->max_num_pages = $jobs->max_num_pages;
+			wp_reset_postdata();
+		}
+	}
+
 
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
@@ -59,7 +85,6 @@ class Bp_Job_Manager_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles() {
-
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -82,7 +107,6 @@ class Bp_Job_Manager_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -94,9 +118,187 @@ class Bp_Job_Manager_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+		 $this->get_jobs_max_num_pages();
+		 wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-public.js', array( 'jquery' ), $this->version, false );
+		wp_localize_script(
+			$this->plugin_name,
+			'bpjm_load_jobs_object',
+			array(
+				'ajaxurl'       => admin_url( 'admin-ajax.php' ),
+				'max_num_pages' => $this->max_num_pages,
+				'ajax_nonce'    => wp_create_nonce( 'bpjm_load_jobs_nonce' ),
+			)
+		);
+		wp_enqueue_script( $this->plugin_name );
+	}
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-public.js', array( 'jquery' ), $this->version, false );
+	/**
+	 * Load default js and css for submit job shortcode.
+	 *
+	 * @return boolean
+	 */
+	public function bpjm_has_wpjm_shortcode() {
+		$action = bp_current_action();
+		if ( $action == 'my-jobs' ) {
+			return true;
+		}
+		if ( $action == 'applied-jobs' ) {
+			return true;
+		}
+		if ( $action == 'post-job' ) {
+			return true;
+		}
+		if ( $action == 'my-resumes' ) {
+			return true;
+		}
+		if ( $action == 'add-resume' ) {
+			return true;
+		}
+	}
 
+	/**
+	 * Override dashboard template.
+	 *
+	 * @param  [string] $template
+	 * @param  [string] $template_name
+	 * @param  [string] $template_path
+	 * @return [string] Override template
+	 */
+	public function bpjm_job_dashboard_teplate( $template, $template_name, $template_path ) {
+		if ( 'job-dashboard.php' === $template_name ) {
+			$template = BPJM_PLUGIN_PATH . 'public\templates\job-dashboard.php';
+		}
+		return $template;
+	}
+
+	/**
+	 *  Load jobs on scroll.
+	 */
+	public function bpjm_load_more_jobs() {
+		if ( isset( $_POST ) ) {
+			check_ajax_referer( 'bpjm_load_jobs_nonce', 'ajax_nonce' );
+			$paged = $_POST['page_no'];
+
+			$job_dashboard_columns = array(
+				'job_title' => __( 'Title', 'bp-job-manager' ),
+				'filled'    => __( 'Filled?', 'bp-job-manager' ),
+				'date'      => __( 'Date Posted', 'bp-job-manager' ),
+				'expires'   => __( 'Listing Expires', 'bp-job-manager' ),
+			);
+
+			$args = array(
+				'post_type'           => 'job_listing',
+				'post_status'         => array( 'publish', 'expired', 'pending', 'draft', 'preview' ),
+				'ignore_sticky_posts' => 1,
+				'posts_per_page'      => 10,
+				'orderby'             => 'date',
+				'order'               => 'desc',
+				'author'              => bp_displayed_user_id(),
+				'paged'               => $paged,
+			);
+			$jobs = get_posts( $args );
+			foreach ( $jobs as $job ) : ?>
+				<tr>
+					<?php foreach ( $job_dashboard_columns as $key => $column ) : ?>
+						<td class="<?php echo esc_attr( $key ); ?>">
+							<?php if ( 'job_title' === $key ) : ?>
+								<?php if ( $job->post_status == 'publish' ) : ?>
+									<a href="<?php echo esc_url( get_permalink( $job->ID ) ); ?>"><?php wpjm_the_job_title( $job ); ?></a>
+								<?php else : ?>
+									<?php wpjm_the_job_title( $job ); ?> <small>(<?php the_job_status( $job ); ?>)</small>
+								<?php endif; ?>
+								<?php echo is_position_featured( $job ) ? '<span class="featured-job-icon" title="' . esc_attr__( 'Featured Job', 'bp-job-manager' ) . '"></span>' : ''; ?>
+								<ul class="job-dashboard-actions">
+									<?php
+										$actions = array();
+
+									switch ( $job->post_status ) {
+										case 'publish':
+											if ( WP_Job_Manager_Post_Types::job_is_editable( $job->ID ) ) {
+												$actions['edit'] = array(
+													'label' => __( 'Edit', 'bp-job-manager' ),
+													'nonce' => false,
+												);
+											}
+											if ( is_position_filled( $job ) ) {
+												$actions['mark_not_filled'] = array(
+													'label' => __( 'Mark not filled', 'bp-job-manager' ),
+													'nonce' => true,
+												);
+											} else {
+												$actions['mark_filled'] = array(
+													'label' => __( 'Mark filled', 'bp-job-manager' ),
+													'nonce' => true,
+												);
+											}
+
+											$actions['duplicate'] = array(
+												'label' => __( 'Duplicate', 'bp-job-manager' ),
+												'nonce' => true,
+											);
+											break;
+										case 'expired':
+											if ( job_manager_get_permalink( 'submit_job_form' ) ) {
+												$actions['relist'] = array(
+													'label' => __( 'Relist', 'bp-job-manager' ),
+													'nonce' => true,
+												);
+											}
+											break;
+										case 'pending_payment':
+										case 'pending':
+											if ( WP_Job_Manager_Post_Types::job_is_editable( $job->ID ) ) {
+												$actions['edit'] = array(
+													'label' => __( 'Edit', 'bp-job-manager' ),
+													'nonce' => false,
+												);
+											}
+											break;
+										case 'draft':
+										case 'preview':
+											$actions['continue'] = array(
+												'label' => __( 'Continue Submission', 'bp-job-manager' ),
+												'nonce' => true,
+											);
+											break;
+									}
+
+										$actions['delete'] = array(
+											'label' => __( 'Delete', 'bp-job-manager' ),
+											'nonce' => true,
+										);
+
+										foreach ( $actions as $action => $value ) {
+
+											$action_url = add_query_arg(
+												array(
+													'action' => $action,
+													'job_id' => $job->ID,
+												)
+											);
+											if ( $value['nonce'] ) {
+												$action_url = wp_nonce_url( $action_url, 'job_manager_my_job_actions' );
+											}
+											echo '<li><a href="' . esc_url( $action_url ) . '" class="job-dashboard-action-' . esc_attr( $action ) . '">' . esc_html( $value['label'] ) . '</a></li>';
+										}
+										?>
+								</ul>
+							<?php elseif ( 'date' === $key ) : ?>
+								<?php echo esc_html( date_i18n( get_option( 'date_format' ), strtotime( $job->post_date ) ) ); ?>
+							<?php elseif ( 'expires' === $key ) : ?>
+								<?php echo esc_html( $job->_job_expires ? date_i18n( get_option( 'date_format' ), strtotime( $job->_job_expires ) ) : '&ndash;' ); ?>
+							<?php elseif ( 'filled' === $key ) : ?>
+								<?php echo is_position_filled( $job ) ? '&#10004;' : '&ndash;'; ?>
+							<?php else : ?>
+							<?php endif; ?>
+						</td>
+					<?php endforeach; ?>
+				</tr>
+			<?php endforeach; ?>
+			<?php
+			wp_reset_postdata();
+		}
+		wp_die();
 	}
 
 	/**
@@ -293,7 +495,7 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_my_jobs_tab_function_to_show_content() {
-		echo do_shortcode( '[job_dashboard posts_per_page="10"]' );
+		echo do_shortcode( '[job_dashboard]' );
 	}
 
 	/** Hide job actions from display member profile.
@@ -309,7 +511,6 @@ class Bp_Job_Manager_Public {
 				unset( $job_actions['delete'] );
 				unset( $job_actions['mark_filled'] );
 				unset( $job_actions['duplicate'] );
-
 			}
 		}
 		return $job_actions;
@@ -412,7 +613,6 @@ class Bp_Job_Manager_Public {
 				'order'               => 'desc',
 				'author'              => bp_displayed_user_id(),
 			);
-
 		}
 		return $job_dashboard_job_listing_args;
 	}
@@ -654,7 +854,13 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_my_resumes_tab_function_to_show_title() {
-		esc_html_e( 'My Resumes', 'bp-job-manager' );
+		if ( bp_loggedin_user_id() == bp_displayed_user_id() ) {
+			esc_html_e( 'My Resumes', 'bp-job-manager' );
+		} else {
+			$author_name = bp_core_get_user_displayname( bp_displayed_user_id() );
+			esc_html_e( ucfirst( $author_name ) . '\'s' . ' ' . 'Resumes', 'bp-job-manager' );
+		}
+
 	}
 
 	/**
