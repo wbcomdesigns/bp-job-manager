@@ -51,8 +51,8 @@ class Bp_Job_Manager_Public {
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
+
 		add_filter( 'job_manager_get_dashboard_jobs_args', array( $this, 'bpjm_job_dashboard_user_id' ) );
-		add_filter( 'job_manager_locate_template', array( $this, 'bpjm_job_dashboard_teplate' ), 10, 3 );
 		add_filter( 'has_wpjm_shortcode', array( $this, 'bpjm_has_wpjm_shortcode' ) );
 		add_action( 'wp_ajax_bpjm_load_more_jobs', array( $this, 'bpjm_load_more_jobs' ) );
 		add_action( 'wp_ajax_nopriv_bpjm_load_more_jobs', array( $this, 'bpjm_load_more_jobs' ) );
@@ -154,21 +154,6 @@ class Bp_Job_Manager_Public {
 		if ( $action == 'add-resume' ) {
 			return true;
 		}
-	}
-
-	/**
-	 * Override dashboard template.
-	 *
-	 * @param  [string] $template
-	 * @param  [string] $template_name
-	 * @param  [string] $template_path
-	 * @return [string] Override template
-	 */
-	public function bpjm_job_dashboard_teplate( $template, $template_name, $template_path ) {
-		if ( 'job-dashboard.php' === $template_name ) {
-			$template = BPJM_PLUGIN_PATH . 'public/templates/job-dashboard.php';
-		}
-		return $template;
 	}
 
 	/**
@@ -318,6 +303,8 @@ class Bp_Job_Manager_Public {
 		$displayed_uid  = bp_displayed_user_id();
 		$displayed_user = get_userdata( $displayed_uid );
 		$curr_user      = wp_get_current_user();
+		$parent_slug    = 'jobs';
+		$jobs_tab_link  = bp_core_get_userlink( $displayed_uid, false, true ) . $parent_slug . '/';
 
 		if ( ! empty( $curr_user->roles ) && ! empty( $displayed_user->roles ) ) {
 			/**
@@ -325,7 +312,8 @@ class Bp_Job_Manager_Public {
 			 */
 			$match_post_job_roles_curr_usr = array_intersect( $bp_job_manager->post_job_user_roles, $curr_user->roles );
 			$match_post_job_roles_disp_usr = array_intersect( $bp_job_manager->post_job_user_roles, $displayed_user->roles );
-			if ( ! empty( $match_post_job_roles_curr_usr ) && ! empty( $match_post_job_roles_disp_usr ) ) {
+			if ( ! empty( $match_post_job_roles_curr_usr ) || ! empty( $match_post_job_roles_disp_usr ) ) {
+
 				// Count jobs.
 				$args          = array(
 					'post_type'      => 'job_listing',
@@ -337,19 +325,17 @@ class Bp_Job_Manager_Public {
 				);
 				$my_jobs_count = count( get_posts( $args ) );
 
-				$parent_slug   = 'jobs';
-				$jobs_tab_link = bp_core_get_userlink( $displayed_uid, false, true ) . $parent_slug . '/';
+					bp_core_new_nav_item(
+						array(
+							'name'                    => sprintf( __( 'Jobs <span>%d</span>', 'bp-job-manager' ), $my_jobs_count ),
+							'slug'                    => $parent_slug,
+							'screen_function'         => array( $this, 'bpjm_jobs_tab_function_to_show_screen' ),
+							'position'                => 75,
+							'default_subnav_slug'     => 'my-jobs',
+							'show_for_displayed_user' => true,
+						)
+					);
 
-				bp_core_new_nav_item(
-					array(
-						'name'                    => sprintf( __( 'Jobs <span>%d</span>', 'bp-job-manager' ), $my_jobs_count ),
-						'slug'                    => $parent_slug,
-						'screen_function'         => array( $this, 'bpjm_jobs_tab_function_to_show_screen' ),
-						'position'                => 75,
-						'default_subnav_slug'     => 'my-jobs',
-						'show_for_displayed_user' => true,
-					)
-				);
 				bp_core_new_subnav_item(
 					array(
 						'name'            => __( 'My Jobs', 'bp-job-manager' ),
@@ -423,7 +409,32 @@ class Bp_Job_Manager_Public {
 					);
 				}
 			}
+		} else {
+			bp_core_new_nav_item(
+				array(
+					'name'                    => __( 'Jobs <span>%d</span>', 'bp-job-manager' ),
+					'slug'                    => 'jobs',
+					'screen_function'         => array( $this, 'bpjm_jobs_tab_show_screen' ),
+					'position'                => 75,
+					'default_subnav_slug'     => 'jobs',
+					'show_for_displayed_user' => true,
+				)
+			);
 		}
+	}
+
+	/**
+	 * Screen function for job tab.
+	 *
+	 * @since    2.3.1
+	 * @author   wbcomdesigns
+	 * @access   public
+	 */
+	public function bpjm_jobs_tab_show_screen() {
+		add_action( 'bp_template_title', array( $this, 'bpjm_my_jobs_tab_function_to_show_title' ) );
+		add_action( 'bp_template_content', array( $this, 'bpjm_my_jobs_tab_function_to_show_content' ) );
+		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+
 	}
 
 	/**
@@ -485,10 +496,11 @@ class Bp_Job_Manager_Public {
 	public function bpjm_my_jobs_tab_function_to_show_title() {
 		if ( bp_loggedin_user_id() == bp_displayed_user_id() ) {
 			esc_html_e( 'My Jobs', 'bp-job-manager' );
-		} else {
+		} elseif ( is_user_logged_in() && bp_displayed_user_id() ) {
 			$author_name = bp_core_get_user_displayname( bp_displayed_user_id() );
 			esc_html_e( $author_name . '\'s' . ' ' . 'Jobs', 'bp-job-manager' );
-
+		} else {
+			esc_html_e( 'Jobs', 'bp-job-manager' );
 		}
 	}
 
@@ -500,7 +512,23 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_my_jobs_tab_function_to_show_content() {
-		echo do_shortcode( '[job_dashboard]' );
+		if ( bp_loggedin_user_id() == bp_displayed_user_id() ) {
+			echo do_shortcode( '[job_dashboard]' );
+		} else {
+			$job_args = array(
+				'post_type'           => 'job_listing',
+				'post_status'         => 'any',
+				'ignore_sticky_posts' => 1,
+				'posts_per_page'      => 10,
+				'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * 25,
+				'orderby'             => 'date',
+				'order'               => 'desc',
+				'author'              => bp_displayed_user_id(),
+			);
+			$jobs     = get_posts( $job_args );
+			include BPJM_PLUGIN_PATH . '/public/templates/bpjm-job-listing.php';
+		}
+
 	}
 
 	/** Hide job actions from display member profile.
@@ -521,6 +549,20 @@ class Bp_Job_Manager_Public {
 		}
 		return $job_actions;
 	}
+
+	/**
+	 * Screen function for listing all my jobs in menu item.
+	 *
+	 * @since    1.0.0
+	 * @author   wbcomdesigns
+	 * @access   public
+	 */
+	public function bpjm_jobs_listing_show_screen() {
+		add_action( 'bp_template_title', array( $this, 'bpjm_my_jobs_tab_function_to_show_title' ) );
+		add_action( 'bp_template_content', array( $this, 'bpjm_jobs_listing_tab_function_to_show_content' ) );
+		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+	}
+
 
 	/**
 	 * Screen function for listing all my bookmarked jobs in menu item.
@@ -708,6 +750,8 @@ class Bp_Job_Manager_Public {
 					</div>
 					<?php
 				}
+			} else {
+				echo '<li class="position-filled">This position has been filled</li>';
 			}
 		}
 	}
@@ -741,9 +785,11 @@ class Bp_Job_Manager_Public {
 	 */
 	public function bpjm_member_profile_resumes_tab() {
 		global $bp_job_manager;
-		$displayed_uid  = bp_displayed_user_id();
-		$displayed_user = get_userdata( $displayed_uid );
-		$curr_user      = wp_get_current_user();
+		$displayed_uid    = bp_displayed_user_id();
+		$displayed_user   = get_userdata( $displayed_uid );
+		$curr_user        = wp_get_current_user();
+		$parent_slug      = 'resumes';
+		$resumes_tab_link = bp_core_get_userlink( $displayed_uid, false, true ) . $parent_slug . '/';
 
 		if ( ! empty( $curr_user->roles ) && ! empty( $displayed_user->roles ) ) {
 			/**
@@ -762,9 +808,6 @@ class Bp_Job_Manager_Public {
 					'order'          => 'ASC',
 				);
 				$my_resumes_count = count( get_posts( $args ) );
-
-				$parent_slug      = 'resumes';
-				$resumes_tab_link = bp_core_get_userlink( $displayed_uid, false, true ) . $parent_slug . '/';
 
 				bp_core_new_nav_item(
 					array(
@@ -804,6 +847,17 @@ class Bp_Job_Manager_Public {
 					);
 				}
 			}
+		} else {
+			bp_core_new_nav_item(
+				array(
+					'name'                    => __( 'Resumes <span>%d</span>', 'bp-job-manager' ),
+					'slug'                    => $parent_slug,
+					'screen_function'         => array( $this, 'bpjm_my_resumes_show_screen' ),
+					'position'                => 75,
+					'default_subnav_slug'     => 'my-resumes',
+					'show_for_displayed_user' => true,
+				)
+			);
 		}
 	}
 
@@ -880,7 +934,23 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_my_resumes_tab_function_to_show_content() {
-		echo do_shortcode( '[candidate_dashboard]' );
+		if ( bp_loggedin_user_id() == bp_displayed_user_id() ) {
+			echo do_shortcode( '[candidate_dashboard]' );
+		} else {
+			$args = array(
+				'post_type'           => 'resume',
+				'post_status'         => array( 'publish', 'expired', 'pending', 'hidden' ),
+				'ignore_sticky_posts' => 1,
+				'posts_per_page'      => 10,
+				'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * 25,
+				'orderby'             => 'date',
+				'order'               => 'desc',
+				'author'              => bp_displayed_user_id(),
+
+			);
+			$resumes = get_posts( $args );
+			include BPJM_PLUGIN_PATH . 'public/templates/bpjm-resume-listing.php';
+		}
 	}
 
 	/**
@@ -1036,10 +1106,10 @@ class Bp_Job_Manager_Public {
 						<td class="field-name"><?php _e( 'Display resume at profile page', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input class="bpjm-display-resume-checkbox" type="checkbox" value="yes" name="bpjm_display[display_resume]"
-						<?php
-						if ( ! empty( $fields_display['display_resume'] ) ) {
-							checked( $fields_display['display_resume'], 'yes' );}
-						?>
+					<?php
+					if ( ! empty( $fields_display['display_resume'] ) ) {
+						checked( $fields_display['display_resume'], 'yes' );}
+					?>
 								>
 						</td>
 					</tr>
@@ -1047,11 +1117,11 @@ class Bp_Job_Manager_Public {
 						<td class="field-name"><?php _e( 'Select resume to display at profile', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<select name="bpjm_prof_resume_show_postid">
-							<?php
-							foreach ( $post as $key => $value ) {
-								echo "<option value='" . $value->ID . "' " . selected( $selected_post, $value->ID, false ) . '>' . get_the_candidate_title( $value->ID ) . '</option>';
-							}
-							?>
+						<?php
+						foreach ( $post as $key => $value ) {
+							echo "<option value='" . $value->ID . "' " . selected( $selected_post, $value->ID, false ) . '>' . get_the_candidate_title( $value->ID ) . '</option>';
+						}
+						?>
 							</select>
 						</td>
 					</tr>
@@ -1145,7 +1215,7 @@ class Bp_Job_Manager_Public {
 					</tr>
 				</tbody>
 			</table>
-					<?php
+						<?php
 			}
 		}
 	}
