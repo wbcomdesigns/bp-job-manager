@@ -2,9 +2,9 @@
 	<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 	<h4 class="wbcom-plugin-heading"><?php esc_html_e( 'Support', 'bp-job-manager' ); ?></h4>
     <div id="wbcom_admin_content_support" class="wbcom_admin_tab_content">
-        <strong><?php esc_html_e( 'Having any question or issue ?', 'bp-job-manager' ); ?></strong>
+        <strong><?php esc_html_e( 'Have any question or issue ?', 'bp-job-manager' ); ?></strong>
         <p>
-			<?php esc_html_e( 'Our team is here to help you out at anytime. If you have any idea about how we could improve. You can share access to your site on our helpdesk if it can help getting faster. There are two ways to in touch with us :', 'bp-job-manager' ); ?></p>
+			<?php esc_html_e( 'Our team is here to help you out anytime. If you have any idea about how we can improve, you can share it on our helpdesk along with your site access for faster response. There are two ways to stay in touch with us :', 'bp-job-manager' ); ?></p>
 
         <ul id="wbcom_support_list" class="wbcom_boxes_list wp-clearfix">
 
@@ -16,8 +16,8 @@
                 </div>
                 <div class="wbcom_single_right">
                     <div class="wbcom_single_inner">
-                        <h4><?php esc_html_e( 'Tickets Support', 'bp-job-manager' ); ?></h4>
-                        <p><?php esc_html_e( 'Open a ticket on our helpdesk, we don\'t guarantee a fast response but within a week. Except if you\'ve purchased one of our product we\'ll reply within 24 hours.', 'bp-job-manager' ); ?></p>
+                        <h4><?php esc_html_e( 'Support Tickets', 'bp-job-manager' ); ?></h4>
+                        <p><?php esc_html_e( 'You can open a support ticket on our helpdesk. If you have purchased one of our products, we will get back to you within next 24 hours.', 'bp-job-manager' ); ?></p>
                         <div class="text-right">
                             <a href="https://support.wbcomdesigns.com/portal/newticket" class="wb_btn wb_btn_default" target="_blank">
                                 <i class="fas fa-ticket-alt"></i>
@@ -37,7 +37,7 @@
                 <div class="wbcom_single_right">
                     <div class="wbcom_single_inner">
                         <h4><?php esc_html_e( 'Contact Us', 'bp-job-manager' ); ?></h4>
-                        <p><?php esc_html_e( 'Create a new thread on our plugin page, participation is open to anyone from all around the world. We\'ll be there to help as well but can\'t guarantee any delay.', 'bp-job-manager' ); ?></p>
+                        <p><?php esc_html_e( 'For any other queries, you can contact us via our Contact Us page. We will make sure to get back to you as soon as possible.', 'bp-job-manager' ); ?></p>
                         <div class="text-right">
                             <a href="https://wbcomdesigns.com/contact/" class="wb_btn wb_btn_default" target="_blank">
                                 <i class="fas fa-phone-square"></i>
