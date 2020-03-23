@@ -44,8 +44,11 @@ jQuery(document).ready(
         url: bpjm_load_jobs_object.ajaxurl,
         type: 'POST',
         data: data,
+        beforeSend: function() {
+          $('.wb-grid-cell').find('.job-manager-jobs').after('<div class="inifinite-loader-wrapper"><a id="inifiniteLoader" href="javascript: void(0)" ><button class="loading">Loading...</button></a></div >');
+        },
         success: function(response) {
-          $('#inifiniteLoader').hide();
+          $('#inifiniteLoader').css('display', 'none');
           $('.job-manager-jobs tbody:last-child').append(response)
         }
       });
