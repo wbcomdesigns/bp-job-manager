@@ -53,6 +53,8 @@ if ( is_user_logged_in() ) {
 									<?php echo esc_html( $job->_job_expires ? date_i18n( get_option( 'date_format' ), strtotime( $job->_job_expires ) ) : '&ndash;' ); ?>
 								<?php elseif ( 'filled' === $key ) : ?>
 									<?php echo is_position_filled( $job ) ? '&#10004;' : '&ndash;'; ?>
+								<?php else : ?>
+									<?php do_action( 'job_manager_job_dashboard_column_' . $key, $job ); ?>
 								<?php endif; ?>
 							</td>
 						<?php endforeach; ?>

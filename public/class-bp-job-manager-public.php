@@ -170,6 +170,12 @@ class Bp_Job_Manager_Public {
 				'date'      => __( 'Date Posted', 'bp-job-manager' ),
 				'expires'   => __( 'Listing Expires', 'bp-job-manager' ),
 			);
+			if ( is_user_logged_in() ) {
+				$column                = array(
+					'actions' => __( 'Actions', 'bp-job-manager' ),
+				);
+				$job_dashboard_columns = array_merge( $job_dashboard_columns, $column );
+			}
 
 			$args = array(
 				'post_type'           => 'job_listing',

@@ -19,6 +19,27 @@ jQuery(document).ready(
       });
 
 
+    //Assign class to each header
+    $('#job-manager-job-dashboard table th').each(function() {
+      $(this).addClass('header-' + $(this).index());
+    });
+
+    //Assign a data-header attribute with the text from the corresponding header
+    $('#job-manager-job-dashboard table td').each(function() {
+      $(this).attr('data-header', $('.header-' + $(this).index()).text());
+    });
+
+    //Assign class to each header
+    $('#resume-manager-candidate-dashboard table th').each(function() {
+      $(this).addClass('header-' + $(this).index());
+    });
+
+    //Assign a data-header attribute with the text from the corresponding header
+    $('#resume-manager-candidate-dashboard table td').each(function() {
+      $(this).attr('data-header', $('.header-' + $(this).index()).text());
+    });
+
+
     var count = 2;
     var total = bpjm_load_jobs_object.max_num_pages;
     $(window).scroll(function() {
@@ -49,29 +70,30 @@ jQuery(document).ready(
         },
         success: function(response) {
           $('#inifiniteLoader').css('display', 'none');
-          $('.job-manager-jobs tbody:last-child').append(response)
+          $('.job-manager-jobs tbody:last-child').append(response);
+
+          //Assign class to each header
+          $('#job-manager-job-dashboard table th').each(function() {
+            $(this).addClass('header-' + $(this).index());
+          });
+
+          //Assign a data-header attribute with the text from the corresponding header
+          $('#job-manager-job-dashboard table td').each(function() {
+            $(this).attr('data-header', $('.header-' + $(this).index()).text());
+          });
+
+          //Assign class to each header
+          $('#resume-manager-candidate-dashboard table th').each(function() {
+            $(this).addClass('header-' + $(this).index());
+          });
+
+          //Assign a data-header attribute with the text from the corresponding header
+          $('#resume-manager-candidate-dashboard table td').each(function() {
+            $(this).attr('data-header', $('.header-' + $(this).index()).text());
+          });
         }
       });
       return false;
     }
 
-    //Assign class to each header
-    $('#job-manager-job-dashboard table th').each(function() {
-      $(this).addClass('header-' + $(this).index());
-    });
-
-    //Assign a data-header attribute with the text from the corresponding header
-    $('#job-manager-job-dashboard table td').each(function() {
-      $(this).attr('data-header', $('.header-' + $(this).index()).text());
-    });
-
-    //Assign class to each header
-    $('#resume-manager-candidate-dashboard table th').each(function() {
-      $(this).addClass('header-' + $(this).index());
-    });
-
-    //Assign a data-header attribute with the text from the corresponding header
-    $('#resume-manager-candidate-dashboard table td').each(function() {
-      $(this).attr('data-header', $('.header-' + $(this).index()).text());
-    });
   });

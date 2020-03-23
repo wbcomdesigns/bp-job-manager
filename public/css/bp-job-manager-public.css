@@ -83,17 +83,17 @@
 @media screen and (max-width: 768px) {
 
   .job-manager-jobs thead,
-  .resume-manager-resumes thead{
+  .resume-manager-resumes thead {
     display: none;
   }
 
   .job-manager-jobs tr:nth-child(odd),
-  .resume-manager-resumes tr:nth-child(odd){
+  .resume-manager-resumes tr:nth-child(odd) {
     background: #f7f7f7;
   }
 
   .job-manager-jobs tr,
-  .resume-manager-resumes tr{
+  .resume-manager-resumes tr {
     margin: 0 0 1rem 0;
   }
 
@@ -106,6 +106,7 @@
     display: block;
     width: 100%;
     text-align: left !important;
+    min-height: 54px;
   }
 
   .job-manager-jobs td:before,
@@ -123,9 +124,7 @@
     font-size: 75% !important;
   }
 
-  #job-manager-job-dashboard table ul.job-dashboard-actions li{
+  #job-manager-job-dashboard table ul.job-dashboard-actions li {
     display: inline-block !important;
   }
-
-
 }
