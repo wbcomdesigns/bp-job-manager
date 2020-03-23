@@ -12,7 +12,6 @@ $job_dashboard_columns = array(
 	'filled'    => __( 'Filled?', 'bp-job-manager' ),
 	'date'      => __( 'Date Posted', 'bp-job-manager' ),
 	'expires'   => __( 'Listing Expires', 'bp-job-manager' ),
-	'actions'   => __( 'Actions', 'bp-job-manager' ),
 );
 ?>
 <div id="job-manager-job-dashboard">
@@ -48,8 +47,6 @@ $job_dashboard_columns = array(
 									<?php echo esc_html( $job->_job_expires ? date_i18n( get_option( 'date_format' ), strtotime( $job->_job_expires ) ) : '&ndash;' ); ?>
 								<?php elseif ( 'filled' === $key ) : ?>
 									<?php echo is_position_filled( $job ) ? '&#10004;' : '&ndash;'; ?>
-								<?php else : ?>
-									<?php do_action( 'job_manager_job_dashboard_column_' . $key, $job ); ?>
 								<?php endif; ?>
 							</td>
 						<?php endforeach; ?>
