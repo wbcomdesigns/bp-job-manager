@@ -54,4 +54,24 @@ jQuery(document).ready(
       });
       return false;
     }
+
+    //Assign class to each header
+    $('#job-manager-job-dashboard table th').each(function() {
+      $(this).addClass('header-' + $(this).index());
+    });
+
+    //Assign a data-header attribute with the text from the corresponding header
+    $('#job-manager-job-dashboard table td').each(function() {
+      $(this).attr('data-header', $('.header-' + $(this).index()).text());
+    });
+
+    //Assign class to each header
+    $('#resume-manager-candidate-dashboard table th').each(function() {
+      $(this).addClass('header-' + $(this).index());
+    });
+
+    //Assign a data-header attribute with the text from the corresponding header
+    $('#resume-manager-candidate-dashboard table td').each(function() {
+      $(this).attr('data-header', $('.header-' + $(this).index()).text());
+    });
   });
