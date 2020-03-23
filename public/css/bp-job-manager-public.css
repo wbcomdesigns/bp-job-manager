@@ -81,19 +81,24 @@
 }
 
 @media screen and (max-width: 768px) {
-  .job-manager-jobs thead {
+
+  .job-manager-jobs thead,
+  .resume-manager-resumes thead{
     display: none;
   }
 
-  .job-manager-jobs tr:nth-child(odd) {
+  .job-manager-jobs tr:nth-child(odd),
+  .resume-manager-resumes tr:nth-child(odd){
     background: #f7f7f7;
   }
 
-  .job-manager-jobs tr {
+  .job-manager-jobs tr,
+  .resume-manager-resumes tr{
     margin: 0 0 1rem 0;
   }
 
-  .job-manager-jobs td {
+  .job-manager-jobs td,
+  .resume-manager-resumes td {
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;
@@ -103,7 +108,9 @@
     text-align: left !important;
   }
 
-  .job-manager-jobs td:before {
+  .job-manager-jobs td:before,
+  .resume-manager-resumes td:before {
+    content: attr(data-header);
     position: absolute;
     left: 15px;
     width: 45%;
@@ -116,23 +123,9 @@
     font-size: 75% !important;
   }
 
-  .job-manager-jobs td:nth-of-type(1):before {
-    content: "Title";
+  #job-manager-job-dashboard table ul.job-dashboard-actions li{
+    display: inline-block !important;
   }
 
-  .job-manager-jobs td:nth-of-type(2):before {
-    content: "Filled?";
-  }
 
-  .job-manager-jobs td:nth-of-type(3):before {
-    content: "Date Posted";
-  }
-
-  .job-manager-jobs td:nth-of-type(4):before {
-    content: "Listing Expires";
-  }
-
-  .job-manager-jobs td:nth-of-type(5):before {
-    content: "Action";
-  }
 }
