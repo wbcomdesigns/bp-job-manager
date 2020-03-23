@@ -13,6 +13,12 @@ $job_dashboard_columns = array(
 	'date'      => __( 'Date Posted', 'bp-job-manager' ),
 	'expires'   => __( 'Listing Expires', 'bp-job-manager' ),
 );
+if ( is_user_logged_in() ) {
+	$column                = array(
+		'actions' => __( 'Actions', 'bp-job-manager' ),
+	);
+	$job_dashboard_columns = array_merge( $job_dashboard_columns, $column );
+}
 ?>
 <div id="job-manager-job-dashboard">
 	<table class="job-manager-jobs">

@@ -60,7 +60,7 @@ class Bp_Job_Manager_Public {
 	}
 
 	public function get_jobs_max_num_pages() {
-		if ( 'my-jobs' == bp_current_action() ) {
+		if ( 'my-jobs' == bp_current_action() || 'jobs' == bp_current_action() ) {
 			$args = array(
 				'post_type'           => 'job_listing',
 				'post_status'         => array( 'publish', 'expired', 'pending', 'draft', 'preview' ),
@@ -169,7 +169,6 @@ class Bp_Job_Manager_Public {
 				'filled'    => __( 'Filled?', 'bp-job-manager' ),
 				'date'      => __( 'Date Posted', 'bp-job-manager' ),
 				'expires'   => __( 'Listing Expires', 'bp-job-manager' ),
-				'actions'   => __( 'Actions', 'bp-job-manager' ),
 			);
 
 			$args = array(
@@ -183,6 +182,7 @@ class Bp_Job_Manager_Public {
 				'paged'               => $paged,
 			);
 			$jobs = get_posts( $args );
+
 			foreach ( $jobs as $job ) : ?>
 				<tr>
 					<?php foreach ( $job_dashboard_columns as $key => $column ) : ?>
