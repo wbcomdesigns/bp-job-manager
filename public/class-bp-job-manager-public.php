@@ -399,7 +399,7 @@ class Bp_Job_Manager_Public {
 
 					bp_core_new_subnav_item(
 						array(
-							'name'            => __( 'Post a New Job', 'bp-job-manager' ),
+							'name'            => __( 'Post Job', 'bp-job-manager' ),
 							'slug'            => 'post-job',
 							'parent_url'      => $jobs_tab_link . 'post-job',
 							'parent_slug'     => $parent_slug,
@@ -459,7 +459,7 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_post_job_tab_function_to_show_title() {
-		esc_html_e( 'Post a New Job', 'bp-job-manager' );
+		esc_html_e( 'Post Job', 'bp-job-manager' );
 	}
 
 	/**

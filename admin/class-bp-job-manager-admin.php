@@ -259,7 +259,7 @@ class Bp_Job_Manager_Admin {
 						array(
 							'parent' => 'my-account-' . $profile_menu_slug,
 							'id'     => 'my-account-' . $profile_menu_slug . '-post-job',
-							'title'  => esc_html__( 'Post a New Job', 'bp-job-manager' ),
+							'title'  => esc_html__( 'Post Job', 'bp-job-manager' ),
 							'href'   => trailingslashit( $post_job_url ),
 						)
 					);
