@@ -52,19 +52,27 @@ BuddyPress Job Manager is built by the experienced developers at Wbcom Designs w
 == Screenshots ==
 
 The screenshots are present in the root of the plugin folder.
-1. screenshot-1 
+1. screenshot-1
 2. screenshot-2
 3. screenshot-3
 4. screenshot-4
 5. screenshot-5
 6. screenshot-6
-7. screenshot-7 : Lastest or selected resumes at your BuddyPress Profile
+7. screenshot-7 : Latest or selected resumes at your BuddyPress Profile
 8. screenshot-8 : You can find options for member's resume fields at Settings >> Profile Privacy
 
 == Changelog ==
 
+= 2.3.0 =
+* Enhancement - Resume table and table data content dynamic
+* Fix - (#62) Responsive Table issue fixed
+* Enhancement - (#57) Added admin notice to review the plugin
+* Enhancement - (#58) Hide apply button on marked filled job
+* Enhancement - (#58) Remove Applications column
+* Fixt - (#55) Pagination Issue
+
 = 2.2.1 =
-* Fix: updated Job Tab condition logic to display on selected user roles.
+* Fix : updated Job Tab condition logic to display on selected user roles.
 
 = 2.2.0 =
 * Fix: Job Listing at displayed user profile
