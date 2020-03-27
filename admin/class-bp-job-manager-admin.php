@@ -121,7 +121,7 @@ class Bp_Job_Manager_Admin {
 			<?php settings_errors(); ?>
 			<div class="wbcom-admin-settings-page">
 				<?php
-				$this->bpjm_plugin_settings_tabs(); 
+				$this->bpjm_plugin_settings_tabs();
 				do_settings_sections( $tab );
 				?>
 			</div>
@@ -268,8 +268,9 @@ class Bp_Job_Manager_Admin {
 				/**
 				 * Resumes menu - for the roles allowed for job posting
 				 */
+				$wpjm_resumes_active      = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
 				$match_apply_job_roles = array_intersect( $bp_job_manager->apply_job_user_roles, $curr_user->roles );
-				if ( ! empty( $match_apply_job_roles ) ) {
+				if ( ! empty( $match_apply_job_roles ) && ($wpjm_resumes_active)) {
 					$profile_menu_slug  = 'resumes';
 					$profile_menu_title = esc_html__( 'Resumes', 'bp-job-manager' );
 
