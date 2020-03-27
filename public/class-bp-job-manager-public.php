@@ -339,7 +339,7 @@ class Bp_Job_Manager_Public {
 
 				bp_core_new_subnav_item(
 					array(
-						'name'            => __( 'My Jobs', 'bp-job-manager' ),
+						'name'            => __( 'Jobs', 'bp-job-manager' ),
 						'slug'            => 'my-jobs',
 						'parent_url'      => $jobs_tab_link . 'my-jobs',
 						'parent_slug'     => $parent_slug,
@@ -742,15 +742,19 @@ class Bp_Job_Manager_Public {
 			$job_application_page  = get_permalink( $bp_job_manager->job_application_pgid );
 			$job_application_page .= '?args=' . $job->ID;
 			if ( ! is_position_filled( $job ) ) {
-				if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
-					get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
-				} else {
-					?>
-					<div class="generic-button" id="bpjm-job-application-btn">
-						<a href="javascript:void(0);" data-url="<?php echo esc_attr( $job_application_page ); ?>"><?php esc_html_e( 'Apply', 'bp-job-manager' ); ?></a>
-					</div>
-					<?php
-				}
+				$wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) );
+				if ( is_user_logged_in() && $wpjm_applications_active ) {
+					if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
+						get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
+					}
+			}
+					else {
+						?>
+						<div class="generic-button" id="bpjm-job-application-btn">
+							<a href="javascript:void(0);" data-url="<?php echo esc_attr( $job_application_page ); ?>"><?php esc_html_e( 'Apply', 'bp-job-manager' ); ?></a>
+						</div>
+						<?php
+					}
 			} else {
 				echo '<li class="position-filled">This position has been filled</li>';
 			}
@@ -823,7 +827,7 @@ class Bp_Job_Manager_Public {
 				// My Resumes.
 				bp_core_new_subnav_item(
 					array(
-						'name'            => __( 'My Resumes', 'bp-job-manager' ),
+						'name'            => __( 'Resumes', 'bp-job-manager' ),
 						'slug'            => 'my-resumes',
 						'parent_url'      => $resumes_tab_link . 'my-resumes',
 						'parent_slug'     => $parent_slug,
