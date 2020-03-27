@@ -69,7 +69,7 @@ The screenshots are present in the root of the plugin folder.
 * Enhancement - (#57) Added admin notice to review the plugin
 * Enhancement - (#58) Hide apply button on marked filled job
 * Enhancement - (#58) Remove Applications column
-* Fixt - (#55) Pagination Issue
+* Fix - (#55) Pagination Issue
 
 = 2.2.1 =
 * Fix : updated Job Tab condition logic to display on selected user roles.
