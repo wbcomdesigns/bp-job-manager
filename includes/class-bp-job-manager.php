@@ -115,9 +115,9 @@ class Bp_Job_Manager {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-bp-job-manager-admin.php';
 
 		/**
-		 * The class responsible for admin review that apper after 7 days.
+		 * The class responsible for admin review.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/bp-job-manager-admin-feedback.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-bp-job-manager-admin-feedback.php';
 
 		/**
 		 * The class responsible for defining the global variable of the plugin.
@@ -212,7 +212,7 @@ class Bp_Job_Manager {
 
 		$this->loader->add_filter( 'job_manager_user_can_edit_pending_submissions', $plugin_public, 'bpjm_allow_user_to_edit_pending_jobs', 10, 1 );
 		$this->loader->add_filter( 'job_manager_my_job_actions', $plugin_public, 'bpjm_job_dashboard_job_actions', 10, 2 );
-		$this->loader->add_filter( 'job_manager_job_dashboard_columns', $plugin_public, 'bpjm_job_dashboard_cols', 10, 1 );
+		$this->loader->add_filter( 'job_manager_job_dashboard_columns', $plugin_public, 'bpjm_job_dashboard_cols', 20, 1 );
 		$this->loader->add_action( 'job_manager_job_dashboard_column_actions', $plugin_public, 'bpjm_job_dashboard_actions_col_content', 10, 1 );
 		$this->loader->add_filter( 'resume_manager_get_dashboard_resumes_args', $plugin_public, 'bpjm_resume_dashboard_user_id', 10, 1 );
 		$this->loader->add_filter( 'resume_manager_my_resume_actions', $plugin_public, 'bpjm_candidate_dashboard_resume_actions', 10, 2 );

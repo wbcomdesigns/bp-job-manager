@@ -63,7 +63,7 @@ global $bp_job_manager, $wp_roles;
 									<input type="checkbox" name="bpjm_general_settings[bpjm_job_post_activity]" <?php if( isset($bp_job_manager->bpjm_job_post_activity) ) { checked( $bp_job_manager->bpjm_job_post_activity, 'yes'); } ?>>
 									<div class="blpro-slider blpro-round"></div>
 								</label>
-								<p class="description"><?php esc_attr_e( 'Check this option if you want create buddypress activity on posting job.', 'bp-job-manager' ); ?></p>
+								<p class="description"><?php esc_attr_e( 'Check this option if you want to create BuddyPress activity on posting job.', 'bp-job-manager' ); ?></p>
 							</td>
 						</tr>
 						<?php 
@@ -76,7 +76,7 @@ global $bp_job_manager, $wp_roles;
 											<input type="checkbox" name="bpjm_general_settings[bpjm_resume_activity]" <?php if( isset($bp_job_manager->bpjm_resume_activity) ) { checked( $bp_job_manager->bpjm_resume_activity, 'yes'); } ?>>
 											<div class="blpro-slider blpro-round"></div>
 										</label>
-										<p class="description"><?php esc_attr_e( 'Check this option if you want create buddypress activity on posting resume.', 'bp-job-manager' ); ?></p>
+										<p class="description"><?php esc_attr_e( 'Check this option if you want to create BuddyPress activity on posting resume.', 'bp-job-manager' ); ?></p>
 									</td>
 								</tr>
 								<tr>
@@ -94,13 +94,13 @@ global $bp_job_manager, $wp_roles;
 							$wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) ); 
 							if( $wpjm_applications_active == true ){ ?>
 								<tr>
-									<th scope="row"><label for="wpbpjm-resume-profile-view"><?php esc_attr_e( 'Add buddypress notification to job author on job application', 'bp-job-manager' ); ?></label></th>
+									<th scope="row"><label for="wpbpjm-resume-profile-view"><?php esc_attr_e( 'Send BuddyPress notification to job author on a job application', 'bp-job-manager' ); ?></label></th>
 									<td>
 										<label class="blpro-switch">
 											<input type="checkbox" name="bpjm_general_settings[bpjm_app_notify]" <?php if( isset($bp_job_manager->bpjm_app_notify) ) { checked( $bp_job_manager->bpjm_app_notify, 'yes'); } ?>>
 											<div class="blpro-slider blpro-round"></div>
 										</label>
-										<p class="description"><?php esc_attr_e( 'Check this option if you want send bp notification to job author when someone applies to job.', 'bp-job-manager' ); ?></p>
+										<p class="description"><?php esc_attr_e( 'Check this option if you want to send bp notification to job author when someone applies to the job.', 'bp-job-manager' ); ?></p>
 									</td>
 								</tr>
 							<?php } ?>
