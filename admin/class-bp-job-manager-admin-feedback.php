@@ -274,7 +274,7 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 						<h3><?php echo esc_html__( 'Are you enjoying BuddyPress Job Manager?', 'bp-job-manager' ); ?></h3>
 						<p>
 							<?php /* translators: 1. Name */ ?>
-							<?php printf( esc_html__( 'We hope you\'re enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'bp-activity-filter' ), esc_html( $this->name ) ); ?>
+							<?php printf( esc_html__( 'We hope you\'re enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'bp-job-manager' ), esc_html( $this->name ) ); ?>
 						</p>
 					</div>
 					<div class="bp-job-manager-install-now">
