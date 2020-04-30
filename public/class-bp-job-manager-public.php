@@ -96,7 +96,6 @@ class Bp_Job_Manager_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-public.css', array(), $this->version, 'all' );
 
 	}
@@ -118,6 +117,7 @@ class Bp_Job_Manager_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+
 		 $this->get_jobs_max_num_pages();
 		 wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-public.js', array( 'jquery' ), $this->version, false );
 		wp_localize_script(
@@ -719,14 +719,16 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_job_dashboard_cols( $job_dashboard_cols ) {
-		if ( ! bp_is_user_profile() && ( bp_loggedin_user_id() != bp_displayed_user_id() ) ) {
-			$column             = array(
-				'actions' => __( 'Actions', 'bp-job-manager' ),
-			);
-			$job_dashboard_cols = array_merge( $job_dashboard_cols, $column );
-		}
-		if ( array_key_exists( 'applications', $job_dashboard_cols ) ) {
-			unset( $job_dashboard_cols['applications'] );
+		if ( 'my-jobs' == bp_current_action() ) {
+			if ( ! bp_is_user_profile() && ( bp_loggedin_user_id() != bp_displayed_user_id() ) ) {
+				$column             = array(
+					'actions' => __( 'Actions', 'bp-job-manager' ),
+				);
+				$job_dashboard_cols = array_merge( $job_dashboard_cols, $column );
+			}
+			if ( array_key_exists( 'applications', $job_dashboard_cols ) ) {
+				unset( $job_dashboard_cols['applications'] );
+			}
 		}
 		return $job_dashboard_cols;
 	}
