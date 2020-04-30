@@ -96,8 +96,10 @@ class Bp_Job_Manager_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+		if ( 'my-jobs' == bp_current_action() || 'applied-jobs' == bp_current_action() || 'post-job' == bp_current_action() || 'my-resumes' == bp_current_action() || 'add-resume' == bp_current_action() ) {
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-public.css', array(), $this->version, 'all' );
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-public.css', array(), $this->version, 'all' );
+		}
 
 	}
 
@@ -118,18 +120,20 @@ class Bp_Job_Manager_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		 $this->get_jobs_max_num_pages();
-		 wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-public.js', array( 'jquery' ), $this->version, false );
-		wp_localize_script(
-			$this->plugin_name,
-			'bpjm_load_jobs_object',
-			array(
-				'ajaxurl'       => admin_url( 'admin-ajax.php' ),
-				'max_num_pages' => $this->max_num_pages,
-				'ajax_nonce'    => wp_create_nonce( 'bpjm_load_jobs_nonce' ),
-			)
-		);
-		wp_enqueue_script( $this->plugin_name );
+		if ( 'my-jobs' == bp_current_action() || 'applied-jobs' == bp_current_action() || 'post-job' == bp_current_action() || 'my-resumes' == bp_current_action() || 'add-resume' == bp_current_action() ) {
+			$this->get_jobs_max_num_pages();
+			wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-public.js', array( 'jquery' ), $this->version, false );
+			wp_localize_script(
+				$this->plugin_name,
+				'bpjm_load_jobs_object',
+				array(
+					'ajaxurl'       => admin_url( 'admin-ajax.php' ),
+					'max_num_pages' => $this->max_num_pages,
+					'ajax_nonce'    => wp_create_nonce( 'bpjm_load_jobs_nonce' ),
+				)
+			);
+			wp_enqueue_script( $this->plugin_name );
+		}
 	}
 
 	/**
