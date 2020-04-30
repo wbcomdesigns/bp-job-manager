@@ -96,6 +96,7 @@ class Bp_Job_Manager_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-public.css', array(), $this->version, 'all' );
 
 	}
@@ -117,7 +118,6 @@ class Bp_Job_Manager_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
 		 $this->get_jobs_max_num_pages();
 		 wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-public.js', array( 'jquery' ), $this->version, false );
 		wp_localize_script(
@@ -169,13 +169,8 @@ class Bp_Job_Manager_Public {
 				'filled'    => __( 'Filled?', 'bp-job-manager' ),
 				'date'      => __( 'Date Posted', 'bp-job-manager' ),
 				'expires'   => __( 'Listing Expires', 'bp-job-manager' ),
+				'actions'   => __( 'Actions', 'bp-job-manager' ),
 			);
-			if ( is_user_logged_in() ) {
-				$column                = array(
-					'actions' => __( 'Actions', 'bp-job-manager' ),
-				);
-				$job_dashboard_columns = array_merge( $job_dashboard_columns, $column );
-			}
 
 			$args = array(
 				'post_type'           => 'job_listing',
@@ -344,7 +339,7 @@ class Bp_Job_Manager_Public {
 
 				bp_core_new_subnav_item(
 					array(
-						'name'            => __( 'My Jobs', 'bp-job-manager' ),
+						'name'            => __( 'Jobs', 'bp-job-manager' ),
 						'slug'            => 'my-jobs',
 						'parent_url'      => $jobs_tab_link . 'my-jobs',
 						'parent_slug'     => $parent_slug,
@@ -404,7 +399,7 @@ class Bp_Job_Manager_Public {
 
 					bp_core_new_subnav_item(
 						array(
-							'name'            => __( 'Post a New Job', 'bp-job-manager' ),
+							'name'            => __( 'Post Job', 'bp-job-manager' ),
 							'slug'            => 'post-job',
 							'parent_url'      => $jobs_tab_link . 'post-job',
 							'parent_slug'     => $parent_slug,
@@ -464,7 +459,7 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_post_job_tab_function_to_show_title() {
-		esc_html_e( 'Post a New Job', 'bp-job-manager' );
+		esc_html_e( 'Post Job', 'bp-job-manager' );
 	}
 
 	/**
@@ -719,16 +714,14 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_job_dashboard_cols( $job_dashboard_cols ) {
-		if ( 'my-jobs' == bp_current_action() ) {
-			if ( ! bp_is_user_profile() && ( bp_loggedin_user_id() != bp_displayed_user_id() ) ) {
-				$column             = array(
-					'actions' => __( 'Actions', 'bp-job-manager' ),
-				);
-				$job_dashboard_cols = array_merge( $job_dashboard_cols, $column );
-			}
-			if ( array_key_exists( 'applications', $job_dashboard_cols ) ) {
-				unset( $job_dashboard_cols['applications'] );
-			}
+		if ( ! bp_is_user_profile() && ( bp_loggedin_user_id() != bp_displayed_user_id() ) ) {
+			$column             = array(
+				'actions' => __( 'Actions', 'bp-job-manager' ),
+			);
+			$job_dashboard_cols = array_merge( $job_dashboard_cols, $column );
+		}
+		if ( array_key_exists( 'applications', $job_dashboard_cols ) ) {
+			unset( $job_dashboard_cols['applications'] );
 		}
 		return $job_dashboard_cols;
 	}
@@ -749,14 +742,17 @@ class Bp_Job_Manager_Public {
 			$job_application_page  = get_permalink( $bp_job_manager->job_application_pgid );
 			$job_application_page .= '?args=' . $job->ID;
 			if ( ! is_position_filled( $job ) ) {
-				if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
-					get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
+				$wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) );
+				if ( is_user_logged_in() && $wpjm_applications_active ) {
+					if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
+						get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
+					}
 				} else {
 					?>
-					<div class="generic-button" id="bpjm-job-application-btn">
-						<a href="javascript:void(0);" data-url="<?php echo esc_attr( $job_application_page ); ?>"><?php esc_html_e( 'Apply', 'bp-job-manager' ); ?></a>
-					</div>
-					<?php
+						<div class="generic-button" id="bpjm-job-application-btn">
+							<a href="javascript:void(0);" data-url="<?php echo esc_attr( $job_application_page ); ?>"><?php esc_html_e( 'Apply', 'bp-job-manager' ); ?></a>
+						</div>
+						<?php
 				}
 			} else {
 				echo '<li class="position-filled">This position has been filled</li>';
@@ -828,9 +824,15 @@ class Bp_Job_Manager_Public {
 					)
 				);
 				// My Resumes.
+				if ( bp_loggedin_user_id() == bp_displayed_user_id() ) {
+					$resume = __( 'My Resumes', 'bp-job-manager' );
+				} else {
+					$author_name = bp_core_get_user_displayname( bp_displayed_user_id() );
+					$resume      = __( ucfirst( $author_name ) . '\'s' . ' ' . 'Resumes', 'bp-job-manager' );
+				}
 				bp_core_new_subnav_item(
 					array(
-						'name'            => __( 'My Resumes', 'bp-job-manager' ),
+						'name'            => $resume,
 						'slug'            => 'my-resumes',
 						'parent_url'      => $resumes_tab_link . 'my-resumes',
 						'parent_slug'     => $parent_slug,
@@ -942,23 +944,52 @@ class Bp_Job_Manager_Public {
 	 * @access   public
 	 */
 	public function bpjm_my_resumes_tab_function_to_show_content() {
-		if ( bp_loggedin_user_id() == bp_displayed_user_id() ) {
-			echo do_shortcode( '[candidate_dashboard]' );
-		} else {
-			$args = array(
-				'post_type'           => 'resume',
-				'post_status'         => array( 'publish', 'expired', 'pending', 'hidden' ),
-				'ignore_sticky_posts' => 1,
-				'posts_per_page'      => 10,
-				'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * 25,
-				'orderby'             => 'date',
-				'order'               => 'desc',
-				'author'              => bp_displayed_user_id(),
-
-			);
-			$resumes = get_posts( $args );
-			include BPJM_PLUGIN_PATH . 'public/templates/bpjm-resume-listing.php';
+		if ( ! is_user_logged_in() ) {
+			?>
+			<div id="resume-manager-candidate-dashboard">
+				<p class="account-sign-in">
+					<?php _e( 'You need to be signed in to manage your resumes.', 'wp-job-manager-resumes' ); ?>
+					 <a class="button" href="<?php echo apply_filters( 'resume_manager_candidate_dashboard_login_url', wp_login_url( get_permalink() ) ); ?>"><?php _e( 'Sign in', 'bp-job-manager' ); ?></a></p>
+			</div>
+			<?php
 		}
+			$args    = apply_filters(
+				'bp_job_manager_get_dashboard_resumes_args',
+				array(
+					'post_type'           => 'resume',
+					'post_status'         => array( 'publish', 'expired', 'pending', 'hidden' ),
+					'ignore_sticky_posts' => 1,
+					'posts_per_page'      => $posts_per_page,
+					'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * $posts_per_page,
+					'orderby'             => 'date',
+					'order'               => 'desc',
+					'author'              => bp_displayed_user_id(),
+				)
+			);
+			$resumes = new WP_Query();
+
+			$candidate_dashboard_columns = array(
+				'resume-title'       => __( 'Name', 'bp-job-manager-resumes' ),
+				'candidate-title'    => __( 'Title', 'bp-job-manager-resumes' ),
+				'candidate-location' => __( 'Location', 'bp-job-manager-resumes' ),
+				'resume-category'    => __( 'Category', 'bp-job-manager-resumes' ),
+				'date'               => __( 'Date Posted', 'bp-job-manager-resumes' ),
+			);
+
+			if ( ! get_option( 'resume_manager_enable_categories' ) ) {
+					unset( $candidate_dashboard_columns['resume-category'] );
+			}
+
+			get_job_manager_template(
+				'bpjm-resume-listing.php',
+				array(
+					'resumes'                     => $resumes->query( $args ),
+					'max_num_pages'               => $resumes->max_num_pages,
+					'candidate_dashboard_columns' => $candidate_dashboard_columns,
+				),
+				'bp-job-manager',
+				BPJM_PLUGIN_PATH . '/public/templates/'
+			);
 	}
 
 	/**
@@ -1114,10 +1145,10 @@ class Bp_Job_Manager_Public {
 						<td class="field-name"><?php _e( 'Display resume at profile page', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input class="bpjm-display-resume-checkbox" type="checkbox" value="yes" name="bpjm_display[display_resume]"
-					<?php
-					if ( ! empty( $fields_display['display_resume'] ) ) {
-						checked( $fields_display['display_resume'], 'yes' );}
-					?>
+				<?php
+				if ( ! empty( $fields_display['display_resume'] ) ) {
+					checked( $fields_display['display_resume'], 'yes' );}
+				?>
 								>
 						</td>
 					</tr>
@@ -1125,11 +1156,11 @@ class Bp_Job_Manager_Public {
 						<td class="field-name"><?php _e( 'Select resume to display at profile', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<select name="bpjm_prof_resume_show_postid">
-						<?php
-						foreach ( $post as $key => $value ) {
-							echo "<option value='" . $value->ID . "' " . selected( $selected_post, $value->ID, false ) . '>' . get_the_candidate_title( $value->ID ) . '</option>';
-						}
-						?>
+					<?php
+					foreach ( $post as $key => $value ) {
+						echo "<option value='" . $value->ID . "' " . selected( $selected_post, $value->ID, false ) . '>' . get_the_candidate_title( $value->ID ) . '</option>';
+					}
+					?>
 							</select>
 						</td>
 					</tr>
@@ -1137,10 +1168,10 @@ class Bp_Job_Manager_Public {
 						<td class="field-name"><?php _e( 'Display e-mail field', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[email]"
-							<?php
-							if ( ! empty( $fields_display['email'] ) ) {
-								checked( $fields_display['email'], 'yes' );}
-							?>
+						<?php
+						if ( ! empty( $fields_display['email'] ) ) {
+							checked( $fields_display['email'], 'yes' );}
+						?>
 								>
 						</td>
 					</tr>
@@ -1223,7 +1254,7 @@ class Bp_Job_Manager_Public {
 					</tr>
 				</tbody>
 			</table>
-						<?php
+							<?php
 			}
 		}
 	}
