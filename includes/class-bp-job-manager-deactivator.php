@@ -19,17 +19,19 @@
  * @subpackage Bp_Job_Manager/includes
  * @author     Wbcom Designs <admin@wbcomdesigns.com>
  */
-class Bp_Job_Manager_Deactivator {
+if ( ! class_exists( 'Bp_Job_Manager_Deactivator' ) ) :
+	class Bp_Job_Manager_Deactivator {
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function deactivate() {
+		/**
+		 * Short Description. (use period)
+		 *
+		 * Long Description.
+		 *
+		 * @since    1.0.0
+		 */
+		public static function deactivate() {
+
+		}
 
 	}
-
-}
+endif;
