@@ -719,14 +719,16 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_job_dashboard_cols( $job_dashboard_cols ) {
-			if ( ! bp_is_user_profile() && ( bp_loggedin_user_id() != bp_displayed_user_id() ) ) {
-				$column             = array(
-					'actions' => __( 'Actions', 'bp-job-manager' ),
-				);
-				$job_dashboard_cols = array_merge( $job_dashboard_cols, $column );
-			}
-			if ( array_key_exists( 'applications', $job_dashboard_cols ) ) {
-				unset( $job_dashboard_cols['applications'] );
+			if ( 'my-jobs' == bp_current_action() ) {
+				if ( ! bp_is_user_profile() && ( bp_loggedin_user_id() != bp_displayed_user_id() ) ) {
+					$column             = array(
+						'actions' => __( 'Actions', 'bp-job-manager' ),
+					);
+					$job_dashboard_cols = array_merge( $job_dashboard_cols, $column );
+				}
+				if ( array_key_exists( 'applications', $job_dashboard_cols ) ) {
+					unset( $job_dashboard_cols['applications'] );
+				}
 			}
 			return $job_dashboard_cols;
 		}
@@ -746,18 +748,21 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				$user_id               = get_current_user_id();
 				$job_application_page  = get_permalink( $bp_job_manager->job_application_pgid );
 				$job_application_page .= '?args=' . $job->ID;
+
 				if ( ! is_position_filled( $job ) ) {
-					$wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) );
-					if ( is_user_logged_in() && $wpjm_applications_active ) {
+					// $wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) );
+
+					if ( is_user_logged_in() && class_exists( 'WP_Job_Manager_Applications' ) ) {
+
 						if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
 							get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
+						} else {
+							?>
+							<div class="generic-button" id="bpjm-job-application-btn">
+								<a href="javascript:void(0);" data-url="<?php echo esc_attr( $job_application_page ); ?>"><?php esc_html_e( 'Apply', 'bp-job-manager' ); ?></a>
+							</div>
+							<?php
 						}
-					} else {
-						?>
-						<div class="generic-button" id="bpjm-job-application-btn">
-							<a href="javascript:void(0);" data-url="<?php echo esc_attr( $job_application_page ); ?>"><?php esc_html_e( 'Apply', 'bp-job-manager' ); ?></a>
-						</div>
-						<?php
 					}
 				} else {
 					echo '<li class="position-filled">This position has been filled</li>';
