@@ -50,5 +50,4 @@ if ( ! class_exists( 'Bp_Job_Manager_Activator' ) ) :
 		}
 
 	}
-}
 endif;
