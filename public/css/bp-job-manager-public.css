@@ -40,6 +40,11 @@
   display: none;
 }
 
+.item-body .job-manager-form fieldset select[multiple] {
+   overflow: auto;
+   background-image: none;
+}
+
 @-ms-keyframes spin {
   from {
     -ms-transform: rotate(0deg);
