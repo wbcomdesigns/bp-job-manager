@@ -7,23 +7,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$candidate_dashboard_columns = array(
-	'resume-title'       => __( 'Name', 'bp-job-manager-resumes' ),
-	'candidate-title'    => __( 'Title', 'bp-job-manager-resumes' ),
-	'candidate-location' => __( 'Location', 'bp-job-manager-resumes' ),
-	'resume-category'    => __( 'Category', 'bp-job-manager-resumes' ),
-	'date'               => __( 'Date Posted', 'bp-job-manager-resumes' ),
-);
-
-if ( ! get_option( 'resume_manager_enable_categories' ) ) {
-		unset( $candidate_dashboard_columns['resume-category'] );
-}
-
 $submission_limit           = get_option( 'resume_manager_submission_limit' );
 $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_page_id' );
 ?>
 <div id="resume-manager-candidate-dashboard">
-	<p><?php echo _n( 'Your resume can be viewed, edited or removed below.', 'Your resume(s) can be viewed, edited or removed below.', resume_manager_count_user_resumes(), 'bp-job-manager-resumes' ); ?></p>
 	<table class="resume-manager-resumes">
 		<thead>
 			<tr>
@@ -73,7 +60,7 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 				<?php endforeach; ?>
 			<?php endif; ?>
 		</tbody>
-	<?php if ( is_user_logged_in() ) : ?>
+	<?php if ( is_user_logged_in() && ( bp_loggedin_user_id() == bp_displayed_user_id() ) ) : ?>
 		<?php if ( $submit_resume_form_page_id && ( resume_manager_count_user_resumes() < $submission_limit || ! $submission_limit ) ) : ?>
 			<tfoot>
 				<tr>
