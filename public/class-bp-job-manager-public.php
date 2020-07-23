@@ -642,6 +642,18 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		}
 
 		/**
+		 * Modify alert short_code handler for buddypress
+		 */
+		public function bpjm_modify_job_alert_action_handler() {
+			global $post;
+			if ( is_buddypress() ) {
+				remove_action( 'wp', array( 'WP_Job_Manager_Alerts_Shortcodes', 'shortcode_action_handler' ) );
+				$alert_handler = new WP_Job_Manager_Alerts_Shortcodes();
+				$alert_handler->job_alerts_handler();
+			}
+		}
+
+		/**
 		 * Action performed to override the arguments passed in job listing process.
 		 * the job listing by [job_dashboard] by wp-job-manager plugin.
 		 *

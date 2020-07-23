@@ -208,6 +208,7 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			/*** Call function for mark filled */
 			$this->loader->add_filter( 'wp_redirect', $plugin_public, 'bpjm_filter_redirect_duplicate_post_url', 10, 2 );
 			$this->loader->add_action( 'wp', $plugin_public, 'bpjm_shortcode_action_handler' );
+			$this->loader->add_action( 'wp', $plugin_public, 'bpjm_modify_job_alert_action_handler' );
 
 			$this->loader->add_filter( 'job_manager_user_can_edit_published_submissions', $plugin_public, 'bpjm_filter_wpjm_user_can_edit_published_submissions', 10, 1 );
 
