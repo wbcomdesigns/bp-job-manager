@@ -3,7 +3,7 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, wp-job-manager, job-manager-applications, job-manager-resumes, Job Manager, BuddyPress Jobs
 Requires at least: 3.0.1
-Tested up to: 5.3.2
+Tested up to: 5.4.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -62,6 +62,15 @@ The screenshots are present in the root of the plugin folder.
 8. screenshot-8 : You can find options for member's resume fields at Settings >> Profile Privacy
 
 == Changelog ==
+
+= 2.4.0 =
+* Fix - translation fixes
+* Fix - (#77) Fixed designing glitch with buddyboss theme
+* Fix - (#66)Fixed apply button for displayed user's job
+* Fix - (#64) Added class exist condition
+* Fix - (#73)enqueued scripts on only plugin pages
+* Fix - (#70)Removed "add resume" link for displayed user
+* Fix - (#65) Remove action coloum from job dashbord page.
 
 = 2.3.0 =
 * Enhancement - Resume table and table data content dynamic
