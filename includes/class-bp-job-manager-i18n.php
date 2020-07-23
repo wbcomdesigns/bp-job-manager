@@ -23,23 +23,25 @@
  * @subpackage Bp_Job_Manager/includes
  * @author     Wbcom Designs <admin@wbcomdesigns.com>
  */
-class Bp_Job_Manager_I18n {
-	
-	/**
-	 * Load the plugin text domain for translation.
-	 *
-	 * @since    1.0.0
-	 */
-	public function load_plugin_textdomain() {
+if ( ! class_exists( 'Bp_Job_Manager_I18n' ) ) :
+	class Bp_Job_Manager_I18n {
 
-		load_plugin_textdomain(
-			'bp-job-manager',
-			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
-		);
+		/**
+		 * Load the plugin text domain for translation.
+		 *
+		 * @since    1.0.0
+		 */
+		public function load_plugin_textdomain() {
+
+			load_plugin_textdomain(
+				'bp-job-manager',
+				false,
+				dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+			);
+
+		}
+
+
 
 	}
-
-
-
-}
+endif;
