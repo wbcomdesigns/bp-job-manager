@@ -726,9 +726,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					);
 					$job_dashboard_cols = array_merge( $job_dashboard_cols, $column );
 				}
-				if ( array_key_exists( 'applications', $job_dashboard_cols ) ) {
-					unset( $job_dashboard_cols['applications'] );
-				}
+				// if ( array_key_exists( 'applications', $job_dashboard_cols ) ) {
+				// unset( $job_dashboard_cols['applications'] );
+				// }
 			}
 			return $job_dashboard_cols;
 		}
