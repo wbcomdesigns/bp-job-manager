@@ -979,11 +979,11 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$resumes = new WP_Query();
 
 			$candidate_dashboard_columns = array(
-				'resume-title'       => __( 'Name', 'bp-job-manager-resumes' ),
-				'candidate-title'    => __( 'Title', 'bp-job-manager-resumes' ),
-				'candidate-location' => __( 'Location', 'bp-job-manager-resumes' ),
-				'resume-category'    => __( 'Category', 'bp-job-manager-resumes' ),
-				'date'               => __( 'Date Posted', 'bp-job-manager-resumes' ),
+				'resume-title'       => __( 'Name', 'wp-job-manager-resumes' ),
+				'candidate-title'    => __( 'Title', 'wp-job-manager-resumes' ),
+				'candidate-location' => __( 'Location', 'wp-job-manager-resumes' ),
+				'resume-category'    => __( 'Category', 'wp-job-manager-resumes' ),
+				'date'               => __( 'Date Posted', 'wp-job-manager-resumes' ),
 			);
 
 			if ( ! get_option( 'resume_manager_enable_categories' ) ) {
