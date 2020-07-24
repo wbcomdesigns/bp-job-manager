@@ -1,7 +1,3 @@
-filter:
-    paths:
-        - 'wp-content/*'
-
 tools:
     php_mess_detector:
         config:
