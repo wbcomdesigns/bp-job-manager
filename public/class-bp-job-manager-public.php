@@ -97,7 +97,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			 * between the defined hooks and the functions defined in this
 			 * class.
 			 */
-			if ( 'my-jobs' == bp_current_action() || 'applied-jobs' == bp_current_action() || 'post-job' == bp_current_action() || 'my-resumes' == bp_current_action() || 'add-resume' == bp_current_action() ) {
+			if ( 'my-jobs' == bp_current_action() || 'applied-jobs' == bp_current_action() || 'post-job' == bp_current_action() || 'my-resumes' == bp_current_action() || 'add-resume' == bp_current_action() || 'job-alerts' == bp_current_action() ) {
 				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-public.css', array(), $this->version, 'all' );
 
 			}

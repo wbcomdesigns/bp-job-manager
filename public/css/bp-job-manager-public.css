@@ -133,3 +133,21 @@
     display: inline-block !important;
   }
 }
+
+#job-manager-job-dashboard table td, 
+#job-manager-job-dashboard table th,
+#job-manager-alerts .job-manager-alerts td, 
+#job-manager-alerts .job-manager-alerts th{
+  padding:0.5em;
+  text-align: center;
+}
+#job-manager-job-dashboard table td.job_title, 
+#job-manager-job-dashboard table th.job_title,
+#job-manager-alerts .job-manager-alerts td, 
+#job-manager-alerts .job-manager-alerts th{
+  text-align: left;
+}
+
+
+
+
