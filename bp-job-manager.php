@@ -96,12 +96,7 @@ add_action( 'plugins_loaded', 'wpbpjm_plugin_init' );
  * @since   1.0.0
  */
 function wpbpjm_plugin_init() {
-	$wpjm_active              = in_array( 'wp-job-manager/wp-job-manager.php', get_option( 'active_plugins' ) );
-	$bp_active                = in_array( 'buddypress/bp-loader.php', get_option( 'active_plugins' ) );
-	// $wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) );
-	// $wpjm_resumes_active      = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
-
-	if ( current_user_can( 'activate_plugins' ) && ( true !== $wpjm_active || true !== $bp_active ) ) {
+	if ( current_user_can( 'activate_plugins' ) && ( ! class_exists( 'BuddyPress' ) || ! class_exists( 'WP_Job_Manager' ) ) ) {
 		add_action( 'admin_notices', 'bpjm_required_plugin_admin_notice' );
 	} else {
 		if ( ! defined( 'BPJM_PLUGIN_BASENAME' ) ) {
@@ -122,10 +117,12 @@ function bpjm_required_plugin_admin_notice() {
 	$bpjm_plugin              = esc_html__( 'BuddyPress Job Manager', 'bp-job-manager' );
 	$bp_plugin                = esc_html__( 'BuddyPress', 'bp-job-manager' );
 	$wpjm_plugin              = esc_html__( 'WP Job Manager', 'bp-job-manager' );
-	$wpjm_applications_plugin = esc_html__( 'WP Job Manager - Applications', 'bp-job-manager' );
-	$wpjm_resumes_plugin      = esc_html__( 'WP Job Manager - Resume Manager', 'bp-job-manager' );
 	echo '<div class="error"><p>';
-	echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s, %3$s, %4$s and %5$s to be installed and active.', 'bp-job-manager' ), '<strong>' . esc_html( $bpjm_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_applications_plugin ) . '</strong>', '<strong>' . esc_html( $wpjm_resumes_plugin ) . '</strong>' );
+	echo sprintf(
+		 esc_html__( '%1$s is ineffective now as it requires %2$s and %3$s to be installed and active.', 'bp-job-manager' ),
+			'<strong>' . esc_html( $bpjm_plugin ) . '</strong>',
+			'<strong>' . esc_html( $bp_plugin ) . '</strong>' ,
+			'<strong>' . esc_html( $wpjm_plugin ) . '</strong>' );
 	echo '</p></div>';
 	if ( isset( $_GET['activate'] ) ) {
 		unset( $_GET['activate'] );

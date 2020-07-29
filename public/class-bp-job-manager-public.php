@@ -637,9 +637,11 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		public function bpjm_modify_job_alert_action_handler() {
 			global $post;
 			if ( is_buddypress() ) {
-				remove_action( 'wp', array( 'WP_Job_Manager_Alerts_Shortcodes', 'shortcode_action_handler' ) );
-				$alert_handler = new WP_Job_Manager_Alerts_Shortcodes();
-				$alert_handler->job_alerts_handler();
+				if( class_exists( 'WP_Job_Manager_Alerts_Shortcodes' ) ){
+					remove_action( 'wp', array( 'WP_Job_Manager_Alerts_Shortcodes', 'shortcode_action_handler' ) );
+					$alert_handler = new WP_Job_Manager_Alerts_Shortcodes();
+					$alert_handler->job_alerts_handler();
+				}
 			}
 		}
 
