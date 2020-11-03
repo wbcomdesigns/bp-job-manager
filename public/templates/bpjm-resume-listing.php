@@ -35,6 +35,95 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 									<?php else : ?>
 										<?php echo esc_html( $resume->post_title ); ?> <small>(<?php the_resume_status( $resume ); ?>)</small>
 									<?php endif; ?>
+									<ul class="candidate-dashboard-actions">
+										<?php
+											$actions = array();
+
+										switch ( $resume->post_status ) {
+											case 'publish':
+												if ( resume_manager_user_can_edit_published_submissions() ) {
+													$actions['edit'] = array(
+														'label' => __( 'Edit', 'bp-job-manager' ),
+														'nonce' => false,
+													);
+												}
+												$actions['hide'] = array(
+													'label' => __( 'Hide', 'bp-job-manager' ),
+													'nonce' => true,
+												);
+												break;
+											case 'hidden':
+												if ( resume_manager_user_can_edit_published_submissions() ) {
+													$actions['edit'] = array(
+														'label' => __( 'Edit', 'bp-job-manager' ),
+														'nonce' => false,
+													);
+												}
+												$actions['publish'] = array(
+													'label' => __( 'Publish', 'bp-job-manager' ),
+													'nonce' => true,
+												);
+												break;
+											case 'pending_payment':
+											case 'pending':
+												if ( resume_manager_user_can_edit_pending_submissions() ) {
+													$actions['edit'] = array(
+														'label' => __( 'Edit', 'bp-job-manager' ),
+														'nonce' => false,
+													);
+												}
+												break;
+											case 'expired':
+												if ( get_option( 'resume_manager_submit_resume_form_page_id' ) ) {
+													$actions['relist'] = array(
+														'label' => __( 'Relist', 'bp-job-manager' ),
+														'nonce' => true,
+													);
+												}
+												break;
+										}
+
+											$actions['delete'] = array(
+												'label' => __( 'Delete', 'bp-job-manager' ),
+												'nonce' => true,
+											);
+
+											$actions = apply_filters( 'resume_manager_my_resume_actions', $actions, $resume );
+
+											foreach ( $actions as $action => $value ) {
+												if ( 'edit' === $action ) {
+													$candidate_dashboard_page_id = get_option( 'resume_manager_candidate_dashboard_page_id' );
+													if ( $candidate_dashboard_page_id ) {
+														$redirect_url = get_permalink( $candidate_dashboard_page_id );
+
+													} else {
+														$redirect_url = home_url( 'candidate-dashboard' );
+													}
+													$action_url = add_query_arg(
+														array(
+															'action' => $action,
+															'resume_id' => $resume->ID,
+														),
+														$redirect_url
+													);
+												} else {
+													$action_url = add_query_arg(
+														array(
+															'action' => $action,
+															'resume_id' => $resume->ID,
+														)
+													);
+												}
+
+
+												if ( $value['nonce'] ) {
+													$action_url = wp_nonce_url( $action_url, 'resume_manager_my_resume_actions' );
+												}
+
+												echo '<li><a href="' . $action_url . '" class="candidate-dashboard-action-' . $action . '">' . $value['label'] . '</a></li>';
+											}
+											?>
+									</ul>
 								<?php elseif ( 'candidate-title' === $key ) : ?>
 									<?php the_candidate_title( '', '', true, $resume ); ?>
 								<?php elseif ( 'candidate-location' === $key ) : ?>
