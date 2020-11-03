@@ -337,10 +337,15 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 						'order'          => 'ASC',
 					);
 					$my_jobs_count = count( get_posts( $args ) );
+					$job_tab       = sprintf(
+					/* translators: %s: Unread notification count for the current user */
+						__( 'Jobs %s', 'bp-job-manager' ),
+						'<span class="count">' . bp_core_number_format( $my_resumes_count ) . '</span>'
+					);
 
 					bp_core_new_nav_item(
 						array(
-							'name'                    => sprintf( __( 'Jobs <span>%d</span>', 'bp-job-manager' ), $my_jobs_count ),
+							'name'                    => $job_tab,
 							'slug'                    => $parent_slug,
 							'screen_function'         => array( $this, 'bpjm_jobs_tab_function_to_show_screen' ),
 							'position'                => 75,
@@ -408,7 +413,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			} else {
 				bp_core_new_nav_item(
 					array(
-						'name'                    => __( 'Jobs <span>%d</span>', 'bp-job-manager' ),
+						'name'                    => $job_tab,
 						'slug'                    => 'jobs',
 						'screen_function'         => array( $this, 'bpjm_jobs_tab_show_screen' ),
 						'position'                => 75,
@@ -827,10 +832,14 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					);
 
 					$my_resumes_count = count( get_posts( $args ) );
-
+					$resume_tab       = sprintf(
+					/* translators: %s: Unread notification count for the current user */
+						__( 'Resumes %s', 'bp-job-manager' ),
+						'<span class="count">' . bp_core_number_format( $my_resumes_count ) . '</span>'
+					);
 					bp_core_new_nav_item(
 						array(
-							'name'                    => sprintf( __( 'Resumes <span>%d</span>', 'bp-job-manager' ), $my_resumes_count ),
+							'name'                    => $resume_tab,
 							'slug'                    => $parent_slug,
 							'screen_function'         => array( $this, 'bpjm_resumes_tab_function_to_show_screen' ),
 							'position'                => 75,
@@ -891,7 +900,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			} else {
 				bp_core_new_nav_item(
 					array(
-						'name'                    => sprintf( __( 'Resumes <span>%d</span>', 'bp-job-manager' ), $my_resumes_count ),
+						'name'                    => $resume_tab,
 						'slug'                    => $parent_slug,
 						'screen_function'         => array( $this, 'bpjm_my_resumes_show_screen' ),
 						'position'                => 75,
