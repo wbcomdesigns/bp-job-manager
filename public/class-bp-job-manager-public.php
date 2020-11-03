@@ -144,7 +144,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 */
 		public function bpjm_has_wpjm_shortcode() {
 			$action = bp_current_action();
-			
+
 			if ( $action === 'my-jobs' ) {
 				return true;
 			}
@@ -360,7 +360,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 							'link'            => $jobs_tab_link . 'my-jobs',
 						)
 					);
-					if ( get_current_user_id() == $displayed_uid ) {						
+					if ( get_current_user_id() == $displayed_uid ) {
 
 						$wpjm_bookmarks_active = $wpjm_active = in_array( 'wp-job-manager-bookmarks/wp-job-manager-bookmarks.php', get_option( 'active_plugins' ) );
 						if ( true === $wpjm_bookmarks_active ) {
@@ -637,7 +637,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		public function bpjm_modify_job_alert_action_handler() {
 			global $post;
 			if ( is_buddypress() ) {
-				if( class_exists( 'WP_Job_Manager_Alerts_Shortcodes' ) ){
+				if ( class_exists( 'WP_Job_Manager_Alerts_Shortcodes' ) ) {
 					remove_action( 'wp', array( 'WP_Job_Manager_Alerts_Shortcodes', 'shortcode_action_handler' ) );
 					$alert_handler = new WP_Job_Manager_Alerts_Shortcodes();
 					$alert_handler->job_alerts_handler();
@@ -817,7 +817,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				$match_apply_job_roles_disp_usr = array_intersect( $bp_job_manager->apply_job_user_roles, $displayed_user->roles );
 				if ( ! empty( $match_apply_job_roles_curr_usr ) || ! empty( $match_apply_job_roles_disp_usr ) ) {
 					// Count resumes.
-					$args             = array(
+					$args = array(
 						'post_type'      => 'resume',
 						'post_status'    => 'any',
 						'author'         => $displayed_uid,
@@ -825,6 +825,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 						'orderby'        => 'post_date',
 						'order'          => 'ASC',
 					);
+
 					$my_resumes_count = count( get_posts( $args ) );
 
 					bp_core_new_nav_item(
@@ -890,7 +891,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			} else {
 				bp_core_new_nav_item(
 					array(
-						'name'                    => __( 'Resumes <span>%d</span>', 'bp-job-manager' ),
+						'name'                    => sprintf( __( 'Resumes <span>%d</span>', 'bp-job-manager' ), $my_resumes_count ),
 						'slug'                    => $parent_slug,
 						'screen_function'         => array( $this, 'bpjm_my_resumes_show_screen' ),
 						'position'                => 75,
@@ -1105,31 +1106,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			return $actions;
 		}
 
-		/**
-		 * Function to show resume fields at buddypress profile page.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function bpjm_bp_profile_field_item() {
-			global $bp_job_manager;
-			if ( get_option( 'bpjm_profile_resume_show_id' ) ) {
-				$selected_post = get_option( 'bpjm_profile_resume_show_id' );
-				if ( isset( $bp_job_manager->bpjm_resume_at_profile ) && $bp_job_manager->bpjm_resume_at_profile == 'yes' ) {
-					bpjm_show_resume_at_profile( $selected_post );
-				}
-			} else {
-				$user_id = bp_displayed_user_id();
-				$where   = get_posts_by_author_sql( 'resume', true, $user_id, '' );
-				global $wpdb;
-				$query = "SELECT ID FROM $wpdb->posts $where ORDER BY post_modified DESC";
-				$post  = $wpdb->get_row( $query );
-				if ( $post && isset( $bp_job_manager->bpjm_resume_at_profile ) && $bp_job_manager->bpjm_resume_at_profile == 'yes' ) {
-					bpjm_show_resume_at_profile( $post->ID );
-				}
-			}
-		}
 
 		/**
 		 * Function to add settings under profile visibility-buddypress.
@@ -1289,23 +1265,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			}
 		}
 
-		/**
-		 * Function to update bp job manager resume fields at profile page options.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function custom_bp_init() {
-			if ( isset( $_POST['xprofile-settings-submit'] ) && isset( $_POST['bpjm_prof_resume_show_postid'] ) ) {
-				$resume_id = $_POST['bpjm_prof_resume_show_postid'];
-				update_option( 'bpjm_profile_resume_show_id', $resume_id );
-			}
-			if ( isset( $_POST['xprofile-settings-submit'] ) ) {
-				$display_fields = $_POST['bpjm_display'];
-				update_option( 'bpjm_display_fields', $display_fields );
-			}
-		}
 
 		/**
 		 * Function to call wp job manager plugin's WP_Job_Manager_Shortcodes class job_dashboard_handler function for mark filled functionality on buddypress job tab.

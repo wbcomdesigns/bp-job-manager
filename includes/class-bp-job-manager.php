@@ -196,10 +196,7 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			if ( $wpjm_resumes_active ) {
 				$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_resumes_tab' );
 				/*Action to render resume content at buddypress profile page*/
-				$this->loader->add_action( 'bp_after_profile_loop_content', $plugin_public, 'bpjm_bp_profile_field_item' );
-
 				$this->loader->add_action( 'bp_core_xprofile_settings_before_submit', $plugin_public, 'bpjm_resume_settings_before_submit' );
-				$this->loader->add_action( 'bp_init', $plugin_public, 'custom_bp_init' );
 			}
 
 			$this->loader->add_filter( 'page_template', $plugin_public, 'bpjm_job_application_page' );
