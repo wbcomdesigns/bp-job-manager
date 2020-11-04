@@ -319,6 +319,22 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$parent_slug    = 'jobs';
 			$jobs_tab_link  = bp_core_get_userlink( $displayed_uid, false, true ) . $parent_slug . '/';
 
+			// Count jobs.
+			$args          = array(
+				'post_type'      => 'job_listing',
+				'post_status'    => 'any',
+				'author'         => $displayed_uid,
+				'posts_per_page' => -1,
+				'orderby'        => 'post_date',
+				'order'          => 'ASC',
+			);
+			$my_jobs_count = count( get_posts( $args ) );
+			$job_tab       = sprintf(
+				/* translators: %s: Unread notification count for the current user */
+				__( 'Jobs %s', 'bp-job-manager' ),
+				'<span class="count">' . bp_core_number_format( $my_jobs_count ) . '</span>'
+			);
+
 			if ( ! empty( $curr_user->roles ) && ! empty( $displayed_user->roles ) ) {
 				/**
 				 * Jobs tab - for the roles allowed for job posting.
@@ -326,22 +342,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				$match_post_job_roles_curr_usr = array_intersect( $bp_job_manager->post_job_user_roles, $curr_user->roles );
 				$match_post_job_roles_disp_usr = array_intersect( $bp_job_manager->post_job_user_roles, $displayed_user->roles );
 				if ( ! empty( $match_post_job_roles_curr_usr ) || ! empty( $match_post_job_roles_disp_usr ) ) {
-
-					// Count jobs.
-					$args          = array(
-						'post_type'      => 'job_listing',
-						'post_status'    => 'any',
-						'author'         => $displayed_uid,
-						'posts_per_page' => -1,
-						'orderby'        => 'post_date',
-						'order'          => 'ASC',
-					);
-					$my_jobs_count = count( get_posts( $args ) );
-					$job_tab       = sprintf(
-					/* translators: %s: Unread notification count for the current user */
-						__( 'Jobs %s', 'bp-job-manager' ),
-						'<span class="count">' . bp_core_number_format( $my_resumes_count ) . '</span>'
-					);
 
 					bp_core_new_nav_item(
 						array(
@@ -814,6 +814,23 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$parent_slug      = 'resumes';
 			$resumes_tab_link = bp_core_get_userlink( $displayed_uid, false, true ) . $parent_slug . '/';
 
+			// Count resumes.
+			$args = array(
+				'post_type'      => 'resume',
+				'post_status'    => 'any',
+				'author'         => $displayed_uid,
+				'posts_per_page' => -1,
+				'orderby'        => 'post_date',
+				'order'          => 'ASC',
+			);
+
+			$my_resumes_count = count( get_posts( $args ) );
+			$resume_tab       = sprintf(
+			/* translators: %s: Unread notification count for the current user */
+				__( 'Resumes %s', 'bp-job-manager' ),
+				'<span class="count">' . bp_core_number_format( $my_resumes_count ) . '</span>'
+			);
+
 			if ( ! empty( $curr_user->roles ) && ! empty( $displayed_user->roles ) ) {
 				/**
 				 * Resumes tab - for the roles allowed for job posting.
@@ -821,22 +838,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				$match_apply_job_roles_curr_usr = array_intersect( $bp_job_manager->apply_job_user_roles, $curr_user->roles );
 				$match_apply_job_roles_disp_usr = array_intersect( $bp_job_manager->apply_job_user_roles, $displayed_user->roles );
 				if ( ! empty( $match_apply_job_roles_curr_usr ) || ! empty( $match_apply_job_roles_disp_usr ) ) {
-					// Count resumes.
-					$args = array(
-						'post_type'      => 'resume',
-						'post_status'    => 'any',
-						'author'         => $displayed_uid,
-						'posts_per_page' => -1,
-						'orderby'        => 'post_date',
-						'order'          => 'ASC',
-					);
 
-					$my_resumes_count = count( get_posts( $args ) );
-					$resume_tab       = sprintf(
-					/* translators: %s: Unread notification count for the current user */
-						__( 'Resumes %s', 'bp-job-manager' ),
-						'<span class="count">' . bp_core_number_format( $my_resumes_count ) . '</span>'
-					);
 					bp_core_new_nav_item(
 						array(
 							'name'                    => $resume_tab,
