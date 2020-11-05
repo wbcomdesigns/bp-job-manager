@@ -1183,7 +1183,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				}
 				if ( $post && isset( $bp_job_manager->bpjm_resume_at_profile ) && $bp_job_manager->bpjm_resume_at_profile == 'yes' ) {
 					?>
-			<table class="profile-settings">
+			<table class="profile-settings bp-tables-user">
 				<thead>
 					<tr>
 						<th class="title field-group-name"><?php _e( 'BuddyPress Resumes', 'buddypress' ); ?></th>
