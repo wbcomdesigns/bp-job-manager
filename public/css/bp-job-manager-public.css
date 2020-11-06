@@ -3,151 +3,155 @@
  * included in this file.
  */
 .profile-fields .bpjm-set-odd {
-  background: #cccccc1a;
+    background: #cccccc1a;
 }
 
 .profile-fields ul.resume-links {
-  list-style: none;
-  margin-bottom: 0px;
+    list-style: none;
+    margin-bottom: 0px;
 }
 
 .display-false {
-  display: none;
+    display: none;
 }
 
 .inifinite-loader-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
 
 #inifiniteLoader .loading::after {
-  content: "\f1ce";
-  font-family: "FontAwesome";
-  font-size: 18px;
-  line-height: 1;
-  margin-left: 10px;
-  text-align: center;
-  display: inline-block;
-  -webkit-animation: spin 1s infinite linear;
-  animation: spin 1s infinite linear;
+    content: "\f1ce";
+    font-family: "FontAwesome";
+    font-size: 18px;
+    line-height: 1;
+    margin-left: 10px;
+    text-align: center;
+    display: inline-block;
+    -webkit-animation: spin 1s infinite linear;
+    animation: spin 1s infinite linear;
 }
 
 .job-manager-pagination {
-  display: none;
+    display: none;
 }
 
 .item-body .job-manager-form fieldset select[multiple] {
-   overflow: auto;
-   background-image: none;
+    overflow: auto;
+    background-image: none;
 }
 
 @-ms-keyframes spin {
-  from {
-    -ms-transform: rotate(0deg);
-  }
+    from {
+        -ms-transform: rotate(0deg);
+    }
 
-  to {
-    -ms-transform: rotate(360deg);
-  }
+    to {
+        -ms-transform: rotate(360deg);
+    }
 }
 
 @-moz-keyframes spin {
-  from {
-    -moz-transform: rotate(0deg);
-  }
+    from {
+        -moz-transform: rotate(0deg);
+    }
 
-  to {
-    -moz-transform: rotate(360deg);
-  }
+    to {
+        -moz-transform: rotate(360deg);
+    }
 }
 
 @-webkit-keyframes spin {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
+    from {
+        -webkit-transform: rotate(0deg);
+    }
 
-  to {
-    -webkit-transform: rotate(360deg);
-  }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
 
-  to {
-    transform: rotate(360deg);
-  }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @media screen and (max-width: 768px) {
 
-  .job-manager-jobs thead,
-  .resume-manager-resumes thead {
-    display: none;
-  }
+    .job-manager-jobs thead,
+    .resume-manager-resumes thead {
+        display: none;
+    }
 
-  .job-manager-jobs tr:nth-child(odd),
-  .resume-manager-resumes tr:nth-child(odd) {
-    background: #f7f7f7;
-  }
+    .job-manager-jobs tr:nth-child(odd),
+    .resume-manager-resumes tr:nth-child(odd) {
+        background: #f7f7f7;
+    }
 
-  .job-manager-jobs tr,
-  .resume-manager-resumes tr {
-    margin: 0 0 1rem 0;
-  }
+    .job-manager-jobs tr,
+    .resume-manager-resumes tr {
+        margin: 0 0 1rem 0;
+    }
 
-  .job-manager-jobs td,
-  .resume-manager-resumes td {
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50% !important;
-    display: block;
-    width: 100%;
-    text-align: left !important;
-    min-height: 54px;
-  }
+    .job-manager-jobs td,
+    .resume-manager-resumes td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50% !important;
+        display: block;
+        width: 100%;
+        text-align: left !important;
+        min-height: 54px;
+    }
 
-  .job-manager-jobs td:before,
-  .resume-manager-resumes td:before {
-    content: attr(data-header);
-    position: absolute;
-    left: 15px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    text-align: left;
-  }
+    .job-manager-jobs td:before,
+    .resume-manager-resumes td:before {
+        content: attr(data-header);
+        position: absolute;
+        left: 15px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+    }
 
-  .job-manager-jobs td .job-dashboard-actions {
-    font-size: 75% !important;
-  }
+    .job-manager-jobs td .job-dashboard-actions {
+        font-size: 75% !important;
+    }
 
-  #job-manager-job-dashboard table ul.job-dashboard-actions li {
-    display: inline-block !important;
-  }
+    #job-manager-job-dashboard table ul.job-dashboard-actions li {
+        display: inline-block !important;
+    }
 }
 
 #job-manager-job-dashboard table td, 
 #job-manager-job-dashboard table th,
 #job-manager-alerts .job-manager-alerts td, 
-#job-manager-alerts .job-manager-alerts th{
-  padding:0.5em;
-  text-align: center;
+#job-manager-alerts .job-manager-alerts th {
+    padding: 0.5em;
+    text-align: center;
 }
+
 #job-manager-job-dashboard table td.job_title, 
 #job-manager-job-dashboard table th.job_title,
 #job-manager-alerts .job-manager-alerts td, 
-#job-manager-alerts .job-manager-alerts th{
-  text-align: left;
+#job-manager-alerts .job-manager-alerts th {
+    text-align: left;
 }
 
-
-
-
+.item-body #job-manager-job-dashboard table td.job_title, 
+.item-body #job-manager-job-dashboard table th.job_title,
+.item-body #job-manager-alerts .job-manager-alerts td, 
+.item-body #job-manager-alerts .job-manager-alerts th {
+    text-align: center;
+}
