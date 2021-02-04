@@ -19,20 +19,20 @@ function bpjm_show_resume_at_profile($post_id) {
 	if(isset($fields_display['email']) || isset($fields_display['prof_title']) || isset($fields_display['location']) || isset($fields_display['video']) || isset($fields_display['description'])){
 		?>
 		<div class="bp-widget">	
-			<h2><?php echo apply_filters( 'bpjm_profile_peronal_inf_txt', 'Personal Information' ); ?></h2>
+			<h2><?php echo esc_html( apply_filters( 'bpjm_profile_peronal_inf_txt', 'Personal Information' ) ); ?></h2>
 			<table class="profile-fields">
 				<?php 
 					if( isset( $fields_display['email'] ) ){
 						$email   = get_post_meta( $post_id, '_candidate_email', true );
 						echo "<tr>
-								<td class='label'>". __('E-mail', 'bp-job-manager') ."</td>
-								<td class='data'>".$email."</td>
+								<td class='label'>". esc_html__('E-mail', 'bp-job-manager') ."</td>
+								<td class='data'>". esc_html( $email ) ."</td>
 							  </tr>";
 					}
 					if( isset( $fields_display['prof_title'] ) ){
 						?>
 						<tr>
-							<td class="label"><?php _e('Professional Title', 'bp-job-manager') ?></td>
+							<td class="label"><?php esc_html_e('Professional Title', 'bp-job-manager') ?></td>
 							<td class="data"><?php the_candidate_title(); ?></td>
 						</tr>
 						<?php
@@ -40,7 +40,7 @@ function bpjm_show_resume_at_profile($post_id) {
 					if( isset( $fields_display['location'] ) ){
 						?>
 						<tr>
-							<td class="label"><?php _e('Location', 'bp-job-manager') ?></td>
+							<td class="label"><?php esc_html_e('Location', 'bp-job-manager') ?></td>
 							<td class="data"><?php the_candidate_location(); ?></td>
 						</tr>
 						<?php
@@ -48,7 +48,7 @@ function bpjm_show_resume_at_profile($post_id) {
 					if( isset( $fields_display['video'] ) ){
 						?>
 						<tr>
-							<td class="label"><?php _e('Video', 'bp-job-manager') ?></td>
+							<td class="label"><?php esc_html_e('Video', 'bp-job-manager') ?></td>
 							<td class="data"><?php the_candidate_video(); ?></td>
 						</tr>
 						<?php
@@ -56,8 +56,8 @@ function bpjm_show_resume_at_profile($post_id) {
 					if( isset( $fields_display['description'] ) ){
 						?>
 						<tr>
-							<td class="label"><?php _e('Description', 'bp-job-manager') ?></td>
-							<td class="data"><?php echo apply_filters( 'the_resume_description', get_the_content() ); ?></td>
+							<td class="label"><?php esc_html_e('Description', 'bp-job-manager') ?></td>
+							<td class="data"><?php echo esc_html( apply_filters( 'the_resume_description', get_the_content() ) ); ?></td>
 						</tr>
 						<?php
 					}
@@ -69,10 +69,10 @@ function bpjm_show_resume_at_profile($post_id) {
 	if(isset($fields_display['url'])){
 		?>
 		<div class="bp-widget">	
-			<h2><?php echo apply_filters( 'bpjm_profile_urls_txt', 'URL(s)' ); ?></h2>
+			<h2><?php echo esc_html( apply_filters( 'bpjm_profile_urls_txt', 'URL(s)' ) ); ?></h2>
 			<table class="profile-fields">
 				<tr>
-					<td class="label"><?php _e('URL(s)', 'bp-job-manager') ?></td>
+					<td class="label"><?php esc_html_e('URL(s)', 'bp-job-manager') ?></td>
 					<td class="data"><?php the_resume_links(); ?></td>
 				</tr>
 			</table>
@@ -83,7 +83,7 @@ function bpjm_show_resume_at_profile($post_id) {
 		if ( $items = get_post_meta( $post_id, '_candidate_education', true ) ) :
 			?>
 			<div class="bp-widget">	
-				<h2><?php echo apply_filters( 'bpjm_profile_education_txt', 'Education' ); ?></h2>
+				<h2><?php echo esc_html( apply_filters( 'bpjm_profile_education_txt', 'Education' ) ); ?></h2>
 				<table class="profile-fields">
 			<?php
 			$c=0;
@@ -93,21 +93,21 @@ function bpjm_show_resume_at_profile($post_id) {
 				}else{
 					$setclass = 'bpjm-set-odd';
 				}
-				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('School Name','bp-job-manager').'</td>
+				echo '<tr class="'. esc_html( $setclass ) .'">
+						<td class="label">'.esc_html__('School Name','bp-job-manager').'</td>
 						<td class="data">'.esc_html( $item['location'] ).'</td>
 					 </tr>';
-				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('Qualification','bp-job-manager').'</td>
+				echo '<tr class="'. esc_html( $setclass ) .'">
+						<td class="label">'.esc_html__('Qualification','bp-job-manager').'</td>
 						<td class="data">'.esc_html( $item['qualification'] ).'</td>
 					 </tr>';	 
-				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('Date','bp-job-manager').'</td>
+				echo '<tr class="'. esc_html( $setclass ) .'">
+						<td class="label">'.esc_html__('Date','bp-job-manager').'</td>
 						<td class="data">'.esc_html( $item['date'] ).'</td>
 					 </tr>';
-				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('Notes','bp-job-manager').'</td>
-						<td class="data">'.wpautop( wptexturize( $item['notes'] ) ).'</td>
+				echo '<tr class="'. esc_html( $setclass ) .'">
+						<td class="label">'.esc_html__('Notes','bp-job-manager').'</td>
+						<td class="data">'. esc_html( wpautop( wptexturize( $item['notes'] ) ) ) .'</td>
 					 </tr>';
 				$c++;
 			endforeach;
@@ -121,7 +121,7 @@ function bpjm_show_resume_at_profile($post_id) {
 		if ( $items = get_post_meta( $post_id, '_candidate_experience', true ) ) :
 			?>
 			<div class="bp-widget">	
-				<h2><?php echo apply_filters( 'bpjm_profile_experience_txt', 'Experience' ); ?></h2>
+				<h2><?php echo esc_html( apply_filters( 'bpjm_profile_experience_txt', 'Experience' ) ); ?></h2>
 				<table class="profile-fields">
 			<?php
 			$c=0;
@@ -131,21 +131,21 @@ function bpjm_show_resume_at_profile($post_id) {
 				}else{
 					$setclass = 'bpjm-set-odd';
 				}
-				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('Employer','bp-job-manager').'</td>
+				echo '<tr class="'. esc_html( $setclass ) .'">
+						<td class="label">'.esc_html__('Employer','bp-job-manager').'</td>
 						<td class="data">'.esc_html( $item['employer'] ).'</td>
 					 </tr>';
-				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('Job Title','bp-job-manager').'</td>
+				echo '<tr class="'. esc_html( $setclass ) .'">
+						<td class="label">'.esc_html__('Job Title','bp-job-manager').'</td>
 						<td class="data">'.esc_html( $item['job_title'] ).'</td>
 					 </tr>';	 
-				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('Date','bp-job-manager').'</td>
+				echo '<tr class="'. esc_html( $setclass ) .'">
+						<td class="label">'.esc_html__('Date','bp-job-manager').'</td>
 						<td class="data">'.esc_html( $item['date'] ).'</td>
 					 </tr>';
-				echo '<tr class="'.$setclass.'">
-						<td class="label">'.__('Notes','bp-job-manager').'</td>
-						<td class="data">'.wpautop( wptexturize( $item['notes'] ) ).'</td>
+				echo '<tr class="'. esc_html( $setclass ) .'">
+						<td class="label">'.esc_html__('Notes','bp-job-manager').'</td>
+						<td class="data">'. esc_html( wpautop( wptexturize( $item['notes'] ) ) ) .'</td>
 					 </tr>';
 				$c++;
 			endforeach;

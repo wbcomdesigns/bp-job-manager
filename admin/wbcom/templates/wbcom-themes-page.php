@@ -6,7 +6,7 @@
 			<div class="wbcom-demo-importer">
 				<div class="container">
 					<div class="wbcom-image-wrapper">
-						<img src="<?php echo BPJM_PLUGIN_URL . 'admin/wbcom/assets/imgs/reign.jpg'; ?>" alt="Avatar" class="image" style="width:100%">
+						<img src="<?php echo esc_url( BPJM_PLUGIN_URL . 'admin/wbcom/assets/imgs/reign.jpg' ); ?>" alt="<?php esc_attr_e( 'Avatar', 'bp-job-manager' ); ?>" class="image" style="width:100%">
 					</div>
 					<div class="wbcom-demo-title">
 						<h2><?php esc_html_e( 'REIGN Community', 'bp-job-manager' ); ?></h2>
@@ -32,7 +32,7 @@
 			<div class="wbcom-demo-importer">
 				<div class="container">
 					<div class="wbcom-image-wrapper">
-						<img src="<?php echo BPJM_PLUGIN_URL . 'admin/wbcom/assets/imgs/learnmate.jpg'; ?>" alt="Avatar" class="image" style="width:100%">
+						<img src="<?php echo esc_url( BPJM_PLUGIN_URL . 'admin/wbcom/assets/imgs/learnmate.jpg' ); ?>" alt="<?php esc_html_e( 'Avatar', 'bp-job-manager' ); ?>" class="image" style="width:100%">
 					</div>
 					<div class="wbcom-demo-title">
 						<h2><?php esc_html_e( 'Learnmate', 'bp-job-manager' ); ?></h2>
@@ -58,7 +58,7 @@
 			<div class="wbcom-demo-importer">
 				<div class="container">
 					<div class="wbcom-image-wrapper">
-						<img src="<?php echo BPJM_PLUGIN_URL . 'admin/wbcom/assets/imgs/storemate.jpg'; ?>" alt="Avatar" class="image" style="width:100%">
+						<img src="<?php echo esc_url( BPJM_PLUGIN_URL . 'admin/wbcom/assets/imgs/storemate.jpg' ); ?>" alt="<?php esc_html_e( 'Avatar', 'bp-job-manager' ); ?>" class="image" style="width:100%">
 					</div>
 					<div class="wbcom-demo-title">
 						<h2><?php esc_html_e( 'ShopMate Dokan', 'bp-job-manager' ); ?></h2>
@@ -82,7 +82,7 @@
 			<div class="wbcom-demo-importer">
 				<div class="container">
 					<div class="wbcom-image-wrapper">
-						<img src="<?php echo BPJM_PLUGIN_URL . 'admin/wbcom/assets/imgs/jobmate.jpg'; ?>" alt="Avatar" class="image" style="width:100%">
+						<img src="<?php echo esc_url( BPJM_PLUGIN_URL . 'admin/wbcom/assets/imgs/jobmate.jpg' ); ?>" alt="<?php esc_html_e( 'Avatar', 'bp-job-manager' ); ?>" class="image" style="width:100%">
 					</div>
 					<div class="wbcom-demo-title">
 						<h2><?php esc_html_e( 'Jobmate Theme', 'bp-job-manager' ); ?></h2>
