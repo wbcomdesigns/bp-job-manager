@@ -11,6 +11,10 @@
   margin-bottom: 0px;
 }
 
+#resume-manager-candidate-dashboard table td.resume-title {
+  vertical-align: middle;
+}
+
 .display-false {
   display: none;
 }
