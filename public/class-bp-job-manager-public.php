@@ -144,7 +144,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 */
 		public function bpjm_has_wpjm_shortcode() {
 			$action = bp_current_action();
-			
+
 			if ( $action === 'my-jobs' ) {
 				return true;
 			}
@@ -360,7 +360,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 							'link'            => $jobs_tab_link . 'my-jobs',
 						)
 					);
-					if ( get_current_user_id() == $displayed_uid ) {						
+					if ( get_current_user_id() == $displayed_uid ) {
 
 						$wpjm_bookmarks_active = $wpjm_active = in_array( 'wp-job-manager-bookmarks/wp-job-manager-bookmarks.php', get_option( 'active_plugins' ) );
 						if ( true === $wpjm_bookmarks_active ) {
@@ -637,7 +637,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		public function bpjm_modify_job_alert_action_handler() {
 			global $post;
 			if ( is_buddypress() ) {
-				if( class_exists( 'WP_Job_Manager_Alerts_Shortcodes' ) ){
+				if ( class_exists( 'WP_Job_Manager_Alerts_Shortcodes' ) ) {
 					remove_action( 'wp', array( 'WP_Job_Manager_Alerts_Shortcodes', 'shortcode_action_handler' ) );
 					$alert_handler = new WP_Job_Manager_Alerts_Shortcodes();
 					$alert_handler->job_alerts_handler();

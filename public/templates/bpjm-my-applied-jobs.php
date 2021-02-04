@@ -48,9 +48,9 @@ $my_applied_jobs = get_posts( $args );
 					$attachment       = '';
 
 					if ( ! empty( $applied_job_meta['_attachment'] ) ) {
-						$attach_unserialized = unserialize( $applied_job_meta['_attachment'][0] );						
-							
-						if( !empty( $attach_unserialized ) ) {
+						$attach_unserialized = unserialize( $applied_job_meta['_attachment'][0] );
+
+						if ( ! empty( $attach_unserialized ) ) {
 							$attachment = unserialize( $applied_job_meta['_attachment'][0] )[0];
 						}
 					}
@@ -61,9 +61,11 @@ $my_applied_jobs = get_posts( $args );
 						<td>
 							<?php if ( ! empty( $attachment ) ) { ?>
 								<a href="<?php echo esc_attr( $attachment ); ?>" download><?php esc_html_e( 'File', 'bp-job-manager' ); ?></a>
-							<?php } else {
+								<?php
+							} else {
 								esc_html_e( 'No Attachment', 'bp-job-manager' );
-							} ?>
+							}
+							?>
 						</td>
 					</tr>
 				<?php } ?>
