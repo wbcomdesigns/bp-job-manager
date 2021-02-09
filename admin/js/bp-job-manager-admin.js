@@ -17,7 +17,9 @@ jQuery( document ).ready(
 			}
 		}
 		$( document ).on(
-			'click', '.bpjm-accordion', function(){
+			'click',
+			'.bpjm-accordion',
+			function(){
 				return false;
 			}
 		);

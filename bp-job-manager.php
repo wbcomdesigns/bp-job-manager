@@ -114,15 +114,16 @@ function wpbpjm_plugin_init() {
  * @since   1.0.0
  */
 function bpjm_required_plugin_admin_notice() {
-	$bpjm_plugin              = esc_html__( 'BuddyPress Job Manager', 'bp-job-manager' );
-	$bp_plugin                = esc_html__( 'BuddyPress', 'bp-job-manager' );
-	$wpjm_plugin              = esc_html__( 'WP Job Manager', 'bp-job-manager' );
+	$bpjm_plugin = esc_html__( 'BuddyPress Job Manager', 'bp-job-manager' );
+	$bp_plugin   = esc_html__( 'BuddyPress', 'bp-job-manager' );
+	$wpjm_plugin = esc_html__( 'WP Job Manager', 'bp-job-manager' );
 	echo '<div class="error"><p>';
 	echo sprintf(
-		 esc_html__( '%1$s is ineffective now as it requires %2$s and %3$s to be installed and active.', 'bp-job-manager' ),
-			'<strong>' . esc_html( $bpjm_plugin ) . '</strong>',
-			'<strong>' . esc_html( $bp_plugin ) . '</strong>' ,
-			'<strong>' . esc_html( $wpjm_plugin ) . '</strong>' );
+		esc_html__( '%1$s is ineffective now as it requires %2$s and %3$s to be installed and active.', 'bp-job-manager' ),
+		'<strong>' . esc_html( $bpjm_plugin ) . '</strong>',
+		'<strong>' . esc_html( $bp_plugin ) . '</strong>',
+		'<strong>' . esc_html( $wpjm_plugin ) . '</strong>'
+	);
 	echo '</p></div>';
 	if ( isset( $_GET['activate'] ) ) {
 		unset( $_GET['activate'] );
@@ -138,7 +139,7 @@ function bpjm_required_plugin_admin_notice() {
  */
 function bpjm_plugin_links( $links ) {
 	$bpjm_links = array(
-		'<a href="' . admin_url("admin.php?page=bp-job-manager") . '">' . esc_html__( 'Settings', 'bp-job-manager' ) . '</a>',
+		'<a href="' . admin_url( 'admin.php?page=bp-job-manager' ) . '">' . esc_html__( 'Settings', 'bp-job-manager' ) . '</a>',
 		'<a href="https://wbcomdesigns.com/contact/" target="_blank">' . esc_html__( 'Support', 'bp-job-manager' ) . '</a>',
 	);
 	return array_merge( $links, $bpjm_links );

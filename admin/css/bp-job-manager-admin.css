@@ -20,62 +20,62 @@ ol.bpjm-required-plugins-links a {
 
  /* check box design */
 .blpro-switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
 }
 
 .blpro-switch input {display:none;}
 
 .blpro-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
 }
 
 .blpro-slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
 }
 
 input:checked + .blpro-slider {
-    background-color: #2196F3;
+	background-color: #2196F3;
 }
 
 input:focus + .blpro-slider {
-    box-shadow: 0 0 1px #2196F3;
+	box-shadow: 0 0 1px #2196F3;
 }
 
 input:checked + .blpro-slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
 }
 
 /* Rounded sliders */
 .blpro-slider.blpro-round {
-    border-radius: 34px;
+	border-radius: 34px;
 }
 
 .blpro_excluding_member{
-    width:70%;
+	width:70%;
 }
 .blpro-slider.blpro-round:before {
-    border-radius: 50%;
+	border-radius: 50%;
 }
 #lock_acc_roles .selectize-dropdown-content {
   max-height: 85px;

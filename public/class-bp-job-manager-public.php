@@ -990,8 +990,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				?>
 			<div id="resume-manager-candidate-dashboard">
 				<p class="account-sign-in">
-					<?php _e( 'You need to be signed in to manage your resumes.', 'wp-job-manager-resumes' ); ?>
-					 <a class="button" href="<?php echo apply_filters( 'resume_manager_candidate_dashboard_login_url', wp_login_url( get_permalink() ) ); ?>"><?php _e( 'Sign in', 'bp-job-manager' ); ?></a></p>
+					<?php esc_html_e( 'You need to be signed in to manage your resumes.', 'wp-job-manager-resumes' ); ?>
+					 <a class="button" href="<?php echo apply_filters( 'resume_manager_candidate_dashboard_login_url', wp_login_url( get_permalink() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Sign in', 'bp-job-manager' ); ?></a></p>
 			</div>
 				<?php
 			}
@@ -1186,13 +1186,13 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			<table class="profile-settings bp-tables-user">
 				<thead>
 					<tr>
-						<th class="title field-group-name"><?php _e( 'BuddyPress Resumes', 'buddypress' ); ?></th>
-						<th class="title"><?php _e( 'Available Resumes', 'buddypress' ); ?></th>
+						<th class="title field-group-name"><?php esc_html_e( 'BuddyPress Resumes', 'buddypress' ); ?></th>
+						<th class="title"><?php esc_html_e( 'Available Resumes', 'buddypress' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr class="field_name field_type_textbox">
-						<td class="field-name"><?php _e( 'Display resume at profile page', 'buddypress' ); ?></td>
+						<td class="field-name"><?php esc_html_e( 'Display resume at profile page', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input class="bpjm-display-resume-checkbox" type="checkbox" value="yes" name="bpjm_display[display_resume]"
 					<?php
@@ -1202,20 +1202,20 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 								>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
-						<td class="field-name"><?php _e( 'Select resume to display at profile', 'buddypress' ); ?></td>
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr( $display_class ); ?>">
+						<td class="field-name"><?php esc_html_e( 'Select resume to display at profile', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<select name="bpjm_prof_resume_show_postid">
 					<?php
 					foreach ( $post as $key => $value ) {
-						echo "<option value='" . $value->ID . "' " . selected( $selected_post, $value->ID, false ) . '>' . get_the_candidate_title( $value->ID ) . '</option>';
+						echo "<option value='" . esc_attr( $value->ID ) . "' " . esc_attr( selected( $selected_post, $value->ID, false ) ) . '>' . esc_attr( get_the_candidate_title( $value->ID ) ) . '</option>';
 					}
 					?>
 							</select>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
-						<td class="field-name"><?php _e( 'Display e-mail field', 'buddypress' ); ?></td>
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr( $display_class ); ?>">
+						<td class="field-name"><?php esc_html_e( 'Display e-mail field', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[email]"
 						<?php
@@ -1225,8 +1225,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 								>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
-						<td class="field-name"><?php _e( 'Display professional title', 'buddypress' ); ?></td>
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr( $display_class ); ?>">
+						<td class="field-name"><?php esc_html_e( 'Display professional title', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[prof_title]"
 							<?php
@@ -1236,8 +1236,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 								>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
-						<td class="field-name"><?php _e( 'Display location', 'buddypress' ); ?></td>
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr( $display_class ); ?>">
+						<td class="field-name"><?php esc_html_e( 'Display location', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[location]"
 							<?php
@@ -1247,8 +1247,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 								>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
-						<td class="field-name"><?php _e( 'Display video link', 'buddypress' ); ?></td>
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr( $display_class ); ?>">
+						<td class="field-name"><?php esc_html_e( 'Display video link', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[video]"
 							<?php
@@ -1258,8 +1258,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 								>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
-						<td class="field-name"><?php _e( 'Display resume contents(description)', 'buddypress' ); ?></td>
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr( $display_class ); ?>">
+						<td class="field-name"><?php esc_html_e( 'Display resume contents(description)', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[description]"
 							<?php
@@ -1269,8 +1269,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 								>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
-						<td class="field-name"><?php _e( 'Display URL(s)', 'buddypress' ); ?></td>
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr( $display_class ); ?>">
+						<td class="field-name"><?php esc_html_e( 'Display URL(s)', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[url]"
 							<?php
@@ -1280,8 +1280,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 								>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
-						<td class="field-name"><?php _e( 'Display education', 'buddypress' ); ?></td>
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr( $display_class ); ?>">
+						<td class="field-name"><?php esc_html_e( 'Display education', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[education]"
 							<?php
@@ -1291,8 +1291,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 								>
 						</td>
 					</tr>
-					<tr class="field_name field_type_textbox resume-fields-row <?php echo $display_class; ?>">
-						<td class="field-name"><?php _e( 'Display experience', 'buddypress' ); ?></td>
+					<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr( $display_class ); ?>">
+						<td class="field-name"><?php esc_html_e( 'Display experience', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<input type="checkbox" value="yes" name="bpjm_display[experience]"
 							<?php
@@ -1410,7 +1410,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		public function bpjm_add_private_message_link() {
 			$url = wp_nonce_url( bp_loggedin_user_domain() . bp_get_messages_slug() . '/compose/?r=' . bp_core_get_username( get_the_author_meta( 'ID' ) ) );
 
-			echo '<a href="' . $url . '" title="Private Message">' . __( 'Private Message', 'bp-job-manager' ) . '</a>';
+			echo '<a href="' . esc_url( $url ) . '" title="Private Message">' . esc_html__( 'Private Message', 'bp-job-manager' ) . '</a>';
 		}
 
 		/**

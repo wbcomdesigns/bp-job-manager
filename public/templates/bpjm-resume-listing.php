@@ -22,7 +22,7 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 		<tbody>
 			<?php if ( ! $resumes ) : ?>
 				<tr>
-					<td colspan="<?php echo sizeof( $candidate_dashboard_columns ); ?>"><?php echo sprintf( __( '%s do not have any active resume listings.', 'wp-job-manager-resumes' ), bp_displayed_user_fullname() ); ?></td>
+					<td colspan="<?php echo esc_attr( sizeof( $candidate_dashboard_columns ) ); ?>"><?php esc_html_e( 'You do not have any active resume listings.', 'wp-job-manager-resumes' ); ?></td>
 				</tr>
 			<?php else : ?>
 				<?php foreach ( $resumes as $resume ) : ?>
@@ -31,7 +31,7 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 							<td class="<?php echo esc_attr( $key ); ?>">
 								<?php if ( 'resume-title' === $key ) : ?>
 									<?php if ( $resume->post_status == 'publish' ) : ?>
-										<a href="<?php echo get_permalink( $resume->ID ); ?>"><?php echo esc_html( $resume->post_title ); ?></a>
+										<a href="<?php echo esc_url( get_permalink( $resume->ID ) ); ?>"><?php echo esc_html( $resume->post_title ); ?></a>
 									<?php else : ?>
 										<?php echo esc_html( $resume->post_title ); ?> <small>(<?php the_resume_status( $resume ); ?>)</small>
 									<?php endif; ?>
@@ -135,9 +135,9 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 								<?php elseif ( 'date' === $key ) : ?>
 									<?php
 									if ( ! empty( $resume->_resume_expires ) && strtotime( $resume->_resume_expires ) > current_time( 'timestamp' ) ) {
-										printf( __( 'Expires %s', 'wp-job-manager-resumes' ), date_i18n( get_option( 'date_format' ), strtotime( $resume->_resume_expires ) ) );
+										printf( esc_html__( 'Expires %s', 'wp-job-manager-resumes' ), esc_html( date_i18n( get_option( 'date_format' ) ), strtotime( $resume->_resume_expires ) ) );
 									} else {
-										echo date_i18n( get_option( 'date_format' ), strtotime( $resume->post_date ) );
+										echo esc_html( date_i18n( get_option( 'date_format' ) ), strtotime( $resume->post_date ) );
 									}
 									?>
 								<?php else : ?>
@@ -153,8 +153,8 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 		<?php if ( $submit_resume_form_page_id && ( resume_manager_count_user_resumes() < $submission_limit || ! $submission_limit ) ) : ?>
 			<tfoot>
 				<tr>
-					<td colspan="<?php echo sizeof( $candidate_dashboard_columns ); ?>">
-						<a href="<?php echo esc_url( get_permalink( $submit_resume_form_page_id ) ); ?>"><?php _e( 'Add Resume', 'wp-job-manager-resumes' ); ?></a>
+					<td colspan="<?php echo esc_attr( sizeof( $candidate_dashboard_columns ) ); ?>">
+						<a href="<?php echo esc_url( get_permalink( $submit_resume_form_page_id ) ); ?>"><?php esc_html_e( 'Add Resume', 'wp-job-manager-resumes' ); ?></a>
 					</td>
 				</tr>
 			</tfoot>
