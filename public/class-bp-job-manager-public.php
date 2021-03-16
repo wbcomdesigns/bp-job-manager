@@ -329,12 +329,17 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				'order'          => 'ASC',
 			);
 			$my_jobs_count = count( get_posts( $args ) );
-			$job_tab       = sprintf(
-				/* translators: %s: Unread notification count for the current user */
-				__( 'Jobs %s', 'bp-job-manager' ),
-				'<span class="count">' . bp_core_number_format( $my_jobs_count ) . '</span>'
-			);
-
+			$job_tab = __( 'Jobs', 'bp-job-manager' );
+			if ( 0 < $my_jobs_count ) {
+				$job_tab = sprintf(
+					/* translators: %s: job count for the current user */
+					_x( 'Jobs %s', 'Jobs screen nav with counter', 'bp-job-manager' ),
+					sprintf(
+						'<span class="count">%s</span>',
+						$my_jobs_count
+					)
+				);
+			}
 			if ( ! empty( $curr_user->roles ) && ! empty( $displayed_user->roles ) ) {
 				/**
 				 * Jobs tab - for the roles allowed for job posting.
@@ -499,7 +504,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				esc_html_e( 'My Jobs', 'bp-job-manager' );
 			} elseif ( is_user_logged_in() && bp_displayed_user_id() ) {
 				$author_name = bp_core_get_user_displayname( bp_displayed_user_id() );
-				esc_html_e( $author_name . '\'s' . ' ' . 'Jobs', 'bp-job-manager' );
+				esc_html_e( $author_name . ' ' . 'Jobs', 'bp-job-manager' );
 			} else {
 				esc_html_e( 'Jobs', 'bp-job-manager' );
 			}
