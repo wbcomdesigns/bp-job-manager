@@ -76,7 +76,7 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 											case 'expired':
 												if ( get_option( 'resume_manager_submit_resume_form_page_id' ) ) {
 													$actions['relist'] = array(
-														'label' => __( 'Relist', 'bp-job-manager' ),
+														'label' => __( 'Relistsa', 'bp-job-manager' ),
 														'nonce' => true,
 													);
 												}
@@ -106,13 +106,30 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 														),
 														$redirect_url
 													);
+												} elseif ( 'relist' === $action ) {
+													$candidate_dashboard_page_id = get_option( 'resume_manager_candidate_dashboard_page_id' );
+													if ( $candidate_dashboard_page_id ) {
+														$redirect_url = get_permalink( $candidate_dashboard_page_id );
+
+													} else {
+														$redirect_url = home_url( 'candidate-dashboard' );
+													}
+													$action_url = add_query_arg(
+														array(
+															'action' => $action,
+															'resume_id' => $resume->ID,
+														),
+														$redirect_url
+													);
 												} else {
+
 													$action_url = add_query_arg(
 														array(
 															'action' => $action,
 															'resume_id' => $resume->ID,
 														)
 													);
+
 												}
 
 
