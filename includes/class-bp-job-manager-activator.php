@@ -47,6 +47,33 @@ if ( ! class_exists( 'Bp_Job_Manager_Activator' ) ) :
 					update_option( 'bpjm_job_application_pgid', $pg_id );
 				}
 			}
+
+			self::bpjm_resume_set_default_options();
+		}
+
+		/**
+		 * Set default options for resume visibility.
+		 */
+		public static function bpjm_resume_set_default_options() {
+			if ( class_exists( 'WP_Resume_Manager' ) ) {
+				$users          = get_users( array( 'fields' => array( 'ID' ) ) );
+				$resume_options = array(
+					'display_resume' => 'yes',
+					'email'          => 'yes',
+					'prof_title'     => 'yes',
+					'location'       => 'yes',
+					'video'          => 'yes',
+					'description'    => 'yes',
+					'url'            => 'yes',
+					'education'      => 'yes',
+					'experience'     => 'yes',
+
+				);
+				foreach ( $users as $user ) {
+					update_user_meta( $user->ID, 'bpjm_display_fields', $resume_options );
+				}
+			}
+
 		}
 
 	}

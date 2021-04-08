@@ -329,7 +329,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				'order'          => 'ASC',
 			);
 			$my_jobs_count = count( get_posts( $args ) );
-			$job_tab = __( 'Jobs', 'bp-job-manager' );
+			$job_tab       = __( 'Jobs', 'bp-job-manager' );
 			if ( 0 < $my_jobs_count ) {
 				$job_tab = sprintf(
 					/* translators: %s: job count for the current user */
@@ -1211,11 +1211,11 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 						<td class="field-name"><?php esc_html_e( 'Select resume to display at profile', 'buddypress' ); ?></td>
 						<td class="field-visibility">
 							<select name="bpjm_prof_resume_show_postid">
-					<?php
-					foreach ( $post as $key => $value ) {
-						echo "<option value='" . esc_attr( $value->ID ) . "' " . esc_attr( selected( $selected_post, $value->ID, false ) ) . '>' . esc_attr( get_the_candidate_title( $value->ID ) ) . '</option>';
-					}
-					?>
+								<?php
+								foreach ( $post as $key => $value ) {
+									echo "<option value='" . esc_attr( $value->ID ) . "' " . esc_attr( selected( $selected_post, $value->ID, false ) ) . '>' . esc_attr( get_the_candidate_title( $value->ID ) ) . '</option>';
+								}
+								?>
 							</select>
 						</td>
 					</tr>
