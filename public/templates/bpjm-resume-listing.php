@@ -76,7 +76,7 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 											case 'expired':
 												if ( get_option( 'resume_manager_submit_resume_form_page_id' ) ) {
 													$actions['relist'] = array(
-														'label' => __( 'Relistsa', 'bp-job-manager' ),
+														'label' => __( 'Relist', 'bp-job-manager' ),
 														'nonce' => true,
 													);
 												}
