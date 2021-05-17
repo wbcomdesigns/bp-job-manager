@@ -1376,7 +1376,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$resume_id_param = filter_input( INPUT_GET, 'resume_id' );
 
 			if ( bp_is_user() && ( null !== $action ) ) {
-				if ( ( 'mark_filled' == $action || 'mark_not_filled' == $action || 'duplicate' == $action || 'delete' == $action ) && ( null !== $job_id_param ) ) {
+				if ( ( 'mark_filled' == $action || 'mark_not_filled' == $action || 'duplicate' == $action || 'delete' == $action || 'relist' == $action ) && ( null !== $job_id_param ) ) {
 					$wbjob_shortcode_object = new WP_Job_Manager_Shortcodes();
 					$wbjob_shortcode_object->job_dashboard_handler();
 				}
