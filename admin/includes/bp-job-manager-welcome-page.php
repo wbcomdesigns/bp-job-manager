@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
     <div class="wbcom-welcome-main-wrapper">
         <div class="wbcom-welcome-head">
             <h2 class="wbcom-welcome-title"><?php esc_html_e( 'BuddyPress Job Manager', 'bp-job-manager' ); ?></h2>
-            <p class="wbcom-welcome-description"><?php esc_html_e( 'Allow the site admin to select global friends for all his members with BuddyPress Auto friends plugin. If you are starting an online community with BuddyPress and want some common friends to be added to the friend list of your members, BuddyPress Auto friends is the perfect option for you.', 'bp-job-manager' ) ?></p>
+            <p class="wbcom-welcome-description"><?php esc_html_e( 'Incorporates BuddyPress with the WP Job Manager plugin by creating specific tabs in employer’s and candidate’s profiles.', 'bp-job-manager' ) ?></p>
         </div><!-- .wbcom-welcome-head -->
 
         <div class="wbcom-welcome-content">
@@ -31,8 +31,8 @@ if (!defined('ABSPATH')) {
 
                     <div class="col">
                         <h3><span class="dashicons dashicons-book"></span><?php esc_html_e( 'Documentation', 'bp-job-manager' ); ?></h3>
-                        <p><?php esc_html_e( 'We have prepared an extensive guide on BuddyPress Auto Friends to learn all aspects of the plugin. You will find most of your answers here.', 'bp-job-manager' ); ?></p>
-                        <a href="<?php echo esc_url( 'https://wbcomdesigns.com/docs/buddypress-paid-addons/bp-job-manager/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Read Documentation', 'bp-job-manager' ); ?></a>
+                        <p><?php esc_html_e( 'We have prepared an extensive guide on BuddyPress Job Manager to learn all aspects of the plugin. You will find most of your answers here.', 'bp-job-manager' ); ?></p>
+                        <a href="<?php echo esc_url( 'https://wbcomdesigns.com/docs/buddypress-free-addons/buddypress-job-manager/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Read Documentation', 'bp-job-manager' ); ?></a>
                     </div>
 
                     <div class="col">
