@@ -110,7 +110,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_admin_settings_page() {
-			$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : $this->plugin_name;
+			$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'bpjm-welcome';
 			?>
 		<div class="wrap">
 			<div class="bpjm-header">
@@ -138,7 +138,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_plugin_settings_tabs() {
-			$current_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : $this->plugin_name;
+			$current_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'bpjm-welcome';
 			echo '<div class="wbcom-tabs-section"><h2 class="nav-tab-wrapper">';
 			foreach ( $this->plugin_settings_tabs as $tab_key => $tab_caption ) {
 				$active = $current_tab == $tab_key ? 'nav-tab-active' : '';
@@ -155,11 +155,20 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_general_settings() {
+			
+			$this->plugin_settings_tabs[ 'bpjm-welcome' ] = __( 'Welcome', 'bp-job-manager' );
+			add_settings_section( 'bp-job-manager-welcome', ' ', array( &$this, 'bpjm_welcome_content' ), 'bpjm-welcome' );
+			
 			$this->plugin_settings_tabs[ $this->plugin_name ] = __( 'General', 'bp-job-manager' );
 			register_setting( 'bpjm_general_settings', 'bpjm_general_settings' );
 			add_settings_section( 'bp-job-manager-section', ' ', array( &$this, 'bpjm_general_settings_content' ), $this->plugin_name );
 		}
-
+		
+		public function bpjm_welcome_content() {
+			if ( file_exists( dirname( __FILE__ ) . '/includes/bp-job-manager-welcome-page.php' ) ) {
+				require_once dirname( __FILE__ ) . '/includes/bp-job-manager-welcome-page.php';
+			}
+		}
 		/**
 		 * Actions performed to create General Tab Content.
 		 *
