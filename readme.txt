@@ -15,6 +15,8 @@ This plugin does the following:
 2. Resume manager allows candidates to add multiple resumes, using BuddyPress Resume Manager You have choice to display your latest resume at your BuddyPress Profile. It also allows to choice which resume fields should be visible at BuddyPress Profile page.
 3) Allow to enable user roles to post jobs.
 4) Apply to enable user roles to apply for jobs.
+5) Allow to publish new jobs and resumes activities in BuddyPress activity stream
+
 
 You can also check details at our plugin document page
 == Links ==
