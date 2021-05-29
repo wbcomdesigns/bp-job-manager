@@ -17,9 +17,9 @@ if (!defined('ABSPATH')) {
         </div><!-- .wbcom-welcome-head -->
 
         <div class="wbcom-welcome-content">
-            
+
             <div class="wbcom-video-link-wrapper">
-                
+                <iframe src="https://player.vimeo.com/video/556674671" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
             </div>
 
             <div class="wbcom-welcome-support-info">
