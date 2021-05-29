@@ -5,11 +5,11 @@
   "license": "GPL-2.0+",
   "description": "WP Job Manager Support for BuddyPress",
   "devDependencies": {
-    "grunt": "^1.0.4",
+    "grunt": "^1.4.1",
     "grunt-check-dependencies": "~1.0.0",
     "grunt-checktextdomain": "^1.0.1",
-    "minimist": ">=1.2.2",
-    "grunt-wp-i18n": "^1.0.0"
+    "grunt-wp-i18n": "^1.0.0",
+    "minimist": ">=1.2.2"
   },
   "engines": {
     "node": ">=6.9.1"

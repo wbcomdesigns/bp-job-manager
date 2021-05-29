@@ -121,7 +121,7 @@ function bpjm_show_resume_at_profile( $post_id ) {
 		if ( $items = get_post_meta( $post_id, '_candidate_experience', true ) ) :
 			?>
 			<div class="bp-widget">
-				<h2><?php echo esc_html__( apply_filters( 'bpjm_profile_experience_txt', 'Experience' ) ); ?></h2>
+				<h2><?php echo esc_html__( apply_filters( 'bpjm_profile_experience_txt', 'Experience' ), 'bp-job-manager' ); ?></h2>
 				<table class="profile-fields">
 			<?php
 			$c = 0;
