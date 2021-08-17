@@ -91,6 +91,7 @@
 }
 
 .wrap .wbcom-plugin-heading {
+    display: block !important;
     margin: 0;
     font-size: 32px;
     line-height: initial;
