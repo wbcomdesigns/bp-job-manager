@@ -236,6 +236,9 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			$this->loader->add_filter( 'bp_notifications_get_registered_components', $plugin_public, 'bpjm_comment_get_registered_components' );
 
 			$this->loader->add_filter( 'bp_notifications_get_notifications_for_user', $plugin_public, 'bpjm_job_application_notifications', 11, 7 );
+			$this->loader->add_filter( 'job_manager_user_can_post_job', $plugin_public, 'bpjm_restrict_user_post_job' );
+			$this->loader->add_filter( 'submit_job_form_show_signin', $plugin_public, 'bpjm_restrict_user_post_job' );
+			$this->loader->add_action( 'submit_job_form_disabled', $plugin_public, 'bpjm_restrict_user_post_job_message' );
 
 		}
 

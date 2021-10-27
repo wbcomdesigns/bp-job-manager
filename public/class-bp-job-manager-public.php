@@ -1575,5 +1575,32 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 			return $action;
 		}
+
+		/**
+		 * Restrict to post job according to user role
+		 *
+		 * @param boolean $can_post
+		 * @return boolean
+		 */
+		public function bpjm_restrict_user_post_job( $can_post ) {
+			global $bp_job_manager;
+
+			$user_id                       = bp_loggedin_user_id();
+			$user                          = get_userdata( $user_id );
+			$match_post_job_roles_curr_usr = array_intersect( $bp_job_manager->post_job_user_roles, $user->roles );
+			if ( empty( $match_post_job_roles_curr_usr ) ) {
+				$can_post = false;
+			}
+			return $can_post;
+		}
+
+		/**
+		 * Display message to restrict user role to not post job
+		 *
+		 * @return string
+		 */
+		public function bpjm_restrict_user_post_job_message() {
+			echo __( 'You have not permission to post job. Please contect with admin.', 'bp-job-manager' );			
+		}
 	}
 endif;
