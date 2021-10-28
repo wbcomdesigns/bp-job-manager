@@ -194,7 +194,12 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			/* Check if Resume Manager plugin active to add tab. */
 			$wpjm_resumes_active = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
 			if ( $wpjm_resumes_active ) {
-				$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_resumes_tab' );
+				global $bp_job_manager;
+
+				if ( isset( $bp_job_manager->bpjm_resume_at_profile ) && $bp_job_manager->bpjm_resume_at_profile == 'yes' ) {
+					$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_resumes_tab' );
+				}
+
 				/*Action to render resume content at buddypress profile page*/
 				$this->loader->add_action( 'bp_after_profile_loop_content', $plugin_public, 'bpjm_bp_profile_field_item' );
 				$this->loader->add_action( 'bp_core_xprofile_settings_before_submit', $plugin_public, 'bpjm_resume_settings_before_submit' );
