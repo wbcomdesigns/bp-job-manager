@@ -6,13 +6,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function bpjm_show_resume_at_profile( $post_id ) {
 	global $post;
-	$fields_display = get_option( 'bpjm_display_fields' );
-
+	$fields_display = get_user_meta( bp_loggedin_user_id(), 'bpjm_display_fields', true );
 	$display_resume = ( isset( $fields_display['display_resume'] ) ) ? $fields_display['display_resume'] : 'no';
 
 	if ( $display_resume != 'yes' ) {
 		return;
 	}
+
 
 	$post = get_post( $post_id, OBJECT );
 	setup_postdata( $post );
@@ -22,14 +22,14 @@ function bpjm_show_resume_at_profile( $post_id ) {
 			<h2><?php echo esc_html( apply_filters( 'bpjm_profile_peronal_inf_txt', 'Personal Information' ) ); ?></h2>
 			<table class="profile-fields">
 				<?php
-				if ( isset( $fields_display['email'] ) ) {
+				if ( ! empty( $fields_display['email'] ) ) {
 					$email = get_post_meta( $post_id, '_candidate_email', true );
 					echo "<tr>
 								<td class='label'>" . esc_html__( 'E-mail', 'bp-job-manager' ) . "</td>
-								<td class='data'>" . esc_email( $email ) . '</td>
+								<td class='data'>" . sanitize_email( $email ) . '</td>
 							  </tr>';
 				}
-				if ( isset( $fields_display['prof_title'] ) ) {
+				if ( ! empty( $fields_display['prof_title'] ) ) {
 					?>
 						<tr>
 							<td class="label"><?php esc_html_e( 'Professional Title', 'bp-job-manager' ); ?></td>
@@ -37,7 +37,7 @@ function bpjm_show_resume_at_profile( $post_id ) {
 						</tr>
 						<?php
 				}
-				if ( isset( $fields_display['location'] ) ) {
+				if ( ! empty( $fields_display['location'] ) ) {
 					?>
 						<tr>
 							<td class="label"><?php esc_html_e( 'Location', 'bp-job-manager' ); ?></td>
@@ -45,7 +45,7 @@ function bpjm_show_resume_at_profile( $post_id ) {
 						</tr>
 						<?php
 				}
-				if ( isset( $fields_display['video'] ) ) {
+				if ( ! empty( $fields_display['video'] ) ) {
 					?>
 						<tr>
 							<td class="label"><?php esc_html_e( 'Video', 'bp-job-manager' ); ?></td>
@@ -53,11 +53,11 @@ function bpjm_show_resume_at_profile( $post_id ) {
 						</tr>
 						<?php
 				}
-				if ( isset( $fields_display['description'] ) ) {
+				if ( ! empty( $fields_display['description'] ) ) {
 					?>
 						<tr>
 							<td class="label"><?php esc_html_e( 'Description', 'bp-job-manager' ); ?></td>
-							<td class="data"><?php echo wp_kese_post( apply_filters( 'the_resume_description', get_the_content() ) ); ?></td>
+							<td class="data"><?php echo wp_kses_post( apply_filters( 'the_resume_description', get_the_content() ) ); ?></td>
 						</tr>
 						<?php
 				}
@@ -66,7 +66,7 @@ function bpjm_show_resume_at_profile( $post_id ) {
 		</div>
 		<?php
 	}
-	if ( isset( $fields_display['url'] ) ) {
+	if ( ! empty( $fields_display['url'] ) ) {
 		?>
 		<div class="bp-widget">
 			<h2><?php echo esc_html( apply_filters( 'bpjm_profile_urls_txt', 'URL(s)' ) ); ?></h2>
@@ -79,7 +79,7 @@ function bpjm_show_resume_at_profile( $post_id ) {
 		</div>
 		<?php
 	}
-	if ( isset( $fields_display['education'] ) ) {
+	if ( ! empty( $fields_display['education'] ) ) {
 		if ( $items = get_post_meta( $post_id, '_candidate_education', true ) ) :
 			?>
 			<div class="bp-widget">
@@ -117,7 +117,7 @@ function bpjm_show_resume_at_profile( $post_id ) {
 			<?php
 		endif;
 	}
-	if ( isset( $fields_display['experience'] ) ) {
+	if ( ! empty( $fields_display['experience'] ) ) {
 		if ( $items = get_post_meta( $post_id, '_candidate_experience', true ) ) :
 			?>
 			<div class="bp-widget">

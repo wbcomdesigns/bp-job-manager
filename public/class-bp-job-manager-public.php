@@ -1129,7 +1129,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_bp_profile_field_item() {
-			global $bp_job_manager;
+			global $bp_job_manager;		
+
 			$user_id = 0;
 			if ( bp_loggedin_user_id() === bp_displayed_user_id() ) {
 				$user_id = bp_loggedin_user_id();
@@ -1138,10 +1139,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			}
 			$resume_id = get_user_meta( $user_id, 'bpjm_profile_resume_show_id', true );
 			if ( ! empty( $resume_id ) ) {
-				$selected_post = get_user_meta( $user_id, 'bpjm_profile_resume_show_id', true );
-
-				if ( isset( $bp_job_manager->bpjm_resume_at_profile ) && 'yes' === $bp_job_manager->bpjm_resume_at_profile ) {
-					bpjm_show_resume_at_profile( $selected_post );
+				if ( isset( $bp_job_manager->bpjm_resume_at_profile ) && 'yes' === $bp_job_manager->bpjm_resume_at_profile ) {					
+					bpjm_show_resume_at_profile( $resume_id );
 				}
 			} else {
 				$user_id = bp_displayed_user_id();
@@ -1326,15 +1325,16 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				// Nonce check.
 				check_admin_referer( 'bp_xprofile_settings' );
 
-				$resume_id = wp_unslash( $_POST['bpjm_prof_resume_show_postid'] );
+				$resume_id = wp_unslash( $_POST['bpjm_prof_resume_show_postid'] );				
 				update_user_meta( bp_loggedin_user_id(), 'bpjm_profile_resume_show_id', $resume_id );
 			}
 			if ( isset( $_POST['xprofile-settings-submit'] ) ) {
-
+					
 				// Nonce check.
 				check_admin_referer( 'bp_xprofile_settings' );
-
+				
 				if ( isset( $_POST['bpjm_display'] ) ) {
+
 					$display_fields['display_resume'] = isset( $_POST['bpjm_display']['display_resume'] ) ? wp_unslash( $_POST['bpjm_display']['display_resume'] ) : '';
 					$display_fields['email']          = isset( $_POST['bpjm_display']['email'] ) ? wp_unslash( $_POST['bpjm_display']['email'] ) : '';
 					$display_fields['prof_title']     = isset( $_POST['bpjm_display']['prof_title'] ) ? wp_unslash( $_POST['bpjm_display']['prof_title'] ) : '';
