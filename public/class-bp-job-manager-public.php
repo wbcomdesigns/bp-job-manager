@@ -759,27 +759,33 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		public function bpjm_job_dashboard_actions_col_content( $job ) {
 			global $bp_job_manager;
 			if ( ! bp_is_user_profile() && ( bp_loggedin_user_id() != bp_displayed_user_id() ) ) {
-				$user_id               = get_current_user_id();
-				$job_application_page  = get_permalink( $bp_job_manager->job_application_pgid );
-				$job_application_page .= '?args=' . $job->ID;
+				$user_id                        = bp_loggedin_user_id();
+				$apply_job_user_roles           = ! empty( $bp_job_manager->apply_job_user_roles ) ? $bp_job_manager->apply_job_user_roles : array();
+				$job_application_page           = get_permalink( $bp_job_manager->job_application_pgid );
+				$job_application_page          .= '?args=' . $job->ID;
+				$user                           = get_userdata( $user_id );
+				$match_apply_job_roles_curr_usr = array_intersect( $apply_job_user_roles, $user->roles );
 
-				if ( ! is_position_filled( $job ) ) {
-					// $wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) );
 
-					if ( is_user_logged_in() && class_exists( 'WP_Job_Manager_Applications' ) ) {
+				if ( ! empty( $match_apply_job_roles_curr_usr ) ) {
+					if ( ! is_position_filled( $job ) ) {
+						if ( is_user_logged_in() && class_exists( 'WP_Job_Manager_Applications' ) ) {
 
-						if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
-							get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
-						} else {
-							?>
-							<div class="generic-button" id="bpjm-job-application-btn">
-								<a href="javascript:void(0);" data-url="<?php echo esc_attr( $job_application_page ); ?>"><?php esc_html_e( 'Apply', 'bp-job-manager' ); ?></a>
-							</div>
-							<?php
+							if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
+								get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
+							} else {
+								?>
+								<div class="generic-button" id="bpjm-job-application-btn">
+									<a href="javascript:void(0);" data-url="<?php echo esc_attr( $job_application_page ); ?>"><?php esc_html_e( 'Apply', 'bp-job-manager' ); ?></a>
+								</div>
+								<?php
+							}
 						}
+					} else {
+						echo '<li class="position-filled">' . esc_html__( 'This position has been filled.', 'bp-job-manager' ) . '</li>';
 					}
 				} else {
-					echo '<li class="position-filled">This position has been filled</li>';
+					echo '<div class="position-filled">' . esc_html__( 'You are not allowed to apply for this job.', 'bp-job-manager' ) . '</div>';
 				}
 			}
 		}
@@ -1129,7 +1135,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_bp_profile_field_item() {
-			global $bp_job_manager;		
+			global $bp_job_manager;
 
 			$user_id = 0;
 			if ( bp_loggedin_user_id() === bp_displayed_user_id() ) {
@@ -1139,7 +1145,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			}
 			$resume_id = get_user_meta( $user_id, 'bpjm_profile_resume_show_id', true );
 			if ( ! empty( $resume_id ) ) {
-				if ( isset( $bp_job_manager->bpjm_resume_at_profile ) && 'yes' === $bp_job_manager->bpjm_resume_at_profile ) {					
+				if ( isset( $bp_job_manager->bpjm_resume_at_profile ) && 'yes' === $bp_job_manager->bpjm_resume_at_profile ) {
 					bpjm_show_resume_at_profile( $resume_id );
 				}
 			} else {
@@ -1325,14 +1331,14 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				// Nonce check.
 				check_admin_referer( 'bp_xprofile_settings' );
 
-				$resume_id = wp_unslash( $_POST['bpjm_prof_resume_show_postid'] );				
+				$resume_id = wp_unslash( $_POST['bpjm_prof_resume_show_postid'] );
 				update_user_meta( bp_loggedin_user_id(), 'bpjm_profile_resume_show_id', $resume_id );
 			}
 			if ( isset( $_POST['xprofile-settings-submit'] ) ) {
-					
+
 				// Nonce check.
 				check_admin_referer( 'bp_xprofile_settings' );
-				
+
 				if ( isset( $_POST['bpjm_display'] ) ) {
 
 					$display_fields['display_resume'] = isset( $_POST['bpjm_display']['display_resume'] ) ? wp_unslash( $_POST['bpjm_display']['display_resume'] ) : '';
@@ -1600,7 +1606,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @return string
 		 */
 		public function bpjm_restrict_user_post_job_message() {
-			echo __( 'You have not permission to post job. Please contect with admin.', 'bp-job-manager' );			
+			echo __( 'You have not permission to post job. Please contect with admin.', 'bp-job-manager' );
 		}
 	}
 endif;
