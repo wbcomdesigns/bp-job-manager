@@ -766,7 +766,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				$user                           = get_userdata( $user_id );
 				$match_apply_job_roles_curr_usr = array_intersect( $apply_job_user_roles, $user->roles );
 
-
 				if ( ! empty( $match_apply_job_roles_curr_usr ) ) {
 					if ( ! is_position_filled( $job ) ) {
 						if ( is_user_logged_in() && class_exists( 'WP_Job_Manager_Applications' ) ) {
@@ -984,7 +983,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				esc_html_e( 'My Resumes', 'bp-job-manager' );
 			} else {
 				$author_name = bp_core_get_user_displayname( bp_displayed_user_id() );
-				esc_html_e( ucfirst( $author_name ) . '\'s' . ' ' . 'Resumes', 'bp-job-manager' );
+					/* translators: %s: Author Name */
+				echo sprintf( esc_html__( '%s\'s Resumes', 'bp-job-manager' ), esc_html( ucfirst( $author_name ) ) );
 			}
 
 		}
