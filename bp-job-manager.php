@@ -98,6 +98,7 @@ add_action( 'plugins_loaded', 'wpbpjm_plugin_init' );
 function wpbpjm_plugin_init() {
 	if ( current_user_can( 'activate_plugins' ) && ( ! class_exists( 'BuddyPress' ) || ! class_exists( 'WP_Job_Manager' ) ) ) {
 		add_action( 'admin_notices', 'bpjm_required_plugin_admin_notice' );
+		add_action( 'admin_init', 'wpbpjm_existing_checkin_plugin' );
 	} else {
 		if ( ! defined( 'BPJM_PLUGIN_BASENAME' ) ) {
 			define( 'BPJM_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -131,6 +132,19 @@ function bpjm_required_plugin_admin_notice() {
 }
 
 /**
+ * Function to remove BP Job Manager plugin if already exist.
+ *
+ * @since 1.0.0
+ */
+function wpbpjm_existing_checkin_plugin() {
+	$wpbpjm_plugin = plugin_dir_path( __DIR__ ) . 'bp-job-manager/bp-job-manager';
+	// Check to see if plugin is already active.
+	if ( is_plugin_active( plugin_basename( __FILE__ ) ) ) {
+		deactivate_plugins( plugin_basename( __FILE__ ) );
+	}
+}
+
+/**
  * Throw an Alert to tell the Admin why it didn't activate.
  *
  * @author  wbcomdesigns
@@ -151,7 +165,7 @@ function bpjm_plugin_links( $links ) {
  */
 function bpjm_activation_redirect_settings( $plugin ) {
 
-	if (  class_exists( 'BuddyPress' ) && class_exists( 'WP_Job_Manager' ) && $plugin == plugin_basename( __FILE__ ) ) {
+	if ( class_exists( 'BuddyPress' ) && class_exists( 'WP_Job_Manager' ) && $plugin == plugin_basename( __FILE__ ) ) {
 		wp_redirect( admin_url( 'admin.php?page=bp-job-manager' ) );
 		exit;
 	}
