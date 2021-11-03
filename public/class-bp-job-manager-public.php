@@ -864,7 +864,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 						$resume = __( 'My Resumes', 'bp-job-manager' );
 					} else {
 						$author_name = bp_core_get_user_displayname( bp_displayed_user_id() );
-						$resume      = __( ucfirst( $author_name ) . '\'s' . ' ' . 'Resumes', 'bp-job-manager' );
+						/* translators: %s: Author Name */
+						$resume = sprintf( esc_html__( '%s\'s Resumes', 'bp-job-manager' ), esc_html( ucfirst( $author_name ) ) );
+
 					}
 					bp_core_new_subnav_item(
 						array(
