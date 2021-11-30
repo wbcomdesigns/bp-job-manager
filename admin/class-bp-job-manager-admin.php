@@ -64,8 +64,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   public
 		 */
 		public function enqueue_styles() {
-			$screen = get_current_screen();
-			if ( 'wb-plugins_page_bp-job-manager' === $screen->base ) {
+			if ( isset( $_GET['page'] ) && ( 'bp-job-manager' === $_GET['page'] ) ) {
 				wp_enqueue_style( $this->plugin_name . '-selectize', plugin_dir_url( __FILE__ ) . 'css/selectize.css' );
 				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-admin.css' );
 			}
@@ -79,8 +78,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   public
 		 */
 		public function enqueue_scripts() {
-			$screen = get_current_screen();
-			if ( 'wb-plugins_page_bp-job-manager' === $screen->base ) {
+			if ( isset( $_GET['page'] ) && ( 'bp-job-manager' === $_GET['page'] ) ) {
 				wp_enqueue_script( $this->plugin_name . '-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ) );
 				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-admin.js', array( 'jquery' ) );
 			}
@@ -113,8 +111,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 			$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'bpjm-welcome';
 			?>
 		<div class="wrap">
-                    <hr class="wp-header-end">
-                    <div class="wbcom-wrap">
+					<hr class="wp-header-end">
+					<div class="wbcom-wrap">
 			<div class="bpjm-header">
 				<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 				<h1 class="wbcom-plugin-heading">
@@ -128,7 +126,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 				do_settings_sections( $tab );
 				?>
 			</div>
-                    </div>
+					</div>
 		</div>
 			<?php
 		}
@@ -158,15 +156,15 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_general_settings() {
-			
-			$this->plugin_settings_tabs[ 'bpjm-welcome' ] = __( 'Welcome', 'bp-job-manager' );
+
+			$this->plugin_settings_tabs['bpjm-welcome'] = __( 'Welcome', 'bp-job-manager' );
 			add_settings_section( 'bp-job-manager-welcome', ' ', array( &$this, 'bpjm_welcome_content' ), 'bpjm-welcome' );
-			
+
 			$this->plugin_settings_tabs[ $this->plugin_name ] = __( 'General', 'bp-job-manager' );
 			register_setting( 'bpjm_general_settings', 'bpjm_general_settings' );
 			add_settings_section( 'bp-job-manager-section', ' ', array( &$this, 'bpjm_general_settings_content' ), $this->plugin_name );
 		}
-		
+
 		public function bpjm_welcome_content() {
 			if ( file_exists( dirname( __FILE__ ) . '/includes/bp-job-manager-welcome-page.php' ) ) {
 				require_once dirname( __FILE__ ) . '/includes/bp-job-manager-welcome-page.php';
