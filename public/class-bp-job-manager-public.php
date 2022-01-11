@@ -1610,5 +1610,49 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		public function bpjm_restrict_user_post_job_message() {
 			echo __( 'You have not permission to post job. Please contect with admin.', 'bp-job-manager' );
 		}
+
+		/**
+		 * @bpjm_nouveau_link_fix() nav item links.
+		 *
+		 * @param string $link     The URL for the nav item.
+		 * @param object $nav_item The nav item object.
+		 * @return string The URL for the nav item.
+		 */
+		public function bpjm_nouveau_link_fix( $link, $nav_item ) {
+			$bp_nouveau = bp_nouveau();
+			$nav_item   = $bp_nouveau->current_nav_item;
+
+			$link = '#';
+			if ( ! empty( $nav_item->link ) ) {
+				$link = $nav_item->link;
+			}
+
+			if ( 'personal' === $bp_nouveau->displayed_nav && ! empty( $nav_item->primary ) ) {
+				if ( bp_loggedin_user_domain() ) {
+					$link = str_replace( bp_loggedin_user_domain(), bp_displayed_user_domain(), $link );
+				} else {
+					$link = trailingslashit( bp_displayed_user_domain() . $link );
+				}
+			}
+			return $link;
+		}
+
+		/**
+		 * @bpjm_legacy_link_fix
+		 *
+		 * @return void
+		 */
+		public function bpjm_legacy_link_fix() {
+			$user_nav_items = buddypress()->members->nav->get_primary();
+			if ( $user_nav_items ) {
+				foreach ( $user_nav_items as $user_nav_item ) {
+					if ( ! isset( $user_nav_item->css_id ) || ! $user_nav_item->css_id ) {
+						continue;
+					}
+
+					remove_filter( 'bp_get_displayed_user_nav_' . $user_nav_item->css_id, 'BP\Rewrites\bp_get_displayed_user_nav', 1, 2 );
+				}
+			}
+		}
 	}
 endif;

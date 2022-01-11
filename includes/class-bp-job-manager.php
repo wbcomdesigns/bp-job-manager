@@ -244,6 +244,10 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			$this->loader->add_filter( 'job_manager_user_can_post_job', $plugin_public, 'bpjm_restrict_user_post_job' );
 			$this->loader->add_filter( 'submit_job_form_show_signin', $plugin_public, 'bpjm_restrict_user_post_job' );
 			$this->loader->add_action( 'submit_job_form_disabled', $plugin_public, 'bpjm_restrict_user_post_job_message' );
+			if ( in_array( 'bp-rewrites/class-bp-rewrites.php', get_option( 'active_plugins' ) ) ) {
+				$this->loader->add_filter( 'bp_nouveau_get_nav_link', $plugin_public, 'bpjm_nouveau_link_fix', 10, 2 );
+				$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_legacy_link_fix', 9999 );
+			}
 
 		}
 
