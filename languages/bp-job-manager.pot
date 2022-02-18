@@ -1,14 +1,14 @@
-# Copyright (C) 2021
+# Copyright (C) 2022
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-03 07:33:16+00:00\n"
+"POT-Creation-Date: 2022-02-18 13:28:41+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Varun Dubey\n"
 "Language-Team: Wbcom Designs\n"
 "Language: en\n"
@@ -123,28 +123,28 @@ msgstr ""
 msgid "No thanks / I already have"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:99
+#: admin/class-bp-job-manager-admin.php:97
 msgid "WB Plugins"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:100
-#: admin/class-bp-job-manager-admin.php:165
+#: admin/class-bp-job-manager-admin.php:98
+#: admin/class-bp-job-manager-admin.php:163
 msgid "General"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:102
+#: admin/class-bp-job-manager-admin.php:100
 msgid "BP Job Manager"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:121
+#: admin/class-bp-job-manager-admin.php:119
 msgid "BuddyPress Job Manager Settings"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:162
+#: admin/class-bp-job-manager-admin.php:160
 msgid "Welcome"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:207
+#: admin/class-bp-job-manager-admin.php:205
 #: public/class-bp-job-manager-public.php:332
 #: public/class-bp-job-manager-public.php:364
 #: public/class-bp-job-manager-public.php:509
@@ -152,55 +152,55 @@ msgstr ""
 msgid "Jobs"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:237
+#: admin/class-bp-job-manager-admin.php:235
 #: public/class-bp-job-manager-public.php:504
 msgid "My Jobs"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:250
+#: admin/class-bp-job-manager-admin.php:248
 #: public/class-bp-job-manager-public.php:379
 #: public/class-bp-job-manager-public.php:594
 msgid "My Bookmarks"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:264
+#: admin/class-bp-job-manager-admin.php:262
 #: public/class-bp-job-manager-public.php:394
 #: public/class-bp-job-manager-public.php:629
 msgid "Job Alerts"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:275
+#: admin/class-bp-job-manager-admin.php:273
 msgid "Post a New Job"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:287
+#: admin/class-bp-job-manager-admin.php:285
 msgid "Resumes"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:319
+#: admin/class-bp-job-manager-admin.php:317
 #: public/class-bp-job-manager-public.php:864
 #: public/class-bp-job-manager-public.php:985
 msgid "My Resumes"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:329
+#: admin/class-bp-job-manager-admin.php:327
 #: public/class-bp-job-manager-public.php:902
 #: public/class-bp-job-manager-public.php:1071
 msgid "Applied Jobs"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:339
+#: admin/class-bp-job-manager-admin.php:337
 #: public/class-bp-job-manager-public.php:887
 #: public/class-bp-job-manager-public.php:949
 #: public/templates/bpjm-resume-listing.php:174
 msgid "Add Resume"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:358
+#: admin/class-bp-job-manager-admin.php:356
 msgid "%1$s posted a new job %2$s"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:381
+#: admin/class-bp-job-manager-admin.php:379
 msgid "%1$s posted resume %2$s"
 msgstr ""
 
