@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, wp-job-manager, job-manager-applications, job-manager-resumes, Job Manager, BuddyPress Jobs
 Requires at least: 3.0.1
-Tested up to: 5.7.3
-Stable tag: 2.5.0
+Tested up to: 5.9.0
+Stable tag: 2.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,11 @@ The screenshots are present in the root of the plugin folder.
 8. screenshot-8 : You can find options for member's resume fields at Settings >> Profile Privacy
 
 == Changelog ==
+= 2.6.0 =
+* Fix - (#127) Fixed job and resume tab redirection to login user profile
+* Fix - (#122) Fixed unable to select role on admin general tab setting page
+* Fix - (#102) Fixed resume tab translation issue
+* Fix - Deactivate plugin if BP and WP job Manager Plugin is not activated
 
 = 2.5.0 =
 * Fix - Update plugin backend UI
