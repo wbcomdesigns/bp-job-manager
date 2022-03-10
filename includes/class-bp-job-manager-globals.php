@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the global variable of the plugin
  *

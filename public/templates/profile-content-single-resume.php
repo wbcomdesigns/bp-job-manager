@@ -4,16 +4,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Display single resume.
+ *
+ * @param  int $post_id Post ID.
+ * @return void
+ */
 function bpjm_show_resume_at_profile( $post_id ) {
 	global $post;
 	$fields_display = get_user_meta( bp_loggedin_user_id(), 'bpjm_display_fields', true );
 	$display_resume = ( isset( $fields_display['display_resume'] ) ) ? $fields_display['display_resume'] : 'no';
 
-	if ( $display_resume != 'yes' ) {
+	if ( 'yes' !== $display_resume ) {
 		return;
 	}
-
-
 	$post = get_post( $post_id, OBJECT );
 	setup_postdata( $post );
 	if ( isset( $fields_display['email'] ) || isset( $fields_display['prof_title'] ) || isset( $fields_display['location'] ) || isset( $fields_display['video'] ) || isset( $fields_display['description'] ) ) {
@@ -26,7 +30,7 @@ function bpjm_show_resume_at_profile( $post_id ) {
 					$email = get_post_meta( $post_id, '_candidate_email', true );
 					echo "<tr>
 								<td class='label'>" . esc_html__( 'E-mail', 'bp-job-manager' ) . "</td>
-								<td class='data'>" . sanitize_email( $email ) . '</td>
+								<td class='data'>" . esc_html( sanitize_email( $email ) ) . '</td>
 							  </tr>';
 				}
 				if ( ! empty( $fields_display['prof_title'] ) ) {

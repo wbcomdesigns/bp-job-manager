@@ -65,8 +65,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 */
 		public function enqueue_styles() {
 			if ( isset( $_GET['page'] ) && ( 'bp-job-manager' === $_GET['page'] ) ) {
-				wp_enqueue_style( $this->plugin_name . '-selectize', plugin_dir_url( __FILE__ ) . 'css/selectize.css' );
-				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-admin.css' );
+				wp_enqueue_style( $this->plugin_name . '-selectize', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
+				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-admin.css', array(), $this->version, 'all' );
 			}
 		}
 
@@ -79,8 +79,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 */
 		public function enqueue_scripts() {
 			if ( isset( $_GET['page'] ) && ( 'bp-job-manager' === $_GET['page'] ) ) {
-				wp_enqueue_script( $this->plugin_name . '-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ) );
-				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-admin.js', array( 'jquery' ) );
+				wp_enqueue_script( $this->plugin_name . '-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
+				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-admin.js', array( 'jquery' ), $this->version, false );
 			}
 
 		}
@@ -165,11 +165,19 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 			add_settings_section( 'bp-job-manager-section', ' ', array( &$this, 'bpjm_general_settings_content' ), $this->plugin_name );
 		}
 
+		/**
+		 * Actions performed to create welcome Tab Content.
+		 *
+		 * @since    1.0.0
+		 * @author   wbcomdesigns
+		 * @access   public
+		 */
 		public function bpjm_welcome_content() {
 			if ( file_exists( dirname( __FILE__ ) . '/includes/bp-job-manager-welcome-page.php' ) ) {
 				require_once dirname( __FILE__ ) . '/includes/bp-job-manager-welcome-page.php';
 			}
 		}
+
 		/**
 		 * Actions performed to create General Tab Content.
 		 *
@@ -343,16 +351,24 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 			}
 		}
 
+		/**
+		 * Display Job listings
+		 *
+		 * @param  int   $ID Job ID.
+		 * @param  array $post Job post object.
+		 * @return void
+		 */
 		public function bpjm_publish_job_listing( $ID, $post ) {
 			global $bp_job_manager;
-			if ( isset( $bp_job_manager->bpjm_job_post_activity ) && $bp_job_manager->bpjm_job_post_activity == 'yes' ) {
+			if ( isset( $bp_job_manager->bpjm_job_post_activity ) && 'yes' === $bp_job_manager->bpjm_job_post_activity ) {
 				global $wpdb;
 				$table_name = $wpdb->prefix . 'bp_activity';
 				if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) == $table_name ) {
 					$check = $wpdb->get_results( "SELECT * FROM $table_name WHERE item_id = $post->ID AND type IN ('bpjm_job_post')" );
 					if ( ! $check ) {
-						$args['type']      = 'bpjm_job_post';
-						$job_permalink     = '<a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a>';
+						$args['type']  = 'bpjm_job_post';
+						$job_permalink = '<a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a>';
+						/* translators: %1$s: BP user link ;  %2$s: Job Link*/
 						$args['action']    = sprintf( __( '%1$s posted a new job %2$s', 'bp-job-manager' ), bp_core_get_userlink( $post->post_author ), $job_permalink );
 						$args['component'] = 'activity';
 						$args['user_id']   = $post->post_author;
@@ -365,9 +381,16 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 			}
 		}
 
+		/**
+		 * Publish resume.
+		 *
+		 * @param  int   $ID Job ID.
+		 * @param  array $post Job post object.
+		 * @return void
+		 */
 		public function bpjm_publish_resume( $ID, $post ) {
 			global $bp_job_manager;
-			if ( isset( $bp_job_manager->bpjm_resume_activity ) && $bp_job_manager->bpjm_resume_activity == 'yes' ) {
+			if ( isset( $bp_job_manager->bpjm_resume_activity ) && 'yes' === $bp_job_manager->bpjm_resume_activity ) {
 
 				global $wpdb;
 				$table_name = $wpdb->prefix . 'bp_activity';

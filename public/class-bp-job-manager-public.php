@@ -9,17 +9,18 @@
  * @subpackage Bp_Job_Manager/public
  */
 
-/**
- * The public-facing functionality of the plugin.
- *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
- *
- * @package    Bp_Job_Manager
- * @subpackage Bp_Job_Manager/public
- * @author     Wbcom Designs <admin@wbcomdesigns.com>
- */
 if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
+
+	/**
+	 * The public-facing functionality of the plugin.
+	 *
+	 * Defines the plugin name, version, and two examples hooks for how to
+	 * enqueue the admin-specific stylesheet and JavaScript.
+	 *
+	 * @package    Bp_Job_Manager
+	 * @subpackage Bp_Job_Manager/public
+	 * @author     Wbcom Designs <admin@wbcomdesigns.com>
+	 */
 	class Bp_Job_Manager_Public {
 
 		/**
@@ -40,6 +41,13 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 */
 		private $version;
 
+		/**
+		 * The version of this plugin.
+		 *
+		 * @since    1.0.0
+		 * @access   private
+		 * @var      string    $max_num_pages    Maximum pages.
+		 */
 		public $max_num_pages = '';
 
 		/**
@@ -145,25 +153,25 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		public function bpjm_has_wpjm_shortcode() {
 			$action = bp_current_action();
 
-			if ( $action === 'my-jobs' ) {
+			if ( 'my-jobs' === $action ) {
 				return true;
 			}
-			if ( $action === 'applied-jobs' ) {
+			if ( 'applied-jobs' === $action ) {
 				return true;
 			}
-			if ( $action === 'post-job' ) {
+			if ( 'post-job' === $action ) {
 				return true;
 			}
-			if ( $action === 'my-resumes' ) {
+			if ( 'my-resumes' === $action ) {
 				return true;
 			}
-			if ( $action === 'add-resume' ) {
+			if ( 'add-resume' === $action ) {
 				return true;
 			}
-			if ( $action === 'job-alerts' ) {
+			if ( 'job-alerts' === $action ) {
 				return true;
 			}
-			if ( $action === 'my-bookmarks' ) {
+			if ( 'my-bookmarks' === $action ) {
 				return true;
 			}
 		}
@@ -201,7 +209,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 						<?php foreach ( $job_dashboard_columns as $key => $column ) : ?>
 						<td class="<?php echo esc_attr( $key ); ?>">
 							<?php if ( 'job_title' === $key ) : ?>
-								<?php if ( $job->post_status == 'publish' ) : ?>
+								<?php if ( 'publish' === $job->post_status ) : ?>
 									<a href="<?php echo esc_url( get_permalink( $job->ID ) ); ?>"><?php wpjm_the_job_title( $job ); ?></a>
 								<?php else : ?>
 									<?php wpjm_the_job_title( $job ); ?> <small>(<?php the_job_status( $job ); ?>)</small>
@@ -537,15 +545,16 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 		}
 
-		/** Hide job actions from display member profile.
+		/**
+		 * Hide job actions from display member profile.
 		 *
-		 * @param $job_actions
-		 * @param $job
+		 * @param  string $job_actions Job actions.
+		 * @param object $job Job object.
 		 * @return mixed
 		 */
 		public function bpjm_hide_job_actions( $job_actions, $job ) {
 			if ( ( bp_loggedin_user_id() != bp_displayed_user_id() ) && ! bp_is_user_profile() ) {
-				if ( ! empty( $job ) && $job->post_status == 'publish' ) {
+				if ( ! empty( $job ) && 'publish' === $job->post_status ) {
 					unset( $job_actions['edit'] );
 					unset( $job_actions['delete'] );
 					unset( $job_actions['mark_filled'] );
@@ -699,6 +708,14 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			return $allowed;
 		}
 
+		/**
+		 * Action performed to override whether the user is allowed to publish the pending jobs.
+		 *
+		 * @since    1.0.0
+		 * @author   wbcomdesigns
+		 * @access   public
+		 * @param    string $allowed members pending job post.
+		 */
 		public function bpjm_filter_wpjm_user_can_edit_published_submissions( $allowed ) {
 			$allowed = true;
 			return $allowed;
@@ -896,7 +913,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 						// check if BuddyPress Job manager - Application manager is active.
 						$wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) );
 						if ( $wpjm_applications_active == true ) {
-							// Applied Jobs
+							// Applied Jobs.
 							bp_core_new_subnav_item(
 								array(
 									'name'            => __( 'Applied Jobs', 'bp-job-manager' ),
@@ -1004,7 +1021,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			<div id="resume-manager-candidate-dashboard">
 				<p class="account-sign-in">
 					<?php esc_html_e( 'You need to be signed in to manage your resumes.', 'wp-job-manager-resumes' ); ?>
-					 <a class="button" href="<?php echo apply_filters( 'resume_manager_candidate_dashboard_login_url', wp_login_url( get_permalink() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Sign in', 'bp-job-manager' ); ?></a></p>
+					<a class="button" href="<?php echo apply_filters( 'resume_manager_candidate_dashboard_login_url', wp_login_url( get_permalink() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>"><?php esc_html_e( 'Sign in', 'bp-job-manager' ); ?></a></p>
 			</div>
 				<?php
 			}
@@ -1444,7 +1461,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @since 2.1.0
 		 */
 		public function bpjm_register_job_post_activity_actions() {
-			 $bp = buddypress();
+			$bp = buddypress();
 
 			bp_activity_set_action(
 				$bp->activity->id,
@@ -1465,7 +1482,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @param object $activity Activity data object.
 		 * @return string $action
 		 */
-		function bpjm_job_post_activity_action_format( $action, $activity ) {
+		public function bpjm_job_post_activity_action_format( $action, $activity ) {
 			$action = sprintf( __( '%s posted a new job update', 'bp-job-manager' ), bp_core_get_userlink( $activity->user_id ) );
 
 			/**
@@ -1488,6 +1505,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			if ( 'bpjm_job_post' !== $activity->type ) {
 				return $retval;
 			}
+			/* translators: %1$s: BP User core link */
 			$retval = sprintf( __( '%s posted a job update', 'bp-job-manager' ), bp_core_get_userlink( $activity->user_id ) );
 			return $retval;
 		}
@@ -1573,7 +1591,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					'link' => $application_link,
 				);
 
-				// WordPress Toolbar
+				// WordPress Toolbar.
 				if ( 'string' === $format ) {
 					$result = sprintf( '<a class="ab-item" href="%s">%s</a>', $application_link, $text );
 				}
@@ -1587,7 +1605,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		/**
 		 * Restrict to post job according to user role
 		 *
-		 * @param boolean $can_post
+		 * @param boolean $can_post user can post or not.
 		 * @return boolean
 		 */
 		public function bpjm_restrict_user_post_job( $can_post ) {
@@ -1604,8 +1622,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 		/**
 		 * Display message to restrict user role to not post job
-		 *
-		 * @return string
 		 */
 		public function bpjm_restrict_user_post_job_message() {
 			echo __( 'You have not permission to post job. Please contect with admin.', 'bp-job-manager' );
@@ -1638,7 +1654,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		}
 
 		/**
-		 * @bpjm_legacy_link_fix
+		 * Legacy Link for BP Rewrites.
 		 *
 		 * @return void
 		 */

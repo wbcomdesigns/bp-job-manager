@@ -120,6 +120,7 @@ function bpjm_required_plugin_admin_notice() {
 	$wpjm_plugin = esc_html__( 'WP Job Manager', 'bp-job-manager' );
 	echo '<div class="error"><p>';
 	echo sprintf(
+		/* translators: %1$s: BuddyPress Job Manager ;  %2$s: BuddyPress ; %3$s: WP Job Manager*/
 		esc_html__( '%1$s is ineffective now as it requires %2$s and %3$s to be installed and active.', 'bp-job-manager' ),
 		'<strong>' . esc_html( $bpjm_plugin ) . '</strong>',
 		'<strong>' . esc_html( $bp_plugin ) . '</strong>',

@@ -30,7 +30,7 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 						<?php foreach ( $candidate_dashboard_columns as $key => $column ) : ?>
 							<td class="<?php echo esc_attr( $key ); ?>">
 								<?php if ( 'resume-title' === $key ) : ?>
-									<?php if ( $resume->post_status == 'publish' ) : ?>
+									<?php if ( 'publish' === $resume->post_status ) : ?>
 										<a href="<?php echo esc_url( get_permalink( $resume->ID ) ); ?>"><?php echo esc_html( $resume->post_title ); ?></a>
 									<?php else : ?>
 										<?php echo esc_html( $resume->post_title ); ?> <small>(<?php the_resume_status( $resume ); ?>)</small>
@@ -137,7 +137,7 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 													$action_url = wp_nonce_url( $action_url, 'resume_manager_my_resume_actions' );
 												}
 
-												echo '<li><a href="' . $action_url . '" class="candidate-dashboard-action-' . $action . '">' . $value['label'] . '</a></li>';
+												echo '<li><a href="' . esc_url( $action_url ) . '" class="candidate-dashboard-action-' . esc_attr( $action ) . '">' . esc_html( $value['label'] ) . '</a></li>';
 											}
 											?>
 									</ul>
@@ -152,6 +152,7 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 								<?php elseif ( 'date' === $key ) : ?>
 									<?php
 									if ( ! empty( $resume->_resume_expires ) && strtotime( $resume->_resume_expires ) > current_time( 'timestamp' ) ) {
+										/* translators: %s: Expire Date*/
 										printf( esc_html__( 'Expires %s', 'wp-job-manager-resumes' ), esc_html( date_i18n( get_option( 'date_format' ) ), strtotime( $resume->_resume_expires ) ) );
 									} else {
 										echo esc_html( date_i18n( get_option( 'date_format' ) ), strtotime( $resume->post_date ) );
