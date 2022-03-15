@@ -64,7 +64,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   public
 		 */
 		public function enqueue_styles() {
-			if ( isset( $_GET['page'] ) && ( 'bp-job-manager' === $_GET['page'] ) ) {
+			$tab = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'bp-job-manager';
+
+			if ( ! empty( $tab ) && ( 'bp-job-manager' === $tab ) ) {
 				wp_enqueue_style( $this->plugin_name . '-selectize', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
 				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-admin.css', array(), $this->version, 'all' );
 			}
@@ -78,7 +80,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   public
 		 */
 		public function enqueue_scripts() {
-			if ( isset( $_GET['page'] ) && ( 'bp-job-manager' === $_GET['page'] ) ) {
+			$tab = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'bp-job-manager';
+			if ( ! empty( $tab ) && ( 'bp-job-manager' === $tab ) ) {
 				wp_enqueue_script( $this->plugin_name . '-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
 				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-admin.js', array( 'jquery' ), $this->version, false );
 			}
@@ -108,7 +111,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_admin_settings_page() {
-			$tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'bpjm-welcome';
+			$tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'bpjm-welcome';
 			?>
 		<div class="wrap">
 					<hr class="wp-header-end">
@@ -139,7 +142,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_plugin_settings_tabs() {
-			$current_tab = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'bpjm-welcome';
+			$current_tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'bpjm-welcome';
 			echo '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
 			foreach ( $this->plugin_settings_tabs as $tab_key => $tab_caption ) {
 				$active = $current_tab == $tab_key ? 'nav-tab-active' : '';
