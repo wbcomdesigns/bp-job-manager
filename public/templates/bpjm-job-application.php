@@ -8,6 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+$job_id = filter_input( INPUT_GET, 'args' ) ? filter_input( INPUT_GET, 'args' ) : '';
 
 get_header();
 global $post;
@@ -18,19 +19,17 @@ global $post;
 			<header class="entry-header">
 				<h1 class="entry-title">
 					<?php
-					echo esc_html( $post->post_title, 'bp-job-manager' );
-					if ( isset( $_GET['args'] ) ) {
-						$job_id = sanitize_text_field( wp_unslash( $_GET['args'] ) );
-						$job    = get_post( $job_id );
-						echo esc_html( ': ' . $job->post_title, 'bp-job-manager' );
+					echo esc_html_e( $post->post_title, 'bp-job-manager' );
+					if ( ! empty( $job_id ) ) {
+						$job = get_post( $job_id );
+						echo esc_html_e( ': ' . $job->post_title, 'bp-job-manager' );
 					}
 					?>
 				</h1>
 			</header><!-- .entry-header -->
 			<div class="entry-content">
 				<?php
-				if ( isset( $_GET['args'] ) ) {
-					$job_id = sanitize_text_field( wp_unslash( $_GET['args'] ) );
+				if ( ! empty( $job_id ) ) {
 					echo do_shortcode( '[job_apply id="' . $job_id . '"]' );
 				} else {
 					?>

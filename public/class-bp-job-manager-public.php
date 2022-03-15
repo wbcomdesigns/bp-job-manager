@@ -1418,6 +1418,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @since    1.0.6
 		 * @author   wbcomdesigns
 		 * @access   public
+		 * @param string $location The path or URL to redirect to.
+		 * @param int    $status HTTP response status code to use. Default '302' (Moved Temporarily).
 		 */
 		public function bpjm_filter_redirect_duplicate_post_url( $location, $status ) {
 			if ( bp_is_user() && bp_is_my_profile() ) {
@@ -1483,6 +1485,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @return string $action
 		 */
 		public function bpjm_job_post_activity_action_format( $action, $activity ) {
+			/* translators: %1$s: Activity user ID*/
 			$action = sprintf( __( '%s posted a new job update', 'bp-job-manager' ), bp_core_get_userlink( $activity->user_id ) );
 
 			/**
@@ -1500,6 +1503,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * Activity action for job post.
 		 *
 		 * @since 2.1.0
+		 *
+		 * @param string $retval Activity Action.
+		 * @param object $activity Acitivity Object.
 		 */
 		public function bpjm_activity_action_wall_posts( $retval, $activity ) {
 			if ( 'bpjm_job_post' !== $activity->type ) {
@@ -1514,6 +1520,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * Add bp notification on sending job application.
 		 *
 		 * @since 2.1.0
+		 *
+		 * @param int $application_id Application ID.
+		 * @param int $job_id Job ID.
 		 */
 		public function bpjm_add_bp_notification_for_job_post( $application_id, $job_id ) {
 			global $bp_job_manager;
@@ -1541,6 +1550,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * Register component for job application notification.
 		 *
 		 * @since 2.1.0
+		 *
+		 * @param array $component_names WP Job Manager Component.
 		 */
 		public function bpjm_comment_get_registered_components( $component_names = array() ) {
 			// Force $component_names to be an array.
@@ -1555,6 +1566,13 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * Job application notification content.
 		 *
 		 * @since 2.1.0
+		 * @param string $action               Component action. Deprecated. Do not do checks against this! Use.
+		 * @param int    $item_id               Notification item ID.
+		 * @param int    $secondary_item_id     Notification secondary item ID.
+		 * @param int    $total_items     Number of notifications with the same action.
+		 * @param string $format                Format of return. Either 'string' or 'object'.
+		 * @param string $component_action_name Canonical notification action.
+		 * @param string $component_name        Notification component ID.
 		 */
 		public function bpjm_job_application_notifications( $action, $item_id, $secondary_item_id, $total_items, $format = 'string', $component_action_name, $component_name ) {
 
@@ -1570,6 +1588,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				 *
 				 * @param string $value Notification text.
 				 */
+				/* translators: %1$s: Applicant Name*/
 				$text             = apply_filters( '_bprwg_notification_text', sprintf( esc_html__( '%s has applied to the job post.', 'bp-job-manager' ), $applicant_name ) );
 				$application_data = get_post( $item_id );
 				$job_id           = $application_data->post_parent;
@@ -1628,7 +1647,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		}
 
 		/**
-		 * @bpjm_nouveau_link_fix() nav item links.
+		 * Nav item links.
 		 *
 		 * @param string $link     The URL for the nav item.
 		 * @param object $nav_item The nav item object.

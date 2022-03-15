@@ -127,8 +127,9 @@ function bpjm_required_plugin_admin_notice() {
 		'<strong>' . esc_html( $wpjm_plugin ) . '</strong>'
 	);
 	echo '</p></div>';
-	if ( isset( $_GET['activate'] ) ) {
-		unset( $_GET['activate'] );
+	if ( null !== filter_input( INPUT_GET, 'activate' ) ) {
+		$activate = filter_input( INPUT_GET, 'activate' );
+		unset( $activate );
 	}
 }
 
@@ -166,8 +167,8 @@ function bpjm_plugin_links( $links ) {
  */
 function bpjm_activation_redirect_settings( $plugin ) {
 
-	if ( class_exists( 'BuddyPress' ) && class_exists( 'WP_Job_Manager' ) && $plugin == plugin_basename( __FILE__ ) ) {
-		wp_redirect( admin_url( 'admin.php?page=bp-job-manager' ) );
+	if ( class_exists( 'BuddyPress' ) && class_exists( 'WP_Job_Manager' ) && plugin_basename( __FILE__ ) === $plugin ) {
+		wp_safe_redirect( admin_url( 'admin.php?page=bp-job-manager' ) );
 		exit;
 	}
 }
