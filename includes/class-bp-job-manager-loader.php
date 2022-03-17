@@ -9,18 +9,18 @@
  * @subpackage Bp_Job_Manager/includes
  */
 
-/**
- * Register all actions and filters for the plugin.
- *
- * Maintain a list of all hooks that are registered throughout
- * the plugin, and register them with the WordPress API. Call the
- * run function to execute the list of actions and filters.
- *
- * @package    Bp_Job_Manager
- * @subpackage Bp_Job_Manager/includes
- * @author     Wbcom Designs <admin@wbcomdesigns.com>
- */
 if ( ! class_exists( 'Bp_Job_Manager_Loader' ) ) :
+	/**
+	 * Register all actions and filters for the plugin.
+	 *
+	 * Maintain a list of all hooks that are registered throughout
+	 * the plugin, and register them with the WordPress API. Call the
+	 * run function to execute the list of actions and filters.
+	 *
+	 * @package    Bp_Job_Manager
+	 * @subpackage Bp_Job_Manager/includes
+	 * @author     Wbcom Designs <admin@wbcomdesigns.com>
+	 */
 	class Bp_Job_Manager_Loader {
 
 		/**

@@ -8,7 +8,18 @@
  * @subpackage Bp_Job_Manager/includes
  * @author     Wbcom Designs <admin@wbcomdesigns.com>
  */
+
 if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
+
+	/**
+	 * The file that defines the global variable of the plugin
+	 *
+	 * @link       https://wbcomdesigns.com/
+	 * @since      1.0.0
+	 * @package    Bp_Job_Manager
+	 * @subpackage Bp_Job_Manager/includes
+	 * @author     Wbcom Designs <admin@wbcomdesigns.com>
+	 */
 	class Bp_Job_Manager_Globals {
 
 		/**

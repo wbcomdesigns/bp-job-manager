@@ -34,10 +34,10 @@ global $bp_job_manager, $wp_roles;
 									<select multiple required name="bpjm_general_settings[post_job_user_roles][]" class="bpjm-user-roles">
 										<?php foreach ( $wp_roles->roles as $slug => $wp_role ) { ?>
 											<option value="<?php echo esc_attr( $slug ); ?>" 
-																	  <?php
-																		if ( ! empty( $bp_job_manager->post_job_user_roles ) && in_array( $slug, $bp_job_manager->post_job_user_roles, true ) ) {
-																			echo 'selected = selected'; }
-																		?>
+												<?php
+												if ( ! empty( $bp_job_manager->post_job_user_roles ) && in_array( $slug, $bp_job_manager->post_job_user_roles, true ) ) {
+													echo 'selected = selected'; }
+												?>
 											><?php echo esc_html( $wp_role['name'] ); ?></option>
 										<?php } ?>
 									</select>

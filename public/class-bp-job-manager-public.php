@@ -68,6 +68,11 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 		}
 
+		/**
+		 * Job Listing Maximum pages.
+		 *
+		 * @return void
+		 */
 		public function get_jobs_max_num_pages() {
 			if ( 'my-jobs' == bp_current_action() || 'jobs' == bp_current_action() ) {
 				$args = array(
@@ -757,9 +762,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					);
 					$job_dashboard_cols = array_merge( $job_dashboard_cols, $column );
 				}
-				// if ( array_key_exists( 'applications', $job_dashboard_cols ) ) {
-				// unset( $job_dashboard_cols['applications'] );
-				// }
 			}
 			return $job_dashboard_cols;
 		}
@@ -1171,8 +1173,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				$user_id = bp_displayed_user_id();
 				$where   = get_posts_by_author_sql( 'resume', true, $user_id, '' );
 				global $wpdb;
-				$query = "SELECT ID FROM $wpdb->posts $where ORDER BY post_modified DESC";
-				$post  = $wpdb->get_row( $query );
+				$post = $wpdb->get_row( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} %s ORDER BY post_modified DESC", $where ) );
 				if ( $post && isset( $bp_job_manager->bpjm_resume_at_profile ) && $bp_job_manager->bpjm_resume_at_profile == 'yes' ) {
 					bpjm_show_resume_at_profile( $post->ID );
 				}
@@ -1190,9 +1191,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$user_id = bp_displayed_user_id();
 			$where   = get_posts_by_author_sql( 'resume', true, $user_id, '' );
 			global $wpdb, $bp_job_manager;
-			$query       = "SELECT ID, post_title FROM $wpdb->posts $where ORDER BY post_modified DESC";
-			$post        = $wpdb->get_results( $query );
-			$single_post = $wpdb->get_row( $query );
+			$post        = $wpdb->get_results( $wpdb->prepare( "SELECT ID, post_title FROM {$wpdb->posts} %s ORDER BY post_modified DESC", $where ) );
+			$single_post = $wpdb->get_row( $wpdb->prepare( "SELECT ID, post_title FROM {$wpdb->posts} %s ORDER BY post_modified DESC", $where ) );
 			if ( ! empty( $single_post ) ) {
 				$selected_post = $single_post->ID;
 			}

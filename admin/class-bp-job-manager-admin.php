@@ -366,8 +366,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 			if ( isset( $bp_job_manager->bpjm_job_post_activity ) && 'yes' === $bp_job_manager->bpjm_job_post_activity ) {
 				global $wpdb;
 				$table_name = $wpdb->prefix . 'bp_activity';
-				if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) == $table_name ) {
-					$check = $wpdb->get_results( "SELECT * FROM $table_name WHERE item_id = $post->ID AND type IN ('bpjm_job_post')" );
+				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
+				if ( $get_table == $table_name ) {
+					$check = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %s WHERE item_id = %d AND type IN ('bpjm_job_post')", $table_name, $post->ID ) );
 					if ( ! $check ) {
 						$args['type']  = 'bpjm_job_post';
 						$job_permalink = '<a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a>';
@@ -397,11 +398,13 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 
 				global $wpdb;
 				$table_name = $wpdb->prefix . 'bp_activity';
-				if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) == $table_name ) {
-					$check = $wpdb->get_results( "SELECT * FROM $table_name WHERE item_id = $post->ID AND type IN ('bpjm_resume_publish')" );
+				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
+				if ( $get_table == $table_name ) {
+					$check = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %s WHERE item_id = %d AND type IN ('bpjm_resume_publish')", $table_name, $post->ID ) );
 					if ( ! $check ) {
-						$args['type']      = 'bpjm_resume_publish';
-						$job_permalink     = '<a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a>';
+						$args['type']  = 'bpjm_resume_publish';
+						$job_permalink = '<a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a>';
+						/* translators: %1$s: Resume user link ;  %2$s: Resume Link*/
 						$args['action']    = sprintf( __( '%1$s posted resume %2$s', 'bp-job-manager' ), bp_core_get_userlink( $post->post_author ), $job_permalink );
 						$args['component'] = 'activity';
 						$args['user_id']   = $post->post_author;

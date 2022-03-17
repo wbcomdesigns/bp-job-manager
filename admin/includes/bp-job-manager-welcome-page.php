@@ -2,10 +2,17 @@
 /**
  *
  * This file is used for rendering and saving plugin welcome settings.
+ *
+ * @link       www.wbcomdesigns.com
+ * @since      1.0.0
+ *
+ * @package    bp-job-manager
+ * @subpackage bp-job-manager/admin/includes
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-	// Exit if accessed directly
+	// Exit if accessed directly.
 }
 ?>
 
@@ -22,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div style="padding:56.25% 0 0 0;position:relative;">
 				<iframe src="https://player.vimeo.com/video/556674671?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="BuddyPress Job Manager"></iframe>
 				</div>
-			<script src="https://player.vimeo.com/api/player.js">
+					<script src="https://player.vimeo.com/api/player.js">
 				</script>
 			</div>
 

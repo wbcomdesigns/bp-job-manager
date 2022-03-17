@@ -9,17 +9,18 @@
  * @subpackage Bp_Job_Manager/includes
  */
 
-/**
- * Fired during plugin activation.
- *
- * This class defines all code necessary to run during the plugin's activation.
- *
- * @since      1.0.0
- * @package    Bp_Job_Manager
- * @subpackage Bp_Job_Manager/includes
- * @author     Wbcom Designs <admin@wbcomdesigns.com>
- */
 if ( ! class_exists( 'Bp_Job_Manager_Activator' ) ) :
+
+	/**
+	 * Fired during plugin activation.
+	 *
+	 * This class defines all code necessary to run during the plugin's activation.
+	 *
+	 * @since      1.0.0
+	 * @package    Bp_Job_Manager
+	 * @subpackage Bp_Job_Manager/includes
+	 * @author     Wbcom Designs <admin@wbcomdesigns.com>
+	 */
 	class Bp_Job_Manager_Activator {
 
 		/**
