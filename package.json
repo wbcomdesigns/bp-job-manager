@@ -9,7 +9,7 @@
     "grunt-check-dependencies": "~1.0.0",
     "grunt-checktextdomain": "^1.0.1",
     "grunt-wp-i18n": "^1.0.0",
-    "minimist": ">=1.2.2"
+    "minimist": ">=1.2.6"
   },
   "engines": {
     "node": ">=6.9.1"
