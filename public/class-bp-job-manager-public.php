@@ -1689,5 +1689,21 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				}
 			}
 		}
+
+		/**
+		 * Determine if the shortcode action handler should run.
+		 *
+		 * @since 1.35.0
+		 *
+		 * @param bool $is_page Should the handler run.
+		 */
+		public function bpjm_allow_continue_submission( $is_page ) {
+
+			if ( bp_is_my_profile() && 'post-job' === bp_current_action() ) {
+				return true;
+			}
+			return true;
+
+		}
 	}
 endif;
