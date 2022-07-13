@@ -37,31 +37,67 @@ jQuery(document).ready(function (event) {
 
 (function ($) {
   "use strict";
-
   $(document).ready(function () {
-    /**
-     * Responsive Navbar Menu
-     */
-    var wb_panel_tabs = $(".nav-tab-wrapper > ul");
-
-    $(".wb-toggle-btn").change(function (e) {
-      $.initResponsivePanel();
-    });
-
-    ($.initResponsivePanel = function () {
-      if ($(".wb-toggle-btn").is(":checked")) {
-        wb_panel_tabs.slideDown();
+    /* Mobile Toggle Menu */
+    jQuery(".wb-responsive-menu").on("click", function (e) {
+      e.preventDefault();
+      if (
+        jQuery(".wbcom-admin-settings-page .nav-tab-wrapper ul").hasClass(
+          "wbcom-show-mobile-menu"
+        )
+      ) {
+        jQuery(".wbcom-admin-settings-page .nav-tab-wrapper ul").removeClass(
+          "wbcom-show-mobile-menu"
+        );
       } else {
-        wb_panel_tabs.slideUp();
+        jQuery(".wbcom-admin-settings-page .nav-tab-wrapper ul").addClass(
+          "wbcom-show-mobile-menu"
+        );
       }
-    }),
-      $(window).on("resize", function (e) {
+    });
+    jQuery(document).on(
+      "click",
+      "ul.wbcom-addons-plugins-links li a",
+      function (e) {
         e.preventDefault();
-        if ($(window).width() > 768) {
-          wb_panel_tabs.fadeIn(1000);
-        } else {
-          $.initResponsivePanel();
-        }
-      });
+        var getextension = $(this).data("link");
+        $(".wbcom-addons-link-active").removeClass("wbcom-addons-link-active");
+        $(this)
+          .attr("class", "wbcom-addons-link-active")
+          .siblings()
+          .removeClass("wbcom-addons-link-active");
+        var data = {
+          action: "wbcom_addons_cards",
+          display_extension: getextension,
+          nonce: wbcom_plugin_installer_params.nonce,
+        };
+        $.post(ajaxurl, data, function (response) {
+          if ("paid_extension" == response) {
+            $("#wbcom-learndash-extension").hide();
+            $("#wbcom-themes-list").hide();
+            $("#wbcom-free-extension").hide();
+            $("#wbcom_paid_extention").show();
+          }
+          if ("free_extension" == response) {
+            $("#wbcom-free-extension").show();
+            $("#wbcom-learndash-extension").hide();
+            $("#wbcom-themes-list").hide();
+            $("#wbcom_paid_extention").hide();
+          }
+          if ("learndash_extension" == response) {
+            $("#wbcom-learndash-extension").show();
+            $("#wbcom-free-extension").hide();
+            $("#wbcom-themes-list").hide();
+            $("#wbcom_paid_extention").hide();
+          }
+          if ("our_themes" == response) {
+            $("#wbcom-themes-list").show();
+            $("#wbcom-free-extension").hide();
+            $("#wbcom-learndash-extension").hide();
+            $("#wbcom_paid_extention").hide();
+          }
+        });
+      }
+    );
   });
 })(jQuery);

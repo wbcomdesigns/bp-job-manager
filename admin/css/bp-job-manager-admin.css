@@ -25,3 +25,6 @@ ol.bpjm-required-plugins-links a {
 #lock_acc_roles .selectize-dropdown-content {
   max-height: 85px;
 }
+.nav-tab-wrapper ul .bp-job-manager a:before {
+	content: "\f111" !important;
+}

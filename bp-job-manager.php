@@ -74,6 +74,10 @@ function run_bp_job_manager() {
 		define( 'BPJM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 	}
 
+	if ( ! defined( 'BPJM_PLUGIN_VERSION' ) ) {
+		define( 'BPJM_PLUGIN_VERSION', '2.6.3' );
+	}
+
 	$plugin = new Bp_Job_Manager();
 	$plugin->run();
 
