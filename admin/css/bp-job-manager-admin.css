@@ -28,3 +28,9 @@ ol.bpjm-required-plugins-links a {
 .nav-tab-wrapper ul .bp-job-manager a:before {
 	content: "\f111" !important;
 }
+.wbcom-settings-section-wrap{
+	overflow: unset;
+}
+.wbcom-settings-section-options .selectize-input input[type="text"]{
+	height: auto;
+}
