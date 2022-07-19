@@ -176,6 +176,7 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			$this->loader->add_action( 'bp_setup_admin_bar', $plugin_admin, 'bpjm_setup_admin_bar_links', 70 );
 			$this->loader->add_action( 'publish_job_listing', $plugin_admin, 'bpjm_publish_job_listing', 999, 2 );
 			$this->loader->add_action( 'publish_resume', $plugin_admin, 'bpjm_publish_resume', 999, 2 );
+			$this->loader->add_action( 'in_admin_header', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
 		}
 
 		/**
