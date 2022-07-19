@@ -9,8 +9,7 @@
 	<div class="wbcom-wrap wbcom-plugin-wrapper">    	
 		<div class="wbcom_admin_header-wrapper">
 			<div id="wb_admin_plugin_name">
-				<?php esc_html_e( 'BuddyPress Job Manager', 'bp-job-manager' ); ?>
-				<span><?php printf( __( 'Version %s', 'bp-job-manager' ), BPJM_PLUGIN_VERSION ); ?></span>
+				<?php esc_html_e( 'Themes & Extension', 'bp-job-manager' ); ?>
 			</div>
 			<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 		</div>
