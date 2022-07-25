@@ -7,30 +7,53 @@
 	float: left;
 	margin: 0px;
 }
+
 .bpjm-header .bpjm-extra-actions {
 	float: right;
 	padding-bottom: 10px;
 }
+
 ol.bpjm-required-plugins-links a {
 	text-decoration: none;
 }
-.notice-success, div.updated {
+
+.notice-success,
+div.updated {
 	clear: both;
 }
 
-.blpro_excluding_member{
-	width:70%;
+.blpro_excluding_member {
+	width: 70%;
 }
 
 #lock_acc_roles .selectize-dropdown-content {
-  max-height: 85px;
+	max-height: 85px;
 }
+
 .nav-tab-wrapper ul .bp-job-manager a:before {
 	content: "\f111" !important;
 }
-.wbcom-settings-section-wrap{
+
+.wbcom-settings-section-wrap {
 	overflow: unset;
 }
-.wbcom-settings-section-options .selectize-input input[type="text"]{
+
+.wbcom-settings-section-options .selectize-input input[type="text"] {
 	height: auto;
+}
+
+div#setting-error-settings_updated {
+	position: absolute;
+	right: 50px;
+	z-index: 99;
+	border-radius: 10px;
+	line-height: normal;
+	background: transparent;
+	border: none;
+	box-shadow: none;
+	color: #10AB00;
+}
+
+button.notice-dismiss:before {
+	color: red !important;
 }

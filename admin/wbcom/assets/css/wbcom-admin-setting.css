@@ -61,8 +61,8 @@ h4.wbcom-support-section {
 
 .form-table.wbcom-admin-option-wrap input[type=text],
 .form-table.wbcom-admin-option-wrap select {
-    height: 38px;
-    border-radius: 6px !important;
+    height: 40px;
+    border-radius: 8px !important;
     background-color: #F4F5F7;
     border-color: #e2e2e2;
 }
@@ -107,11 +107,11 @@ h4.wbcom-support-section {
 .wbcom-settings-section-options .selectize-input,
 .wbcom-settings-section-options [type="text"],
 .wbcom-settings-section-options [type="number"] {
-    border-radius: 7px;
+    border-radius: 8px;
     box-shadow: none;
     height: 40px;
-    border-color: #e0e0e0;
-    background-color: #fafafa;
+    background-color: #F4F5F7;
+    border-color: #e2e2e2;
     width: 100%;
 }
 
@@ -122,6 +122,7 @@ h4.wbcom-support-section {
     box-shadow: none !important;
     margin: 0 5px 0px 0px;
 }
+
 .wbcom-settings-section-options input[type=radio]:checked::before {
     width: 18px;
     height: 18px;
@@ -865,6 +866,10 @@ License style
     display: none;
 }
 
+.wbcom-license-support-wrapp form[method="post"] {
+    border-bottom: 1px solid #e2e2e2;
+}
+
 /* License style : End */
 
 /* Welcome Page : Start */
@@ -1122,10 +1127,14 @@ License style
 
 /* Admin Switch Toggle : Start */
 .wb-switch {
-    position: relative;
     display: inline-block;
-    width: 60px;
-    height: 28px;
+    border: none !important;
+    position: relative;
+    line-height: 0;
+    height: 32px;
+    width: 70px;
+    min-width: 70px;
+    box-shadow: none;
 }
 
 .wb-switch input {
@@ -1139,70 +1148,95 @@ License style
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
+    border-radius: 8px;
+    background: #ed6f6f;
     -webkit-transition: .4s;
     transition: .4s;
-    border-radius: 100px;
 }
 
 .wb-slider:before {
-    position: absolute;
     content: "";
-    height: 17px;
-    width: 17px;
-    border-radius: 100px;
-    left: 5px;
-    bottom: 6px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
+    bottom: 4px;
+    position: absolute;
+    top: 6px;
+    left: 6px !important;
+    width: 24px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 6px;
+    transition: all .3s;
+    box-shadow: 0px 0px 8px rgb(0 0 0 / 35%);
 }
 
-input:checked+.wb-slider {
-    background-color: #2A32EF;
+.wb-switch input:checked+.wb-slider {
+    background-color: #4fb845;
 }
 
-input:checked+.wb-slider:before {
-    -webkit-transform: translateX(32px);
-    -ms-transform: translateX(32px);
-    transform: translateX(32px);
+.wb-switch input:checked+.wb-slider:before {
+    -webkit-transform: translateX(33px);
+    -ms-transform: translateX(33px);
+    transform: translateX(33px);
+    background-color: #ffffff;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .wbcom-admin-option-wrap .form-table input[type=checkbox] {
-    border: 1px solid #c9c9c9;
-    border-radius: 100px;
-    background: #fff;
+    border: none !important;
+    border-radius: 8px;
+    background: #ed6f6f;
     position: relative;
     line-height: 0;
-    height: 28px;
-    width: 65px;
-    min-width: 65px;
+    height: 32px;
+    width: 70px;
+    min-width: 70px;
     box-shadow: none;
 }
 
 .wbcom-admin-option-wrap .form-table input[type=checkbox]:before {
-    position: absolute;
     content: "";
-    height: 18px;
-    width: 18px;
-    background: #d3d3d3;
-    left: 4px;
     bottom: 4px;
-    border-radius: 100px;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
+    position: absolute;
+    top: 6px;
+    left: 6px !important;
+    width: 24px;
+    height: 20px;
+    background-color: #fff;
+    border-radius: 6px;
+    transition: all .3s;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.35);
 }
 
 .wbcom-admin-option-wrap .form-table input[type=checkbox]:checked {
-    background-color: #2A32EF;
-    border-color: #2A32EF;
+    background-color: #4fb845;
 }
 
 .wbcom-admin-option-wrap .form-table input[type=checkbox]:checked::before {
-    -webkit-transform: translateX(40px);
-    -ms-transform: translateX(40px);
-    transform: translateX(40px);
+    -webkit-transform: translateX(33px);
+    -ms-transform: translateX(33px);
+    transform: translateX(33px);
     background-color: #ffffff;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.wbcom-admin-option-wrap .form-table input[type=checkbox]:after,
+.wbcom-admin-option-wrap .form-table input[type=checkbox]:checked::after,
+.wb-slider.wb-round::after {
+    content: "OFF";
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    position: absolute;
+    top: 16px;
+    right: 11px;
+}
+
+.wbcom-admin-option-wrap .form-table input[type=checkbox]:checked::after,
+.wb-switch input:checked+.wb-slider::after {
+    content: "ON";
+    right: unset;
+    left: 10px;
 }
 
 
@@ -1220,7 +1254,8 @@ input:checked+.wb-slider:before {
     overflow: hidden;
     border-radius: 12px;
 }
-.wbcom-faq-section-row{
+
+.wbcom-faq-section-row {
     align-self: flex-start;
     width: auto;
     background: #fff;
@@ -1233,17 +1268,19 @@ input:checked+.wb-slider:before {
     transition: all 0.6s ease 0s;
     position: relative;
 }
+
 .wbcom-faq-section-row:hover {
     background-color: #2A32EF;
     border-color: #2A32EF;
 }
+
 .wbcom-faq-section-row:hover p,
-.wbcom-faq-section-row:hover
-button.wbcom-faq-accordion:after,
+.wbcom-faq-section-row:hover button.wbcom-faq-accordion:after,
 .wbcom-faq-section-row:hover .wbcom-faq-panel li,
 .wbcom-faq-section-row:hover button.wbcom-faq-accordion {
     color: #fff;
 }
+
 button.wbcom-faq-accordion {
     border: medium none;
     color: #333;
@@ -1257,16 +1294,20 @@ button.wbcom-faq-accordion {
     transition: all 0.4s ease 0s;
     width: 100%;
 }
-button.wb-ads-accordion.active, button.wb-ads-accordion:hover {
+
+button.wb-ads-accordion.active,
+button.wb-ads-accordion:hover {
     color: #2A32EF;
 }
+
 div.wbcom-faq-panel {
     padding: 0;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
-    margin:0px;
+    margin: 0px;
 }
+
 button.wbcom-faq-accordion::after {
     color: hsl(0, 0%, 47%);
     content: "+";
@@ -1278,22 +1319,44 @@ button.wbcom-faq-accordion::after {
     position: absolute;
     top: 10px;
 }
+
 button.wbcom-faq-accordion:hover::after {
     color: white;
 }
+
 button.wbcom-faq-accordion.active::after {
     content: "−";
-    color:white;
+    color: white;
 }
+
 .wbcom-faq-admin-row {
     clear: both;
 }
+
 div.wbcom-faq-panel p {
     font-size: 15px;
     margin: 5px 0 0;
 }
 
+.selectize-control.multi .selectize-input div.item {
+    border-radius: 5px;
+    background: #ffffff;
+    border: 1px solid #d0d0d0;
+}
 
+.wbcom-settings-section-options .selectize-input {
+    height: auto;
+    box-shadow: none;
+    padding: 0px 10px !important;
+}
+
+.selectize-control.plugin-remove_button [data-value] .remove {
+    color: red !important;
+}
+
+.selectize-input.items.not-full.has-options.input-active.dropdown-active {
+    border-radius: 8px;
+}
 
 /*========================================
 Media Queries
