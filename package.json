@@ -5,9 +5,7 @@
   "license": "GPL-2.0+",
   "description": "WP Job Manager Support for BuddyPress",
   "devDependencies": {
-    "bower-config": "^1.4.1",
     "grunt": "^1.4.1",
-    "grunt-check-dependencies": "~1.0.0",
     "grunt-checktextdomain": "^1.0.1",
     "grunt-wp-i18n": "^1.0.0"
   },
