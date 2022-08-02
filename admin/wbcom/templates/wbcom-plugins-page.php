@@ -22,7 +22,6 @@
 						<li><a href="javascript:void(0)" data-link="learndash_extension"><?php esc_html_e( 'LearnDash Extension', 'bp-job-manager' ); ?></a></li>
 						<li><a href="javascript:void(0)" data-link="our_themes"><?php esc_html_e( 'Our Themes', 'bp-job-manager' ); ?></a></li>
 					</ul>
-					<a href="<?php echo esc_url( 'https://wbcomdesigns.com/plugins/' ); ?>" class="wbcom-addons-button" target="_blank"><?php esc_html_e( 'View More Extension', 'bp-job-manager' ); ?></a>
 				</div>
 				<div id="wbcom_paid_extention" class="wbcom-bp-addons-plugins-list wbcom-bp-free-addon-plugins">
 					<div class="wbcom-bp-addons-plugins-title-section">
