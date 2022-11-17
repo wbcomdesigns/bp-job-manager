@@ -1705,5 +1705,15 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			return true;
 
 		}
+
+		public function bpjm_applications_column( $job ) {
+			global $post;
+			echo ( $count = get_job_application_count( $job->ID ) ) ? '<a href="' . add_query_arg(
+				[
+					'action' => 'show_applications',
+					'job_id' => $job->ID,
+				],
+			) . '">' . $count . '</a>' : '&ndash;';
+		}
 	}
 endif;

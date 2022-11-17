@@ -119,5 +119,6 @@ jQuery( document ).ready(
 			return false;
 		}
 
+		jQuery('.applications').find('a:nth-child(2)').addClass('bpjm-app-count');
 	}
 );

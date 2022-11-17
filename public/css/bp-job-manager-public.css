@@ -152,3 +152,7 @@
 #job-manager-alerts .job-manager-alerts th {
   text-align: left;
 }
+
+.bpjm-app-count{
+  display:none;
+}

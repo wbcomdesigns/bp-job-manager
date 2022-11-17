@@ -251,6 +251,10 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 				$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_legacy_link_fix', 9999 );
 			}
 
+			if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
+				$this->loader->add_action( 'job_manager_job_dashboard_column_applications', $plugin_public, 'bpjm_applications_column' );
+			}
+
 		}
 
 		/**
