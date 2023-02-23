@@ -172,8 +172,10 @@ function bpjm_plugin_links( $links ) {
 function bpjm_activation_redirect_settings( $plugin ) {
 
 	if ( class_exists( 'BuddyPress' ) && class_exists( 'WP_Job_Manager' ) && plugin_basename( __FILE__ ) === $plugin ) {
-		wp_safe_redirect( admin_url( 'admin.php?page=bp-job-manager' ) );
-		exit;
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) {
+			wp_safe_redirect( admin_url( 'admin.php?page=bp-job-manager' ) );
+			exit;
+		}
 	}
 }
 add_action( 'activated_plugin', 'bpjm_activation_redirect_settings' );
