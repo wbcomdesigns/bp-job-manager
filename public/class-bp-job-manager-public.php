@@ -1440,6 +1440,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_add_private_message_link() {
+			if( ! bp_is_active( 'messages' ) ){
+				return;
+			}
 			$url = wp_nonce_url( bp_loggedin_user_domain() . bp_get_messages_slug() . '/compose/?r=' . bp_core_get_username( get_the_author_meta( 'ID' ) ) );
 
 			echo '<a href="' . esc_url( $url ) . '" title="Private Message">' . esc_html__( 'Private Message', 'bp-job-manager' ) . '</a>';
