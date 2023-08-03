@@ -84,7 +84,7 @@ jQuery( document ).ready(
 					},
 					success: function(response) {
 						$( '#inifiniteLoader' ).css( 'display', 'none' );
-						$( '.job-manager-jobs tbody:last-child' ).append( response );
+						$( '.job-manager-jobs tbody:last' ).append( response );
 
 						// Assign class to each header
 						$( '#job-manager-job-dashboard table th' ).each(
