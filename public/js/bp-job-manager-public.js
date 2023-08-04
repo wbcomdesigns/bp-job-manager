@@ -68,6 +68,7 @@ jQuery( document ).ready(
 		);
 
 		function loadJobs(pageNumber) {
+			$(".bpjm-loader").css("display", "block");
 			$( '#inifiniteLoader' ).show( 'fast' );
 			var data = {
 				'action': 'bpjm_load_more_jobs',
@@ -83,6 +84,7 @@ jQuery( document ).ready(
 						$( '.wb-grid-cell' ).find( '.job-manager-jobs' ).after( '<div class="inifinite-loader-wrapper"><a id="inifiniteLoader" href="javascript: void(0)" ><button class="loading">Loading...</button></a></div >' );
 					},
 					success: function(response) {
+						$(".bpjm-loader").css("display", "none");
 						$( '#inifiniteLoader' ).css( 'display', 'none' );
 						$( '.job-manager-jobs tbody:last' ).append( response );
 
