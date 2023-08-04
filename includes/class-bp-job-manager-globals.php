@@ -68,6 +68,43 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 		public $job_application_pgid;
 
 		/**
+		 * Bpjm_resume_at_profile
+		 *
+		 * @since    1.0.0
+		 * @access   public
+		 *
+		 * @var mixed  $bpjm_resume_at_profile
+		 */
+		public $bpjm_resume_at_profile;
+
+		/**
+		 * Bpjm_resume_activity
+		 *
+		 * @since    1.0.0
+		 * @access   public
+		 * @var mixed   $bpjm_resume_activity
+		 */
+		public $bpjm_resume_activity;
+
+		/**
+		 * Bspjm_job_post_activity
+		 *
+		 * @since    1.0.0
+		 * @access   public
+		 * @var mixed  $bpjm_job_post_activity
+		 */
+		public $bpjm_job_post_activity;
+
+		/**
+		 * Bpjm_app_notify
+		 *
+		 * @since    1.0.0
+		 * @access   public
+		 * @var mixed     $bpjm_app_notify
+		 */
+		public $bpjm_app_notify;
+
+		/**
 		 * Define the core functionality of the plugin.
 		 *
 		 * Set the plugin name and the plugin version that can be used throughout the plugin.

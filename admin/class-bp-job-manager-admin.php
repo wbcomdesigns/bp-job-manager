@@ -41,6 +41,15 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		private $version;
 
 		/**
+		 * plugin_settings_tabs
+		 *
+		 * @since    1.0.0
+		 * @access   public
+		 * @var mixed     $plugin_settings_tabs   The tabs of the Plugins
+		 */
+		public $plugin_settings_tabs;
+
+		/**
 		 * Initialize the class and set its properties.
 		 *
 		 * @since    1.0.0
