@@ -1574,7 +1574,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @param string $component_action_name Canonical notification action.
 		 * @param string $component_name        Notification component ID.
 		 */
-		public function bpjm_job_application_notifications( $action, $item_id, $secondary_item_id, $total_items, $format = 'string', $component_action_name, $component_name ) {
+		public function bpjm_job_application_notifications( $action, $item_id, $secondary_item_id, $total_items, $component_action_name, $component_name, $format = 'string' ) {
 
 			if ( 'applied_job' === $component_action_name ) {
 
@@ -1708,12 +1708,14 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 		public function bpjm_applications_column( $job ) {
 			global $post;
-			echo ( $count = get_job_application_count( $job->ID ) ) ? '<a href="' . add_query_arg(
-				[
-					'action' => 'show_applications',
-					'job_id' => $job->ID,
-				],
-			) . '">' . $count . '</a>' : '&ndash;';
+			echo ( $count = get_job_application_count( $job->ID ) ) ? '<a href="' . esc_attr(
+				add_query_arg(
+					array(
+						'action' => 'show_applications',
+						'job_id' => $job->ID,
+					),
+				)
+			) . '">' . esc_attr( $count ) . '</a>' : '&ndash;';
 		}
 	}
 endif;
