@@ -74,7 +74,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @return void
 		 */
 		public function get_jobs_max_num_pages() {
-			$per_page 		= get_option( 'job_manager_per_page' );
+			$per_page       = get_option( 'job_manager_per_page' );
 			if ( 'my-jobs' == bp_current_action() || 'jobs' == bp_current_action() ) {
 				$args = array(
 					'post_type'           => 'job_listing',
@@ -189,7 +189,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			if ( isset( $_POST ) ) {
 				check_ajax_referer( 'bpjm_load_jobs_nonce', 'ajax_nonce' );
 				$paged = isset( $_POST['page_no'] ) ? sanitize_text_field( wp_unslash( $_POST['page_no'] ) ) : '';
-				$per_page 	= get_option( 'job_manager_per_page' );
+				$per_page   = get_option( 'job_manager_per_page' );
 				$job_dashboard_columns = array(
 					'job_title' => __( 'Title', 'bp-job-manager' ),
 					'filled'    => __( 'Filled?', 'bp-job-manager' ),
@@ -537,7 +537,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				?>
 				<div class="bpjm-loader" style="display:none;">
 					<div class="bpjm-loader-img">
-						<img src="<?php echo esc_url( BPJM_PLUGIN_URL . '/public/images/spinner.gif' ) ;  ?>"/>
+						<img src="<?php echo esc_url( BPJM_PLUGIN_URL . '/public/images/spinner.gif' ); ?>"/>
 					</div>
 				</div>
 				<?php
@@ -691,7 +691,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$displayed_uid  = bp_displayed_user_id();
 			$displayed_user = get_userdata( $displayed_uid );
 			$curr_user      = wp_get_current_user();
-			$per_page 		= get_option( 'job_manager_per_page' );
+			$per_page       = get_option( 'job_manager_per_page' );
 			if ( ! empty( $curr_user->roles ) && ! empty( $displayed_user->roles ) ) {
 				$job_dashboard_job_listing_args = array(
 					'post_type'           => 'job_listing',
@@ -1448,7 +1448,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_add_private_message_link() {
-			if( ! bp_is_active( 'messages' ) ){
+			if ( ! bp_is_active( 'messages' ) ) {
 				return;
 			}
 			$url = wp_nonce_url( bp_loggedin_user_domain() . bp_get_messages_slug() . '/compose/?r=' . bp_core_get_username( get_the_author_meta( 'ID' ) ) );
@@ -1585,7 +1585,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @param string $component_action_name Canonical notification action.
 		 * @param string $component_name        Notification component ID.
 		 */
-		public function bpjm_job_application_notifications( $action, $item_id, $secondary_item_id, $total_items, $format = 'string', $component_action_name, $component_name ) {
+		public function bpjm_job_application_notifications( $action, $item_id, $secondary_item_id, $total_items, $component_action_name, $component_name, $format = 'string' ) {
 
 			if ( 'applied_job' === $component_action_name ) {
 
@@ -1719,12 +1719,14 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 		public function bpjm_applications_column( $job ) {
 			global $post;
-			echo ( $count = get_job_application_count( $job->ID ) ) ? '<a href="' . add_query_arg(
-				[
-					'action' => 'show_applications',
-					'job_id' => $job->ID,
-				],
-			) . '">' . $count . '</a>' : '&ndash;';
+			echo ( $count = get_job_application_count( $job->ID ) ) ? '<a href="' . esc_attr(
+				add_query_arg(
+					array(
+						'action' => 'show_applications',
+						'job_id' => $job->ID,
+					),
+				)
+			) . '">' . esc_attr( $count ) . '</a>' : '&ndash;';
 		}
 	}
 endif;
