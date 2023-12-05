@@ -1424,7 +1424,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		public function bpjm_filter_redirect_duplicate_post_url( $location, $status ) {
 			if ( bp_is_user() && bp_is_my_profile() ) {
 				$query_str = parse_url( $location, PHP_URL_QUERY );
-				$job_arr   = explode( '=', $query_str );
+				$job_arr   = explode( '=', $query_str ?? '' );
 				if ( ( 'job_id' == $job_arr[0] ) && ( '0' != $job_arr[1] ) ) {
 					$location = bp_core_get_user_domain( bp_displayed_user_id() ) . 'jobs/post-job/?job_id=' . $job_arr[1];
 				}
