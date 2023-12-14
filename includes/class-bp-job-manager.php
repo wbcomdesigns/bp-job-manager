@@ -102,6 +102,11 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			 * core plugin.
 			 */
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-bp-job-manager-loader.php';
+				/**
+			 * The class responsible for orchestrating the actions and filters of the
+			 * core plugin.
+			 */
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-bp-job-manager-function.php';
 
 			/**
 			 * The class responsible for defining internationalization functionality
@@ -229,13 +234,10 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			/*
 			 Register job post type activity*/
 			// $this->loader->add_filter( 'bp_activity_check_activity_types', $plugin_public, 'bpjm_add_job_post_type_activity', 10, 1 );
-
 			/*
 			 Register job post type activity action */
 			// $this->loader->add_action( 'bp_register_activity_actions', $plugin_public, 'bpjm_register_job_post_activity_actions' );
-
 			// $this->loader->add_filter( 'bp_get_activity_action_pre_meta' , $plugin_public,'bpjm_activity_action_wall_posts', 9999, 2 );
-
 			$this->loader->add_action( 'new_job_application', $plugin_public, 'bpjm_add_bp_notification_for_job_post', 10, 2 );
 			$this->loader->add_filter( 'job_manager_should_run_shortcode_action_handler', $plugin_public, 'bpjm_allow_continue_submission', 5, 1 );
 
