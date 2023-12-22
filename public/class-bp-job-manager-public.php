@@ -333,16 +333,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$parent_slug    = 'jobs';
 			$jobs_tab_link  = bp_core_get_userlink( $displayed_uid, false, true ) . $parent_slug . '/';
 
-			// Count jobs.
-			$args          = array(
-				'post_type'      => 'job_listing',
-				'post_status'    => 'any',
-				'author'         => $displayed_uid,
-				'posts_per_page' => -1,
-				'orderby'        => 'post_date',
-				'order'          => 'ASC',
-			);
-			$my_jobs_count = count( get_posts( $args ) );
+			$is_my_profile = bp_is_my_profile();
+			if( $is_my_profile && is_user_logged_in() ){
+				$my_jobs_count  = bp_job_manager_get_total_published_posts( $displayed_uid );
+				}else{
+				$my_jobs_count  = '';
+			}
 			$job_tab       = __( 'Jobs', 'bp-job-manager' );
 			if ( 0 < $my_jobs_count ) {
 				$job_tab = sprintf(
@@ -785,6 +781,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 */
 		public function bpjm_job_dashboard_actions_col_content( $job ) {
 			global $bp_job_manager;
+			if( is_user_logged_in() ){
 			if ( ! bp_is_user_profile() && ( bp_loggedin_user_id() != bp_displayed_user_id() ) ) {
 				$user_id                        = bp_loggedin_user_id();
 				$apply_job_user_roles           = ! empty( $bp_job_manager->apply_job_user_roles ) ? $bp_job_manager->apply_job_user_roles : array();
@@ -810,8 +807,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					} else {
 						echo '<li class="position-filled">' . esc_html__( 'This position has been filled.', 'bp-job-manager' ) . '</li>';
 					}
-				} else {
-					echo '<div class="position-filled">' . esc_html__( 'You are not allowed to apply for this job.', 'bp-job-manager' ) . '</div>';
+					} else {
+						echo '<div class="position-filled">' . esc_html__( 'You are not allowed to apply for this job.', 'bp-job-manager' ) . '</div>';
+					}
 				}
 			}
 		}
@@ -1432,7 +1430,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		public function bpjm_filter_redirect_duplicate_post_url( $location, $status ) {
 			if ( bp_is_user() && bp_is_my_profile() ) {
 				$query_str = parse_url( $location, PHP_URL_QUERY );
-				$job_arr   = explode( '=', $query_str );
+				$job_arr   = explode( '=', $query_str ?? '' );
 				if ( ( 'job_id' == $job_arr[0] ) && ( '0' != $job_arr[1] ) ) {
 					$location = bp_core_get_user_domain( bp_displayed_user_id() ) . 'jobs/post-job/?job_id=' . $job_arr[1];
 				}

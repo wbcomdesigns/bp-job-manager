@@ -41,15 +41,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		private $version;
 
 		/**
-		 * plugin_settings_tabs
-		 *
-		 * @since    1.0.0
-		 * @access   public
-		 * @var mixed     $plugin_settings_tabs   The tabs of the Plugins
-		 */
-		public $plugin_settings_tabs;
-
-		/**
 		 * Initialize the class and set its properties.
 		 *
 		 * @since    1.0.0
@@ -141,7 +132,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		<div class="wrap">
 			<div class="wbcom-bb-plugins-offer-wrapper">
 				<div id="wb_admin_logo">
-					<a href="https://wbcomdesigns.com/downloads/buddypress-community-bundle/" target="_blank">
+					<a href="https://wbcomdesigns.com/downloads/buddypress-community-bundle/?utm_source=pluginoffernotice&utm_medium=community_banner" target="_blank">
 						<img src="<?php echo esc_url( BPJM_PLUGIN_URL ) . 'admin/wbcom/assets/imgs/wbcom-offer-notice.png'; ?>">
 					</a>
 				</div>
@@ -151,10 +142,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					<div class="wbcom_admin_header-wrapper">
 						<div id="wb_admin_plugin_name">
 							<?php esc_html_e( 'BuddyPress Job Manager', 'bp-job-manager' ); ?>
-							<span><?php 
-							/* translators: %s: */
-							printf( esc_html__( 'Version %s', 'bp-job-manager' ), esc_attr( BPJM_PLUGIN_VERSION ) ); 
-							?></span>
+							<span>
+								<?php
+								/* translators: %s: */
+								printf( esc_html__( 'Version %s', 'bp-job-manager' ), esc_attr( BPJM_PLUGIN_VERSION ) );
+								?>
+							</span>
 						</div>
 						<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 					</div>
