@@ -880,7 +880,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 				'post_type'      => 'resume',
 				'post_status'    => 'any',
 				'author'         => $displayed_uid,
-				'posts_per_page' => -1,
+				'posts_per_page' => 10,
 				'orderby'        => 'post_date',
 				'order'          => 'ASC',
 			);
@@ -1232,15 +1232,16 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @access   public
 		 */
 		public function bpjm_resume_settings_before_submit() {
-			$user_id = bp_displayed_user_id();
+			global $wpdb;
+			$user_id = bp_loggedin_user_id();
+			$resume_id = get_user_meta($user_id, 'bpjm_profile_resume_show_id', true);
+
 			$where = get_posts_by_author_sql('resume', true, $user_id, '');
 
-			global $wpdb;
-			// Optimize by fetching only required posts.
-			$user_posts = $wpdb->get_results($wpdb->prepare("SELECT ID, post_title FROM {$wpdb->posts} %s ORDER BY post_modified DESC", $where));
+			// Directly concatenate the WHERE clause without using prepare().
+			$query = "SELECT ID, post_title FROM {$wpdb->posts} $where ORDER BY post_modified DESC";
+			$user_posts = $wpdb->get_results($query);
 
-			// Determine the selected post.
-			$resume_id = get_user_meta(bp_loggedin_user_id(), 'bpjm_profile_resume_show_id', true);
 			$selected_post = !empty($resume_id) ? $resume_id : (!empty($user_posts) ? $user_posts[0]->ID : null);
 
 			if (!empty($selected_post)) {
@@ -1274,7 +1275,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 								<td class="field-visibility">
 									<select name="bpjm_prof_resume_show_postid">
 										<?php
-										foreach ($post as $key => $value) {
+										foreach ($user_posts as $key => $value) {
 											echo "<option value='" . esc_attr($value->ID) . "' " . esc_attr(selected($selected_post, $value->ID, false)) . '>' . esc_attr(get_the_candidate_title($value->ID)) . '</option>';
 										}
 										?>
@@ -1453,16 +1454,19 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 
 			// Parse the query string from the location URL.
 			$query_str = wp_parse_url($location, PHP_URL_QUERY);
-			parse_str($query_str, $parsed_query);
 
-			// Redirect if 'job_id' is set and not '0'.
-			if (isset($parsed_query['job_id']) && $parsed_query['job_id'] !== '0') {
-				$location = bp_members_get_user_url(bp_displayed_user_id()) . 'jobs/post-job/?job_id=' . $parsed_query['job_id'];
+			// Ensure query_str is not null before parsing.
+			if ($query_str !== null) {
+				parse_str($query_str, $parsed_query);
+
+				// Redirect if 'job_id' is set and not '0'.
+				if (isset($parsed_query['job_id']) && $parsed_query['job_id'] !== '0') {
+					$location = bp_members_get_user_url(bp_displayed_user_id()) . 'jobs/post-job/?job_id=' . $parsed_query['job_id'];
+				}
 			}
 
 			return $location;
 		}
-
 
 		/**
 		 * Function for add private message link on contact candidate button.
