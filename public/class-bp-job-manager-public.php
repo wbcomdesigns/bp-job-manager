@@ -509,14 +509,15 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @author   wbcomdesigns
 		 * @access   public
 		 */
-		public function bpjm_my_jobs_tab_function_to_show_title() {
-			if ( bp_loggedin_user_id() == bp_displayed_user_id() ) {
-				esc_html_e( 'My Jobs', 'bp-job-manager' );
-			} elseif ( is_user_logged_in() && bp_displayed_user_id() ) {
-				$author_name = bp_core_get_user_displayname( bp_displayed_user_id() );
-				esc_html_e( $author_name . ' ' . 'Jobs', 'bp-job-manager' );
+		public function bpjm_my_jobs_tab_function_to_show_title()
+		{
+			if (bp_loggedin_user_id() == bp_displayed_user_id()) {
+				esc_html_e('My Jobs', 'bp-job-manager');
+			} elseif (is_user_logged_in() && bp_displayed_user_id()) {
+				$author_name = bp_core_get_user_displayname(bp_displayed_user_id());
+				esc_html_e($author_name . ' Jobs', 'bp-job-manager');
 			} else {
-				esc_html_e( 'Jobs', 'bp-job-manager' );
+				esc_html_e('Jobs', 'bp-job-manager');
 			}
 		}
 
