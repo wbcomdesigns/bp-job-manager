@@ -41,6 +41,15 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		private $version;
 
 		/**
+		 * Store plugin settings tabs.
+		 *
+		 * @since    1.0.0
+		 * @access   private
+		 * @var      array     $plugin_settings_tabs    Array of plugin settings tabs.
+		 */
+		private $plugin_settings_tabs = array();
+
+		/**
 		 * Initialize the class and set its properties.
 		 *
 		 * @since    1.0.0
@@ -185,17 +194,15 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * Actions performed to create General Tab.
 		 *
 		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
 		 */
-		public function bpjm_general_settings() {
+		public function bpjm_general_settings()
+		{
+			$this->plugin_settings_tabs['bpjm-welcome'] = __('Welcome', 'bp-job-manager');
+			add_settings_section('bp-job-manager-welcome', ' ', array($this, 'bpjm_welcome_content'), 'bpjm-welcome');
 
-			$this->plugin_settings_tabs['bpjm-welcome'] = __( 'Welcome', 'bp-job-manager' );
-			add_settings_section( 'bp-job-manager-welcome', ' ', array( &$this, 'bpjm_welcome_content' ), 'bpjm-welcome' );
-
-			$this->plugin_settings_tabs[ $this->plugin_name ] = __( 'General', 'bp-job-manager' );
-			register_setting( 'bpjm_general_settings', 'bpjm_general_settings' );
-			add_settings_section( 'bp-job-manager-section', ' ', array( &$this, 'bpjm_general_settings_content' ), $this->plugin_name );
+			$this->plugin_settings_tabs[$this->plugin_name] = __('General', 'bp-job-manager');
+			register_setting('bpjm_general_settings', 'bpjm_general_settings');
+			add_settings_section('bp-job-manager-section', ' ', array($this, 'bpjm_general_settings_content'), $this->plugin_name);
 		}
 
 		/**
