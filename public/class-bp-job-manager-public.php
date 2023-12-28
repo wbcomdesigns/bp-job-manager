@@ -1410,23 +1410,31 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @author   wbcomdesigns
 		 * @access   public
 		 */
-		public function bpjm_shortcode_action_handler()
-		{
-			$action          = filter_input(INPUT_GET, 'action');
-			$job_id_param    = filter_input(INPUT_GET, 'job_id');
+		public function bpjm_shortcode_action_handler() {
+			if (!bp_is_user()) {
+				return;
+			}
+
+			$action = filter_input(INPUT_GET, 'action');
+			if (null === $action) {
+				return;
+			}
+
+			$job_id_param = filter_input(INPUT_GET, 'job_id');
 			$resume_id_param = filter_input(INPUT_GET, 'resume_id');
 
-			if (bp_is_user() && (null !== $action)) {
-				if (('mark_filled' == $action || 'mark_not_filled' == $action || 'duplicate' == $action || 'delete' == $action || 'relist' == $action) && (null !== $job_id_param)) {
-					$wbjob_shortcode_object = new WP_Job_Manager_Shortcodes();
-					$wbjob_shortcode_object->job_dashboard_handler();
-				}
-				if (('delete' == $action || 'hide' == $action || 'publish' == $action) && (null !== $resume_id_param)) {
-					$wb_resume_shortcode_object = new WP_Resume_Manager_Shortcodes();
-					$wb_resume_shortcode_object->candidate_dashboard_handler();
-				}
+			$job_actions = array('mark_filled', 'mark_not_filled', 'duplicate', 'delete', 'relist');
+			$resume_actions = array('delete', 'hide', 'publish');
+
+			if (in_array($action, $job_actions, true) && null !== $job_id_param) {
+				$wbjob_shortcode_object = new WP_Job_Manager_Shortcodes();
+				$wbjob_shortcode_object->job_dashboard_handler();
+			} elseif (in_array($action, $resume_actions, true) && null !== $resume_id_param) {
+				$wb_resume_shortcode_object = new WP_Resume_Manager_Shortcodes();
+				$wb_resume_shortcode_object->candidate_dashboard_handler();
 			}
 		}
+
 
 		/**
 		 * Function for filter redirect url when duplicate any job on buddypress job tab.
