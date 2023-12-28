@@ -251,16 +251,29 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					if ( ! empty( $match_post_job_roles ) ) {
 						$profile_menu_slug  = 'jobs';
 						$profile_menu_title = __( 'Jobs', 'bp-job-manager' );
+						$current_user_id = get_current_user_id();
 
-						$args          = array(
-							'post_type'      => 'job_listing',
-							'post_status'    => 'any',
-							'author'         => get_current_user_id(),
-							'posts_per_page' => -1,
-							'orderby'        => 'post_date',
-							'order'          => 'ASC',
-						);
-						$my_jobs_count = count( get_posts( $args ) );
+						if ($current_user_id > 0) {
+							$transient_key = 'user_' . $current_user_id . '_job_listings';
+							$job_listings = get_transient($transient_key);
+
+							if ($job_listings === false) {
+								$args = array(
+									'post_type'      => 'job_listing',
+									'post_status'    => 'publish',
+									'author'         => $current_user_id,
+									'posts_per_page' => -1,
+									'orderby'        => 'post_date',
+									'order'          => 'ASC',
+									'fields'         => 'ids' // If you only need IDs.
+								);
+
+								$my_jobs_count = get_posts($args);
+
+								// Cache the results for 1 hour.
+								set_transient($transient_key, $job_listings, HOUR_IN_SECONDS);
+							}
+						}
 
 						$base_url     = bp_loggedin_user_domain() . $profile_menu_slug;
 						$post_job_url = $base_url . '/post-job';
@@ -331,18 +344,26 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					if ( ! empty( $match_apply_job_roles ) ) {
 						$profile_menu_slug  = 'resumes';
 						$profile_menu_title = esc_html__( 'Resumes', 'bp-job-manager' );
+						
+						$current_user_id = get_current_user_id();
+						$transient_key = "user_{$current_user_id}_resume_count";
+						$my_resumes_count = get_transient($transient_key);
 
-						// Count resumes.
-						$args             = array(
-							'post_type'      => 'resume',
-							'post_status'    => 'any',
-							'author'         => get_current_user_id(),
-							'posts_per_page' => -1,
-							'orderby'        => 'post_date',
-							'order'          => 'ASC',
-						);
-						$my_resumes_count = count( get_posts( $args ) );
+						if ($my_resumes_count === false) {
+							$args = [
+								'post_type'      => 'resume',
+								'post_status'    => 'publish',
+								'author'         => $current_user_id,
+								'posts_per_page' => -1,
+								'fields'         => 'ids', // Only get post IDs to improve performance.
+							];
 
+							$query = new WP_Query($args);
+							$my_resumes_count = $query->found_posts;
+
+							// Cache this count for a certain period, e.g., one hour.
+							set_transient($transient_key, $my_resumes_count, HOUR_IN_SECONDS);
+						}
 						$base_url         = bp_loggedin_user_domain() . $profile_menu_slug;
 						$my_resumes_url   = $base_url . '/my-resumes';
 						$applied_jobs_url = $base_url . '/applied-jobs';
