@@ -1445,17 +1445,24 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @param string $location The path or URL to redirect to.
 		 * @param int    $status HTTP response status code to use. Default '302' (Moved Temporarily).
 		 */
-		public function bpjm_filter_redirect_duplicate_post_url($location, $status)
-		{
-			if (bp_is_user() && bp_is_my_profile()) {
-				$query_str = wp_parse_url($location, PHP_URL_QUERY);
-				$job_arr   = explode('=', $query_str ?? '');
-				if (('job_id' == $job_arr[0]) && ('0' != $job_arr[1])) {
-					$location = bp_core_get_user_domain(bp_displayed_user_id()) . 'jobs/post-job/?job_id=' . $job_arr[1];
-				}
+		public function bpjm_filter_redirect_duplicate_post_url($location, $status) {
+			// Check if the current page is a user's profile page.
+			if (!bp_is_user() || !bp_is_my_profile()) {
+				return $location;
 			}
+
+			// Parse the query string from the location URL.
+			$query_str = wp_parse_url($location, PHP_URL_QUERY);
+			parse_str($query_str, $parsed_query);
+
+			// Redirect if 'job_id' is set and not '0'.
+			if (isset($parsed_query['job_id']) && $parsed_query['job_id'] !== '0') {
+				$location = bp_members_get_user_url(bp_displayed_user_id()) . 'jobs/post-job/?job_id=' . $parsed_query['job_id'];
+			}
+
 			return $location;
 		}
+
 
 		/**
 		 * Function for add private message link on contact candidate button.
