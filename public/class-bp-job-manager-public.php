@@ -1200,25 +1200,22 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 */
 		public function bpjm_bp_profile_field_item()
 		{
-			global $bp_job_manager;
+			global $bp_job_manager, $wpdb;
 
-			$user_id = 0;
-			if (bp_loggedin_user_id() === bp_displayed_user_id()) {
-				$user_id = bp_loggedin_user_id();
-			} else {
-				$user_id = bp_displayed_user_id();
-			}
+			$user_id = bp_displayed_user_id();
 			$resume_id = get_user_meta($user_id, 'bpjm_profile_resume_show_id', true);
+
 			if (!empty($resume_id)) {
 				if (isset($bp_job_manager->bpjm_resume_at_profile) && 'yes' === $bp_job_manager->bpjm_resume_at_profile) {
 					bpjm_show_resume_at_profile($resume_id);
 				}
 			} else {
-				$user_id = bp_displayed_user_id();
-				$where   = get_posts_by_author_sql('resume', true, $user_id, '');
-				global $wpdb;
-				$post = $wpdb->get_row($wpdb->prepare("SELECT ID FROM {$wpdb->posts} %s ORDER BY post_modified DESC", $where));
-				if ($post && isset($bp_job_manager->bpjm_resume_at_profile) && $bp_job_manager->bpjm_resume_at_profile == 'yes') {
+				$where = get_posts_by_author_sql('resume', true, $user_id, '');
+				// Concatenate the WHERE clause directly.
+				$query = "SELECT ID FROM {$wpdb->posts} {$where} ORDER BY post_modified DESC";
+				$post = $wpdb->get_row($query);
+
+				if ($post && isset($bp_job_manager->bpjm_resume_at_profile) && 'yes' === $bp_job_manager->bpjm_resume_at_profile) {
 					bpjm_show_resume_at_profile($post->ID);
 				}
 			}
