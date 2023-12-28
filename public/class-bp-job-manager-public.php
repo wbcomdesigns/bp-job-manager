@@ -866,112 +866,81 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @author   wbcomdesigns
 		 * @access   public
 		 */
-		public function bpjm_member_profile_resumes_tab()
-		{
+		public function bpjm_member_profile_resumes_tab() {
 			global $bp_job_manager;
-			$displayed_uid    = bp_displayed_user_id();
-			$displayed_user   = get_userdata($displayed_uid);
-			$curr_user        = wp_get_current_user();
-			$parent_slug      = 'resumes';
-			$resumes_tab_link = bp_core_get_userlink($displayed_uid, false, true) . $parent_slug . '/';
 
-			// Count resumes.
-			$args = array(
-				'post_type'      => 'resume',
-				'post_status'    => 'any',
-				'author'         => $displayed_uid,
-				'posts_per_page' => 10,
-				'orderby'        => 'post_date',
-				'order'          => 'ASC',
-			);
+			$user_id = bp_displayed_user_id();
+			$resume_id = get_user_meta($user_id, 'bpjm_profile_resume_show_id', true);
+			$is_logged_in_user = (bp_loggedin_user_id() === $user_id);
 
-			$my_resumes_count = count(get_posts($args));
-			$resume_tab       = sprintf(
-				/* translators: %s: Unread notification count for the current user */
-				__('Resumes %s', 'bp-job-manager'),
-				'<span class="count">' . bp_core_number_format($my_resumes_count) . '</span>'
-			);
+			$transient_key = "user_{$user_id}_resume_count";
+			$my_resumes_count = get_transient($transient_key);
 
-			if (!empty($curr_user->roles) && !empty($displayed_user->roles)) {
-				/**
-				 * Resumes tab - for the roles allowed for job posting.
-				 */
-				$match_apply_job_roles_curr_usr = array_intersect($bp_job_manager->apply_job_user_roles, $curr_user->roles);
-				$match_apply_job_roles_disp_usr = array_intersect($bp_job_manager->apply_job_user_roles, $displayed_user->roles);
-				if (!empty($match_apply_job_roles_curr_usr) || !empty($match_apply_job_roles_disp_usr)) {
+			if ($my_resumes_count === false) {
+				$args = [
+					'post_type'      => 'resume',
+					'post_status'    => 'any',
+					'author'         => $user_id,
+					'posts_per_page' => -1,
+					'fields'         => 'ids',
+				];
 
-					bp_core_new_nav_item(
-						array(
-							'name'                    => $resume_tab,
-							'slug'                    => $parent_slug,
-							'screen_function'         => array($this, 'bpjm_resumes_tab_function_to_show_screen'),
-							'position'                => 75,
-							'default_subnav_slug'     => 'my-resumes',
-							'show_for_displayed_user' => true,
-						)
-					);
-					// My Resumes.
-					if (bp_loggedin_user_id() == bp_displayed_user_id()) {
-						$resume = __('My Resumes', 'bp-job-manager');
-					} else {
-						$author_name = bp_core_get_user_displayname(bp_displayed_user_id());
-						/* translators: %s: Author Name */
-						$resume = sprintf(esc_html__('%s\'s Resumes', 'bp-job-manager'), esc_html(ucfirst($author_name)));
-					}
-					bp_core_new_subnav_item(
-						array(
-							'name'            => $resume,
-							'slug'            => 'my-resumes',
-							'parent_url'      => $resumes_tab_link . 'my-resumes',
-							'parent_slug'     => $parent_slug,
-							'screen_function' => array($this, 'bpjm_my_resumes_show_screen'),
-							'position'        => 100,
-							'link'            => $resumes_tab_link . 'my-resumes',
-						)
-					);
+				$query = new WP_Query($args);
+				$my_resumes_count = $query->found_posts;
 
-					if (get_current_user_id() == $displayed_uid) {
-						// Add Resume.
-						bp_core_new_subnav_item(
-							array(
-								'name'            => __('Add Resume', 'bp-job-manager'),
-								'slug'            => 'add-resume',
-								'parent_url'      => $resumes_tab_link . 'add-resume',
-								'parent_slug'     => $parent_slug,
-								'screen_function' => array($this, 'bpjm_add_resume_show_screen'),
-								'position'        => 200,
-								'link'            => $resumes_tab_link . 'add-resume',
-							)
-						);
-						// check if BuddyPress Job manager - Application manager is active.
-						$wpjm_applications_active = in_array('wp-job-manager-applications/wp-job-manager-applications.php', get_option('active_plugins'));
-						if ($wpjm_applications_active == true) {
-							// Applied Jobs.
-							bp_core_new_subnav_item(
-								array(
-									'name'            => __('Applied Jobs', 'bp-job-manager'),
-									'slug'            => 'applied-jobs',
-									'parent_url'      => $resumes_tab_link . 'applied-jobs',
-									'parent_slug'     => $parent_slug,
-									'screen_function' => array($this, 'bpjm_applied_jobs_show_screen'),
-									'position'        => 200,
-									'link'            => $resumes_tab_link . 'applied-jobs',
-								)
-							);
-						}
-					}
+				// Cache this count for a certain period, e.g., one hour.
+				set_transient($transient_key, $my_resumes_count, HOUR_IN_SECONDS);
+			}
+			$resume_tab_name = $is_logged_in_user ? __('My Resumes', 'bp-job-manager') : sprintf(__('%s\'s Resumes', 'bp-job-manager'), ucfirst(bp_core_get_user_displayname($user_id)));
+			$resume_tab = sprintf(__('Resumes %s', 'bp-job-manager'), '<span class="count">' . bp_core_number_format($my_resumes_count) . '</span>');
+
+			$resumes_tab_link = bp_core_get_userlink($user_id, false, true) . 'resumes/';
+
+			bp_core_new_nav_item([
+				'name'                    => $resume_tab,
+				'slug'                    => 'resumes',
+				'screen_function'         => [$this, 'bpjm_resumes_tab_function_to_show_screen'],
+				'position'                => 75,
+				'default_subnav_slug'     => 'my-resumes',
+				'show_for_displayed_user' => true,
+			]);
+
+			// Subnav items.
+			bp_core_new_subnav_item([
+				'name'            => $resume_tab_name,
+				'slug'            => 'my-resumes',
+				'parent_url'      => $resumes_tab_link . 'my-resumes',
+				'parent_slug'     => 'resumes',
+				'screen_function' => [$this, 'bpjm_my_resumes_show_screen'],
+				'position'        => 100,
+				'link'            => $resumes_tab_link . 'my-resumes',
+			]);
+
+			if ($is_logged_in_user) {
+				// Add Resume subnav.
+				bp_core_new_subnav_item([
+					'name'            => __('Add Resume', 'bp-job-manager'),
+					'slug'            => 'add-resume',
+					'parent_url'      => $resumes_tab_link . 'add-resume',
+					'parent_slug'     => 'resumes',
+					'screen_function' => [$this, 'bpjm_add_resume_show_screen'],
+					'position'        => 200,
+					'link'            => $resumes_tab_link . 'add-resume',
+				]);
+
+				// Applied Jobs subnav, if applicable.
+				$wpjm_applications_active = in_array('wp-job-manager-applications/wp-job-manager-applications.php', get_option('active_plugins'));
+				if ($wpjm_applications_active) {
+					bp_core_new_subnav_item([
+						'name'            => __('Applied Jobs', 'bp-job-manager'),
+						'slug'            => 'applied-jobs',
+						'parent_url'      => $resumes_tab_link . 'applied-jobs',
+						'parent_slug'     => 'resumes',
+						'screen_function' => [$this, 'bpjm_applied_jobs_show_screen'],
+						'position'        => 200,
+						'link'            => $resumes_tab_link . 'applied-jobs',
+					]);
 				}
-			} else {
-				bp_core_new_nav_item(
-					array(
-						'name'                    => $resume_tab,
-						'slug'                    => $parent_slug,
-						'screen_function'         => array($this, 'bpjm_my_resumes_show_screen'),
-						'position'                => 75,
-						'default_subnav_slug'     => 'my-resumes',
-						'show_for_displayed_user' => true,
-					)
-				);
 			}
 		}
 
