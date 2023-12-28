@@ -252,11 +252,10 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 						$profile_menu_slug  = 'jobs';
 						$profile_menu_title = __( 'Jobs', 'bp-job-manager' );
 						$current_user_id = get_current_user_id();
-
+						$job_listings = 0; // Initialize $job_listings with a default value
+						$transient_key = 'user_' . $current_user_id . '_job_listings';
+						$job_listings = get_transient($transient_key);
 						if ($current_user_id > 0) {
-							$transient_key = 'user_' . $current_user_id . '_job_listings';
-							$job_listings = get_transient($transient_key);
-
 							if ($job_listings === false) {
 								$args = array(
 									'post_type'      => 'job_listing',
@@ -267,9 +266,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 									'order'          => 'ASC',
 									'fields'         => 'ids' // If you only need IDs.
 								);
-
-								$my_jobs_count = get_posts($args);
-
+								$query = new WP_Query($args);
+								$job_listings = $query->found_posts;
 								// Cache the results for 1 hour.
 								set_transient($transient_key, $job_listings, HOUR_IN_SECONDS);
 							}
@@ -283,7 +281,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 							array(
 								'parent' => 'my-account-buddypress',
 								'id'     => 'my-account-' . $profile_menu_slug,
-								'title'  => esc_html( $profile_menu_title ) . ' <span class="count">' . esc_html( $my_jobs_count ) . '</span>',
+								'title'  => esc_html( $profile_menu_title ) . ' <span class="count">' . bp_core_number_format($job_listings) . '</span>',
 								'href'   => trailingslashit( $my_jobs_url ),
 							)
 						);
@@ -344,11 +342,10 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					if ( ! empty( $match_apply_job_roles ) ) {
 						$profile_menu_slug  = 'resumes';
 						$profile_menu_title = esc_html__( 'Resumes', 'bp-job-manager' );
-						
+						$my_resumes_count = 0;
 						$current_user_id = get_current_user_id();
-						$transient_key = "user_{$current_user_id}_resume_count";
+						$transient_key = 'user_' . $current_user_id . '_my_resumes_count';
 						$my_resumes_count = get_transient($transient_key);
-
 						if ($my_resumes_count === false) {
 							$args = [
 								'post_type'      => 'resume',
@@ -360,8 +357,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 
 							$query = new WP_Query($args);
 							$my_resumes_count = $query->found_posts;
-
-							// Cache this count for a certain period, e.g., one hour.
+							// Cache the results for 1 hour.
 							set_transient($transient_key, $my_resumes_count, HOUR_IN_SECONDS);
 						}
 						$base_url         = bp_loggedin_user_domain() . $profile_menu_slug;
@@ -373,7 +369,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 							array(
 								'parent' => 'my-account-buddypress',
 								'id'     => 'my-account-' . $profile_menu_slug,
-								'title'  => esc_html( $profile_menu_title ) . ' <span class="count">' . esc_html( $my_resumes_count ) . '</span>',
+								'title'  => esc_html( $profile_menu_title ) . ' <span class="count">' . bp_core_number_format($my_resumes_count) . '</span>',
 								'href'   => trailingslashit( $my_resumes_url ),
 							)
 						);

@@ -66,6 +66,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			add_filter('has_wpjm_shortcode', array($this, 'bpjm_has_wpjm_shortcode'));
 			add_action('wp_ajax_bpjm_load_more_jobs', array($this, 'bpjm_load_more_jobs'));
 			add_action('wp_ajax_nopriv_bpjm_load_more_jobs', array($this, 'bpjm_load_more_jobs'));
+			add_action('transition_post_status', array($this, 'flush_job_listings_transient_on_update'), 10, 3);
 		}
 
 		/**
@@ -327,29 +328,44 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		public function bpjm_member_profile_jobs_tab()
 		{
 			global $bp_job_manager;
-			$displayed_uid  = bp_displayed_user_id();
+			$displayed_uid = bp_displayed_user_id(); // Assuming this gets the displayed user ID
 			$displayed_user = get_userdata($displayed_uid);
 			$curr_user      = wp_get_current_user();
 			$parent_slug    = 'jobs';
 			$jobs_tab_link  = bp_core_get_userlink($displayed_uid, false, true) . $parent_slug . '/';
 
 			$is_my_profile = bp_is_my_profile();
-			if ($is_my_profile && is_user_logged_in()) {
-				$my_jobs_count  = bp_job_manager_get_total_published_posts($displayed_uid);
-			} else {
-				$my_jobs_count  = '';
+			$job_listings = 0; // Initialize $job_listings with a default value
+
+			if ($displayed_uid > 0) {
+				$transient_key = 'user_' . $displayed_uid . '_job_listings';
+				delete_transient($transient_key);
+				$job_listings = get_transient($transient_key);
+				if ($job_listings === false) {
+					$args = array(
+						'post_type'      => 'job_listing',
+						'post_status'    => 'publish',
+						'author'         => $displayed_uid,
+						'posts_per_page' => -1,
+						'fields'         => 'ids' // Fetching only IDs for performance.
+					);
+
+					$query = new WP_Query($args);
+					$job_listings = $query->found_posts;
+					// Cache the results for 1 hour.
+					set_transient($transient_key, $job_listings, HOUR_IN_SECONDS);
+				}
 			}
-			$job_tab       = __('Jobs', 'bp-job-manager');
-			if (0 < $my_jobs_count) {
-				$job_tab = sprintf(
-					/* translators: %s: job count for the current user */
-					_x('Jobs %s', 'Jobs screen nav with counter', 'bp-job-manager'),
-					sprintf(
-						'<span class="count">%s</span>',
-						$my_jobs_count
-					)
-				);
-			}
+
+			// Check if the current user is the same as the displayed user
+			$is_current_user = (get_current_user_id() === $displayed_uid);
+
+			// Determine the correct label for the job tab
+			$my_job_tab = $is_current_user ? __('My Jobs', 'bp-job-manager') : sprintf(__('%s\'s Jobs', 'bp-job-manager'), ucfirst(bp_core_get_user_displayname($displayed_uid)));
+
+			// Format the job tab to include the count of job listings
+			$job_tab = sprintf(__('Jobs %s', 'bp-job-manager'), '<span class="count">' . bp_core_number_format($job_listings) . '</span>');
+
 			if (!empty($curr_user->roles) && !empty($displayed_user->roles)) {
 				/**
 				 * Jobs tab - for the roles allowed for job posting.
@@ -868,18 +884,16 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 */
 		public function bpjm_member_profile_resumes_tab() {
 			global $bp_job_manager;
-
+			$my_resumes_count = 0;
 			$user_id = bp_displayed_user_id();
 			$resume_id = get_user_meta($user_id, 'bpjm_profile_resume_show_id', true);
 			$is_logged_in_user = (bp_loggedin_user_id() === $user_id);
-
-			$transient_key = "user_{$user_id}_resume_count";
+			$transient_key = 'user_' . $user_id . '_my_resumes_count';
 			$my_resumes_count = get_transient($transient_key);
-
-			if ($my_resumes_count === false) {
+			if ($my_resumes_count === 0) {
 				$args = [
 					'post_type'      => 'resume',
-					'post_status'    => 'any',
+					'post_status'    => 'publish',
 					'author'         => $user_id,
 					'posts_per_page' => -1,
 					'fields'         => 'ids',
@@ -887,8 +901,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 
 				$query = new WP_Query($args);
 				$my_resumes_count = $query->found_posts;
-
-				// Cache this count for a certain period, e.g., one hour.
+				// Cache the results for 1 hour.
 				set_transient($transient_key, $my_resumes_count, HOUR_IN_SECONDS);
 			}
 			$resume_tab_name = $is_logged_in_user ? __('My Resumes', 'bp-job-manager') : sprintf(__('%s\'s Resumes', 'bp-job-manager'), ucfirst(bp_core_get_user_displayname($user_id)));
@@ -1446,7 +1459,15 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			if (!bp_is_active('messages')) {
 				return;
 			}
-			$url = wp_nonce_url(bp_loggedin_user_domain() . bp_get_messages_slug() . '/compose/?r=' . bp_core_get_username(get_the_author_meta('ID')));
+			// Check if the BuddyPress version is 12.0.0 or higher
+			if (function_exists('bp_members_get_user_slug') && version_compare(BP_VERSION, '12.0.0', '>=')) {
+				// Use bp_members_get_user_slug for BuddyPress v12.0.0 and above
+				$url = wp_nonce_url(bp_loggedin_user_domain() . bp_get_messages_slug() . '/compose/?r=' . bp_members_get_user_slug(get_the_author_meta('ID')));
+			} else {
+				// Use bp_core_get_username for older versions
+				$url = wp_nonce_url(bp_loggedin_user_domain() . bp_get_messages_slug() . '/compose/?r=' . bp_core_get_username(get_the_author_meta('ID')));
+			}
+
 
 			echo '<a href="' . esc_url($url) . '" title="Private Message">' . esc_html__('Private Message', 'bp-job-manager') . '</a>';
 		}
@@ -1734,6 +1755,16 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 					),
 				)
 			) . '">' . esc_attr($count) . '</a>' : '&ndash;';
+		}
+
+		public function flush_job_listings_transient_on_update($new_status, $old_status, $post)
+		{
+			if ($post->post_type == 'job_listing' || $post->post_type == 'resume') {
+				$transient_key = 'user_' . $post->post_author . '_job_listings';
+				delete_transient($transient_key);
+				$transient_key = 'user_' . $post->post_author . '_my_resumes_count';
+				delete_transient($transient_key);
+			}
 		}
 	}
 endif;
