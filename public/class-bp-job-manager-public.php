@@ -1375,46 +1375,30 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @author   wbcomdesigns
 		 * @access   public
 		 */
-		public function custom_bp_init()
-		{
-			if (isset($_POST['xprofile-settings-submit']) && isset($_POST['bpjm_prof_resume_show_postid'])) {
-				// Nonce check.
-				check_admin_referer('bp_xprofile_settings');
-
-				$resume_id = sanitize_text_field(wp_unslash($_POST['bpjm_prof_resume_show_postid']));
-				update_user_meta(bp_loggedin_user_id(), 'bpjm_profile_resume_show_id', $resume_id);
-			}
+		public function custom_bp_init() {
 			if (isset($_POST['xprofile-settings-submit'])) {
-
 				// Nonce check.
 				check_admin_referer('bp_xprofile_settings');
 
+				// Update resume ID if set.
+				if (isset($_POST['bpjm_prof_resume_show_postid'])) {
+					$resume_id = sanitize_text_field(wp_unslash($_POST['bpjm_prof_resume_show_postid']));
+					update_user_meta(bp_loggedin_user_id(), 'bpjm_profile_resume_show_id', $resume_id);
+				}
+
+				// Handle display fields update.
 				if (isset($_POST['bpjm_display'])) {
+					$display_fields = array(
+						'display_resume', 'email', 'prof_title', 'location', 'video',
+						'description', 'url', 'education', 'experience'
+					);
 
-					$display_fields['display_resume'] = isset($_POST['bpjm_display']['display_resume']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['display_resume'])) : '';
-					$display_fields['email']          = isset($_POST['bpjm_display']['email']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['email'])) : '';
-					$display_fields['prof_title']     = isset($_POST['bpjm_display']['prof_title']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['prof_title'])) : '';
-					$display_fields['location']       = isset($_POST['bpjm_display']['location']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['location'])) : '';
-					$display_fields['video']          = isset($_POST['bpjm_display']['video']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['video'])) : '';
-					$display_fields['description']    = isset($_POST['bpjm_display']['description']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['description'])) : '';
-					$display_fields['url']            = isset($_POST['bpjm_display']['url']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['url'])) : '';
-					$display_fields['education']      = isset($_POST['bpjm_display']['education']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['education'])) : '';
-					$display_fields['experience']     = isset($_POST['bpjm_display']['experience']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['experience'])) : '';
+					$saved_display_fields = array();
+					foreach ($display_fields as $field) {
+						$saved_display_fields[$field] = isset($_POST['bpjm_display'][$field]) ? sanitize_text_field(wp_unslash($_POST['bpjm_display'][$field])) : '';
+					}
 
-					update_user_meta(bp_loggedin_user_id(), 'bpjm_display_fields', $display_fields);
-				} else {
-
-					$display_fields['display_resume'] = isset($_POST['bpjm_display']['display_resume']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['display_resume'])) : '';
-					$display_fields['email']          = isset($_POST['bpjm_display']['email']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['email'])) : '';
-					$display_fields['prof_title']     = isset($_POST['bpjm_display']['prof_title']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['prof_title'])) : '';
-					$display_fields['location']       = isset($_POST['bpjm_display']['location']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['location'])) : '';
-					$display_fields['video']          = isset($_POST['bpjm_display']['video']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['video'])) : '';
-					$display_fields['description']    = isset($_POST['bpjm_display']['description']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['description'])) : '';
-					$display_fields['url']            = isset($_POST['bpjm_display']['url']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['url'])) : '';
-					$display_fields['education']      = isset($_POST['bpjm_display']['education']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['education'])) : '';
-					$display_fields['experience']     = isset($_POST['bpjm_display']['experience']) ? sanitize_text_field(wp_unslash($_POST['bpjm_display']['experience'])) : '';
-
-					update_user_meta(bp_loggedin_user_id(), 'bpjm_display_fields', $display_fields);
+					update_user_meta(bp_loggedin_user_id(), 'bpjm_display_fields', $saved_display_fields);
 				}
 			}
 		}
