@@ -514,12 +514,13 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				esc_html_e('My Jobs', 'bp-job-manager');
 			} elseif (is_user_logged_in() && bp_displayed_user_id()) {
 				$author_name = bp_core_get_user_displayname(bp_displayed_user_id());
-				$title = $author_name . ' Jobs';
-				esc_html_e($title, 'bp-job-manager');
+				$title = esc_html__($author_name . ' Jobs', 'bp-job-manager');
+				echo $title;
 			} else {
 				esc_html_e('Jobs', 'bp-job-manager');
 			}
 		}
+
 
 		/**
 		 * My Jobs - Content.
