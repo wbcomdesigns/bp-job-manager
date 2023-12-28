@@ -1,11 +1,12 @@
 <?php
+
 /**
  * Exit if accessed directly.
  *
  * @package bp-job-manager
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -23,47 +24,49 @@ $args            = array(
 		),
 	),
 );
-$my_applied_jobs = get_posts( $args );
+$my_applied_jobs = get_posts($args);
 ?>
 <div id="job-manager-job-dashboard">
-	<p><?php esc_html_e( 'Your applied jobs are shown in the table below.', 'bp-job-manager' ); ?></p>
+	<p><?php esc_html_e('Your applied jobs are shown in the table below.', 'bp-job-manager'); ?></p>
 	<table class="job-manager-jobs">
 		<thead>
 			<tr>
-				<th><?php esc_html_e( 'Applied For', 'bp-job-manager' ); ?></th>
-				<th><?php esc_html_e( 'Applied Date', 'bp-job-manager' ); ?></th>
-				<th><?php esc_html_e( 'Attachment', 'bp-job-manager' ); ?></th>
+				<th><?php esc_html_e('Applied For', 'bp-job-manager'); ?></th>
+				<th><?php esc_html_e('Applied Date', 'bp-job-manager'); ?></th>
+				<th><?php esc_html_e('Attachment', 'bp-job-manager'); ?></th>
 			</tr>
 		</thead>
 		<tbody>
-			<?php if ( empty( $my_applied_jobs ) ) { ?>
-				<tr><td colspan="3"><?php esc_html_e( 'You have not applied to any jobs yet.', 'bp-job-manager' ); ?></td></tr>
+			<?php if (empty($my_applied_jobs)) { ?>
+				<tr>
+					<td colspan="3"><?php esc_html_e('You have not applied to any jobs yet.', 'bp-job-manager'); ?></td>
+				</tr>
 			<?php } else { ?>
-				<?php foreach ( $my_applied_jobs as $applied_job ) { ?>
+				<?php foreach ($my_applied_jobs as $applied_job) { ?>
 					<?php
 					$job_id           = $applied_job->post_parent;
-					$job              = get_post( $job_id );
-					$job_permalink    = get_permalink( $job_id );
-					$applied_job_meta = get_post_meta( $applied_job->ID );
+					$job              = get_post($job_id);
+					$job_permalink    = get_permalink($job_id);
+					$applied_job_meta = get_post_meta($applied_job->ID);
 					$attachment       = '';
 
-					if ( ! empty( $applied_job_meta['_attachment'] ) ) {
-						$attach_unserialized = unserialize( $applied_job_meta['_attachment'][0] );
+					if (!empty($applied_job_meta['_attachment'])) {
+						$attach_unserialized = unserialize($applied_job_meta['_attachment'][0]);
 
-						if ( ! empty( $attach_unserialized ) ) {
-							$attachment = unserialize( $applied_job_meta['_attachment'][0] )[0];
+						if (!empty($attach_unserialized)) {
+							$attachment = unserialize($applied_job_meta['_attachment'][0])[0];
 						}
 					}
 					?>
 					<tr>
-						<td class="job_title"><a href="<?php echo esc_attr( $job_permalink ); ?>"><?php echo esc_html( $applied_job_meta['_job_applied_for'][0], 'bp-job-manager' ); ?></a></td>
-						<td><?php echo esc_html( date( 'F jS, Y', strtotime( $applied_job->post_date ) ), 'bp-job-manager' ); ?></td>
+						<td class="job_title"><a href="<?php echo esc_attr($job_permalink); ?>"><?php echo esc_html($applied_job_meta['_job_applied_for'][0], 'bp-job-manager'); ?></a></td>
+						<td><?php echo esc_html(gmdate('F jS, Y', strtotime($applied_job->post_date)), 'bp-job-manager'); ?></td>
 						<td>
-							<?php if ( ! empty( $attachment ) ) { ?>
-								<a href="<?php echo esc_attr( $attachment ); ?>" download><?php esc_html_e( 'File', 'bp-job-manager' ); ?></a>
-								<?php
+							<?php if (!empty($attachment)) { ?>
+								<a href="<?php echo esc_attr($attachment); ?>" download><?php esc_html_e('File', 'bp-job-manager'); ?></a>
+							<?php
 							} else {
-								esc_html_e( 'No Attachment', 'bp-job-manager' );
+								esc_html_e('No Attachment', 'bp-job-manager');
 							}
 							?>
 						</td>
