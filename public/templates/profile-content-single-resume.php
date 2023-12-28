@@ -131,8 +131,11 @@ function bpjm_show_resume_at_profile($post_id)
 					// Translate the string first
 					$translated_experience_text = esc_html__('Experience', 'bp-job-manager');
 
-					// Then apply the filter to the translated string
-					echo apply_filters('bpjm_profile_experience_txt', $translated_experience_text);
+					// Apply the filter to the translated string
+					$filtered_experience_text = apply_filters('bpjm_profile_experience_txt', $translated_experience_text);
+
+					// Escape and echo the filtered text
+					echo esc_html($filtered_experience_text);
 					?>
 				</h2>
 				<table class="profile-fields">

@@ -516,7 +516,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				$author_name = bp_core_get_user_displayname(bp_displayed_user_id());
 				// Translators: %s is the name of the user.
 				$title = sprintf(esc_html__('%s Jobs', 'bp-job-manager'), $author_name);
-				echo $title;
+				echo esc_html($title);
 			} else {
 				esc_html_e('Jobs', 'bp-job-manager');
 			}
@@ -1433,7 +1433,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 */
 		public function bpjm_filter_redirect_duplicate_post_url( $location, $status ) {
 			if ( bp_is_user() && bp_is_my_profile() ) {
-				$query_str = parse_url( $location, PHP_URL_QUERY );
+				$query_str = wp_parse_url($location, PHP_URL_QUERY);
 				$job_arr   = explode( '=', $query_str ?? '' );
 				if ( ( 'job_id' == $job_arr[0] ) && ( '0' != $job_arr[1] ) ) {
 					$location = bp_core_get_user_domain( bp_displayed_user_id() ) . 'jobs/post-job/?job_id=' . $job_arr[1];
