@@ -270,6 +270,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 								$job_listings = $query->found_posts;
 								// Cache the results for 1 hour.
 								set_transient($transient_key, $job_listings, HOUR_IN_SECONDS);
+								wp_reset_postdata();
 							}
 						}
 

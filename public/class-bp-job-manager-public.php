@@ -335,27 +335,8 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			$jobs_tab_link  = bp_core_get_userlink($displayed_uid, false, true) . $parent_slug . '/';
 
 			$is_my_profile = bp_is_my_profile();
-			$job_listings = 0; // Initialize $job_listings with a default value
 
-			if ($displayed_uid > 0) {
-				$transient_key = 'user_' . $displayed_uid . '_job_listings';
-				delete_transient($transient_key);
-				$job_listings = get_transient($transient_key);
-				if ($job_listings === false) {
-					$args = array(
-						'post_type'      => 'job_listing',
-						'post_status'    => 'publish',
-						'author'         => $displayed_uid,
-						'posts_per_page' => -1,
-						'fields'         => 'ids' // Fetching only IDs for performance.
-					);
-
-					$query = new WP_Query($args);
-					$job_listings = $query->found_posts;
-					// Cache the results for 1 hour.
-					set_transient($transient_key, $job_listings, HOUR_IN_SECONDS);
-				}
-			}
+			$job_count = bpjm_member_profile_jobs_count( $displayed_uid );
 
 			// Check if the current user is the same as the displayed user
 			$is_current_user = (get_current_user_id() === $displayed_uid);
@@ -364,7 +345,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			$my_job_tab = $is_current_user ? __('My Jobs', 'bp-job-manager') : sprintf(__('%s\'s Jobs', 'bp-job-manager'), ucfirst(bp_core_get_user_displayname($displayed_uid)));
 
 			// Format the job tab to include the count of job listings
-			$job_tab = sprintf(__('Jobs %s', 'bp-job-manager'), '<span class="count">' . bp_core_number_format($job_listings) . '</span>');
+			$job_tab = sprintf(__('Jobs %s', 'bp-job-manager'), '<span class="count">' . bp_core_number_format($job_count) . '</span>');
 
 			if (!empty($curr_user->roles) && !empty($displayed_user->roles)) {
 				/**
@@ -888,22 +869,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			$user_id = bp_displayed_user_id();
 			$resume_id = get_user_meta($user_id, 'bpjm_profile_resume_show_id', true);
 			$is_logged_in_user = (bp_loggedin_user_id() === $user_id);
-			$transient_key = 'user_' . $user_id . '_my_resumes_count';
-			$my_resumes_count = get_transient($transient_key);
-			if ($my_resumes_count === 0) {
-				$args = [
-					'post_type'      => 'resume',
-					'post_status'    => 'publish',
-					'author'         => $user_id,
-					'posts_per_page' => -1,
-					'fields'         => 'ids',
-				];
-
-				$query = new WP_Query($args);
-				$my_resumes_count = $query->found_posts;
-				// Cache the results for 1 hour.
-				set_transient($transient_key, $my_resumes_count, HOUR_IN_SECONDS);
-			}
+			$my_resumes_count = bpjm_member_profile_resumes_count( $user_id );
 			$resume_tab_name = $is_logged_in_user ? __('My Resumes', 'bp-job-manager') : sprintf(__('%s\'s Resumes', 'bp-job-manager'), ucfirst(bp_core_get_user_displayname($user_id)));
 			$resume_tab = sprintf(__('Resumes %s', 'bp-job-manager'), '<span class="count">' . bp_core_number_format($my_resumes_count) . '</span>');
 
@@ -1607,7 +1573,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @param string $component_action_name Canonical notification action.
 		 * @param string $component_name        Notification component ID.
 		 */
-		public function bpjm_job_application_notifications($action, $item_id, $secondary_item_id, $total_items, $component_action_name, $component_name, $format = 'string')
+		public function bpjm_job_application_notifications($action, $item_id, $secondary_item_id, $total_items, $format = 'string', $component_action_name, $component_name)
 		{
 
 			if ('applied_job' === $component_action_name) {
