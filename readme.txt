@@ -90,8 +90,7 @@ The screenshots are present in the root of the plugin folder.
 4. screenshot-4
 5. screenshot-5
 6. screenshot-6
-7. screenshot-7 : Latest or selected resumes at your BuddyPress Profile
-8. screenshot-8 : You can find options for member's resume fields at Settings >> Profile Privacy
+7. screenshot-7
 
 == Changelog ==
 = 2.6.6 =
