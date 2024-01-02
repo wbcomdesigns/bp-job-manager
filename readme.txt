@@ -3,7 +3,7 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, wp-job-manager, job-manager-applications, job-manager-resumes, Job Manager, BuddyPress Jobs
 Requires at least: 3.0.1
-Tested up to: 6.3.0
+Tested up to: 6.4.2
 Stable tag: 2.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -11,42 +11,42 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 == Description ==
 
 This plugin does the following:
-1. Incorporates BuddyPress with the WP Job Manager plugin by creating specific tabs in employer's and candidate's profiles.
-2. WP Job Manager - Resume manager allows candidates to add multiple resumes, using BuddyPress Job Manager You have a choice to display your latest resume at your BuddyPress Profile. It also allows choosing which resume fields should be visible on the BuddyPress Profile page.
+1. Incorporates BuddyPress with the WP Job Manager plugin by creating specific tabs in employers' and candidates' profiles.
+2. WP Job Manager - Resume manager allows candidates to add multiple resumes using BuddyPress Job Manager. You have a choice to display your latest resume in your BuddyPress Profile. It also lets you choose which resume fields should be visible on the BuddyPress Profile page.
 3) Allow to enable user roles to post jobs.
 4) Apply to enable user roles to apply for jobs.
-5) Allow to publish new jobs and resumes activities in BuddyPress activity stream
+5) Allow to publish new jobs and resume activities in the BuddyPress activity stream
 
 
-You can also check details at our plugin document page
+You can also check details on our plugin document page
 == Links ==
 [vimeo https://vimeo.com/556674671 ]
 
 * [Plugin Homepage](https://wbcomdesigns.com/downloads/buddypress-job-manager/)
 
 === THEME - WORDPRESS THEME WITH OUTSTANDING BUDDYPRESS SUPPORT ===
-* [FREE BuddyPress Theme: BuddyX](https://wordpress.org/themes/buddyx/) - Offers unique layouts with clean code and easy-to-customize options giving you a whole new way to visualize BuddyPress.
+* [FREE BuddyPress Theme: BuddyX](https://wordpress.org/themes/buddyx/) - Offers unique layouts with clean code and easy-to-customize options, giving you a whole new way to visualize BuddyPress.
 
 #### OUR ADON PLUGINS TO FURTHER IMPROVE YOUR BUDDYPRESS OR BUDDYBOSS PLATFORM COMMUNITY
 Check out free community add-ons by Wbcom Designs:
 
 * **[Wbcom Designs - BuddyPress Member Reviews](https://wordpress.org/plugins/bp-user-profile-reviews/)** Allow members to add ratings or feedback to other community members.
 * **[Wbcom Designs - BuddyPress Group Reviews](https://wordpress.org/plugins/review-buddypress-groups/)** Allow members to add ratings or feedback to BuddyPress groups.
-* **[Wbcom Designs - BuddyPress Activity Social Share](https://wordpress.org/plugins/bp-activity-social-share/)** Allow members to share activities on their social profiles like Facebook, Twitter, What's App, LinkedIn with OG metadata.
+* **[Wbcom Designs - BuddyPress Activity Social Share](https://wordpress.org/plugins/bp-activity-social-share/)** Allow members to share activities on their social profiles like Facebook, Twitter, What's App, and LinkedIn with OG metadata.
 * **[Wbcom Designs - Private Community with BP Lock](https://wordpress.org/plugins/lock-my-bp/)** A plugin to make your community private and only accessible to logged-in users. It also allows you to keep select pages or the component public.
-* **[Wbcom Designs - BuddyPress Job Manager](https://wordpress.org/plugins/bp-job-manager/)** Allows your to integrate WP Job Manager plugin to BuddyPress.
-* **[Wbcom Designs - Check-ins for BuddyPress Activity](https://wordpress.org/plugins/bp-check-in/)** Allow members to add their location or post their Check-ins updates to activity.
+* **[Wbcom Designs - BuddyPress Job Manager](https://wordpress.org/plugins/bp-job-manager/)** Allows you to integrate WP Job Manager plugin to BuddyPress.
+* **[Wbcom Designs - Check-ins for BuddyPress Activity](https://wordpress.org/plugins/bp-check-in/)** Allow members to add their location or post their check-in updates to the activity.
 * **[Wbcom Designs - BuddyPress Favorite Notification](https://wordpress.org/plugins/bp-favorite-notification/)** Allow members to be notified after any like or favorite on their BuddyPress activity.
 * **[Wbcom Designs - Shortcodes & Elementor Widgets For BuddyPress](https://wordpress.org/plugins/shortcodes-for-buddypress/)** It offers shortcodes and elementor widgets for the activity listing, member's directory display, and the group's directory on any post/page.
 
 Check out paid community add-ons by Wbcom Designs:
 
-* **[Wbcom Designs - BuddyPress Hashtags](https://wbcomdesigns.com/downloads/buddypress-hashtags/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allows members to use hashtags in BuddyPress or BuddyBoss Platform activities and bbPress topics..
+* **[Wbcom Designs - BuddyPress Hashtags](https://wbcomdesigns.com/downloads/buddypress-hashtags/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allows members to use hashtags in BuddyPress or BuddyBoss Platform activities and bbPress topics.
 * **[Wbcom Designs - BuddyPress Polls](https://wbcomdesigns.com/downloads/buddypress-polls/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)**  It allows you to extend BuddyPress or BuddyBoss Platform Activity for members to publish Polls with various options and works perfectly for individual activities and group activities.
 * **[Wbcom Designs - BuddyPress Quotes](https://wbcomdesigns.com/downloads/buddypress-quotes/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** It allows the feature to let members post their activity updates with interactive background selection such as colors and images set by the site administrator to tell a more expressive story.
 * **[Wbcom Designs - BuddyPress Status & Reaction](https://wbcomdesigns.com/downloads/buddypress-status/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow your members to set a status icon and tagline on their profile and offer a big set of icons to react to published activities.
-* **[Wbcom Designs - BuddyPress Profanity](https://wbcomdesigns.com/downloads/buddypress-profanity/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow you to censor content in your community! Easily Censor all the unwanted words in activities, private messages contents by specifying a list of keywords to be filtered.
-* **[Wbcom Designs - BuddyPress Sticky Post](https://wbcomdesigns.com/downloads/buddypress-sticky-post/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allows site administrators to prioritize certain activities over others. It lets admin pin-up site-wide and group activities to the top of the activity list.
+* **[Wbcom Designs - BuddyPress Profanity](https://wbcomdesigns.com/downloads/buddypress-profanity/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow you to censor content in your community! Easily Censor all the unwanted words in activities' private message contents by specifying a list of keywords to be filtered.
+* **[Wbcom Designs - BuddyPress Sticky Post](https://wbcomdesigns.com/downloads/buddypress-sticky-post/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allows site administrators to prioritize certain activities over others. It lets the admin pin up site-wide and group activities to the top of the activity list.
 * **[Wbcom Designs - BuddyPress Auto Friends](https://wbcomdesigns.com/downloads/buddypress-auto-friends/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow the site admin to select global friends for all his members and add bulk global friends.
 * **[Wbcom Designs - Shortcodes & Elementor Widgets For BuddyPress Pro](https://wordpress.org/plugins/shortcodes-for-buddypress/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** It offers shortcodes and elementor widgets with various argument parameters for the activity listing, member's directory display, and the group's directory on any post/page.
 
@@ -75,11 +75,11 @@ Optional Plugin
 
 = For support, You can contact us at our website. =
 
-You can contact at our website [wbcomdesigns.com](https://wbcomdesigns.com/contact) for any query related to plugin and BuddyPress.
+You can contact us at our website [wbcomdesigns.com](https://wbcomdesigns.com/contact) for any query related to plugin and BuddyPress.
 
 = EXTEND BUDDYPRESS JOB MANAGER WITH 'Jobmate' =
 
-BuddyPress Job Manager is built by the experienced developers at Wbcom Designs who also offer a premium Job Direcotry solution called [JobMate - Jobs & Resumes Listing](https://wbcomdesigns.com/downloads/jobmate-theme/).
+BuddyPress Job Manager is built by the experienced developers at Wbcom Designs, who also offer a premium Job Directory solution called [JobMate - Jobs & Resumes Listing](https://wbcomdesigns.com/downloads/jobmate-theme/).
 
 == Screenshots ==
 
@@ -93,12 +93,17 @@ The screenshots are present in the root of the plugin folder.
 7. screenshot-7
 
 == Changelog ==
+= 2.7.0 =
+* Fix- updated screenshot
+* Fix- Fixed page loading notification issue
+* Fix- PHPCS Fixes
+
 = 2.6.6 =
 * Fix - phpcs fixes
 
 = 2.6.5 =
 * Fix - Readme file updated
-* Fix - (#136) Fixed application redirect to wrong url
+* Fix - (#136) Fixed application redirects to wrong url
 
 = 2.6.4 =
 * Fix - update Backend UI
@@ -111,11 +116,11 @@ The screenshots are present in the root of the plugin folder.
 * Fix - PHPCS fixes
 
 = 2.6.1 =
-* Fix - Rempved install Free plugin from WordPress Wrapper
+* Fix - Removed install Free plugin from WordPress Wrapper
 
 = 2.6.0 =
 * Fix - (#127) Fixed job and resume tab redirection to login user profile
-* Fix - (#122) Fixed unable to select role on admin general tab setting page
+* Fix - (#122) Fixed unable to select a role on admin general tab setting page
 * Fix - (#102) Fixed resume tab translation issue
 * Fix - Deactivate plugin if BP and WP job Manager Plugin is not activated
 
