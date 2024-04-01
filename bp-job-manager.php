@@ -179,5 +179,25 @@ function bpjm_activation_redirect_settings( $plugin ) {
 			exit;
 		}
 	}
+	if ( $plugin == $_REQUEST['plugin'] && class_exists( 'Buddypress' ) ) {
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate-plugin' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) { //phpcs:ignore		
+			set_transient( '_bpjm_is_new_install', true, 30 );
+		}
+	}
+
 }
 add_action( 'activated_plugin', 'bpjm_activation_redirect_settings' );
+
+/**
+ * bpjm_do_activation_redirect
+ *
+ * @return void
+ */
+function bpjm_do_activation_redirect() {
+	if ( get_transient( '_bpjm_is_new_install' ) ) {
+		delete_transient( '_bpjm_is_new_install' );
+		wp_safe_redirect( admin_url( 'admin.php?page=bp-job-manager' ) );
+
+	}
+}
+add_action( 'admin_init', 'bpjm_do_activation_redirect' );
