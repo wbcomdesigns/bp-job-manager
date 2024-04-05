@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, wp-job-manager, job-manager-applications, job-manager-resumes, Job Manager, BuddyPress Jobs
 Requires at least: 3.0.1
-Tested up to: 6.4.2
-Stable tag: 2.6.6
+Tested up to: 6.5.0
+Stable tag: 2.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,9 +13,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 This plugin does the following:
 1. Incorporates BuddyPress with the WP Job Manager plugin by creating specific tabs in employers' and candidates' profiles.
 2. WP Job Manager - Resume manager allows candidates to add multiple resumes using BuddyPress Job Manager. You have a choice to display your latest resume in your BuddyPress Profile. It also lets you choose which resume fields should be visible on the BuddyPress Profile page.
-3) Allow to enable user roles to post jobs.
-4) Apply to enable user roles to apply for jobs.
-5) Allow to publish new jobs and resume activities in the BuddyPress activity stream
+3. Allow to enable user roles to post jobs.
+4. Apply to enable user roles to apply for jobs.
+5. Allow to publish new jobs and resume activities in the BuddyPress activity stream
 
 
 You can also check details on our plugin document page
@@ -93,6 +93,9 @@ The screenshots are present in the root of the plugin folder.
 7. screenshot-7
 
 == Changelog ==
+= 2.7.1 =
+* Fix- Compatibility check with WordPress 6.5.0
+
 = 2.7.0 =
 * Fix- updated screenshot
 * Fix- Fixed page loading notification issue
