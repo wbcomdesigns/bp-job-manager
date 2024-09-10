@@ -75,25 +75,28 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @return void
 		 */
 		public function get_jobs_max_num_pages() {
-			$per_page       = get_option('job_manager_per_page');
-			if ('my-jobs' == bp_current_action() || 'jobs' == bp_current_action()) {
-				$args = array(
+			$per_page = get_option('job_manager_per_page');
+			
+			// Defining allowed actions once
+			$allowed_actions = ['my-jobs', 'jobs'];
+			
+			if (in_array(bp_current_action(), $allowed_actions, true)) {
+				$args = [
 					'post_type'           => 'job_listing',
-					'post_status'         => array('publish', 'expired', 'pending', 'draft', 'preview'),
-					'ignore_sticky_posts' => 1,
+					'post_status'         => ['publish', 'expired', 'pending', 'draft', 'preview'],
+					'ignore_sticky_posts' => true,
 					'posts_per_page'      => $per_page,
-					'offset'              => (max(1, get_query_var('paged')) - 1) * 25,
+					'offset'              => (max(1, get_query_var('paged')) - 1) * $per_page,
 					'orderby'             => 'date',
-					'order'               => 'desc',
+					'order'               => 'DESC',
 					'author'              => bp_displayed_user_id(),
-				);
-
-				$jobs                = new WP_Query($args);
+				];
+				
+				$jobs = new WP_Query($args);
 				$this->max_num_pages = $jobs->max_num_pages;
 				wp_reset_postdata();
 			}
 		}
-
 
 		/**
 		 * Register the stylesheets for the public-facing side of the site.
@@ -112,8 +115,11 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			 * between the defined hooks and the functions defined in this
 			 * class.
 			 */
-			if ('my-jobs' == bp_current_action() || 'applied-jobs' == bp_current_action() || 'post-job' == bp_current_action() || 'my-resumes' == bp_current_action() || 'add-resume' == bp_current_action() || 'job-alerts' == bp_current_action()) {
-				wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/bp-job-manager-public.css', array(), $this->version, 'all');
+			
+			$job_related_actions = ['my-jobs', 'applied-jobs', 'post-job', 'my-resumes', 'add-resume', 'job-alerts'];
+
+			if (in_array(bp_current_action(), $job_related_actions, true)) {
+				wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/bp-job-manager-public.css', [], $this->version, 'all');
 			}
 		}
 
@@ -134,18 +140,16 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			 * between the defined hooks and the functions defined in this
 			 * class.
 			 */
-			if ('my-jobs' == bp_current_action() || 'applied-jobs' == bp_current_action() || 'post-job' == bp_current_action() || 'my-resumes' == bp_current_action() || 'add-resume' == bp_current_action()) {
+			$job_related_actions = ['my-jobs', 'applied-jobs', 'post-job', 'my-resumes', 'add-resume'];
+
+			if (in_array(bp_current_action(), $job_related_actions, true)) {
 				$this->get_jobs_max_num_pages();
-				wp_register_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/bp-job-manager-public.js', array('jquery'), $this->version, false);
-				wp_localize_script(
-					$this->plugin_name,
-					'bpjm_load_jobs_object',
-					array(
-						'ajaxurl'       => admin_url('admin-ajax.php'),
-						'max_num_pages' => $this->max_num_pages,
-						'ajax_nonce'    => wp_create_nonce('bpjm_load_jobs_nonce'),
-					)
-				);
+				wp_register_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/bp-job-manager-public.js', ['jquery'], $this->version, false);
+				wp_localize_script($this->plugin_name, 'bpjm_load_jobs_object', [
+					'ajaxurl'       => admin_url('admin-ajax.php'),
+					'max_num_pages' => $this->max_num_pages,
+					'ajax_nonce'    => wp_create_nonce('bpjm_load_jobs_nonce'),
+				]);
 				wp_enqueue_script($this->plugin_name);
 			}
 		}
