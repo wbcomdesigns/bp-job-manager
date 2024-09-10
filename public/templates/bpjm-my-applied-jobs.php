@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Exit if accessed directly.
  *
@@ -21,6 +20,7 @@ $args            = array(
 			'key'     => '_candidate_user_id',
 			'value'   => get_current_user_id(),
 			'compare' => '=',
+			'type'    => 'NUMERIC',
 		),
 	),
 );
@@ -50,20 +50,24 @@ $my_applied_jobs = get_posts($args);
 					$applied_job_meta = get_post_meta($applied_job->ID);
 					$attachment       = '';
 
-					if (!empty($applied_job_meta['_attachment'])) {
-						$attach_unserialized = unserialize($applied_job_meta['_attachment'][0]);
+					if (!empty($applied_job_meta['_attachment'][0])) {
+						$attach_unserialized = maybe_unserialize($applied_job_meta['_attachment'][0]);
 
-						if (!empty($attach_unserialized)) {
-							$attachment = unserialize($applied_job_meta['_attachment'][0])[0];
+						if (!empty($attach_unserialized) && is_array($attach_unserialized)) {
+							$attachment = $attach_unserialized[0];
 						}
 					}
 					?>
 					<tr>
-						<td class="job_title"><a href="<?php echo esc_attr($job_permalink); ?>"><?php echo esc_html($applied_job_meta['_job_applied_for'][0], 'bp-job-manager'); ?></a></td>
+						<td class="job_title">
+							<a href="<?php echo esc_url($job_permalink); ?>">
+								<?php echo isset($applied_job_meta['_job_applied_for'][0]) ? esc_html($applied_job_meta['_job_applied_for'][0]) : esc_html__('Unknown Job', 'bp-job-manager'); ?>
+							</a>
+						</td>
 						<td><?php echo esc_html(gmdate('F jS, Y', strtotime($applied_job->post_date)), 'bp-job-manager'); ?></td>
 						<td>
 							<?php if (!empty($attachment)) { ?>
-								<a href="<?php echo esc_attr($attachment); ?>" download><?php esc_html_e('File', 'bp-job-manager'); ?></a>
+								<a href="<?php echo esc_url($attachment); ?>" download><?php esc_html_e('File', 'bp-job-manager'); ?></a>
 							<?php
 							} else {
 								esc_html_e('No Attachment', 'bp-job-manager');

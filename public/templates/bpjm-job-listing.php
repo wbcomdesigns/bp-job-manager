@@ -50,7 +50,7 @@ $job_dashboard_columns = array(
 								<?php elseif ( 'filled' === $key ) : ?>
 									<?php echo is_position_filled( $job ) ? '&#10004;' : '&ndash;'; ?>
 								<?php else : ?>
-									<?php do_action( 'job_manager_job_dashboard_column_' . $key, $job ); ?>
+									<?php do_action( 'job_manager_job_dashboard_column_' . $key, $job ,''); ?>
 								<?php endif; ?>
 							</td>
 						<?php endforeach; ?>
