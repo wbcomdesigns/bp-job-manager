@@ -23,6 +23,19 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+if ( ! defined( 'BPJM_PLUGIN_PATH' ) ) {
+	define( 'BPJM_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+}
+
+if ( ! defined( 'BPJM_PLUGIN_URL' ) ) {
+	define( 'BPJM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+}
+
+if ( ! defined( 'BPJM_PLUGIN_VERSION' ) ) {
+	define( 'BPJM_PLUGIN_VERSION', '2.7.1' );
+}
+
+
 /**
  * The code that runs during plugin activation. This action is documented in includes/class-bp-job-manager-activator.php
  *
@@ -67,18 +80,6 @@ HardG\BuddyPress120URLPolyfills\Loader::init();
  * @since    1.0.0
  */
 function run_bp_job_manager() {
-
-	if ( ! defined( 'BPJM_PLUGIN_PATH' ) ) {
-		define( 'BPJM_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-	}
-
-	if ( ! defined( 'BPJM_PLUGIN_URL' ) ) {
-		define( 'BPJM_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-	}
-
-	if ( ! defined( 'BPJM_PLUGIN_VERSION' ) ) {
-		define( 'BPJM_PLUGIN_VERSION', '2.7.1' );
-	}
 
 	$plugin = new Bp_Job_Manager();
 	$plugin->run();
