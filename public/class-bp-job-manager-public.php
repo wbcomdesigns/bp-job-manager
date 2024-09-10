@@ -706,16 +706,8 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			$curr_user      = wp_get_current_user();
 			$per_page       = get_option('job_manager_per_page');
 			if (!empty($curr_user->roles) && !empty($displayed_user->roles)) {
-				$job_dashboard_job_listing_args = array(
-					'post_type'           => 'job_listing',
-					'post_status'         => array('publish', 'expired', 'pending', 'draft', 'preview'),
-					'ignore_sticky_posts' => 1,
-					'posts_per_page'      => $per_page,
-					'offset'              => (max(1, get_query_var('paged')) - 1) * 25,
-					'orderby'             => 'date',
-					'order'               => 'desc',
-					'author'              => bp_displayed_user_id(),
-				);
+				$job_dashboard_job_listing_args['posts_per_page'] = $per_page;
+				$job_dashboard_job_listing_args['offset'] = (max(1, get_query_var('paged')) - 1) * $per_page;
 			}
 			return $job_dashboard_job_listing_args;
 		}
