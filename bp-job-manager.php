@@ -134,9 +134,8 @@ function bpjm_required_plugin_admin_notice() {
 		'<strong>' . esc_html( $wpjm_plugin ) . '</strong>'
 	);
 	echo '</p></div>';
-	if ( null !== filter_input( INPUT_GET, 'activate' ) ) {
-		$activate = filter_input( INPUT_GET, 'activate' );
-		unset( $activate );
+	if ( filter_input( INPUT_GET, 'activate' ) ) {
+		unset( $_GET['activate'] );
 	}
 }
 
