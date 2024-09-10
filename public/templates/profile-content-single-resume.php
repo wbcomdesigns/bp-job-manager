@@ -1,5 +1,4 @@
 <?php
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -14,6 +13,9 @@ function bpjm_show_resume_at_profile( $post_id)
 {
 	global $post;
 	$fields_display = get_user_meta( bp_loggedin_user_id(), 'bpjm_display_fields', true );
+	if ( ! is_array( $fields_display ) ) {
+		return;
+	}
 	$display_resume = ( isset( $fields_display['display_resume'] ) ) ? $fields_display['display_resume'] : 'no';
 
 if ( 'yes' !== $display_resume ) {
@@ -29,39 +31,25 @@ if ( isset( $fields_display['email'] ) || isset( $fields_display['prof_title'] )
 			<?php } ?>
 			<table class="profile-fields">
 				<?php
-				if ( ! empty( $fields_display['email'] ) ) {
+				if ( ! empty( $fields_display['email'] ) || ! empty( $fields_display['prof_title'] ) || ! empty( $fields_display['location'] ) || ! empty( $fields_display['video'] ) || ! empty( $fields_display['description'] ) ) {
 					$email = get_post_meta( $post_id, '_candidate_email', true );
 					echo "<tr>
 								<td class='label'>" . esc_html__( 'E-mail', 'bp-job-manager' ) . "</td>
 								<td class='data'>" . esc_html( sanitize_email( $email ) ) . '</td>
 							  </tr>';
-				}
-				if ( ! empty( $fields_display['prof_title'] ) ) {
 					?>
 					<tr>
 						<td class="label"><?php esc_html_e( 'Professional Title', 'bp-job-manager' ); ?></td>
-						<td class="data"><?php the_candidate_title(); ?></td>
+						<td class="data"><?php echo esc_html( the_candidate_title() ); ?></td>
 					</tr>
-					<?php
-				}
-				if ( ! empty( $fields_display['location'] ) ) {
-					?>
 					<tr>
 						<td class="label"><?php esc_html_e( 'Location', 'bp-job-manager' ); ?></td>
-						<td class="data"><?php the_candidate_location(); ?></td>
+						<td class="data"><?php echo esc_html( the_candidate_location() ); ?></td>
 					</tr>
-					<?php
-				}
-				if ( ! empty( $fields_display['video'] ) ) {
-					?>
 					<tr>
 						<td class="label"><?php esc_html_e( 'Video', 'bp-job-manager' ); ?></td>
-						<td class="data"><?php the_candidate_video(); ?></td>
+						<td class="data"><?php echo esc_html( the_candidate_video() ); ?></td>
 					</tr>
-					<?php
-				}
-				if ( ! empty( $fields_display['description'] ) ) {
-					?>
 					<tr>
 						<td class="label"><?php esc_html_e( 'Description', 'bp-job-manager' ); ?></td>
 						<td class="data"><?php echo wp_kses_post( apply_filters( 'the_resume_description', get_the_content() ) ); ?></td>
@@ -114,7 +102,7 @@ if ( isset( $fields_display['email'] ) || isset( $fields_display['prof_title'] )
 					 </tr>';
 						echo '<tr class="' . esc_html( $setclass ) . '">
 						<td class="label">' . esc_html__( 'Notes', 'bp-job-manager' ) . '</td>
-						<td class="data">' . esc_html( wpautop( wptexturize( $item['notes'] ) ) ) . '</td>
+						<td class="data">' .  esc_html( wptexturize( $item['notes'] ) ) . '</td>
 					 </tr>';
 						$c++;
 						endforeach;
@@ -163,7 +151,7 @@ if ( isset( $fields_display['email'] ) || isset( $fields_display['prof_title'] )
 					 </tr>';
 						echo '<tr class="' . esc_html( $setclass ) . '">
 						<td class="label">' . esc_html__( 'Notes', 'bp-job-manager' ) . '</td>
-						<td class="data">' . esc_html( wpautop( wptexturize( $item['notes'] ) ) ) . '</td>
+						<td class="data">' . esc_html( wptexturize( $item['notes'] ) ) . '</td>
 					 </tr>';
 						$c++;
 						endforeach;
