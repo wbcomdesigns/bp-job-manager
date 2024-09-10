@@ -141,7 +141,6 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			 * class.
 			 */
 			$job_related_actions = ['my-jobs', 'applied-jobs', 'post-job', 'my-resumes', 'add-resume'];
-
 			if (in_array(bp_current_action(), $job_related_actions, true)) {
 				$this->get_jobs_max_num_pages();
 				wp_register_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/bp-job-manager-public.js', ['jquery'], $this->version, false);
