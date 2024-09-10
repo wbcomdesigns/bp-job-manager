@@ -190,9 +190,8 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 */
 		public function bpjm_load_more_jobs()
 		{
-			if (isset($_POST)) {
 				check_ajax_referer('bpjm_load_jobs_nonce', 'ajax_nonce');
-				$paged = isset($_POST['page_no']) ? sanitize_text_field(wp_unslash($_POST['page_no'])) : '';
+				$paged = !empty($_POST['page_no']) ? intval(sanitize_text_field(wp_unslash($_POST['page_no']))) : 1;
 				$per_page   = get_option('job_manager_per_page');
 				$job_dashboard_columns = array(
 					'job_title' => __('Title', 'bp-job-manager'),
@@ -204,8 +203,8 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 
 				$args = array(
 					'post_type'           => 'job_listing',
-					'post_status'         => array('publish', 'expired', 'pending', 'draft', 'preview'),
-					'ignore_sticky_posts' => 1,
+					'post_status'         => ['publish', 'expired', 'pending', 'draft', 'preview'],
+					'ignore_sticky_posts' => true,
 					'posts_per_page'      => $per_page,
 					'orderby'             => 'date',
 					'order'               => 'desc',
@@ -317,7 +316,6 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 				<?php endforeach; ?>
 			<?php
 				wp_reset_postdata();
-			}
 			wp_die();
 		}
 
