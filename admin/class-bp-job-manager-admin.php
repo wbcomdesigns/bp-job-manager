@@ -29,7 +29,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   private
 		 * @var      string    $plugin_name    The ID of this plugin.
 		 */
-		private $plugin_name;
+		protected $plugin_name;
 
 		/**
 		 * The version of this plugin.
@@ -38,7 +38,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   private
 		 * @var      string    $version    The current version of this plugin.
 		 */
-		private $version;
+		protected $version;
 
 		/**
 		 * Store plugin settings tabs.
@@ -47,7 +47,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   private
 		 * @var      array     $plugin_settings_tabs    Array of plugin settings tabs.
 		 */
-		private $plugin_settings_tabs = array();
+		protected $plugin_settings_tabs = array();
 
 		/**
 		 * Initialize the class and set its properties.
@@ -74,8 +74,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 */
 		public function enqueue_styles() {
 			$tab = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'bp-job-manager';
-
-			if ( ! empty( $tab ) && ( 'bp-job-manager' === $tab ) ) {
+			if ( ! empty( $tab ) && strpos( $tab, 'bp-job-manager' ) !== false ) {
 				wp_enqueue_style( $this->plugin_name . '-selectize', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
 				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-admin.css', array(), $this->version, 'all' );
 			}
@@ -90,7 +89,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 */
 		public function enqueue_scripts() {
 			$tab = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'bp-job-manager';
-			if ( ! empty( $tab ) && ( 'bp-job-manager' === $tab ) ) {
+			if ( ! empty( $tab ) && strpos( $tab, 'bp-job-manager' ) !== false ) {
 				wp_enqueue_script( $this->plugin_name . '-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
 				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-admin.js', array( 'jquery' ), $this->version, false );
 			}
@@ -121,11 +120,13 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_add_options_page() {
+			
 			if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
-				add_menu_page( esc_html__( 'WB Plugins', 'bp-job-manager' ), esc_html__( 'WB Plugins', 'bp-job-manager' ), 'manage_options', 'wbcomplugins', array( $this, 'bpjm_admin_settings_page' ), 'dashicons-lightbulb', 59 );
-				add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'bp-job-manager' ), esc_html__( 'General', 'bp-job-manager' ), 'manage_options', 'wbcomplugins' );
+				$capability = apply_filters( 'bpjm_menu_page_capability', 'manage_options' );
+				add_menu_page( esc_html__( 'WB Plugins', 'bp-job-manager' ), esc_html__( 'WB Plugins', 'bp-job-manager' ), $capability, 'wbcomplugins', array( $this, 'bpjm_admin_settings_page' ), 'dashicons-lightbulb', 59 );
+				add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'bp-job-manager' ), esc_html__( 'General', 'bp-job-manager' ), $capability, 'wbcomplugins' );
 			}
-			add_submenu_page( 'wbcomplugins', esc_html__( 'BP Job Manager', 'bp-job-manager' ), esc_html__( 'BP Job Manager', 'bp-job-manager' ), 'manage_options', $this->plugin_name, array( $this, 'bpjm_admin_settings_page' ) );
+			add_submenu_page( 'wbcomplugins', esc_html__( 'BP Job Manager', 'bp-job-manager' ), esc_html__( 'BP Job Manager', 'bp-job-manager' ), $capability, $this->plugin_name, array( $this, 'bpjm_admin_settings_page' ) );
 		}
 
 		/**
@@ -181,13 +182,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_plugin_settings_tabs() {
-			$current_tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'bpjm-welcome';
-			echo '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
-			foreach ( $this->plugin_settings_tabs as $tab_key => $tab_caption ) {
-				$active = $current_tab == $tab_key ? 'nav-tab-active' : '';
-				echo '<li class="' . esc_attr( $tab_key ) . '"><a class="nav-tab ' . esc_attr( $active ) . '" id="' . esc_attr( $tab_key ) . '-tab" href="?page=' . esc_attr( $this->plugin_name ) . '&tab=' . esc_attr( $tab_key ) . '">' . esc_html( $tab_caption, 'bp-job-manager' ) . '</a></li>';
+			if ( file_exists( dirname( __FILE__ ) . '/includes/bp-job-manager-settings-tabs.php' ) ) {
+				require_once dirname( __FILE__ ) . '/includes/bp-job-manager-settings-tabs.php';
 			}
-			echo '</div></ul></div>';
 		}
 
 		/**
