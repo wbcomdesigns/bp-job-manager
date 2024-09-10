@@ -14,12 +14,7 @@ $job_dashboard_columns = array(
 	'expires'   => __( 'Listing Expires', 'bp-job-manager' ),
 	'actions'   => __( 'Actions', 'bp-job-manager' ),
 );
-// if ( is_user_logged_in() ) {
-// $column                = array(
-// 'actions' => __( 'Actions', 'bp-job-manager' ),
-// );
-// $job_dashboard_columns = array_merge( $job_dashboard_columns, $column );
-// }
+
 ?>
 <div id="job-manager-job-dashboard">
 	<table class="job-manager-jobs">
@@ -31,9 +26,9 @@ $job_dashboard_columns = array(
 			</tr>
 		</thead>
 		<tbody>
-			<?php if ( ! $jobs ) : ?>
+			<?php if ( empty( $jobs ) ) : ?>
 				<tr>
-					<td colspan="<?php echo intval( count( $job_dashboard_columns ) ); ?>"><?php esc_html_e( 'There is no jobs found.', 'bp-job-manager' ); ?></td>
+					<td colspan="<?php echo intval( count( $job_dashboard_columns ) ); ?>"><?php esc_html_e( 'No jobs found.', 'bp-job-manager' ); ?></td>
 				</tr>
 			<?php else : ?>
 				<?php foreach ( $jobs as $job ) : ?>
