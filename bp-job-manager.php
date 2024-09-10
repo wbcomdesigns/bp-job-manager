@@ -146,7 +146,6 @@ function bpjm_required_plugin_admin_notice() {
  * @since 1.0.0
  */
 function wpbpjm_existing_checkin_plugin() {
-	$wpbpjm_plugin = plugin_dir_path( __DIR__ ) . 'bp-job-manager/bp-job-manager';
 	// Check to see if plugin is already active.
 	if ( is_plugin_active( plugin_basename( __FILE__ ) ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
