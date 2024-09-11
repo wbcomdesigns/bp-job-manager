@@ -183,5 +183,5 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 		<?php endif; ?>
 	<?php endif; ?>
 	</table>
-	<?php do_action( 'resume_manager_candidate_dashboard_actions', $resume ); ?>
+	<?php do_action( 'resume_manager_candidate_dashboard_actions', $resumes ); ?>
 </div>

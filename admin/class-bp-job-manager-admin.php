@@ -106,8 +106,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 			$wbcom_setting_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : '';
 
 			if ( in_array( $wbcom_setting_page, $wbcom_pages_array, true ) ) {
-				remove_all_actions( 'admin_notices' );
-				remove_all_actions( 'all_admin_notices' );
+				remove_action( 'admin_notices', 'bpjm_required_plugin_admin_notice' );
+				remove_action( 'admin_notices', 'display_admin_notice' );
 			}
 
 		}
