@@ -121,6 +121,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 */
 		public function bpjm_add_options_page() {
 			
+			$capability = 'manage_options';
 			if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
 				$capability = apply_filters( 'bpjm_menu_page_capability', 'manage_options' );
 				add_menu_page( esc_html__( 'WB Plugins', 'bp-job-manager' ), esc_html__( 'WB Plugins', 'bp-job-manager' ), $capability, 'wbcomplugins', array( $this, 'bpjm_admin_settings_page' ), 'dashicons-lightbulb', 59 );
