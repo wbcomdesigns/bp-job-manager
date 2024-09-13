@@ -3,13 +3,15 @@ jQuery( document ).ready(
 		'use strict';
 
 		// Open the job application url.
-		$( document ).on(
-			'click',
-			'#bpjm-job-application-btn a',
-			function() {
-				window.open( $( this ).data( 'url' ), '_blank' );
+		$(document).on('click', '.bpjm-job-application-btn-action a', function() {
+			console.log("asd");
+			var url = $(this).data('url');
+			if (url) {
+				window.open(url, '_blank');
+			} else {
+				console.error('No URL found in data-url attribute.');
 			}
-		);
+		});
 
 		$( document ).on(
 			'click',

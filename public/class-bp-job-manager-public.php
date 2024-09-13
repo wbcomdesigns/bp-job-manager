@@ -140,8 +140,10 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			 * between the defined hooks and the functions defined in this
 			 * class.
 			 */
+			// global $wp_query;
+			$get_dashboard_page_id = (int)get_option('job_manager_job_dashboard_page_id');
 			$job_related_actions = ['my-jobs', 'applied-jobs', 'post-job', 'my-resumes', 'add-resume'];
-			if (in_array(bp_current_action(), $job_related_actions, true)) {
+			if (in_array(bp_current_action(), $job_related_actions, true) || $get_dashboard_page_id === get_the_ID()) {
 				$this->get_jobs_max_num_pages();
 				wp_register_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/bp-job-manager-public.js', ['jquery'], $this->version, false);
 				wp_localize_script($this->plugin_name, 'bpjm_load_jobs_object', [
@@ -812,7 +814,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 									get_job_manager_template('applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/');
 								} else {
 				?>
-									<div class="generic-button" id="bpjm-job-application-btn">
+									<div class="generic-button bpjm-job-application-btn-action" id="bpjm-job-application-btn">
 										<a href="javascript:void(0);" data-url="<?php echo esc_attr($job_application_page); ?>"><?php esc_html_e('Apply', 'bp-job-manager'); ?></a>
 									</div>
 				<?php
