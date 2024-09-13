@@ -37,7 +37,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Activator' ) ) :
 			if ( function_exists( 'get_page_by_title' ) ) {
 				/******************** Job Application Page */
 				$page_title = 'Apply To Job';
-				$page       = get_page_by_title( $page_title );
+				$page       = self::bpjm_get_page_by_title( $page_title );
 				if ( empty( $page ) ) {
 					$args  = array(
 						'post_type'   => 'page',
@@ -77,5 +77,23 @@ if ( ! class_exists( 'Bp_Job_Manager_Activator' ) ) :
 
 		}
 
+		public static function bpjm_get_page_by_title( $title ) {
+			$args = array(
+				'post_type'      => 'page',
+				'title'          => $title,
+				'posts_per_page' => 1, // Limit the number of results to 1
+			);
+			
+			$query = new WP_Query( $args );
+			
+			if ( $query->have_posts() ) {
+				$query->the_post();
+				$get_the_page_id = get_the_ID();
+				wp_reset_postdata(); // Always reset post data after WP_Query
+				return $get_the_page_id;
+			} else {
+				return null;
+			}
+		}
 	}
 endif;

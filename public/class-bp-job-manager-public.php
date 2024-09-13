@@ -343,10 +343,10 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			$is_current_user = (get_current_user_id() === $displayed_uid);
 
 			// Determine the correct label for the job tab
-			$my_job_tab = $is_current_user ? __('My Jobs', 'bp-job-manager') : sprintf(__('%s\'s Jobs', 'bp-job-manager'), ucfirst(bp_core_get_user_displayname($displayed_uid)));
+			$my_job_tab = $is_current_user ? __('My Jobs', 'bp-job-manager') : sprintf(/* translators: %s: bp_core_user_name */ __('%s\'s Jobs', 'bp-job-manager'), ucfirst(bp_core_get_user_displayname($displayed_uid)));
 
 			// Format the job tab to include the count of job listings
-			$job_tab = sprintf(__('Jobs %s', 'bp-job-manager'), '<span class="count">' . bp_core_number_format($job_count) . '</span>');
+			$job_tab = sprintf(/* translators: %s: bp_core_number_format */__('Jobs %s', 'bp-job-manager'), '<span class="count">' . bp_core_number_format($job_count) . '</span>');
 
 			if (!empty($curr_user->roles) && !empty($displayed_user->roles)) {
 				/**
@@ -863,8 +863,8 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			$resume_id = get_user_meta($user_id, 'bpjm_profile_resume_show_id', true);
 			$is_logged_in_user = (bp_loggedin_user_id() === $user_id);
 			$my_resumes_count = bpjm_member_profile_resumes_count( $user_id );
-			$resume_tab_name = $is_logged_in_user ? __('My Resumes', 'bp-job-manager') : sprintf(__('%s\'s Resumes', 'bp-job-manager'), ucfirst(bp_core_get_user_displayname($user_id)));
-			$resume_tab = sprintf(__('Resumes %s', 'bp-job-manager'), '<span class="count">' . bp_core_number_format($my_resumes_count) . '</span>');
+			$resume_tab_name = $is_logged_in_user ? __('My Resumes', 'bp-job-manager') : sprintf( /* translators: %s: bp_core_get_user_displayname */ __('%s\'s Resumes', 'bp-job-manager'), ucfirst(bp_core_get_user_displayname($user_id)));
+			$resume_tab = sprintf(/* translators: %s: bp_core_number_format */ __('Resumes %s', 'bp-job-manager'), '<span class="count">' . bp_core_number_format($my_resumes_count) . '</span>');
 
 			$resumes_tab_link = bp_core_get_userlink($user_id, false, true) . 'resumes/';
 
@@ -1153,8 +1153,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			} else {
 				$where = get_posts_by_author_sql('resume', true, $user_id, '');
 				// Concatenate the WHERE clause directly.
-				$query = "SELECT ID FROM {$wpdb->posts} {$where} ORDER BY post_modified DESC";
-				$post = $wpdb->get_row($query);
+				$post = $wpdb->get_row($wpdb->prepare( "SELECT ID FROM {$wpdb->posts} {$where} ORDER BY post_modified DESC" ));
 
 				if ($post && isset($bp_job_manager->bpjm_resume_at_profile) && 'yes' === $bp_job_manager->bpjm_resume_at_profile) {
 					bpjm_show_resume_at_profile($post->ID);
@@ -1178,7 +1177,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 
 			// Directly concatenate the WHERE clause without using prepare().
 			$query = "SELECT ID, post_title FROM {$wpdb->posts} $where ORDER BY post_modified DESC";
-			$user_posts = $wpdb->get_results($query);
+			$user_posts = $wpdb->get_results($wpdb->prepare( "SELECT ID, post_title FROM {$wpdb->posts} $where ORDER BY post_modified DESC" ));
 
 			$selected_post = !empty($resume_id) ? $resume_id : (!empty($user_posts) ? $user_posts[0]->ID : null);
 
