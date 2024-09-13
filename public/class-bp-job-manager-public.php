@@ -548,7 +548,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			} else {
 				$job_args = array(
 					'post_type'           => 'job_listing',
-					'post_status'         => 'any',
+					'post_status'         => 'publish',
 					'ignore_sticky_posts' => 1,
 					'posts_per_page'      => 10,
 					'offset'              => (max(1, get_query_var('paged')) - 1) * 25,
