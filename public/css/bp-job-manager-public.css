@@ -171,3 +171,37 @@
   display: flex;
   align-items: center;
 }
+
+/* BP Profile */
+#job-manager-job-dashboard .jm-dashboard-job-column.job_title {
+    flex: 1 0 0;
+}
+
+#job-manager-job-dashboard .jm-dashboard-job {
+    justify-content: space-between;
+}
+
+#job-manager-job-dashboard .jm-dashboard-job-column {
+    flex: unset;
+}
+
+#job-manager-job-dashboard li.position-filled {
+  list-style: none;
+  font-size: 85%;
+  color: red;
+}
+
+#job-manager-job-dashboard #bpjm-job-application-btn a {
+  align-items: center;
+  border: unset;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  gap: var(--jm-ui-space-xs);
+  justify-content: center;
+  outline: unset;
+  padding: var(--jm-ui-space-xs) var(--jm-ui-space-s);
+  background: unset;
+  border: 1px solid;
+  text-decoration: none;
+}

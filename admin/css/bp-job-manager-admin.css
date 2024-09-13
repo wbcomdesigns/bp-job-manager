@@ -57,3 +57,11 @@ div#setting-error-settings_updated {
 button.notice-dismiss:before {
 	color: red !important;
 }
+
+.wbcom-wrap .notice{
+	display: none !important;
+}
+
+.bp-job-manager-general-setting .selectize-input input[type="text"] {
+    min-height: 40px !important;
+}

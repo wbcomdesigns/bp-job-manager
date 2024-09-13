@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $bp_job_manager, $wp_roles;
 ?>
 <div class="wbcom-tab-content">
-	<div class="wbcom-wrapper-admin">	
+	<div class="wbcom-wrapper-admin bp-job-manager-general-setting">	
 		<div class="wbcom-admin-title-section">
 			<h3><?php esc_html_e( 'General Settings', 'bp-job-manager' ); ?></h3>
 		</div>

@@ -121,6 +121,11 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			if (in_array(bp_current_action(), $job_related_actions, true)) {
 				wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/bp-job-manager-public.css', [], $this->version, 'all');
 			}
+			
+			global $post;
+			if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'job_dashboard') ) {
+				wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/bp-job-manager-public.css', [], $this->version, 'all');
+			}
 		}
 
 		/**
