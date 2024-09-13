@@ -420,7 +420,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 				$table_name = $wpdb->prefix . 'bp_activity';
 				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 				if ( $get_table == $table_name ) {
-					$check = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %s WHERE item_id = %d AND type IN ('bpjm_job_post')", $table_name, $post->ID ) );
+					$check = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $table_name WHERE item_id = %d AND type IN (%s)", $post->ID, 'bpjm_job_post') );
 					if ( ! $check ) {
 						$args['type']  = 'bpjm_job_post';
 						$job_permalink = '<a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a>';
@@ -452,7 +452,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 				$table_name = $wpdb->prefix . 'bp_activity';
 				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 				if ( $get_table == $table_name ) {
-					$check = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %s WHERE item_id = %d AND type IN ('bpjm_resume_publish')", $table_name, $post->ID ) );
+					$check = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $table_name WHERE item_id = %d AND type IN (%s)", $post->ID, 'bpjm_resume_publish' ) );
 					if ( ! $check ) {
 						$args['type']  = 'bpjm_resume_publish';
 						$job_permalink = '<a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a>';

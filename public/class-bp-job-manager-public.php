@@ -1566,7 +1566,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @param string $component_action_name Canonical notification action.
 		 * @param string $component_name        Notification component ID.
 		 */
-		public function bpjm_job_application_notifications($action, $item_id, $secondary_item_id, $total_items,$component_name, $component_action_name, $format)
+		public function bpjm_job_application_notifications($action, $item_id, $secondary_item_id, $total_items, $format, $component_action_name, $component_name)
 		{
 			if(empty($format)){
 				$format = 'string';
