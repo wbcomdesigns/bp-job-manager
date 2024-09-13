@@ -33,7 +33,7 @@ if (!isset($post)) {
 			</header><!-- .entry-header -->
 			<div class="entry-content">
 				<?php if (!empty($job_id)) : ?>
-					<?php echo do_shortcode(esc_attr('[job_apply id="' . $job_id . '"]')); ?>
+					<?php echo do_shortcode('[job_apply id="' . $job_id . '"]'); ?>
 				<?php else : ?>
 					<div>
 						<p><?php esc_html_e('No content available.', 'bp-job-manager'); ?></p>
