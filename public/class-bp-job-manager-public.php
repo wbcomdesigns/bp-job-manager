@@ -1566,7 +1566,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @param string $component_action_name Canonical notification action.
 		 * @param string $component_name        Notification component ID.
 		 */
-		public function bpjm_job_application_notifications($action, $item_id, $secondary_item_id, $total_items, $format, $component_action_name, $component_name)
+		public function bpjm_job_application_notifications($action, $item_id, $secondary_item_id, $total_items,$component_name, $component_action_name, $format)
 		{
 			if(empty($format)){
 				$format = 'string';
@@ -1634,7 +1634,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 
 			$user_id                       = bp_loggedin_user_id();
 			$user                          = get_userdata($user_id);
-			$match_post_job_roles_curr_usr = array_intersect($bp_job_manager->post_job_user_roles, $user->roles);
+			$match_post_job_roles_curr_usr = (!empty($bp_job_manager) && !empty($user) ) ? array_intersect($bp_job_manager->post_job_user_roles, $user->roles) : array();
 			if (empty($match_post_job_roles_curr_usr)) {
 				$can_post = false;
 			}
