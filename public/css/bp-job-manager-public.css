@@ -191,17 +191,17 @@
   color: red;
 }
 
-#job-manager-job-dashboard #bpjm-job-application-btn a {
-  align-items: center;
-  border: unset;
-  border-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  gap: var(--jm-ui-space-xs);
-  justify-content: center;
-  outline: unset;
-  padding: var(--jm-ui-space-xs) var(--jm-ui-space-s);
-  background: unset;
+.jm-dashboard-job div#bpjm-job-application-btn a {
   border: 1px solid;
-  text-decoration: none;
+  padding: var(--jm-ui-space-xs) var(--jm-ui-space-s);
+  line-height: 1;
+  border-radius: 4px;
+}
+
+.wb-reign-theme.my-jobs .job-manager-jobs div#bpjm-job-application-btn a {
+    background-color: var(--reign-site-button-bg-color);
+    color: var(--reign-site-button-text-color) !important;
+    padding: 5px 15px;
+    border: 1px solid var(--reign-site-button-bg-color);
+    font-size: 15px;
 }
