@@ -803,7 +803,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		{
 			global $bp_job_manager;
 			if (is_user_logged_in()) {
-				if (!bp_is_user_profile() && (bp_loggedin_user_id() != bp_displayed_user_id())) {
+				if (bp_is_user() && (bp_loggedin_user_id() != bp_displayed_user_id())) {
 					$user_id                        = bp_loggedin_user_id();
 					$apply_job_user_roles           = !empty($bp_job_manager->apply_job_user_roles) ? $bp_job_manager->apply_job_user_roles : array();
 					$job_application_page           = get_permalink($bp_job_manager->job_application_pgid);
