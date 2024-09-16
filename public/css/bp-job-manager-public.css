@@ -173,17 +173,17 @@
 }
 
 /* BP Profile */
-#job-manager-job-dashboard .jm-dashboard-job-column.job_title {
+/* #job-manager-job-dashboard .jm-dashboard-job-column.job_title {
     flex: 1 0 0;
-}
+} */
 
 #job-manager-job-dashboard .jm-dashboard-job {
     justify-content: space-between;
 }
 
-#job-manager-job-dashboard .jm-dashboard-job-column {
+/* #job-manager-job-dashboard .jm-dashboard-job-column {
     flex: unset;
-}
+} */
 
 #job-manager-job-dashboard li.position-filled {
   list-style: none;
