@@ -1162,7 +1162,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			} else {
 				$where = get_posts_by_author_sql('resume', true, $user_id, '');
 				// Concatenate the WHERE clause directly.
-				$post = $wpdb->get_row($wpdb->prepare( "SELECT ID FROM {$wpdb->posts} {$where} ORDER BY post_modified DESC" ));
+				$post = $wpdb->get_row( "SELECT ID FROM {$wpdb->posts} {$where} ORDER BY post_modified DESC" );		// phpcs:ignore.
 
 				if ($post && isset($bp_job_manager->bpjm_resume_at_profile) && 'yes' === $bp_job_manager->bpjm_resume_at_profile) {
 					bpjm_show_resume_at_profile($post->ID);
