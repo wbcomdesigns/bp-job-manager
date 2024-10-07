@@ -47,23 +47,23 @@
 
 @-webkit-keyframes spin {
   from {
-    -webkit-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
   }
 
   to {
-    -webkit-transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
   }
 }
 
 @keyframes spin {
   from {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
   }
 
   to {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
   }
 }
 
@@ -71,48 +71,48 @@
 
   .job-manager-jobs thead,
   .resume-manager-resumes thead {
-    display: none;
+      display: none;
   }
 
   .job-manager-jobs tr:nth-child(odd),
   .resume-manager-resumes tr:nth-child(odd) {
-    background: #f7f7f7;
+      background: #f7f7f7;
   }
 
   .job-manager-jobs tr,
   .resume-manager-resumes tr {
-    margin: 0 0 1rem 0;
+      margin: 0 0 1rem 0;
   }
 
   .job-manager-jobs td,
   .resume-manager-resumes td {
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50% !important;
-    display: block;
-    width: 100%;
-    text-align: left !important;
-    min-height: 54px;
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 50% !important;
+      display: block;
+      width: 100%;
+      text-align: left !important;
+      min-height: 54px;
   }
 
   .job-manager-jobs td:before,
   .resume-manager-resumes td:before {
-    content: attr(data-header);
-    position: absolute;
-    left: 15px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    text-align: left;
+      content: attr(data-header);
+      position: absolute;
+      left: 15px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+      text-align: left;
   }
 
   .job-manager-jobs td .job-dashboard-actions {
-    font-size: 75% !important;
+      font-size: 75% !important;
   }
 
   #job-manager-job-dashboard table ul.job-dashboard-actions li {
-    display: inline-block !important;
+      display: inline-block !important;
   }
 }
 
@@ -186,4 +186,20 @@
   padding: 5px 15px;
   border: 1px solid var(--reign-site-button-bg-color);
   font-size: 15px;
+}
+
+@media screen and (min-width: 540px) and (max-width: 1024px) {
+  .item-body #job-manager-job-dashboard .jm-dashboard-job {
+      -webkit-box-align: start;
+      -ms-flex-align: start;
+      align-items: flex-start;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  }
+
+  .item-body #job-manager-job-dashboard .jm-dashboard-job-column.actions {
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+  }
 }
