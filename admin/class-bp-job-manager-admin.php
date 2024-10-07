@@ -126,7 +126,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 				add_menu_page( esc_html__( 'WB Plugins', 'bp-job-manager' ), esc_html__( 'WB Plugins', 'bp-job-manager' ), $capability, 'wbcomplugins', array( $this, 'bpjm_admin_settings_page' ), 'dashicons-lightbulb', 59 );
 				add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'bp-job-manager' ), esc_html__( 'General', 'bp-job-manager' ), $capability, 'wbcomplugins' );
 			}
-			add_submenu_page( 'wbcomplugins', esc_html__( 'BP Job Manager', 'bp-job-manager' ), esc_html__( 'BP Job Manager', 'bp-job-manager' ), $capability, $this->plugin_name, array( $this, 'bpjm_admin_settings_page' ) );
+			add_submenu_page( 'wbcomplugins', esc_html__( 'Job Manager', 'bp-job-manager' ), esc_html__( 'Job Manager', 'bp-job-manager' ), $capability, $this->plugin_name, array( $this, 'bpjm_admin_settings_page' ) );
 		}
 
 		/**
