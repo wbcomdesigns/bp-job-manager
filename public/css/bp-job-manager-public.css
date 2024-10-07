@@ -161,16 +161,10 @@
 }
 
 /* BP Profile */
-#job-manager-job-dashboard .jm-dashboard-job-column.job_title {
+.item-body #job-manager-job-dashboard .jm-dashboard-job-column.job_title {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 50%;
   flex: 1 1 50%;
-}
-
-#job-manager-job-dashboard .jm-dashboard-job {
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
 }
 
 #job-manager-job-dashboard li.position-filled {
