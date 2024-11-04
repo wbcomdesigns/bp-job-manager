@@ -244,14 +244,15 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					/**
 					 * Jobs menu - for the roles allowed for job posting.
 					 */
-					$match_post_job_roles = array_intersect( $bp_job_manager->post_job_user_roles, $curr_user->roles );
+					$post_job_roles = isset( $bp_job_manager->post_job_user_roles ) ? $bp_job_manager->post_job_user_roles : [];
+					$match_post_job_roles = array_intersect( $post_job_roles, $curr_user->roles );
 					if ( ! empty( $match_post_job_roles ) ) {
 						$profile_menu_slug  = 'jobs';
 						$profile_menu_title = __( 'Jobs', 'bp-job-manager' );
 						$current_user_id = get_current_user_id();
 						$job_listings = 0; // Initialize $job_listings with a default value
 						$transient_key = 'user_' . $current_user_id . '_job_listings';
-						$job_listings = get_transient($transient_key);
+						$job_listings = get_transient( $transient_key ) !== false ? get_transient( $transient_key ) : 0;
 						if ($current_user_id > 0) {
 							if ($job_listings === false) {
 								$args = array(
@@ -336,14 +337,15 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					/**
 					 * Resumes menu - for the roles allowed for job posting
 					 */
-					$match_apply_job_roles = array_intersect( $bp_job_manager->apply_job_user_roles, $curr_user->roles );
+					$apply_job_roles = isset( $bp_job_manager->apply_job_user_roles ) ? $bp_job_manager->apply_job_user_roles : [];
+					$match_apply_job_roles = array_intersect( $apply_job_roles, $curr_user->roles );
 					if ( ! empty( $match_apply_job_roles ) ) {
 						$profile_menu_slug  = 'resumes';
 						$profile_menu_title = esc_html__( 'Resumes', 'bp-job-manager' );
 						$my_resumes_count = 0;
 						$current_user_id = get_current_user_id();
 						$transient_key = 'user_' . $current_user_id . '_my_resumes_count';
-						$my_resumes_count = get_transient($transient_key);
+						$my_resumes_count = get_transient( $transient_key ) !== false ? get_transient( $transient_key ) : 0;
 						if ($my_resumes_count === false) {
 							$args = [
 								'post_type'      => 'resume',
