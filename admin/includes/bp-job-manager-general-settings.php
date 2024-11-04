@@ -1,8 +1,8 @@
 <?php
 /**
- * Provide a admin area view for Export X-Profile fields data.
+ * Provides an admin area view for exporting X-Profile fields data.
  *
- * This file is used to markup the admin-facing aspects of the plugin.
+ * This file is used to mark up the admin-facing aspects of the plugin.
  *
  * @link       www.wbcomdesigns.com
  * @since      1.0.0
@@ -32,9 +32,9 @@ global $bp_job_manager, $wp_roles;
 								<div class="wbcom-settings-section-wrap">
 									<div class="wbcom-settings-section-options-heading">
 										<label for="wpbpjm-job-member-types">
-											<?php esc_attr_e( 'Post Job Roles', 'bp-job-manager' ); ?>
+											<?php esc_attr_e( 'Job Posting Roles', 'bp-job-manager' ); ?>
 										</label>
-										<p class="description"><?php esc_attr_e( 'Select the user roles that are allowed to post jobs on your site.', 'bp-job-manager' ); ?></p>
+										<p class="description"><?php esc_attr_e( 'Select the user roles allowed to post jobs on your site.', 'bp-job-manager' ); ?></p>
 									</div>
 									<div class="wbcom-settings-section-options">
 										<?php if ( isset( $wp_roles->roles ) ) { ?>
@@ -51,12 +51,12 @@ global $bp_job_manager, $wp_roles;
 										<?php } ?>
 									</div>
 								</div>
-								<!-- ROLES ALLOWED FOR JOB APPLY -->
+								<!-- ROLES ALLOWED FOR JOB APPLICATION -->
 								<div class="wbcom-settings-section-wrap">
 									<div class="wbcom-settings-section-options-heading">
 										<label for="wpbpjm-resume-member-types">
-											<?php esc_attr_e( 'Apply Job Roles', 'bp-job-manager' ); ?>
-											<p class="description"><?php esc_attr_e( 'Select the user roles that are allowed to apply for the jobs on your site.', 'bp-job-manager' ); ?></p>
+											<?php esc_attr_e( 'Job Application Roles', 'bp-job-manager' ); ?>
+											<p class="description"><?php esc_attr_e( 'Select the user roles allowed to apply for jobs on your site.', 'bp-job-manager' ); ?></p>
 										</label>
 									</div>
 									<div class="wbcom-settings-section-options">
@@ -74,12 +74,12 @@ global $bp_job_manager, $wp_roles;
 										<?php } ?>
 									</div>
 								</div>
-								<!-- ROLES ALLOWED FOR JOB APPLY -->
+								<!-- BUDDYPRESS ACTIVITY FOR JOB POSTING -->
 								<div class="wbcom-settings-section-wrap">
 									<div class="wbcom-settings-section-options-heading">
 										<label for="wpbpjm-resume-profile-view">
-											<?php esc_attr_e( 'BuddyPress activity on posting job', 'bp-job-manager' ); ?>
-											<p class="description"><?php esc_attr_e( 'Check this option if you want to create BuddyPress activity on posting job.', 'bp-job-manager' ); ?></p>
+											<?php esc_attr_e( 'BuddyPress Activity for Job Posting', 'bp-job-manager' ); ?>
+											<p class="description"><?php esc_attr_e( 'Enable this option to create BuddyPress activity for job postings.', 'bp-job-manager' ); ?></p>
 										</label>
 									</div>
 									<div class="wbcom-settings-section-options">
@@ -101,8 +101,8 @@ global $bp_job_manager, $wp_roles;
 										<div class="wbcom-settings-section-wrap">
 											<div class="wbcom-settings-section-options-heading">
 												<label for="wpbpjm-resume-profile-view">
-													<?php esc_attr_e( 'BuddyPress activity on posting resume', 'bp-job-manager' ); ?>
-													<p class="description"><?php esc_attr_e( 'Check this option if you want to create BuddyPress activity on posting resume.', 'bp-job-manager' ); ?></p>
+													<?php esc_attr_e( 'BuddyPress Activity for Resume Posting', 'bp-job-manager' ); ?>
+													<p class="description"><?php esc_attr_e( 'Enable this option to create BuddyPress activity for resume postings.', 'bp-job-manager' ); ?></p>
 												</label>
 											</div>
 											<div class="wbcom-settings-section-options">
@@ -120,7 +120,7 @@ global $bp_job_manager, $wp_roles;
 										<div class="wbcom-settings-section-wrap">
 											<div class="wbcom-settings-section-options-heading">
 												<label for="wpbpjm-resume-profile-view">
-													<?php esc_attr_e( 'Display resume at BuddyPress Profile', 'bp-job-manager' ); ?>
+													<?php esc_attr_e( 'Display Resume in BuddyPress Profile', 'bp-job-manager' ); ?>
 												</label>
 											</div>
 											<div class="wbcom-settings-section-options">
@@ -133,7 +133,7 @@ global $bp_job_manager, $wp_roles;
 													>
 													<div class="wb-slider wb-round"></div>
 												</label>
-												<p class="description"><?php esc_attr_e( 'Check this option if you want to list the last updated resume at BuddyPress profile.', 'bp-job-manager' ); ?></p>
+												<p class="description"><?php esc_attr_e( 'Enable this option to display the latest resume in BuddyPress profiles.', 'bp-job-manager' ); ?></p>
 											</div>
 										</div>
 									<?php } ?>
@@ -144,8 +144,8 @@ global $bp_job_manager, $wp_roles;
 										<div class="wbcom-settings-section-wrap">
 											<div class="wbcom-settings-section-options-heading">
 												<label for="wpbpjm-resume-profile-view">
-													<?php esc_attr_e( 'Send BuddyPress notification to job author on a job application', 'bp-job-manager' ); ?>
-													<p class="description"><?php esc_attr_e( 'Check this option if you want to send bp notification to job author when someone applies to the job.', 'bp-job-manager' ); ?></p>
+													<?php esc_attr_e( 'Send BuddyPress Notification for Job Applications', 'bp-job-manager' ); ?>
+													<p class="description"><?php esc_attr_e( 'Enable this option to notify job authors in BuddyPress when a user applies to their job.', 'bp-job-manager' ); ?></p>
 												</label>
 											</div>
 											<div class="wbcom-settings-section-options">
