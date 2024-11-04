@@ -333,116 +333,102 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @author   wbcomdesigns
 		 * @access   public
 		 */
-		public function bpjm_member_profile_jobs_tab()
-		{
+		public function bpjm_member_profile_jobs_tab() {
 			global $bp_job_manager;
-			$displayed_uid = bp_displayed_user_id(); // Assuming this gets the displayed user ID
-			$displayed_user = get_userdata($displayed_uid);
-			$curr_user      = wp_get_current_user();
-			$parent_slug    = 'jobs';
-			$jobs_tab_link  = bp_core_get_userlink($displayed_uid, false, true) . $parent_slug . '/';
-
-			$is_my_profile = bp_is_my_profile();
-
-			$job_count = bpjm_member_profile_jobs_count( $displayed_uid );
-
-			// Check if the current user is the same as the displayed user
-			$is_current_user = (get_current_user_id() === $displayed_uid);
-
-			// Determine the correct label for the job tab
-			$my_job_tab = $is_current_user ? __('My Jobs', 'bp-job-manager') : sprintf(/* translators: %s: bp_core_user_name */ __('%s\'s Jobs', 'bp-job-manager'), ucfirst(bp_core_get_user_displayname($displayed_uid)));
-
-			// Format the job tab to include the count of job listings
-			$job_tab = sprintf(/* translators: %s: bp_core_number_format */__('Jobs %s', 'bp-job-manager'), '<span class="count">' . bp_core_number_format($job_count) . '</span>');
-
-			if (!empty($curr_user->roles) && !empty($displayed_user->roles)) {
-				/**
-				 * Jobs tab - for the roles allowed for job posting.
-				 */
-				$match_post_job_roles_curr_usr = array_intersect($bp_job_manager->post_job_user_roles, $curr_user->roles);
-				$match_post_job_roles_disp_usr = array_intersect($bp_job_manager->post_job_user_roles, $displayed_user->roles);
-				if (!empty($match_post_job_roles_curr_usr) || !empty($match_post_job_roles_disp_usr)) {
-
-					bp_core_new_nav_item(
-						array(
-							'name'                    => $job_tab,
-							'slug'                    => $parent_slug,
-							'screen_function'         => array($this, 'bpjm_jobs_tab_function_to_show_screen'),
-							'position'                => 75,
-							'default_subnav_slug'     => 'my-jobs',
-							'show_for_displayed_user' => true,
-						)
-					);
-
-					bp_core_new_subnav_item(
-						array(
-							'name'            => __('Jobs', 'bp-job-manager'),
-							'slug'            => 'my-jobs',
-							'parent_url'      => $jobs_tab_link . 'my-jobs',
-							'parent_slug'     => $parent_slug,
-							'screen_function' => array($this, 'bpjm_my_jobs_show_screen'),
-							'position'        => 100,
-							'link'            => $jobs_tab_link . 'my-jobs',
-						)
-					);
-					if (get_current_user_id() == $displayed_uid) {
-
-						$wpjm_bookmarks_active = $wpjm_active = in_array('wp-job-manager-bookmarks/wp-job-manager-bookmarks.php', get_option('active_plugins'));
-						if (true === $wpjm_bookmarks_active) {
-							bp_core_new_subnav_item(
-								array(
-									'name'            => __('My Bookmarks', 'bp-job-manager'),
-									'slug'            => 'my-bookmarks',
-									'parent_url'      => $jobs_tab_link . 'my-bookmarks',
-									'parent_slug'     => $parent_slug,
-									'screen_function' => array($this, 'bpjm_bookmarked_jobs_show_screen'),
-									'position'        => 200,
-									'link'            => $jobs_tab_link . 'my-bookmarks',
-								)
-							);
-						}
-
-						$wpjm_alerts_active = $wpjm_active = in_array('wp-job-manager-alerts/wp-job-manager-alerts.php', get_option('active_plugins'));
-						if (true === $wpjm_alerts_active) {
-							bp_core_new_subnav_item(
-								array(
-									'name'            => __('Job Alerts', 'bp-job-manager'),
-									'slug'            => 'job-alerts',
-									'parent_url'      => $jobs_tab_link . 'job-alerts',
-									'parent_slug'     => $parent_slug,
-									'screen_function' => array($this, 'bpjm_job_alerts_show_screen'),
-									'position'        => 200,
-									'link'            => $jobs_tab_link . 'job-alerts',
-								)
-							);
-						}
-
-						bp_core_new_subnav_item(
-							array(
-								'name'            => __('Post Job', 'bp-job-manager'),
-								'slug'            => 'post-job',
-								'parent_url'      => $jobs_tab_link . 'post-job',
-								'parent_slug'     => $parent_slug,
-								'screen_function' => array($this, 'bpjm_post_job_show_screen'),
-								'position'        => 200,
-								'link'            => $jobs_tab_link . 'post-job',
-							)
-						);
+		
+			// Ensure $bp_job_manager exists and post_job_user_roles is defined
+			if ( ! isset( $bp_job_manager ) || ! isset( $bp_job_manager->post_job_user_roles ) ) {
+				return;
+			}
+		
+			$displayed_uid = bp_displayed_user_id();
+			$displayed_user = get_userdata( $displayed_uid );
+			$curr_user = wp_get_current_user();
+		
+			// Ensure $displayed_user and $curr_user are valid WP_User objects
+			if ( ! ( $displayed_user instanceof WP_User ) || ! ( $curr_user instanceof WP_User ) ) {
+				return;
+			}
+		
+			$parent_slug = 'jobs';
+			$jobs_tab_link = bp_core_get_userlink( $displayed_uid, false, true ) . $parent_slug . '/';
+			$is_current_user = ( get_current_user_id() === $displayed_uid );
+			$job_count = function_exists( 'bpjm_member_profile_jobs_count' ) ? bpjm_member_profile_jobs_count( $displayed_uid ) : 0;
+		
+			$my_job_tab = $is_current_user ? __( 'My Jobs', 'bp-job-manager' ) : sprintf( __( "%s's Jobs", 'bp-job-manager' ), ucfirst( bp_core_get_user_displayname( $displayed_uid ) ) );
+			$job_tab = sprintf( __( 'Jobs %s', 'bp-job-manager' ), '<span class="count">' . bp_core_number_format( $job_count ) . '</span>' );
+		
+			// Check if the user has roles to see the Jobs tab
+			$post_job_roles_curr_user = array_intersect( $bp_job_manager->post_job_user_roles, $curr_user->roles );
+			$post_job_roles_disp_user = array_intersect( $bp_job_manager->post_job_user_roles, $displayed_user->roles );
+		
+			if ( ! empty( $post_job_roles_curr_user ) || ! empty( $post_job_roles_disp_user ) ) {
+				bp_core_new_nav_item( array(
+					'name' => $job_tab,
+					'slug' => $parent_slug,
+					'screen_function' => array( $this, 'bpjm_jobs_tab_function_to_show_screen' ),
+					'position' => 75,
+					'default_subnav_slug' => 'my-jobs',
+					'show_for_displayed_user' => true,
+				));
+		
+				bp_core_new_subnav_item( array(
+					'name' => __( 'Jobs', 'bp-job-manager' ),
+					'slug' => 'my-jobs',
+					'parent_url' => $jobs_tab_link . 'my-jobs',
+					'parent_slug' => $parent_slug,
+					'screen_function' => array( $this, 'bpjm_my_jobs_show_screen' ),
+					'position' => 100,
+					'link' => $jobs_tab_link . 'my-jobs',
+				));
+		
+				// Add other submenus for current user
+				if ( $is_current_user ) {
+					if ( in_array( 'wp-job-manager-bookmarks/wp-job-manager-bookmarks.php', get_option( 'active_plugins', [] ) ) ) {
+						bp_core_new_subnav_item( array(
+							'name' => __( 'My Bookmarks', 'bp-job-manager' ),
+							'slug' => 'my-bookmarks',
+							'parent_url' => $jobs_tab_link . 'my-bookmarks',
+							'parent_slug' => $parent_slug,
+							'screen_function' => array( $this, 'bpjm_bookmarked_jobs_show_screen' ),
+							'position' => 200,
+							'link' => $jobs_tab_link . 'my-bookmarks',
+						));
 					}
+		
+					if ( in_array( 'wp-job-manager-alerts/wp-job-manager-alerts.php', get_option( 'active_plugins', [] ) ) ) {
+						bp_core_new_subnav_item( array(
+							'name' => __( 'Job Alerts', 'bp-job-manager' ),
+							'slug' => 'job-alerts',
+							'parent_url' => $jobs_tab_link . 'job-alerts',
+							'parent_slug' => $parent_slug,
+							'screen_function' => array( $this, 'bpjm_job_alerts_show_screen' ),
+							'position' => 200,
+							'link' => $jobs_tab_link . 'job-alerts',
+						));
+					}
+		
+					bp_core_new_subnav_item( array(
+						'name' => __( 'Post Job', 'bp-job-manager' ),
+						'slug' => 'post-job',
+						'parent_url' => $jobs_tab_link . 'post-job',
+						'parent_slug' => $parent_slug,
+						'screen_function' => array( $this, 'bpjm_post_job_show_screen' ),
+						'position' => 200,
+						'link' => $jobs_tab_link . 'post-job',
+					));
 				}
 			} else {
-				bp_core_new_nav_item(
-					array(
-						'name'                    => $job_tab,
-						'slug'                    => 'jobs',
-						'screen_function'         => array($this, 'bpjm_jobs_tab_show_screen'),
-						'position'                => 75,
-						'default_subnav_slug'     => 'jobs',
-						'show_for_displayed_user' => true,
-					)
-				);
+				bp_core_new_nav_item( array(
+					'name' => $job_tab,
+					'slug' => 'jobs',
+					'screen_function' => array( $this, 'bpjm_jobs_tab_show_screen' ),
+					'position' => 75,
+					'default_subnav_slug' => 'jobs',
+					'show_for_displayed_user' => true,
+				));
 			}
-		}
+		}		
 
 		/**
 		 * Screen function for job tab.
