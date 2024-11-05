@@ -10,13 +10,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 $submission_limit           = get_option( 'resume_manager_submission_limit' );
 $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_page_id' );
 ?>
+<?php if ( is_user_logged_in() && ( bp_loggedin_user_id() == bp_displayed_user_id() ) ) : ?>
+	<?php if ( $submit_resume_form_page_id && ( resume_manager_count_user_resumes() < $submission_limit || ! $submission_limit ) ) : ?>
+		<div class="resume-dashboard__actions">
+			<a class="button" href="<?php echo esc_url( get_permalink( $submit_resume_form_page_id ) ); ?>"><?php esc_html_e( 'Add Resume', 'wp-job-manager-resumes' ); ?></a>
+		</div>
+	<?php endif; ?>
+<?php endif; ?>
+
 <div id="resume-manager-candidate-dashboard">
-	<table class="resume-manager-resumes">
-		<thead>
+	<table class="resume-manager-resumes resume-dashboard-table">
+		<thead class="resume-dashboard-header">
 			<tr>
 				<?php if ( ! empty( $candidate_dashboard_columns ) ) : ?>
 					<?php foreach ( $candidate_dashboard_columns as $key => $column ) : ?>
-						<th class="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $column ); ?></th>
+						<th class="resume-dashboard-resume-column-label <?php echo esc_attr( $key ); ?>"><?php echo esc_html( $column ); ?></th>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</tr>
@@ -171,17 +179,6 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 				<?php endforeach; ?>
 			<?php endif; ?>
 		</tbody>
-	<?php if ( is_user_logged_in() && ( bp_loggedin_user_id() == bp_displayed_user_id() ) ) : ?>
-		<?php if ( $submit_resume_form_page_id && ( resume_manager_count_user_resumes() < $submission_limit || ! $submission_limit ) ) : ?>
-			<tfoot>
-				<tr>
-					<td colspan="<?php echo esc_attr( sizeof( $candidate_dashboard_columns ) ); ?>">
-						<a href="<?php echo esc_url( get_permalink( $submit_resume_form_page_id ) ); ?>"><?php esc_html_e( 'Add Resume', 'wp-job-manager-resumes' ); ?></a>
-					</td>
-				</tr>
-			</tfoot>
-		<?php endif; ?>
-	<?php endif; ?>
 	</table>
 	<?php do_action( 'resume_manager_candidate_dashboard_actions', $resumes ); ?>
 </div>

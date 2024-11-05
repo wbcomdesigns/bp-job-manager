@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-07 07:57:10+00:00\n"
+"POT-Creation-Date: 2024-11-05 05:57:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -117,7 +117,7 @@ msgid "General"
 msgstr ""
 
 #: admin/class-bp-job-manager-admin.php:129
-msgid "BP Job Manager"
+msgid "Job Manager"
 msgstr ""
 
 #: admin/class-bp-job-manager-admin.php:158
@@ -130,64 +130,64 @@ msgstr ""
 msgid "Welcome"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:250
-#: public/class-bp-job-manager-public.php:379
-#: public/class-bp-job-manager-public.php:531
-#: public/class-bp-job-manager-public.php:1469
+#: admin/class-bp-job-manager-admin.php:251
+#: public/class-bp-job-manager-public.php:376
+#: public/class-bp-job-manager-public.php:517
+#: public/class-bp-job-manager-public.php:1455
 msgid "Jobs"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:292
-#: public/class-bp-job-manager-public.php:353
-#: public/class-bp-job-manager-public.php:524
+#: admin/class-bp-job-manager-admin.php:293
+#: public/class-bp-job-manager-public.php:358
+#: public/class-bp-job-manager-public.php:510
 msgid "My Jobs"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:305
-#: public/class-bp-job-manager-public.php:394
-#: public/class-bp-job-manager-public.php:630
+#: admin/class-bp-job-manager-admin.php:306
+#: public/class-bp-job-manager-public.php:389
+#: public/class-bp-job-manager-public.php:616
 msgid "My Bookmarks"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:319
-#: public/class-bp-job-manager-public.php:409
-#: public/class-bp-job-manager-public.php:668
+#: admin/class-bp-job-manager-admin.php:320
+#: public/class-bp-job-manager-public.php:401
+#: public/class-bp-job-manager-public.php:654
 msgid "Job Alerts"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:330
+#: admin/class-bp-job-manager-admin.php:331
 msgid "Post a New Job"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:342
+#: admin/class-bp-job-manager-admin.php:344
 msgid "Resumes"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:380
-#: public/class-bp-job-manager-public.php:875
-#: public/class-bp-job-manager-public.php:990
+#: admin/class-bp-job-manager-admin.php:382
+#: public/class-bp-job-manager-public.php:861
+#: public/class-bp-job-manager-public.php:976
 msgid "My Resumes"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:390
-#: public/class-bp-job-manager-public.php:916
-#: public/class-bp-job-manager-public.php:1080
+#: admin/class-bp-job-manager-admin.php:392
+#: public/class-bp-job-manager-public.php:902
+#: public/class-bp-job-manager-public.php:1066
 msgid "Applied Jobs"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:400
-#: public/class-bp-job-manager-public.php:903
-#: public/class-bp-job-manager-public.php:951
-#: public/templates/bpjm-resume-listing.php:179
+#: admin/class-bp-job-manager-admin.php:402
+#: public/class-bp-job-manager-public.php:889
+#: public/class-bp-job-manager-public.php:937
+#: public/templates/bpjm-resume-listing.php:16
 msgid "Add Resume"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:428
+#: admin/class-bp-job-manager-admin.php:430
 #. translators: %1$s: BP user link ;  %2$s: Job Link
 msgid "%1$s posted a new job %2$s"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:460
+#: admin/class-bp-job-manager-admin.php:462
 #. translators: %1$s: Resume user link ;  %2$s: Resume Link
 msgid "%1$s posted resume %2$s"
 msgstr ""
@@ -197,119 +197,115 @@ msgid "General Settings"
 msgstr ""
 
 #: admin/includes/bp-job-manager-general-settings.php:35
-msgid "Post Job Roles"
+msgid "Job Posting Roles"
 msgstr ""
 
 #: admin/includes/bp-job-manager-general-settings.php:37
-msgid "Select the user roles that are allowed to post jobs on your site."
+msgid "Select the user roles allowed to post jobs on your site."
 msgstr ""
 
 #: admin/includes/bp-job-manager-general-settings.php:58
-msgid "Apply Job Roles"
+msgid "Job Application Roles"
 msgstr ""
 
 #: admin/includes/bp-job-manager-general-settings.php:59
-msgid "Select the user roles that are allowed to apply for the jobs on your site."
+msgid "Select the user roles allowed to apply for jobs on your site."
 msgstr ""
 
 #: admin/includes/bp-job-manager-general-settings.php:81
-msgid "BuddyPress activity on posting job"
+msgid "BuddyPress Activity for Job Posting"
 msgstr ""
 
 #: admin/includes/bp-job-manager-general-settings.php:82
-msgid "Check this option if you want to create BuddyPress activity on posting job."
+msgid "Enable this option to create BuddyPress activity for job postings."
 msgstr ""
 
 #: admin/includes/bp-job-manager-general-settings.php:104
-msgid "BuddyPress activity on posting resume"
+msgid "BuddyPress Activity for Resume Posting"
 msgstr ""
 
 #: admin/includes/bp-job-manager-general-settings.php:105
-msgid ""
-"Check this option if you want to create BuddyPress activity on posting "
-"resume."
+msgid "Enable this option to create BuddyPress activity for resume postings."
 msgstr ""
 
 #: admin/includes/bp-job-manager-general-settings.php:123
-msgid "Display resume at BuddyPress Profile"
+msgid "Display Resume in BuddyPress Profile"
 msgstr ""
 
 #: admin/includes/bp-job-manager-general-settings.php:136
-msgid ""
-"Check this option if you want to list the last updated resume at BuddyPress "
-"profile."
+msgid "Enable this option to display the latest resume in BuddyPress profiles."
 msgstr ""
 
 #: admin/includes/bp-job-manager-general-settings.php:147
-msgid "Send BuddyPress notification to job author on a job application"
+msgid "Send BuddyPress Notification for Job Applications"
 msgstr ""
 
 #: admin/includes/bp-job-manager-general-settings.php:148
 msgid ""
-"Check this option if you want to send bp notification to job author when "
-"someone applies to the job."
+"Enable this option to notify job authors in BuddyPress when a user applies "
+"to their job."
 msgstr ""
 
 #: admin/includes/bp-job-manager-general-settings.php:167
 msgid "Save Changes"
 msgstr ""
 
-#: admin/includes/bp-job-manager-welcome-page.php:22
+#: admin/includes/bp-job-manager-welcome-page.php:20
 msgid ""
-"Incorporates BuddyPress with the WP Job Manager plugin by creating specific "
-"tabs in employer’s and candidate’s profiles."
+"Integrates BuddyPress with the WP Job Manager plugin by adding dedicated "
+"tabs for employers and candidates in their profiles."
 msgstr ""
 
-#: admin/includes/bp-job-manager-welcome-page.php:27
-msgid "Help &amp; Support Resources"
+#: admin/includes/bp-job-manager-welcome-page.php:25
+msgid "Help & Support Resources"
 msgstr ""
 
-#: admin/includes/bp-job-manager-welcome-page.php:28
+#: admin/includes/bp-job-manager-welcome-page.php:26
 msgid ""
-"Here are all the resources you may need to get help from us. Documentation "
-"is usually the best place to start. Should you require help anytime, our "
-"customer care team is available to assist you at the support center."
+"Find the resources you need to get help from us. The documentation is a "
+"great place to start. For additional assistance, our customer care team is "
+"available through the support center."
 msgstr ""
 
-#: admin/includes/bp-job-manager-welcome-page.php:33
+#: admin/includes/bp-job-manager-welcome-page.php:31
 msgid "Documentation"
 msgstr ""
 
-#: admin/includes/bp-job-manager-welcome-page.php:34
+#: admin/includes/bp-job-manager-welcome-page.php:32
 msgid ""
-"We have prepared an extensive guide on BuddyPress Job Manager to learn all "
-"aspects of the plugin. You will find most of your answers here."
+"Our comprehensive guide to BuddyPress Job Manager covers all aspects of the "
+"plugin. You’ll find most of your answers here."
 msgstr ""
 
-#: admin/includes/bp-job-manager-welcome-page.php:35
+#: admin/includes/bp-job-manager-welcome-page.php:33
 msgid "Read Documentation"
 msgstr ""
 
-#: admin/includes/bp-job-manager-welcome-page.php:41
+#: admin/includes/bp-job-manager-welcome-page.php:39
 msgid "Support Center"
 msgstr ""
 
-#: admin/includes/bp-job-manager-welcome-page.php:42
+#: admin/includes/bp-job-manager-welcome-page.php:40
 msgid ""
-"We strive to offer the best customer care via our support center. Once your "
-"theme is activated, you can ask us for help anytime."
+"Our support center is here to provide you with top-notch assistance. Once "
+"your plugin is activated, feel free to reach out for help at any time."
 msgstr ""
 
-#: admin/includes/bp-job-manager-welcome-page.php:43
+#: admin/includes/bp-job-manager-welcome-page.php:41
 msgid "Get Support"
 msgstr ""
 
-#: admin/includes/bp-job-manager-welcome-page.php:48
-msgid "Got Feedback?"
+#: admin/includes/bp-job-manager-welcome-page.php:46
+msgid "Share Your Feedback"
 msgstr ""
 
-#: admin/includes/bp-job-manager-welcome-page.php:49
+#: admin/includes/bp-job-manager-welcome-page.php:47
 msgid ""
-"We want to hear about your experience with the plugin. We would also love "
-"to hear any suggestions you may for future updates."
+"We’d love to hear about your experience with the plugin and welcome any "
+"suggestions for future updates."
 msgstr ""
 
-#: admin/includes/bp-job-manager-welcome-page.php:50
+#: admin/includes/bp-job-manager-welcome-page.php:48
 msgid "Send Feedback"
 msgstr ""
 
@@ -952,7 +948,7 @@ msgid ""
 msgstr ""
 
 #: public/class-bp-job-manager-public.php:204
-#: public/class-bp-job-manager-public.php:1035
+#: public/class-bp-job-manager-public.php:1021
 #: public/templates/bpjm-job-listing.php:11
 msgid "Title"
 msgstr ""
@@ -963,7 +959,7 @@ msgid "Filled?"
 msgstr ""
 
 #: public/class-bp-job-manager-public.php:206
-#: public/class-bp-job-manager-public.php:1038
+#: public/class-bp-job-manager-public.php:1024
 #: public/templates/bpjm-job-listing.php:13
 msgid "Date Posted"
 msgstr ""
@@ -974,7 +970,7 @@ msgid "Listing Expires"
 msgstr ""
 
 #: public/class-bp-job-manager-public.php:208
-#: public/class-bp-job-manager-public.php:785
+#: public/class-bp-job-manager-public.php:771
 #: public/templates/bpjm-job-listing.php:15
 msgid "Actions"
 msgstr ""
@@ -986,9 +982,9 @@ msgstr ""
 
 #: public/class-bp-job-manager-public.php:243
 #: public/class-bp-job-manager-public.php:276
-#: public/templates/bpjm-resume-listing.php:49
-#: public/templates/bpjm-resume-listing.php:61
-#: public/templates/bpjm-resume-listing.php:74
+#: public/templates/bpjm-resume-listing.php:57
+#: public/templates/bpjm-resume-listing.php:69
+#: public/templates/bpjm-resume-listing.php:82
 msgid "Edit"
 msgstr ""
 
@@ -1005,7 +1001,7 @@ msgid "Duplicate"
 msgstr ""
 
 #: public/class-bp-job-manager-public.php:267
-#: public/templates/bpjm-resume-listing.php:82
+#: public/templates/bpjm-resume-listing.php:90
 msgid "Relist"
 msgstr ""
 
@@ -1014,147 +1010,145 @@ msgid "Continue Submission"
 msgstr ""
 
 #: public/class-bp-job-manager-public.php:291
-#: public/templates/bpjm-resume-listing.php:90
+#: public/templates/bpjm-resume-listing.php:98
 msgid "Delete"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:353
-#. translators: %s: bp_core_user_name
+#: public/class-bp-job-manager-public.php:358
 msgid "%s's Jobs"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:356
-#. translators: %s: bp_core_number_format
+#: public/class-bp-job-manager-public.php:359
 msgid "Jobs %s"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:422
-#: public/class-bp-job-manager-public.php:484
+#: public/class-bp-job-manager-public.php:412
+#: public/class-bp-job-manager-public.php:470
 msgid "Post Job"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:528
+#: public/class-bp-job-manager-public.php:514
 #. Translators: %s is the name of the user.
 msgid "%s Jobs"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:823
+#: public/class-bp-job-manager-public.php:809
 msgid "Apply"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:829
+#: public/class-bp-job-manager-public.php:815
 msgid "This position has been filled."
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:832
+#: public/class-bp-job-manager-public.php:818
 msgid "You are not allowed to apply for this job."
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:875
-#: public/class-bp-job-manager-public.php:994
+#: public/class-bp-job-manager-public.php:861
+#: public/class-bp-job-manager-public.php:980
 #. translators: %s: bp_core_get_user_displayname
 #. translators: %s: Author Name
 msgid "%s's Resumes"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:876
+#: public/class-bp-job-manager-public.php:862
 #. translators: %s: bp_core_number_format
 msgid "Resumes %s"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1011
+#: public/class-bp-job-manager-public.php:997
 msgid "You need to be signed in to manage your resumes."
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1013
+#: public/class-bp-job-manager-public.php:999
 msgid "Sign in"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1034
+#: public/class-bp-job-manager-public.php:1020
 msgid "Name"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1036
+#: public/class-bp-job-manager-public.php:1022
 #: public/templates/profile-content-single-resume.php:46
 msgid "Location"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1037
+#: public/class-bp-job-manager-public.php:1023
 msgid "Category"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1204
+#: public/class-bp-job-manager-public.php:1190
 msgid "BuddyPress Resumes"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1205
+#: public/class-bp-job-manager-public.php:1191
 msgid "Available Resumes"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1210
+#: public/class-bp-job-manager-public.php:1196
 msgid "Display resume at profile page"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1220
+#: public/class-bp-job-manager-public.php:1206
 msgid "Select resume to display at profile"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1232
+#: public/class-bp-job-manager-public.php:1218
 msgid "Display e-mail field"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1242
+#: public/class-bp-job-manager-public.php:1228
 msgid "Display professional title"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1252
+#: public/class-bp-job-manager-public.php:1238
 msgid "Display location"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1262
+#: public/class-bp-job-manager-public.php:1248
 msgid "Display video link"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1272
+#: public/class-bp-job-manager-public.php:1258
 msgid "Display resume contents(description)"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1282
+#: public/class-bp-job-manager-public.php:1268
 msgid "Display URL(s)"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1292
+#: public/class-bp-job-manager-public.php:1278
 msgid "Display education"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1302
+#: public/class-bp-job-manager-public.php:1288
 msgid "Display experience"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1439
+#: public/class-bp-job-manager-public.php:1425
 msgid "Private Message"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1467
+#: public/class-bp-job-manager-public.php:1453
 msgid "Jobs Update"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1486
+#: public/class-bp-job-manager-public.php:1472
 #. translators: %1$s: Activity user ID
 msgid "%s posted a new job update"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1513
+#: public/class-bp-job-manager-public.php:1499
 #. translators: %1$s: BP User core link
 msgid "%s posted a job update"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1601
+#: public/class-bp-job-manager-public.php:1587
 #. translators: %1$s: Applicant Name
 msgid "%s has applied to the job post."
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1657
+#: public/class-bp-job-manager-public.php:1643
 msgid "You have not permission to post job. Please contect with admin."
 msgstr ""
 
@@ -1198,19 +1192,19 @@ msgstr ""
 msgid "No Attachment"
 msgstr ""
 
-#: public/templates/bpjm-resume-listing.php:27
+#: public/templates/bpjm-resume-listing.php:35
 msgid "You do not have any active resume listings."
 msgstr ""
 
-#: public/templates/bpjm-resume-listing.php:54
+#: public/templates/bpjm-resume-listing.php:62
 msgid "Hide"
 msgstr ""
 
-#: public/templates/bpjm-resume-listing.php:66
+#: public/templates/bpjm-resume-listing.php:74
 msgid "Publish"
 msgstr ""
 
-#: public/templates/bpjm-resume-listing.php:159
+#: public/templates/bpjm-resume-listing.php:167
 #. translators: %s: Expire Date
 msgid "Expires %s"
 msgstr ""
