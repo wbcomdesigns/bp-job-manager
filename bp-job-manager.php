@@ -67,9 +67,6 @@ register_deactivation_hook( __FILE__, 'deactivate_bp_job_manager' );
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-bp-job-manager.php';
-require_once __DIR__ . '/vendor/autoload.php';
-HardG\BuddyPress120URLPolyfills\Loader::init();
-
 /**
  * Begins execution of the plugin.
  *
