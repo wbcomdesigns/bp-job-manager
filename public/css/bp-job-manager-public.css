@@ -184,7 +184,7 @@ body {
     border-radius: 4px;
 }
 
-.wb-reign-theme.my-jobs .job-manager-jobs div#bpjm-job-application-btn a {
+body.wb-reign-theme.my-jobs .job-manager-jobs div#bpjm-job-application-btn a {
     background-color: var(--reign-site-button-bg-color);
     color: var(--reign-site-button-text-color) !important;
     padding: 5px 15px;
