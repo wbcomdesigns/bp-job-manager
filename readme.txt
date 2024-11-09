@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, wp-job-manager, job-manager-applications, job-manager-resumes, Job Manager, BuddyPress Jobs
 Requires at least: 3.0.1
-Tested up to: 6.5.0
-Stable tag: 2.7.1
+Tested up to: 6.6.2
+Stable tag: 2.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,22 @@ The screenshots are present in the root of the plugin folder.
 7. screenshot-7
 
 == Changelog ==
+= 2.8.0 =
+* Added job menu to the admin bar with consistent use of existing count functions.
+* Implemented WPML support for job and resume count functions.
+* Improved UI for job and resume tabs and job dashboard for better user experience.
+* Managed "Apply Job" button compatibility with Reign theme and displayed only published jobs.
+* Enhanced language clarity in General and Welcome Settings for user guidance.
+* Added nonce verification to secure form data processing.
+* Updated database queries to use `$wpdb->prepare()` for security.
+* Fixed mismatched text domains to improve translation consistency.
+* Resolved deprecated function warnings and used `job_manager_applications_new_job_application` hook.
+* Added role validation and error handling for undefined variables.
+* Fixed pagination, undefined capability variables, and removed duplicate files.
+* Cleaned up code by removing unnecessary variables and grouping `define` functions.
+* Fixed PHP deprecated warnings and improved compatibility with logged-out users.
+* Added transient flushing for new installs and simplified settings notices.
+
 = 2.7.1 =
 * Fix- Compatibility check with WordPress 6.5.0
 
