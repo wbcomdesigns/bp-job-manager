@@ -232,134 +232,28 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * This function will list the jobs and resumes link in the dropdown list.
 		 *
 		 * @since    1.0.0
-		 * @author   wbcomdesigns
 		 * @access   public
-		 * @param    array $wp_admin_nav contain wp nav items.
+		 * @param    array $wp_admin_nav Contains wp nav items.
 		 */
 		public function bpjm_setup_admin_bar_links( $wp_admin_nav = array() ) {
 			global $wp_admin_bar, $bp_job_manager;
 			if ( is_user_logged_in() ) {
 				$curr_user = wp_get_current_user();
 				if ( ! empty( $curr_user->roles ) ) {
+					
 					/**
-					 * Jobs menu - for the roles allowed for job posting.
-					 */
-					$post_job_roles = isset( $bp_job_manager->post_job_user_roles ) ? $bp_job_manager->post_job_user_roles : [];
-					$match_post_job_roles = array_intersect( $post_job_roles, $curr_user->roles );
-					if ( ! empty( $match_post_job_roles ) ) {
-						$profile_menu_slug  = 'jobs';
-						$profile_menu_title = __( 'Jobs', 'bp-job-manager' );
-						$current_user_id = get_current_user_id();
-						$job_listings = 0; // Initialize $job_listings with a default value
-						$transient_key = 'user_' . $current_user_id . '_job_listings';
-						$job_listings = get_transient( $transient_key ) !== false ? get_transient( $transient_key ) : 0;
-						if ($current_user_id > 0) {
-							if ($job_listings === false) {
-								$args = array(
-									'post_type'      => 'job_listing',
-									'post_status'    => 'publish',
-									'author'         => $current_user_id,
-									'posts_per_page' => -1,
-									'orderby'        => 'post_date',
-									'order'          => 'ASC',
-									'fields'         => 'ids' // If you only need IDs.
-								);
-								$query = new WP_Query($args);
-								$job_listings = $query->found_posts;
-								// Cache the results for 1 hour.
-								set_transient($transient_key, $job_listings, HOUR_IN_SECONDS);
-								wp_reset_postdata();
-							}
-						}
-
-						$base_url     = bp_loggedin_user_domain() . $profile_menu_slug;
-						$post_job_url = $base_url . '/post-job';
-						$my_jobs_url  = $base_url . '/my-jobs';
-
-						$wp_admin_bar->add_menu(
-							array(
-								'parent' => 'my-account-buddypress',
-								'id'     => 'my-account-' . $profile_menu_slug,
-								'title'  => esc_html( $profile_menu_title ) . ' <span class="count">' . bp_core_number_format($job_listings) . '</span>',
-								'href'   => trailingslashit( $my_jobs_url ),
-							)
-						);
-
-						// Add add-new submenu.
-						$wp_admin_bar->add_menu(
-							array(
-								'parent' => 'my-account-' . $profile_menu_slug,
-								'id'     => 'my-account-' . $profile_menu_slug . '-my-jobs',
-								'title'  => esc_html__( 'My Jobs', 'bp-job-manager' ),
-								'href'   => trailingslashit( $my_jobs_url ),
-							)
-						);
-
-						$wpjm_bookmarks_active = in_array( 'wp-job-manager-bookmarks/wp-job-manager-bookmarks.php', get_option( 'active_plugins' ) );
-						if ( true === $wpjm_bookmarks_active ) {
-							$bookmarked_jobs_url = $base_url . '/my-bookmarks';
-							// Add add-new submenu.
-							$wp_admin_bar->add_menu(
-								array(
-									'parent' => 'my-account-' . $profile_menu_slug,
-									'id'     => 'my-account-' . $profile_menu_slug . '-my-bookmarks',
-									'title'  => esc_html__( 'My Bookmarks', 'bp-job-manager' ),
-									'href'   => trailingslashit( $bookmarked_jobs_url ),
-								)
-							);
-						}
-
-						$wpjm_alerts_active = in_array( 'wp-job-manager-alerts/wp-job-manager-alerts.php', get_option( 'active_plugins' ) );
-						if ( true === $wpjm_alerts_active ) {
-							$job_alerts_url = $base_url . '/job-alerts';
-							// Add add-new submenu.
-							$wp_admin_bar->add_menu(
-								array(
-									'parent' => 'my-account-' . $profile_menu_slug,
-									'id'     => 'my-account-' . $profile_menu_slug . '-job-alerts',
-									'title'  => esc_html__( 'Job Alerts', 'bp-job-manager' ),
-									'href'   => trailingslashit( $job_alerts_url ),
-								)
-							);
-						}
-
-						// Add add-new submenu.
-						$wp_admin_bar->add_menu(
-							array(
-								'parent' => 'my-account-' . $profile_menu_slug,
-								'id'     => 'my-account-' . $profile_menu_slug . '-post-job',
-								'title'  => esc_html__( 'Post a New Job', 'bp-job-manager' ),
-								'href'   => trailingslashit( $post_job_url ),
-							)
-						);
-					}
-
-					/**
-					 * Resumes menu - for the roles allowed for job posting
+					 * Resumes menu - for the roles allowed for job posting.
 					 */
 					$apply_job_roles = isset( $bp_job_manager->apply_job_user_roles ) ? $bp_job_manager->apply_job_user_roles : [];
 					$match_apply_job_roles = array_intersect( $apply_job_roles, $curr_user->roles );
 					if ( ! empty( $match_apply_job_roles ) ) {
+						// Resumes menu
 						$profile_menu_slug  = 'resumes';
 						$profile_menu_title = esc_html__( 'Resumes', 'bp-job-manager' );
-						$my_resumes_count = 0;
-						$current_user_id = get_current_user_id();
-						$transient_key = 'user_' . $current_user_id . '_my_resumes_count';
-						$my_resumes_count = get_transient( $transient_key ) !== false ? get_transient( $transient_key ) : 0;
-						if ($my_resumes_count === false) {
-							$args = [
-								'post_type'      => 'resume',
-								'post_status'    => 'publish',
-								'author'         => $current_user_id,
-								'posts_per_page' => -1,
-								'fields'         => 'ids', // Only get post IDs to improve performance.
-							];
 
-							$query = new WP_Query($args);
-							$my_resumes_count = $query->found_posts;
-							// Cache the results for 1 hour.
-							set_transient($transient_key, $my_resumes_count, HOUR_IN_SECONDS);
-						}
+						// Get resume count using the helper function
+						$my_resumes_count = bpjm_member_profile_resumes_count( get_current_user_id() );
+
 						$base_url         = bp_loggedin_user_domain() . $profile_menu_slug;
 						$my_resumes_url   = $base_url . '/my-resumes';
 						$applied_jobs_url = $base_url . '/applied-jobs';
@@ -374,7 +268,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 							)
 						);
 
-						// Add add-new submenu.
+						// Add resume submenu items
 						$wp_admin_bar->add_menu(
 							array(
 								'parent' => 'my-account-' . $profile_menu_slug,
@@ -384,7 +278,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 							)
 						);
 
-						// Add add-new submenu.
 						$wp_admin_bar->add_menu(
 							array(
 								'parent' => 'my-account-' . $profile_menu_slug,
@@ -394,7 +287,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 							)
 						);
 
-						// Add add-new submenu.
 						$wp_admin_bar->add_menu(
 							array(
 								'parent' => 'my-account-' . $profile_menu_slug,
@@ -404,9 +296,57 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 							)
 						);
 					}
+
+					/**
+					 * Jobs menu - for the roles allowed for job posting.
+					 */
+					$job_posting_roles = isset( $bp_job_manager->post_job_user_roles ) ? $bp_job_manager->post_job_user_roles : [];
+					$match_job_posting_roles = array_intersect( $job_posting_roles, $curr_user->roles );
+					if ( ! empty( $match_job_posting_roles ) ) {
+						// Jobs menu
+						$jobs_menu_slug   = 'jobs';
+						$jobs_menu_title  = esc_html__( 'Jobs', 'bp-job-manager' );
+
+						// Get job count using the helper function
+						$my_jobs_count = bpjm_member_profile_jobs_count( get_current_user_id() );
+
+						$jobs_base_url    = bp_loggedin_user_domain() . $jobs_menu_slug;
+						$my_jobs_url      = $jobs_base_url . '/my-jobs';
+						$post_job_url     = $jobs_base_url . '/post-job';
+
+						$wp_admin_bar->add_menu(
+							array(
+								'parent' => 'my-account-buddypress',
+								'id'     => 'my-account-' . $jobs_menu_slug,
+								'title'  => esc_html( $jobs_menu_title ) . ' <span class="count">' . bp_core_number_format($my_jobs_count) . '</span>',
+								'href'   => trailingslashit( $my_jobs_url ),
+							)
+						);
+
+						// Add job submenu items
+						$wp_admin_bar->add_menu(
+							array(
+								'parent' => 'my-account-' . $jobs_menu_slug,
+								'id'     => 'my-account-' . $jobs_menu_slug . '-my-jobs',
+								'title'  => esc_html__( 'My Jobs', 'bp-job-manager' ),
+								'href'   => trailingslashit( $my_jobs_url ),
+							)
+						);
+
+						$wp_admin_bar->add_menu(
+							array(
+								'parent' => 'my-account-' . $jobs_menu_slug,
+								'id'     => 'my-account-' . $jobs_menu_slug . '-post-job',
+								'title'  => esc_html__( 'Post Job', 'bp-job-manager' ),
+								'href'   => trailingslashit( $post_job_url ),
+							)
+						);
+					}
 				}
 			}
 		}
+
+
 
 		/**
 		 * Display Job listings
