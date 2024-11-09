@@ -17,12 +17,12 @@ $job_dashboard_columns = array(
 
 ?>
 <div id="job-manager-job-dashboard">
-	<table class="job-manager-jobs">
-		<thead>
+	<table class="job-manager-jobs job-dashboard-table">
+		<thead class="job-dashboard-header">
 			<tr>
 				<?php foreach ( $job_dashboard_columns as $key => $column ) : ?>
-					<th class="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $column ); ?></th>
-				<?php endforeach; ?>
+					<th class="job-dashboard-job-column-label <?php echo esc_attr( $key ); ?>"><?php echo esc_html( $column ); ?></th>
+				<?php endforeach; ?> 
 			</tr>
 		</thead>
 		<tbody>
