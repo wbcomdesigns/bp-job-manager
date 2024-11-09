@@ -1187,13 +1187,13 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 					<table class="profile-settings bp-tables-user">
 						<thead>
 							<tr>
-								<th class="title field-group-name"><?php esc_html_e('BuddyPress Resumes', 'buddypress'); ?></th>
-								<th class="title"><?php esc_html_e('Available Resumes', 'buddypress'); ?></th>
+								<th class="title field-group-name"><?php esc_html_e('BuddyPress Resumes', 'bp-job-manager'); ?></th>
+								<th class="title"><?php esc_html_e('Available Resumes', 'bp-job-manager'); ?></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr class="field_name field_type_textbox">
-								<td class="field-name"><?php esc_html_e('Display resume at profile page', 'buddypress'); ?></td>
+								<td class="field-name"><?php esc_html_e('Display resume at profile page', 'bp-job-manager'); ?></td>
 								<td class="field-visibility">
 									<input class="bpjm-display-resume-checkbox" type="checkbox" value="yes" name="bpjm_display[display_resume]" <?php
 																																				if (!empty($fields_display['display_resume'])) {
@@ -1203,7 +1203,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 								</td>
 							</tr>
 							<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr($display_class); ?>">
-								<td class="field-name"><?php esc_html_e('Select resume to display at profile', 'buddypress'); ?></td>
+								<td class="field-name"><?php esc_html_e('Select resume to display at profile', 'bp-job-manager'); ?></td>
 								<td class="field-visibility">
 									<select name="bpjm_prof_resume_show_postid">
 										<?php
@@ -1215,7 +1215,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 								</td>
 							</tr>
 							<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr($display_class); ?>">
-								<td class="field-name"><?php esc_html_e('Display e-mail field', 'buddypress'); ?></td>
+								<td class="field-name"><?php esc_html_e('Display e-mail field', 'bp-job-manager'); ?></td>
 								<td class="field-visibility">
 									<input type="checkbox" value="yes" name="bpjm_display[email]" <?php
 																									if (!empty($fields_display['email'])) {
@@ -1225,7 +1225,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 								</td>
 							</tr>
 							<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr($display_class); ?>">
-								<td class="field-name"><?php esc_html_e('Display professional title', 'buddypress'); ?></td>
+								<td class="field-name"><?php esc_html_e('Display professional title', 'bp-job-manager'); ?></td>
 								<td class="field-visibility">
 									<input type="checkbox" value="yes" name="bpjm_display[prof_title]" <?php
 																										if (!empty($fields_display['prof_title'])) {
@@ -1235,7 +1235,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 								</td>
 							</tr>
 							<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr($display_class); ?>">
-								<td class="field-name"><?php esc_html_e('Display location', 'buddypress'); ?></td>
+								<td class="field-name"><?php esc_html_e('Display location', 'bp-job-manager'); ?></td>
 								<td class="field-visibility">
 									<input type="checkbox" value="yes" name="bpjm_display[location]" <?php
 																										if (!empty($fields_display['location'])) {
@@ -1245,7 +1245,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 								</td>
 							</tr>
 							<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr($display_class); ?>">
-								<td class="field-name"><?php esc_html_e('Display video link', 'buddypress'); ?></td>
+								<td class="field-name"><?php esc_html_e('Display video link', 'bp-job-manager'); ?></td>
 								<td class="field-visibility">
 									<input type="checkbox" value="yes" name="bpjm_display[video]" <?php
 																									if (!empty($fields_display['video'])) {
@@ -1255,7 +1255,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 								</td>
 							</tr>
 							<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr($display_class); ?>">
-								<td class="field-name"><?php esc_html_e('Display resume contents(description)', 'buddypress'); ?></td>
+								<td class="field-name"><?php esc_html_e('Display resume contents(description)', 'bp-job-manager'); ?></td>
 								<td class="field-visibility">
 									<input type="checkbox" value="yes" name="bpjm_display[description]" <?php
 																										if (!empty($fields_display['description'])) {
@@ -1265,7 +1265,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 								</td>
 							</tr>
 							<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr($display_class); ?>">
-								<td class="field-name"><?php esc_html_e('Display URL(s)', 'buddypress'); ?></td>
+								<td class="field-name"><?php esc_html_e('Display URL(s)', 'bp-job-manager'); ?></td>
 								<td class="field-visibility">
 									<input type="checkbox" value="yes" name="bpjm_display[url]" <?php
 																								if (!empty($fields_display['url'])) {
@@ -1275,7 +1275,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 								</td>
 							</tr>
 							<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr($display_class); ?>">
-								<td class="field-name"><?php esc_html_e('Display education', 'buddypress'); ?></td>
+								<td class="field-name"><?php esc_html_e('Display education', 'bp-job-manager'); ?></td>
 								<td class="field-visibility">
 									<input type="checkbox" value="yes" name="bpjm_display[education]" <?php
 																										if (!empty($fields_display['education'])) {
@@ -1285,7 +1285,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 								</td>
 							</tr>
 							<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr($display_class); ?>">
-								<td class="field-name"><?php esc_html_e('Display experience', 'buddypress'); ?></td>
+								<td class="field-name"><?php esc_html_e('Display experience', 'bp-job-manager'); ?></td>
 								<td class="field-visibility">
 									<input type="checkbox" value="yes" name="bpjm_display[experience]" <?php
 																										if (!empty($fields_display['experience'])) {
