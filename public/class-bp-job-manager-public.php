@@ -994,7 +994,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 				?>
 				<div id="resume-manager-candidate-dashboard">
 					<p class="account-sign-in">
-						<?php esc_html_e('You need to be signed in to manage your resumes.', 'wp-job-manager-resumes'); ?>
+						<?php esc_html_e('You need to be signed in to manage your resumes.', 'bp-job-manager'); ?>
 						<a class="button" href="<?php echo apply_filters('resume_manager_candidate_dashboard_login_url', wp_login_url(get_permalink())); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
 												?>"><?php esc_html_e('Sign in', 'bp-job-manager'); ?></a>
 					</p>
@@ -1017,11 +1017,11 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			$resumes = new WP_Query();
 
 			$candidate_dashboard_columns = array(
-				'resume-title'       => __('Name', 'wp-job-manager-resumes'),
-				'candidate-title'    => __('Title', 'wp-job-manager-resumes'),
-				'candidate-location' => __('Location', 'wp-job-manager-resumes'),
-				'resume-category'    => __('Category', 'wp-job-manager-resumes'),
-				'date'               => __('Date Posted', 'wp-job-manager-resumes'),
+				'resume-title'       => __('Name', 'bp-job-manager'),
+				'candidate-title'    => __('Title', 'bp-job-manager'),
+				'candidate-location' => __('Location', 'bp-job-manager'),
+				'resume-category'    => __('Category', 'bp-job-manager'),
+				'date'               => __('Date Posted', 'bp-job-manager'),
 			);
 
 			if (!get_option('resume_manager_enable_categories')) {

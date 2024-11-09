@@ -13,7 +13,7 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 <?php if ( is_user_logged_in() && ( bp_loggedin_user_id() == bp_displayed_user_id() ) ) : ?>
 	<?php if ( $submit_resume_form_page_id && ( resume_manager_count_user_resumes() < $submission_limit || ! $submission_limit ) ) : ?>
 		<div class="resume-dashboard__actions">
-			<a class="button" href="<?php echo esc_url( get_permalink( $submit_resume_form_page_id ) ); ?>"><?php esc_html_e( 'Add Resume', 'wp-job-manager-resumes' ); ?></a>
+			<a class="button" href="<?php echo esc_url( get_permalink( $submit_resume_form_page_id ) ); ?>"><?php esc_html_e( 'Add Resume', 'bp-job-manager' ); ?></a>
 		</div>
 	<?php endif; ?>
 <?php endif; ?>
@@ -32,7 +32,7 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 		<tbody>
 			<?php if ( ! $resumes ) : ?>
 				<tr>
-					<td colspan="<?php echo esc_attr( sizeof( $candidate_dashboard_columns ) ); ?>"><?php esc_html_e( 'You do not have any active resume listings.', 'wp-job-manager-resumes' ); ?></td>
+					<td colspan="<?php echo esc_attr( sizeof( $candidate_dashboard_columns ) ); ?>"><?php esc_html_e( 'You do not have any active resume listings.', 'bp-job-manager' ); ?></td>
 				</tr>
 			<?php else : ?>
 				<?php foreach ( $resumes as $resume ) : ?>
@@ -164,7 +164,7 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 										<?php
 										if ( ! empty( $resume->_resume_expires ) && strtotime( $resume->_resume_expires ) > current_time( 'timestamp' ) ) {
 											/* translators: %s: Expire Date*/
-											printf( esc_html__( 'Expires %s', 'wp-job-manager-resumes' ), esc_html( wp_date( get_option( 'date_format' ), strtotime( $resume->_resume_expires ) ) ) );
+											printf( esc_html__( 'Expires %s', 'bp-job-manager' ), esc_html( wp_date( get_option( 'date_format' ), strtotime( $resume->_resume_expires ) ) ) );
 										} else {
 											echo esc_html( wp_date( get_option( 'date_format' ), strtotime( $resume->post_date ) ) );
 										}
