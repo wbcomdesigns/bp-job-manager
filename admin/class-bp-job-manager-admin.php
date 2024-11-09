@@ -361,8 +361,15 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 				global $wpdb;
 				$table_name = $wpdb->prefix . 'bp_activity';
 				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
+
 				if ( $get_table == $table_name ) {
-					$check = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$table_name} WHERE item_id = %d AND type IN (%s)", $post->ID, 'bpjm_job_post') );
+					// Use prepare with placeholders to avoid direct interpolation
+					$check = $wpdb->get_results( $wpdb->prepare( 
+						"SELECT * FROM {$table_name} WHERE item_id = %d AND type = %s", 
+						$post->ID, 
+						'bpjm_job_post' 
+					) );
+
 					if ( ! $check ) {
 						$args['type']  = 'bpjm_job_post';
 						$job_permalink = '<a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a>';
@@ -378,6 +385,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 				}
 			}
 		}
+
 
 		/**
 		 * Publish resume.
