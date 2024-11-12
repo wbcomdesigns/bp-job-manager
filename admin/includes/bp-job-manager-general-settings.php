@@ -32,9 +32,9 @@ global $bp_job_manager, $wp_roles;
 								<div class="wbcom-settings-section-wrap">
 									<div class="wbcom-settings-section-options-heading">
 										<label for="wpbpjm-job-member-types">
-											<?php esc_attr_e( 'Job Posting Roles', 'bp-job-manager' ); ?>
+											<?php esc_attr_e( 'Roles Allowed for Job Posting', 'bp-job-manager' ); ?>
 										</label>
-										<p class="description"><?php esc_attr_e( 'Select the user roles allowed to post jobs on your site.', 'bp-job-manager' ); ?></p>
+										<p class="description"><?php esc_attr_e( 'Select the user roles that can post jobs on your site. Choose "Guest" to allow non-logged-in users to post jobs.', 'bp-job-manager' ); ?></p>
 									</div>
 									<div class="wbcom-settings-section-options">
 										<?php if ( isset( $wp_roles->roles ) ) { ?>
@@ -43,10 +43,17 @@ global $bp_job_manager, $wp_roles;
 													<option value="<?php echo esc_attr( $slug ); ?>" 
 														<?php
 														if ( ! empty( $bp_job_manager->post_job_user_roles ) && in_array( $slug, $bp_job_manager->post_job_user_roles, true ) ) {
-															echo 'selected = selected'; }
+															echo 'selected="selected"'; }
 														?>
 													><?php echo esc_html( $wp_role['name'] ); ?></option>
 												<?php } ?>
+												<!-- Add "Guest" option for non-logged-in users -->
+												<option value="guest" 
+													<?php
+													if ( ! empty( $bp_job_manager->post_job_user_roles ) && in_array( 'guest', $bp_job_manager->post_job_user_roles, true ) ) {
+														echo 'selected="selected"'; }
+													?>
+												><?php esc_html_e( 'Guest (Non-Logged-In Users)', 'bp-job-manager' ); ?></option>
 											</select>
 										<?php } ?>
 									</div>
@@ -55,8 +62,8 @@ global $bp_job_manager, $wp_roles;
 								<div class="wbcom-settings-section-wrap">
 									<div class="wbcom-settings-section-options-heading">
 										<label for="wpbpjm-resume-member-types">
-											<?php esc_attr_e( 'Job Application Roles', 'bp-job-manager' ); ?>
-											<p class="description"><?php esc_attr_e( 'Select the user roles allowed to apply for jobs on your site.', 'bp-job-manager' ); ?></p>
+											<?php esc_attr_e( 'Roles Allowed for Job Applications', 'bp-job-manager' ); ?>
+											<p class="description"><?php esc_attr_e( 'Select the user roles that can apply for jobs on your site. Choose "Guest" to allow non-logged-in users to apply for jobs.', 'bp-job-manager' ); ?></p>
 										</label>
 									</div>
 									<div class="wbcom-settings-section-options">
@@ -66,10 +73,17 @@ global $bp_job_manager, $wp_roles;
 													<option value="<?php echo esc_attr( $slug ); ?>" 
 																			<?php
 																			if ( ! empty( $bp_job_manager->apply_job_user_roles ) && in_array( $slug, $bp_job_manager->apply_job_user_roles, true ) ) {
-																				echo 'selected = selected'; }
+																				echo 'selected="selected"'; }
 																			?>
 													><?php echo esc_html( $wp_role['name'] ); ?></option>
 												<?php } ?>
+												<!-- Add "Guest" option for non-logged-in users -->
+												<option value="guest" 
+													<?php
+													if ( ! empty( $bp_job_manager->apply_job_user_roles ) && in_array( 'guest', $bp_job_manager->apply_job_user_roles, true ) ) {
+														echo 'selected="selected"'; }
+													?>
+												><?php esc_html_e( 'Guest (Non-Logged-In Users)', 'bp-job-manager' ); ?></option>
 											</select>
 										<?php } ?>
 									</div>
@@ -79,7 +93,7 @@ global $bp_job_manager, $wp_roles;
 									<div class="wbcom-settings-section-options-heading">
 										<label for="wpbpjm-resume-profile-view">
 											<?php esc_attr_e( 'BuddyPress Activity for Job Posting', 'bp-job-manager' ); ?>
-											<p class="description"><?php esc_attr_e( 'Enable this option to create BuddyPress activity for job postings.', 'bp-job-manager' ); ?></p>
+											<p class="description"><?php esc_attr_e( 'Enable this option to create BuddyPress activity entries for job postings.', 'bp-job-manager' ); ?></p>
 										</label>
 									</div>
 									<div class="wbcom-settings-section-options">
@@ -102,7 +116,7 @@ global $bp_job_manager, $wp_roles;
 											<div class="wbcom-settings-section-options-heading">
 												<label for="wpbpjm-resume-profile-view">
 													<?php esc_attr_e( 'BuddyPress Activity for Resume Posting', 'bp-job-manager' ); ?>
-													<p class="description"><?php esc_attr_e( 'Enable this option to create BuddyPress activity for resume postings.', 'bp-job-manager' ); ?></p>
+													<p class="description"><?php esc_attr_e( 'Enable this option to create BuddyPress activity entries for resume postings.', 'bp-job-manager' ); ?></p>
 												</label>
 											</div>
 											<div class="wbcom-settings-section-options">
@@ -133,7 +147,7 @@ global $bp_job_manager, $wp_roles;
 													>
 													<div class="wb-slider wb-round"></div>
 												</label>
-												<p class="description"><?php esc_attr_e( 'Enable this option to display the latest resume in BuddyPress profiles.', 'bp-job-manager' ); ?></p>
+												<p class="description"><?php esc_attr_e( 'Enable this option to display the latest resume on BuddyPress profiles.', 'bp-job-manager' ); ?></p>
 											</div>
 										</div>
 									<?php } ?>
@@ -145,7 +159,7 @@ global $bp_job_manager, $wp_roles;
 											<div class="wbcom-settings-section-options-heading">
 												<label for="wpbpjm-resume-profile-view">
 													<?php esc_attr_e( 'Send BuddyPress Notification for Job Applications', 'bp-job-manager' ); ?>
-													<p class="description"><?php esc_attr_e( 'Enable this option to notify job authors in BuddyPress when a user applies to their job.', 'bp-job-manager' ); ?></p>
+													<p class="description"><?php esc_attr_e( 'Enable this option to send a BuddyPress notification to job authors when a user applies to their job.', 'bp-job-manager' ); ?></p>
 												</label>
 											</div>
 											<div class="wbcom-settings-section-options">
