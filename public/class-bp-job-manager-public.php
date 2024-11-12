@@ -1622,18 +1622,22 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @param boolean $can_post user can post or not.
 		 * @return boolean
 		 */
-		public function bpjm_restrict_user_post_job($can_post)
-		{
+		public function bpjm_restrict_user_post_job($can_post) {
 			global $bp_job_manager;
-
-			$user_id                       = bp_loggedin_user_id();
-			$user                          = get_userdata($user_id);
-			$match_post_job_roles_curr_usr = (!empty($bp_job_manager) && !empty($user) ) ? array_intersect($bp_job_manager->post_job_user_roles, $user->roles) : array();
-			if (empty($match_post_job_roles_curr_usr)) {
-				$can_post = false;
+		
+			if (!is_user_logged_in()) {
+				// Allow posting if "Guest" role is in the allowed posting roles
+				return in_array('guest', $bp_job_manager->post_job_user_roles, true);
 			}
-			return $can_post;
-		}
+		
+			// Proceed with checking roles if the user is logged in
+			$user_id = bp_loggedin_user_id();
+			$user = get_userdata($user_id);
+		
+			$match_post_job_roles_curr_user = (!empty($bp_job_manager) && !empty($user)) ? array_intersect($bp_job_manager->post_job_user_roles, $user->roles) : array();
+		
+			return !empty($match_post_job_roles_curr_user);
+		}		
 
 		/**
 		 * Display message to restrict user role to not post job

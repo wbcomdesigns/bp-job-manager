@@ -117,7 +117,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 			$this->plugin_name = 'bp-job-manager';
 			$this->version     = '1.0.1';
 			$this->setup_plugin_global();
-
 		}
 
 		/**
@@ -131,7 +130,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 
 			if ( empty( $settings ) ) {
 				$this->apply_job_user_roles   = array( 'administrator', 'candidate', 'subscriber' );
-				$this->post_job_user_roles    = array( 'administrator', 'employer' );
+				$this->post_job_user_roles    = array( 'administrator', 'employer', 'guest' ); // Add "Guest" role here
 				$this->bpjm_resume_at_profile = 'yes';
 			} else {
 				if ( ! empty( $settings['apply_job_user_roles'] ) ) {
@@ -140,6 +139,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 				if ( ! empty( $settings['post_job_user_roles'] ) ) {
 					$this->post_job_user_roles = $settings['post_job_user_roles'];
 				}
+
+				// Always include "Guest" as a placeholder role
+				$this->post_job_user_roles[] = 'guest';
 
 				if ( array_key_exists( 'bpjm_resume_at_profile', $settings ) ) {
 					$this->bpjm_resume_at_profile = 'yes';
