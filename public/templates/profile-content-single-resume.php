@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function bpjm_show_resume_at_profile( $post_id)
 {
 	global $post;
-	$fields_display = get_user_meta( bp_loggedin_user_id(), 'bpjm_display_fields', true );
+	$fields_display = get_user_meta( bp_displayed_user_id(), 'bpjm_display_fields', true );
 	if ( ! is_array( $fields_display ) ) {
 		return;
 	}
