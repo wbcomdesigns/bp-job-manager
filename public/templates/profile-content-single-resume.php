@@ -31,31 +31,36 @@ if ( isset( $fields_display['email'] ) || isset( $fields_display['prof_title'] )
 			<?php } ?>
 			<table class="profile-fields">
 				<?php
-				if ( ! empty( $fields_display['email'] ) || ! empty( $fields_display['prof_title'] ) || ! empty( $fields_display['location'] ) || ! empty( $fields_display['video'] ) || ! empty( $fields_display['description'] ) ) {
-					$email = get_post_meta( $post_id, '_candidate_email', true );
-					echo "<tr>
-								<td class='label'>" . esc_html__( 'E-mail', 'bp-job-manager' ) . "</td>
-								<td class='data'>" . esc_html( sanitize_email( $email ) ) . '</td>
-							  </tr>';
-					?>
-					<tr>
-						<td class="label"><?php esc_html_e( 'Professional Title', 'bp-job-manager' ); ?></td>
-						<td class="data"><?php echo esc_html( the_candidate_title() ); ?></td>
-					</tr>
-					<tr>
-						<td class="label"><?php esc_html_e( 'Location', 'bp-job-manager' ); ?></td>
-						<td class="data"><?php echo esc_html( the_candidate_location() ); ?></td>
-					</tr>
-					<tr>
-						<td class="label"><?php esc_html_e( 'Video', 'bp-job-manager' ); ?></td>
-						<td class="data"><?php echo esc_html( the_candidate_video() ); ?></td>
-					</tr>
-					<tr>
-						<td class="label"><?php esc_html_e( 'Description', 'bp-job-manager' ); ?></td>
-						<td class="data"><?php echo wp_kses_post( apply_filters( 'the_resume_description', get_the_content() ) ); ?></td>
-					</tr>
-					<?php
-				}
+				
+				if ( ! empty( $fields_display['email'] )  ) {
+
+				$email = get_post_meta( $post_id, '_candidate_email', true ); ?>
+				<tr>
+					<td class='label'> <?php esc_html_e( 'E-mail', 'bp-job-manager' ); ?></td>
+					<td class='data'> <?php echo esc_html( sanitize_email( $email ) ); ?> </td>
+				</tr>
+				<?php } if ( ! empty( $fields_display['prof_title'] ) ) {?>
+				<tr>
+					<td class="label"><?php esc_html_e( 'Professional Title', 'bp-job-manager' ); ?></td>
+					<td class="data"><?php echo esc_html( the_candidate_title() ); ?></td>
+				</tr>
+				<?php } if ( ! empty( $fields_display['location'] ) ) {?>
+				<tr>
+					<td class="label"><?php esc_html_e( 'Location', 'bp-job-manager' ); ?></td>
+					<td class="data"><?php echo esc_html( the_candidate_location() ); ?></td>
+				</tr>
+				<?php } if ( ! empty( $fields_display['video'] ) ) { ?>
+				<tr>
+					<td class="label"><?php esc_html_e( 'Video', 'bp-job-manager' ); ?></td>
+					<td class="data"><?php echo esc_html( the_candidate_video() ); ?></td>
+				</tr>
+				<?php } if ( ! empty( $fields_display['description'] ) ) { ?>
+				<tr>
+					<td class="label"><?php esc_html_e( 'Description', 'bp-job-manager' ); ?></td>
+					<td class="data"><?php echo wp_kses_post( apply_filters( 'the_resume_description', get_the_content() ) ); ?></td>
+				</tr>
+				<?php }
+				
 				?>
 			</table>
 		</div>
