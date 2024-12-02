@@ -209,8 +209,11 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 				/*Action to render resume content at buddypress profile page*/
 				$this->loader->add_action( 'bp_after_profile_loop_content', $plugin_public, 'bpjm_bp_profile_field_item' );
 				if( class_exists( 'Youzify' ) ) {
+					global $bp_job_manager;
+					if ( isset($bp_job_manager->bpjm_resume_at_profile) && $bp_job_manager->bpjm_resume_at_profile === 'yes' ) {
+						$this->loader->add_action( 'wp', $plugin_public, 'bpjm_add_resume_fields_visibility_menu' );
+					}
 					
-					$this->loader->add_action( 'wp', $plugin_public, 'bpjm_add_resume_fields_visibility_menu' );
 				} else {
 					$this->loader->add_action( 'bp_core_xprofile_settings_before_submit', $plugin_public, 'bpjm_resume_settings_before_submit' );
 				}

@@ -285,3 +285,28 @@ body.wb-reign-theme.my-jobs .job-manager-jobs div#bpjm-job-application-btn a {
         border: 1px solid#e5e7e8;
     }
 }
+
+
+.bpjm-flex-container {
+    display: flex;
+    background-color: white;
+    align-items: center;
+}
+    
+.bpjm-flex-container > div {
+    background-color: #ef5455 !important;
+    padding: 12px;
+}
+
+.bpjm-fa-icon{
+    color: white;
+    font-size: 15px !important;
+}
+
+.bpjm-flex-container > p {
+    font-size: 14px;
+    line-height: 1.5 !important;
+    color: #807f7f;
+    margin-top : 12px;
+    margin-left : 24px;
+}

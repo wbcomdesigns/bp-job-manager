@@ -1208,7 +1208,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 				if ($user_posts && isset($bp_job_manager->bpjm_resume_at_profile) && $bp_job_manager->bpjm_resume_at_profile === 'yes') {
 					if(class_exists('Youzify')){?>
 						<form method="post">
-				<?php } ?>
+					<?php } ?>
 					<table class="profile-settings bp-tables-user">
 						<thead>
 							<tr>
@@ -1321,15 +1321,26 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 							</tr>
 						</tbody>
 					</table>
-				<?php 
-				 if(class_exists('Youzify')){?>
-						<button name="bpjm-resume-fields-settings-submit" class="youzify-save-options" type="submit">
-							<?php esc_html_e( 'Save Changes', 'bp-job-manager' ) ?>
-						</button>
-						<?php wp_nonce_field( 'bpjm_resume_fields_settings_nonce' ); ?>
-					</form>
-				<?php }
+					<?php 
+					if(class_exists('Youzify')){?>
+							<button name="bpjm-resume-fields-settings-submit" class="youzify-save-options" type="submit">
+								<?php esc_html_e( 'Save Changes', 'bp-job-manager' ) ?>
+							</button>
+							<?php wp_nonce_field( 'bpjm_resume_fields_settings_nonce' ); ?>
+						</form>
+					<?php }
 				
+				} else {
+					if ( empty( $user_posts ) && class_exists( 'Youzify' ) ){
+						
+						wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/bp-job-manager-public.css', [], $this->version, 'all');
+						?>
+						<div class="bpjm-flex-container">
+							<div><i class="fa fa-exclamation-circle bpjm-fa-icon"></i></div>
+							<p><?php echo __( 'No resume fields to display as no resume created yet !', 'bp-job-manager' ); ?></p>
+						</div>
+						<?php
+					}
 				}
 			}			
 		}
