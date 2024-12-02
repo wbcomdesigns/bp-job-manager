@@ -68,7 +68,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			add_action('wp_ajax_nopriv_bpjm_load_more_jobs', array($this, 'bpjm_load_more_jobs'));
 			add_action('transition_post_status', array($this, 'flush_job_listings_transient_on_update'), 10, 3);
 		}
-
+		
 		/**
 		 * Job Listing Maximum pages.
 		 *
@@ -1156,6 +1156,29 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			}
 		}
 
+		public function bpjm_add_resume_fields_visibility_menu() {
+			
+			global $bp;
+			if ( bp_is_my_profile() || current_user_can( 'administrator' ) ) {
+				$tab_name               = 'Resume Fields';
+				$tab_slug               = sanitize_title( $tab_name );
+				bp_core_new_subnav_item(
+					array(
+						'name'            => esc_html( $tab_name ),
+						'slug'            => $tab_slug,
+						'parent_url'      => trailingslashit( bp_displayed_user_domain() . 'profile' ),
+						'parent_slug'     => 'profile',
+						'screen_function' => array( $this, 'bpjm_resume_fields_template' ),
+						'position'        => 40,
+					)
+				);
+			}
+			
+		}
+		public function bpjm_resume_fields_template(){
+			add_action( 'bp_template_content', array( $this, 'bpjm_resume_settings_before_submit' ) );
+			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+		}
 		/**
 		 * Function to add settings under profile visibility-buddypress.
 		 *
@@ -1163,7 +1186,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @author   wbcomdesigns
 		 * @access   public
 		 */
-		public function bpjm_resume_settings_before_submit() {
+		public function bpjm_resume_settings_before_submit() {			
 			global $wpdb;
 			$user_id = bp_loggedin_user_id();
 			$resume_id = get_user_meta($user_id, 'bpjm_profile_resume_show_id', true);
@@ -1183,7 +1206,9 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 
 				global $bp_job_manager;
 				if ($user_posts && isset($bp_job_manager->bpjm_resume_at_profile) && $bp_job_manager->bpjm_resume_at_profile === 'yes') {
-				?>
+					if(class_exists('Youzify')){?>
+						<form method="post">
+				<?php } ?>
 					<table class="profile-settings bp-tables-user">
 						<thead>
 							<tr>
@@ -1296,9 +1321,17 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 							</tr>
 						</tbody>
 					</table>
-<?php
+				<?php 
+				 if(class_exists('Youzify')){?>
+						<button name="bpjm-resume-fields-settings-submit" class="youzify-save-options" type="submit">
+							<?php esc_html_e( 'Save Changes', 'bp-job-manager' ) ?>
+						</button>
+						<?php wp_nonce_field( 'bpjm_resume_fields_settings_nonce' ); ?>
+					</form>
+				<?php }
+				
 				}
-			}
+			}			
 		}
 
 		/**
@@ -1309,10 +1342,16 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @access   public
 		 */
 		public function custom_bp_init() {
-			if (isset($_POST['xprofile-settings-submit'])) {
+			
+			if ( isset($_POST['xprofile-settings-submit']) || isset( $_POST[ 'bpjm-resume-fields-settings-submit' ] ) ){
+				
 				// Nonce check.
-				check_admin_referer('bp_xprofile_settings');
-
+				if ( class_exists( 'Youzify' ) ) {
+					check_admin_referer('bpjm_resume_fields_settings_nonce');
+				} else {
+					check_admin_referer('bp_xprofile_settings');
+				}
+				
 				// Update resume ID if set.
 				if (isset($_POST['bpjm_prof_resume_show_postid'])) {
 					$resume_id = sanitize_text_field(wp_unslash($_POST['bpjm_prof_resume_show_postid']));
@@ -1333,7 +1372,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 
 					update_user_meta(bp_loggedin_user_id(), 'bpjm_display_fields', $saved_display_fields);
 				}
-			}
+			}			
 		}
 
 		/**
