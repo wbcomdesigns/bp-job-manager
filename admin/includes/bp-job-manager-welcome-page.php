@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<div class="wbcom-support-inner">
 						<h3><span class="dashicons dashicons-admin-comments"></span><?php esc_html_e( 'Share Your Feedback', 'bp-job-manager' ); ?></h3>
 						<p><?php esc_html_e( 'We’d love to hear about your experience with the plugin and welcome any suggestions for future updates.', 'bp-job-manager' ); ?></p>
-						<a href="<?php echo esc_url( 'https://wbcomdesigns.com/contact/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Send Feedback', 'bp-job-manager' ); ?></a>
+						<a href="<?php echo esc_url( 'https://wbcomdesigns.com/submit-review/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Send Feedback', 'bp-job-manager' ); ?></a>
 					</div>
 					</div>
 				</div>
