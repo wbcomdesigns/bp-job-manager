@@ -1160,8 +1160,8 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			
 			global $bp;
 			if ( bp_is_my_profile() || current_user_can( 'administrator' ) ) {
-				$tab_name               = 'Resume Fields';
-				$tab_slug               = sanitize_title( $tab_name );
+				$tab_name               = __( apply_filters( 'bpjm_resume_fields_custom_text' ,'Resume Fields' ), 'bp-job-manager' );
+				$tab_slug               = __( apply_filters( 'bpjm_resume_fields_custom_slug', 'resume-fields'), 'bp-job-manager' );
 				bp_core_new_subnav_item(
 					array(
 						'name'            => esc_html( $tab_name ),
@@ -1189,16 +1189,16 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		public function bpjm_resume_settings_before_submit() {			
 			global $wpdb;
 			$user_id = bp_loggedin_user_id();
-			$resume_id = get_user_meta($user_id, 'bpjm_profile_resume_show_id', true);
+			$resume_id = get_user_meta($user_id, 'bpjm_profile_resume_show_id', true);			
 
 			$where = get_posts_by_author_sql('resume', true, $user_id, '');
 
 			// Directly concatenate the WHERE clause without using prepare().
 			$query = "SELECT ID, post_title FROM {$wpdb->posts} $where ORDER BY post_modified DESC";
 			$user_posts = $wpdb->get_results($wpdb->prepare( "SELECT ID, post_title FROM {$wpdb->posts} $where ORDER BY post_modified DESC" ));
-
+			
 			$selected_post = !empty($resume_id) ? $resume_id : (!empty($user_posts) ? $user_posts[0]->ID : null);
-
+			
 			if (!empty($selected_post)) {
 				$fields_display = get_user_meta(bp_loggedin_user_id(), 'bpjm_display_fields', true);
 				$display_resume = isset($fields_display['display_resume']) ? $fields_display['display_resume'] : 'no';

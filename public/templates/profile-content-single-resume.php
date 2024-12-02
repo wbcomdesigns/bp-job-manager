@@ -17,12 +17,17 @@ function bpjm_show_resume_at_profile( $post_id)
 		return;
 	}
 	$display_resume = ( isset( $fields_display['display_resume'] ) ) ? $fields_display['display_resume'] : 'no';
-
-if ( 'yes' !== $display_resume ) {
-	return;
-}
+	
+	if ( 'yes' !== $display_resume ) {
+		return;
+	}
 	$post = get_post( $post_id, OBJECT );
 	setup_postdata( $post );
+	
+	if( empty( $post ) ){
+		return;
+	}
+
 if ( isset( $fields_display['email'] ) || isset( $fields_display['prof_title'] ) || isset( $fields_display['location'] ) || isset( $fields_display['video'] ) || isset( $fields_display['description'] ) ) {
 	?>
 		<div class="bp-widget">
