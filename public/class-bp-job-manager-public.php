@@ -1160,12 +1160,12 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			
 			global $bp;
 			if ( bp_is_my_profile() || current_user_can( 'administrator' ) ) {
-				$tab_name               = __( apply_filters( 'bpjm_resume_fields_custom_text' ,'Resume Fields' ), 'bp-job-manager' );
-				$tab_slug               = __( apply_filters( 'bpjm_resume_fields_custom_slug', 'resume-fields'), 'bp-job-manager' );
+				$tab_name               = apply_filters( 'bpjm_resume_fields_custom_text' ,'Resume Fields' );
+				$tab_slug               = apply_filters( 'bpjm_resume_fields_custom_slug', 'resume-fields');
 				bp_core_new_subnav_item(
 					array(
-						'name'            => esc_html( $tab_name ),
-						'slug'            => $tab_slug,
+						'name'            => esc_html__( $tab_name , 'bp-job-manager'),
+						'slug'            => __( $tab_slug , 'bp-job-manager' ),
 						'parent_url'      => trailingslashit( bp_displayed_user_domain() . 'profile' ),
 						'parent_slug'     => 'profile',
 						'screen_function' => array( $this, 'bpjm_resume_fields_template' ),
@@ -1194,12 +1194,11 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			$where = get_posts_by_author_sql('resume', true, $user_id, '');
 
 			// Directly concatenate the WHERE clause without using prepare().
-			$query = "SELECT ID, post_title FROM {$wpdb->posts} $where ORDER BY post_modified DESC";
-			$user_posts = $wpdb->get_results($wpdb->prepare( "SELECT ID, post_title FROM {$wpdb->posts} $where ORDER BY post_modified DESC" ));
+			$user_posts = $wpdb->get_results("SELECT ID, post_title FROM {$wpdb->posts} $where ORDER BY post_modified DESC", OBJECT );
 			
 			$selected_post = !empty($resume_id) ? $resume_id : (!empty($user_posts) ? $user_posts[0]->ID : null);
 			
-			if (!empty($selected_post)) {
+			if (!empty($selected_post) && !empty( $user_posts ) ) {
 				$fields_display = get_user_meta(bp_loggedin_user_id(), 'bpjm_display_fields', true);
 				$display_resume = isset($fields_display['display_resume']) ? $fields_display['display_resume'] : 'no';
 				$display_class = ($display_resume === 'yes') ? 'display-true' : 'display-false';
@@ -1330,19 +1329,19 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 						</form>
 					<?php }
 				
-				} else {
-					if ( empty( $user_posts ) && class_exists( 'Youzify' ) ){
-						
-						wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/bp-job-manager-public.css', [], $this->version, 'all');
-						?>
-						<div class="bpjm-flex-container">
-							<div><i class="fa fa-exclamation-circle bpjm-fa-icon"></i></div>
-							<p><?php echo __( 'No resume fields to display as no resume created yet !', 'bp-job-manager' ); ?></p>
-						</div>
-						<?php
-					}
+				} 
+			} else {
+				if ( ( empty( $user_posts ) || empty( $selected_post ) ) && class_exists( 'Youzify' ) ){
+					
+					wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/bp-job-manager-public.css', [], $this->version, 'all');
+					?>
+					<div class="bpjm-flex-container">
+						<div><i class="fa fa-exclamation-circle bpjm-fa-icon"></i></div>
+						<p><?php echo __( 'No resume fields to display as no resume created yet !', 'bp-job-manager' ); ?></p>
+					</div>
+					<?php
 				}
-			}			
+			}
 		}
 
 		/**
