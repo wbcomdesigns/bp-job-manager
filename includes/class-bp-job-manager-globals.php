@@ -140,9 +140,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 					$this->post_job_user_roles = $settings['post_job_user_roles'];
 				}
 
-				// Always include "Guest" as a placeholder role
-				$this->post_job_user_roles[] = 'guest';
-
 				if ( array_key_exists( 'bpjm_resume_at_profile', $settings ) ) {
 					$this->bpjm_resume_at_profile = 'yes';
 				} else {
