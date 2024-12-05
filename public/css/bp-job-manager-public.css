@@ -315,24 +315,87 @@ body.wb-reign-theme.my-jobs .job-manager-jobs div#bpjm-job-application-btn a {
 .youzify-content div#job-manager-job-dashboard{
     margin-top: 20px;
 }
-.job-manager-jobs.jm-dashboard-table .jm-dashboard-header {
+
+.youzify-content .job-manager-jobs.jm-dashboard-table .jm-dashboard-header {
     background-color: var(--yzfy-scheme-color) !important;
     padding: 0px;
 }
-.jm-dashboard-table .jm-dashboard-job-column-label{
+
+.youzify-content .jm-dashboard-table .jm-dashboard-job-column-label{
     color: #fff;
     padding: 10px;
 }
-.jm-dashboard-rows .jm-dashboard-job {
+
+.youzify-content .jm-dashboard-rows .jm-dashboard-job {
     background-color: var(--yzfy-card-bg-color);
     margin-top: 0;
 }
 
+/* Resume */
+.youzify-content div#resume-manager-candidate-dashboard,
+.youzify-content form#resume_preview{
+    margin-top: 20px;
+}
 
+.youzify-content .job_listing_preview_title {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.youzify-content .job_listing_preview_title h2 {
+    order: 1;
+    width: 100%;
+}
+
+.youzify-content .job_listing_preview_title input.button {
+    order: 2;
+    border-color:var(--yzfy-scheme-color) !important;
+    background-color: var(--yzfy-scheme-color) !important;
+    color: var(--yzfy-scheme-text-color) !important;
+}
+
+.youzify-content .resume_preview.single-resume{
+    padding: 1em;
+    margin-bottom: 30px;
+}
+
+.youzify-content .resume_preview.single-resume h2,
+.youzify-content .resume_preview.single-resume h1 {
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+
+.youzify-content .resume_preview.single-resume h2 {
+    margin-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.youzify-content .resume_preview.single-resume .resume_description{
+    margin-bottom: 20px;
+}
+
+.youzify-content .candidate-video .fluid-width-video-wrapper {
+    height: 300px;
+}
+.youzify-content .resume_preview.single-resume .resume-manager-education h3,
+.youzify-content .resume_preview.single-resume .resume-manager-experience h3{
+    font-size: 20px;
+}
+
+.youzify-content .resume_preview.single-resume .resume-manager-education dt{
+    margin-top: 10px;
+}
 
 .youzify-content table.resume-dashboard-table thead.resume-dashboard-header th {
     padding: 15px 10px !important;    
 }
+
+.youzify-content #resume-manager-candidate-dashboard table.resume-manager-resumes.resume-dashboard-table,
+.youzify-content #job-manager-job-dashboard table.job-manager-jobs.job-dashboard-table{
+    border-spacing: 0;
+}
+
 .youzify-content form#submit-job-form,
 .youzify-content form#submit-resume-form {
     padding: 20px;
@@ -340,8 +403,18 @@ body.wb-reign-theme.my-jobs .job-manager-jobs div#bpjm-job-application-btn a {
     border-radius: 5px;
     background-color: var(--yzfy-card-bg-color);
 }
+
 .youzify-content form#submit-resume-form input.button{
     background-color: var(--yzfy-scheme-color) !important;
     color: var(--yzfy-scheme-text-color) !important;
     border-color: var(--yzfy-scheme-color) !important;
+}
+
+.youzify-content .youzify-page-main-content p.resume-submitted {
+    font-size: 18px;
+    padding: 15px;
+    border-radius: 5px;
+    border-left: 2px solid #48a82a;
+    color: #48a82a;
+    background-color: var(--yzfy-card-bg-color);
 }
