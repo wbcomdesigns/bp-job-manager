@@ -3,8 +3,8 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, wp-job-manager, job-manager-applications, job-manager-resumes, Job Manager, BuddyPress Jobs
 Requires at least: 3.0.1
-Tested up to: 6.7.0
-Stable tag: 2.8.1
+Tested up to: 6.7.1
+Stable tag: 2.8.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,19 @@ The screenshots are present in the root of the plugin folder.
 7. screenshot-7
 
 == Changelog ==
+= 2.8.2 =
+* Fix: Explicitly cast float to int in `seconds_to_words` function to prevent deprecated warnings about implicit conversion.
+* Fix: Resolved issue with the resume-manager tab not displaying correctly on single profile pages.
+* Fix: Improved UI for the "My Jobs" listing tab on single profile pages.
+* Fix: Prevented guest users from posting jobs.
+* Fix: Addressed database query error in `bpjm_resume_settings_before_submit` function.
+* Fix: Corrected an incorrect feedback form URL.
+* Fix: Resolved issue with resume fields not hiding on the profile page.
+* Fix: Resolved issue with profile visibility settings.
+* Enhancement: Added an admin notice to alert users when no resumes are created in Youzify.
+* Enhancement: Added a filter to modify resume field text in the profile menu.
+* Enhancement: Introduced functionality to hide or display resume fields selectively within Youzify.
+
 = 2.8.1 =
 * Added "Guest" role option to Job Posting and Application settings.
 * Enabled non-logged-in users to submit job postings by adding the "Guest" role to allowed job posting roles.
