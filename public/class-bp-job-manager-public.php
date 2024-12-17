@@ -1211,8 +1211,8 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 					<table class="profile-settings bp-tables-user">
 						<thead>
 							<tr>
-								<th class="title field-group-name"><?php esc_html_e('BuddyPress Resumes', 'bp-job-manager'); ?></th>
-								<th class="title"><?php esc_html_e('Available Resumes', 'bp-job-manager'); ?></th>
+								<th class="title field-group-name"><?php esc_html_e('Resume', 'bp-job-manager'); ?></th>
+								<th class="title"><?php esc_html_e('Visibility', 'bp-job-manager'); ?></th>
 							</tr>
 						</thead>
 						<tbody>
