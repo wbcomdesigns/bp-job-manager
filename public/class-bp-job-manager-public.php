@@ -806,16 +806,16 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 								} else {
 				?>
 									<div class="generic-button bpjm-job-application-btn-action" id="bpjm-job-application-btn">
-										<a href="javascript:void(0);" data-url="<?php echo esc_attr($job_application_page); ?>"><?php esc_html_e('Apply', 'bp-job-manager'); ?></a>
+										<a href="javascript:void(0);" data-url="<?php echo esc_attr($job_application_page); ?>"><?php esc_html_e('Submit Application', 'bp-job-manager'); ?></a>
 									</div>
 				<?php
 								}
 							}
 						} else {
-							echo '<li class="position-filled">' . esc_html__('This position has been filled.', 'bp-job-manager') . '</li>';
+							echo '<li class="position-filled">' . esc_html__('This job position is no longer available.', 'bp-job-manager') . '</li>';
 						}
 					} else {
-						echo '<div class="position-filled">' . esc_html__('You are not allowed to apply for this job.', 'bp-job-manager') . '</div>';
+						echo '<div class="position-filled">' . esc_html__('You do not meet the requirements to apply for this job.', 'bp-job-manager') . '</div>';
 					}
 				}
 			}
@@ -1217,7 +1217,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 						</thead>
 						<tbody>
 							<tr class="field_name field_type_textbox">
-								<td class="field-name"><?php esc_html_e('Display resume at profile page', 'bp-job-manager'); ?></td>
+								<td class="field-name"><?php esc_html_e('Show resume on the profile page', 'bp-job-manager'); ?></td>
 								<td class="field-visibility">
 									<input class="bpjm-display-resume-checkbox" type="checkbox" value="yes" name="bpjm_display[display_resume]" <?php
 																																				if (!empty($fields_display['display_resume'])) {
@@ -1239,7 +1239,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 								</td>
 							</tr>
 							<tr class="field_name field_type_textbox resume-fields-row <?php echo esc_attr($display_class); ?>">
-								<td class="field-name"><?php esc_html_e('Display e-mail field', 'bp-job-manager'); ?></td>
+								<td class="field-name"><?php esc_html_e('Show email field', 'bp-job-manager'); ?></td>
 								<td class="field-visibility">
 									<input type="checkbox" value="yes" name="bpjm_display[email]" <?php
 																									if (!empty($fields_display['email'])) {
@@ -1337,7 +1337,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 					?>
 					<div class="bpjm-flex-container">
 						<div><i class="fa fa-exclamation-circle bpjm-fa-icon"></i></div>
-						<p><?php echo __( 'No resume fields to display as no resume created yet !', 'bp-job-manager' ); ?></p>
+						<p><?php echo __( 'No resume fields available. Please create a resume to enable display options.', 'bp-job-manager' ); ?></p>
 					</div>
 					<?php
 				}
@@ -1471,7 +1471,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			}
 
 
-			echo '<a href="' . esc_url($url) . '" title="Private Message">' . esc_html__('Private Message', 'bp-job-manager') . '</a>';
+			echo '<a href="' . esc_url($url) . '" title="Private Message">' . esc_html__('Send Private Message', 'bp-job-manager') . '</a>';
 		}
 
 		/**
@@ -1518,7 +1518,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		public function bpjm_job_post_activity_action_format($action, $activity)
 		{
 			/* translators: %1$s: Activity user ID*/
-			$action = sprintf(__('%s posted a new job update', 'bp-job-manager'), bp_core_get_userlink($activity->user_id));
+			$action = sprintf(__('%s shared a new job update.', 'bp-job-manager'), bp_core_get_userlink($activity->user_id));
 
 			/**
 			 * Filters the formatted activity action update string.
@@ -1633,7 +1633,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 				 * @param string $value Notification text.
 				 */
 				/* translators: %1$s: Applicant Name*/
-				$text             = apply_filters('_bprwg_notification_text', sprintf(esc_html__('%s has applied to the job post.', 'bp-job-manager'), $applicant_name));
+				$text             = apply_filters('_bprwg_notification_text', sprintf(esc_html__('%s submitted an application for your job posting.', 'bp-job-manager'), $applicant_name));
 				$application_data = get_post($item_id);
 				$job_id           = $application_data->post_parent;
 
@@ -1689,12 +1689,13 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		}		
 
 		/**
-		 * Display message to restrict user role to not post job
+		 * Display message to restrict user role from posting a job
 		 */
 		public function bpjm_restrict_user_post_job_message()
 		{
-			echo esc_html_e('You have not permission to post job. Please contect with admin.', 'bp-job-manager');
+			echo esc_html_e('You are not authorized to post a job. Please reach out to the administrator for further assistance.', 'bp-job-manager');
 		}
+
 
 		/**
 		 * Nav item links.
