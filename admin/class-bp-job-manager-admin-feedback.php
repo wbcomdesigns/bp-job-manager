@@ -58,8 +58,7 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 		 */
 		public function __construct( $args ) {
 			$this->slug = $args['slug'];
-			$this->name = $args['name'];
-
+			
 			$this->date_option  = $this->slug . '_activation_date';
 			$this->nobug_option = $this->slug . '_no_bug';
 
@@ -274,7 +273,10 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 					<div class="bp-job-manager-notice-content">
 						<h3><?php echo esc_html__( 'Are you enjoying BuddyPress Job Manager?', 'bp-job-manager' ); ?></h3>
 						<p>
-							<?php /* translators: 1. Name */ ?>
+							<?php 
+							$this->name = __( 'BuddyPress Job Manager', 'bp-job-manager' );
+							/* translators: 1. Name */ 
+							?>
 							<?php printf( esc_html__( 'We hope you\'re enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'bp-job-manager' ), esc_html( $this->name ) ); ?>
 						</p>
 					</div>
@@ -309,7 +311,6 @@ endif;
 new BP_Job_Manager_Feedback(
 	array(
 		'slug'       => 'bp_job_manager',
-		'name'       => __( 'BuddyPress Job Manager', 'bp-job-manager' ),
 		'time_limit' => WEEK_IN_SECONDS,
 	)
 );
