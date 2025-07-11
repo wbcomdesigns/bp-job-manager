@@ -1759,19 +1759,6 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			return true;
 		}
 
-		public function bpjm_applications_column($job)
-		{
-			global $post;
-			echo ($count = get_job_application_count($job->ID)) ? '<a href="' . esc_attr(
-				add_query_arg(
-					array(
-						'action' => 'show_applications',
-						'job_id' => $job->ID,
-					),
-				)
-			) . '">' . esc_attr($count) . '</a>' : '&ndash;';
-		}
-
 		public function flush_job_listings_transient_on_update($new_status, $old_status, $post) {
 			if (in_array($post->post_type, ['job_listing', 'resume'], true)) {
 				delete_transient("user_{$post->post_author}_job_listings");
