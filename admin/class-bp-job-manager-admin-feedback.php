@@ -278,7 +278,7 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 							?>
 							<?php
 							/* translators: 1. Name */
-							printf( esc_html__( 'We hope you\'re enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'bp-job-manager' ), $this->name ); ?>
+							printf( esc_html__( 'We hope you\'re enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'bp-job-manager' ), esc_html( $this->name ) ); ?>
 						</p>
 					</div>
 					<div class="bp-job-manager-install-now">
