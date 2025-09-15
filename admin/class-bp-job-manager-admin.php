@@ -195,7 +195,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 			add_settings_section('bp-job-manager-welcome', ' ', array($this, 'bpjm_welcome_content'), 'bpjm-welcome');
 
 			$this->plugin_settings_tabs[$this->plugin_name] = __('General', 'bp-job-manager');
-			register_setting('bpjm_general_settings', 'bpjm_general_settings');
+			register_setting('bpjm_general_settings', 'bpjm_general_settings', array(
+				'sanitize_callback' => array($this, 'bpjm_sanitize_settings')
+			));
 			add_settings_section('bp-job-manager-section', ' ', array($this, 'bpjm_general_settings_content'), $this->plugin_name);
 		}
 
@@ -360,11 +362,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 
 				if ( $get_table == $table_name ) {
-					// Use prepare with placeholders to avoid direct interpolation
-					$check = $wpdb->get_results( $wpdb->prepare( 
-						"SELECT * FROM {$table_name} WHERE item_id = %d AND type = %s", 
-						$post->ID, 
-						'bpjm_job_post' 
+					// Query BuddyPress activity table with proper escaping
+					$activity_table = $wpdb->prefix . 'bp_activity';
+					$check = $wpdb->get_results( $wpdb->prepare(
+						"SELECT * FROM `{$activity_table}` WHERE item_id = %d AND type = %s",
+						$post->ID,
+						'bpjm_job_post'
 					) );
 
 					if ( ! $check ) {
@@ -399,7 +402,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 				$table_name = $wpdb->prefix . 'bp_activity';
 				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 				if ( $get_table == $table_name ) {
-					$check = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$table_name} WHERE item_id = %d AND type IN (%s)", $post->ID, 'bpjm_resume_publish' ) );
+					$activity_table = $wpdb->prefix . 'bp_activity';
+					$check = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM `{$activity_table}` WHERE item_id = %d AND type = %s", $post->ID, 'bpjm_resume_publish' ) );
 					if ( ! $check ) {
 						$args['type']  = 'bpjm_resume_publish';
 						$job_permalink = '<a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a>';
@@ -414,6 +418,28 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					}
 				}
 			}
+		}
+
+		/**
+		 * Sanitize settings for register_setting()
+		 *
+		 * @param array $input Input settings array.
+		 * @return array Sanitized settings array.
+		 */
+		public function bpjm_sanitize_settings( $input ) {
+			$sanitized = array();
+
+			if ( is_array( $input ) ) {
+				foreach ( $input as $key => $value ) {
+					if ( is_array( $value ) ) {
+						$sanitized[ sanitize_key( $key ) ] = array_map( 'sanitize_text_field', $value );
+					} else {
+						$sanitized[ sanitize_key( $key ) ] = sanitize_text_field( $value );
+					}
+				}
+			}
+
+			return $sanitized;
 		}
 	}
 endif;

@@ -170,7 +170,7 @@ function bpjm_plugin_links( $links ) {
 function bpjm_activation_redirect_settings( $plugin ) {
 
     // Verify nonce for security
-    if ( isset( $_REQUEST['_wpnonce'] ) && ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'bpjm_activation_nonce' ) ) {
+    if ( isset( $_REQUEST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'bpjm_activation_nonce' ) ) {
         return; // Exit if nonce is invalid
     }
 

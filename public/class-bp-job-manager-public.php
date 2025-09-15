@@ -358,7 +358,9 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			$is_current_user = ( get_current_user_id() === $displayed_uid );
 			$job_count = function_exists( 'bpjm_member_profile_jobs_count' ) ? bpjm_member_profile_jobs_count( $displayed_uid ) : 0;
 		
+			/* translators: %s: User's display name */
 			$my_job_tab = $is_current_user ? __( 'My Jobs', 'bp-job-manager' ) : sprintf( __( "%s's Jobs", 'bp-job-manager' ), ucfirst( bp_core_get_user_displayname( $displayed_uid ) ) );
+			/* translators: %s: Job count */
 			$job_tab = sprintf( __( 'Jobs %s', 'bp-job-manager' ), '<span class="count">' . bp_core_number_format( $job_count ) . '</span>' );
 		
 			// Check if the user has roles to see the Jobs tab
@@ -1163,12 +1165,12 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			
 			global $bp;
 			if ( bp_is_my_profile() || current_user_can( 'administrator' ) ) {
-				$tab_name               = apply_filters( 'bpjm_resume_fields_custom_text' ,'Resume Fields' );
+				$tab_name               = apply_filters( 'bpjm_resume_fields_custom_text' , __( 'Resume Fields', 'bp-job-manager' ) );
 				$tab_slug               = apply_filters( 'bpjm_resume_fields_custom_slug', 'resume-fields');
 				bp_core_new_subnav_item(
 					array(
-						'name'            => esc_html__( $tab_name , 'bp-job-manager'),
-						'slug'            => __( $tab_slug , 'bp-job-manager' ),
+						'name'            => esc_html( $tab_name ),
+						'slug'            => $tab_slug,
 						'parent_url'      => trailingslashit( bp_displayed_user_domain() . 'profile' ),
 						'parent_slug'     => 'profile',
 						'screen_function' => array( $this, 'bpjm_resume_fields_template' ),
@@ -1196,8 +1198,13 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 
 			$where = get_posts_by_author_sql('resume', true, $user_id, '');
 
-			// Directly concatenate the WHERE clause without using prepare().
-			$user_posts = $wpdb->get_results("SELECT ID, post_title FROM {$wpdb->posts} $where ORDER BY post_modified DESC", OBJECT );
+			// Use WordPress function for safer query execution
+			$user_posts = $wpdb->get_results( $wpdb->prepare(
+				"SELECT ID, post_title FROM {$wpdb->posts} WHERE post_author = %d AND post_type = %s AND post_status = %s ORDER BY post_modified DESC",
+				$user_id,
+				'resume',
+				'publish'
+			), OBJECT );
 			
 			$selected_post = !empty($resume_id) ? $resume_id : (!empty($user_posts) ? $user_posts[0]->ID : null);
 			
@@ -1340,7 +1347,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 					?>
 					<div class="bpjm-flex-container">
 						<div><i class="fa fa-exclamation-circle bpjm-fa-icon"></i></div>
-						<p><?php echo __( 'No resume fields available. Please create a resume to enable display options.', 'bp-job-manager' ); ?></p>
+						<p><?php echo esc_html__( 'No resume fields available. Please create a resume to enable display options.', 'bp-job-manager' ); ?></p>
 					</div>
 					<?php
 				}

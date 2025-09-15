@@ -173,9 +173,8 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 		 * @access public
 		 */
 		public function wbcom_enqueue_admin_scripts() {
-			if ( ! wp_style_is( 'font-awesome', 'enqueued' ) ) {
-				wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css',array(), BPJM_PLUGIN_VERSION, 'all' );
-			}
+			// Font Awesome removed to comply with WordPress.org guidelines (no external CDN resources)
+			// If FontAwesome is needed, it should be included locally in the plugin
 			if ( ! wp_script_is( 'wbcom_admin_setting_js', 'enqueued' ) ) {
 
 				wp_register_script(

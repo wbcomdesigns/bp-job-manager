@@ -14,37 +14,23 @@ function bpjm_member_profile_jobs_count( $displayed_uid ) {
         "SHOW TABLES LIKE %s", $translations_table
     ) );
 
-    // Base query
-    $query = "SELECT COUNT(*) FROM {$wpdb->posts} p";
-
-    // If WPML is active and the table exists, add a join to filter by language
+    // Execute query with proper escaping
     if ( $current_language && $table_exists ) {
-        $query .= " JOIN {$translations_table} t ON p.ID = t.element_id AND t.element_type = %s AND t.language_code = %s";
-    }
-    
-    $query .= " WHERE p.post_author = %d AND p.post_type = %s AND p.post_status = %s";
-
-    // Prepare and execute the query, conditionally including the language
-    if ( $current_language && $table_exists ) {
-        $count = $wpdb->get_var( 
-            $wpdb->prepare( 
-                $query, 
-                'post_job_listing', 
-                $current_language, 
-                $displayed_uid, 
-                'job_listing', 
-                'publish' 
-            ) 
-        );
+        $count = $wpdb->get_var( $wpdb->prepare(
+            "SELECT COUNT(*) FROM {$wpdb->posts} p JOIN {$translations_table} t ON p.ID = t.element_id AND t.element_type = %s AND t.language_code = %s WHERE p.post_author = %d AND p.post_type = %s AND p.post_status = %s",
+            'post_job_listing',
+            $current_language,
+            $displayed_uid,
+            'job_listing',
+            'publish'
+        ) );
     } else {
-        $count = $wpdb->get_var( 
-            $wpdb->prepare( 
-                $query, 
-                $displayed_uid, 
-                'job_listing', 
-                'publish' 
-            ) 
-        );
+        $count = $wpdb->get_var( $wpdb->prepare(
+            "SELECT COUNT(*) FROM {$wpdb->posts} p WHERE p.post_author = %d AND p.post_type = %s AND p.post_status = %s",
+            $displayed_uid,
+            'job_listing',
+            'publish'
+        ) );
     }
 
     return intval( $count );
@@ -65,40 +51,23 @@ function bpjm_member_profile_resumes_count( $displayed_uid ) {
         "SHOW TABLES LIKE %s", $translations_table
     ) );
 
-    // Base query
-    $query = "SELECT COUNT(*) FROM {$wpdb->posts} p";
-
-    // If WPML is active and the table exists, add a join to filter by language
+    // Execute query with proper escaping
     if ( $current_language && $table_exists ) {
-        $query .= " LEFT JOIN {$translations_table} t 
-                    ON p.ID = t.element_id 
-                    AND t.element_type = %s 
-                    AND (t.language_code IS NULL OR t.language_code = %s)";
-    }
-
-    $query .= " WHERE p.post_author = %d AND p.post_type = %s AND p.post_status = %s";
-
-    // Prepare and execute the query, conditionally including the language if WPML is active
-    if ( $current_language && $table_exists ) {
-        $count = $wpdb->get_var( 
-            $wpdb->prepare( 
-                $query, 
-                'post_resume', 
-                $current_language, 
-                $displayed_uid, 
-                'resume', 
-                'publish' 
-            ) 
-        );
+        $count = $wpdb->get_var( $wpdb->prepare(
+            "SELECT COUNT(*) FROM {$wpdb->posts} p LEFT JOIN {$translations_table} t ON p.ID = t.element_id AND t.element_type = %s AND (t.language_code IS NULL OR t.language_code = %s) WHERE p.post_author = %d AND p.post_type = %s AND p.post_status = %s",
+            'post_resume',
+            $current_language,
+            $displayed_uid,
+            'resume',
+            'publish'
+        ) );
     } else {
-        $count = $wpdb->get_var( 
-            $wpdb->prepare( 
-                $query, 
-                $displayed_uid, 
-                'resume', 
-                'publish' 
-            ) 
-        );
+        $count = $wpdb->get_var( $wpdb->prepare(
+            "SELECT COUNT(*) FROM {$wpdb->posts} p WHERE p.post_author = %d AND p.post_type = %s AND p.post_status = %s",
+            $displayed_uid,
+            'resume',
+            'publish'
+        ) );
     }
 
     return intval( $count );
