@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 $args            = array(
 	'post_type'      => 'job_application',
 	'post_status'    => 'any',
-	'posts_per_page' => -1,
+	'posts_per_page' => 50, // Limit to 50 posts per page for better performance
 	'orderby'        => 'post_date',
 	'order'          => 'ASC',
 	'meta_query'     => array(

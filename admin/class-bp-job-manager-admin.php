@@ -365,7 +365,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					// Query BuddyPress activity table with proper escaping
 					$activity_table = $wpdb->prefix . 'bp_activity';
 					$check = $wpdb->get_results( $wpdb->prepare(
-						"SELECT * FROM `{$activity_table}` WHERE item_id = %d AND type = %s",
+						"SELECT * FROM `" . esc_sql( $activity_table ) . "` WHERE item_id = %d AND type = %s",
 						$post->ID,
 						'bpjm_job_post'
 					) );
@@ -403,7 +403,11 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 				if ( $get_table == $table_name ) {
 					$activity_table = $wpdb->prefix . 'bp_activity';
-					$check = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM `{$activity_table}` WHERE item_id = %d AND type = %s", $post->ID, 'bpjm_resume_publish' ) );
+					$check = $wpdb->get_results( $wpdb->prepare(
+						"SELECT * FROM `" . esc_sql( $activity_table ) . "` WHERE item_id = %d AND type = %s",
+						$post->ID,
+						'bpjm_resume_publish'
+					) );
 					if ( ! $check ) {
 						$args['type']  = 'bpjm_resume_publish';
 						$job_permalink = '<a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a>';

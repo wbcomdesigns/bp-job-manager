@@ -17,7 +17,7 @@ function bpjm_member_profile_jobs_count( $displayed_uid ) {
     // Execute query with proper escaping
     if ( $current_language && $table_exists ) {
         $count = $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(*) FROM {$wpdb->posts} p JOIN {$translations_table} t ON p.ID = t.element_id AND t.element_type = %s AND t.language_code = %s WHERE p.post_author = %d AND p.post_type = %s AND p.post_status = %s",
+            "SELECT COUNT(*) FROM {$wpdb->posts} p JOIN " . esc_sql( $translations_table ) . " t ON p.ID = t.element_id AND t.element_type = %s AND t.language_code = %s WHERE p.post_author = %d AND p.post_type = %s AND p.post_status = %s",
             'post_job_listing',
             $current_language,
             $displayed_uid,
@@ -54,7 +54,7 @@ function bpjm_member_profile_resumes_count( $displayed_uid ) {
     // Execute query with proper escaping
     if ( $current_language && $table_exists ) {
         $count = $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT(*) FROM {$wpdb->posts} p LEFT JOIN {$translations_table} t ON p.ID = t.element_id AND t.element_type = %s AND (t.language_code IS NULL OR t.language_code = %s) WHERE p.post_author = %d AND p.post_type = %s AND p.post_status = %s",
+            "SELECT COUNT(*) FROM {$wpdb->posts} p LEFT JOIN " . esc_sql( $translations_table ) . " t ON p.ID = t.element_id AND t.element_type = %s AND (t.language_code IS NULL OR t.language_code = %s) WHERE p.post_author = %d AND p.post_type = %s AND p.post_status = %s",
             'post_resume',
             $current_language,
             $displayed_uid,
