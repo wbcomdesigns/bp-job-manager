@@ -334,6 +334,9 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @access   public
 		 */
 		public function bpjm_member_profile_jobs_tab() {
+			if( ! bp_is_user() ){
+				return;
+			}
 			global $bp_job_manager;
 		
 			// Ensure $bp_job_manager exists and post_job_user_roles is defined
