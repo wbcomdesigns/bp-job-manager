@@ -50,7 +50,7 @@ $bpjm_job_dashboard_columns = array(
 								<?php elseif ( 'filled' === $bpjm_key ) : ?>
 									<?php echo is_position_filled( $bpjm_job ) ? '&#10004;' : '&ndash;'; ?>
 								<?php else : ?>
-									<?php do_action( 'bpjm_job_manager_job_dashboard_column_' . $bpjm_key, $bpjm_job, '' ); ?>
+									<?php do_action( 'job_manager_job_dashboard_column_' . $bpjm_key, $bpjm_job, '' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Third-party hook from WP Job Manager ?>
 								<?php endif; ?>
 							</td>
 						<?php endforeach; ?>

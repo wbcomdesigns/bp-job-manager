@@ -99,7 +99,7 @@ $bpjm_submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_for
 													'nonce' => true,
 												);
 
-												$bpjm_actions = apply_filters( 'bpjm_resume_manager_my_resume_actions', $bpjm_actions, $bpjm_resume );
+												$bpjm_actions = apply_filters( 'resume_manager_my_resume_actions', $bpjm_actions, $bpjm_resume ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Third-party hook from Resume Manager
 
 												foreach ( $bpjm_actions as $bpjm_action => $bpjm_value ) {
 													if ( 'edit' === $bpjm_action ) {
@@ -170,7 +170,7 @@ $bpjm_submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_for
 										}
 										?>
 									<?php else : ?>
-										<?php do_action( 'bpjm_candidate_dashboard_column_' . $bpjm_key, $bpjm_resume ); ?>
+										<?php do_action( 'resume_manager_candidate_dashboard_column_' . $bpjm_key, $bpjm_resume ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Third-party hook from Resume Manager ?>
 									<?php endif; ?>
 								</td>
 							<?php endforeach; ?>
@@ -180,5 +180,5 @@ $bpjm_submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_for
 			<?php endif; ?>
 		</tbody>
 	</table>
-	<?php do_action( 'bpjm_resume_manager_candidate_dashboard_actions', $resumes ); ?>
+	<?php do_action( 'resume_manager_candidate_dashboard_actions', $resumes ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Third-party hook from Resume Manager ?>
 </div>
