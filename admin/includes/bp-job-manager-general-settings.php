@@ -14,7 +14,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
-global $bp_job_manager, $wp_roles;
+global $bpjm_bp_job_manager, $wp_roles;
 ?>
 <div class="wbcom-tab-content">
 	<div class="wbcom-wrapper-admin bp-job-manager-general-setting">	
@@ -39,18 +39,18 @@ global $bp_job_manager, $wp_roles;
 									<div class="wbcom-settings-section-options">
 										<?php if ( isset( $wp_roles->roles ) ) { ?>
 											<select multiple required name="bpjm_general_settings[post_job_user_roles][]" class="bpjm-user-roles">
-												<?php foreach ( $wp_roles->roles as $slug => $wp_role ) { ?>
-													<option value="<?php echo esc_attr( $slug ); ?>" 
+												<?php foreach ( $wp_roles->roles as $bpjm_slug => $bpjm_wp_role ) { ?>
+													<option value="<?php echo esc_attr( $bpjm_slug ); ?>"
 														<?php
-														if ( ! empty( $bp_job_manager->post_job_user_roles ) && in_array( $slug, $bp_job_manager->post_job_user_roles, true ) ) {
+														if ( ! empty( $bpjm_bp_job_manager->post_job_user_roles ) && in_array( $bpjm_slug, $bpjm_bp_job_manager->post_job_user_roles, true ) ) {
 															echo 'selected="selected"'; }
 														?>
-													><?php echo esc_html( $wp_role['name'] ); ?></option>
+													><?php echo esc_html( $bpjm_wp_role['name'] ); ?></option>
 												<?php } ?>
 												<!-- Add "Guest" option for non-logged-in users -->
-												<option value="guest" 
+												<option value="guest"
 													<?php
-													if ( ! empty( $bp_job_manager->post_job_user_roles ) && in_array( 'guest', $bp_job_manager->post_job_user_roles, true ) ) {
+													if ( ! empty( $bpjm_bp_job_manager->post_job_user_roles ) && in_array( 'guest', $bpjm_bp_job_manager->post_job_user_roles, true ) ) {
 														echo 'selected="selected"'; }
 													?>
 												><?php esc_html_e( 'Guest (Non-Logged-In Users)', 'bp-job-manager' ); ?></option>
@@ -69,18 +69,18 @@ global $bp_job_manager, $wp_roles;
 									<div class="wbcom-settings-section-options">
 										<?php if ( isset( $wp_roles->roles ) ) { ?>
 											<select multiple required name="bpjm_general_settings[apply_job_user_roles][]" class="bpjm-user-roles">
-												<?php foreach ( $wp_roles->roles as $slug => $wp_role ) { ?>
-													<option value="<?php echo esc_attr( $slug ); ?>" 
+												<?php foreach ( $wp_roles->roles as $bpjm_slug => $bpjm_wp_role ) { ?>
+													<option value="<?php echo esc_attr( $bpjm_slug ); ?>"
 																			<?php
-																			if ( ! empty( $bp_job_manager->apply_job_user_roles ) && in_array( $slug, $bp_job_manager->apply_job_user_roles, true ) ) {
+																			if ( ! empty( $bpjm_bp_job_manager->apply_job_user_roles ) && in_array( $bpjm_slug, $bpjm_bp_job_manager->apply_job_user_roles, true ) ) {
 																				echo 'selected="selected"'; }
 																			?>
-													><?php echo esc_html( $wp_role['name'] ); ?></option>
+													><?php echo esc_html( $bpjm_wp_role['name'] ); ?></option>
 												<?php } ?>
 												<!-- Add "Guest" option for non-logged-in users -->
-												<option value="guest" 
+												<option value="guest"
 													<?php
-													if ( ! empty( $bp_job_manager->apply_job_user_roles ) && in_array( 'guest', $bp_job_manager->apply_job_user_roles, true ) ) {
+													if ( ! empty( $bpjm_bp_job_manager->apply_job_user_roles ) && in_array( 'guest', $bpjm_bp_job_manager->apply_job_user_roles, true ) ) {
 														echo 'selected="selected"'; }
 													?>
 												><?php esc_html_e( 'Guest (Non-Logged-In Users)', 'bp-job-manager' ); ?></option>
@@ -98,10 +98,10 @@ global $bp_job_manager, $wp_roles;
 									</div>
 									<div class="wbcom-settings-section-options">
 										<label class="wb-switch">
-											<input type="checkbox" name="bpjm_general_settings[bpjm_job_post_activity]" 
+											<input type="checkbox" name="bpjm_general_settings[bpjm_job_post_activity]"
 											<?php
-											if ( isset( $bp_job_manager->bpjm_job_post_activity ) ) {
-												checked( $bp_job_manager->bpjm_job_post_activity, 'yes' ); }
+											if ( isset( $bpjm_bp_job_manager->bpjm_job_post_activity ) ) {
+												checked( $bpjm_bp_job_manager->bpjm_job_post_activity, 'yes' ); }
 											?>
 											>
 											<div class="wb-slider wb-round"></div>
@@ -109,8 +109,8 @@ global $bp_job_manager, $wp_roles;
 									</div>
 								</div>
 								<?php
-									$wpjm_resumes_active = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
-								if ( $wpjm_resumes_active == true ) {
+									$bpjm_wpjm_resumes_active = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
+								if ( $bpjm_wpjm_resumes_active == true ) {
 									?>
 										<div class="wbcom-settings-section-wrap">
 											<div class="wbcom-settings-section-options-heading">
@@ -121,10 +121,10 @@ global $bp_job_manager, $wp_roles;
 											</div>
 											<div class="wbcom-settings-section-options">
 												<label class="wb-switch">
-													<input type="checkbox" name="bpjm_general_settings[bpjm_resume_activity]" 
+													<input type="checkbox" name="bpjm_general_settings[bpjm_resume_activity]"
 													<?php
-													if ( isset( $bp_job_manager->bpjm_resume_activity ) ) {
-														checked( $bp_job_manager->bpjm_resume_activity, 'yes' ); }
+													if ( isset( $bpjm_bp_job_manager->bpjm_resume_activity ) ) {
+														checked( $bpjm_bp_job_manager->bpjm_resume_activity, 'yes' ); }
 													?>
 													>
 													<div class="wb-slider wb-round"></div>
@@ -139,10 +139,10 @@ global $bp_job_manager, $wp_roles;
 											</div>
 											<div class="wbcom-settings-section-options">
 												<label class="wb-switch">
-													<input type="checkbox" name="bpjm_general_settings[bpjm_resume_at_profile]" 
+													<input type="checkbox" name="bpjm_general_settings[bpjm_resume_at_profile]"
 													<?php
-													if ( isset( $bp_job_manager->bpjm_resume_at_profile ) ) {
-														checked( $bp_job_manager->bpjm_resume_at_profile, 'yes' ); }
+													if ( isset( $bpjm_bp_job_manager->bpjm_resume_at_profile ) ) {
+														checked( $bpjm_bp_job_manager->bpjm_resume_at_profile, 'yes' ); }
 													?>
 													>
 													<div class="wb-slider wb-round"></div>
@@ -152,8 +152,8 @@ global $bp_job_manager, $wp_roles;
 										</div>
 									<?php } ?>
 									<?php
-									$wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) );
-									if ( $wpjm_applications_active == true ) {
+									$bpjm_wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) );
+									if ( $bpjm_wpjm_applications_active == true ) {
 										?>
 										<div class="wbcom-settings-section-wrap">
 											<div class="wbcom-settings-section-options-heading">
@@ -164,10 +164,10 @@ global $bp_job_manager, $wp_roles;
 											</div>
 											<div class="wbcom-settings-section-options">
 												<label class="wb-switch">
-													<input type="checkbox" name="bpjm_general_settings[bpjm_app_notify]" 
+													<input type="checkbox" name="bpjm_general_settings[bpjm_app_notify]"
 													<?php
-													if ( isset( $bp_job_manager->bpjm_app_notify ) ) {
-														checked( $bp_job_manager->bpjm_app_notify, 'yes' ); }
+													if ( isset( $bpjm_bp_job_manager->bpjm_app_notify ) ) {
+														checked( $bpjm_bp_job_manager->bpjm_app_notify, 'yes' ); }
 													?>
 													>
 													<div class="wb-slider wb-round"></div>

@@ -7,13 +7,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$submission_limit           = get_option( 'resume_manager_submission_limit' );
-$submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_page_id' );
+$bpjm_submission_limit           = get_option( 'resume_manager_submission_limit' );
+$bpjm_submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_page_id' );
 ?>
 <?php if ( is_user_logged_in() && ( bp_loggedin_user_id() == bp_displayed_user_id() ) ) : ?>
-	<?php if ( $submit_resume_form_page_id && ( resume_manager_count_user_resumes() < $submission_limit || ! $submission_limit ) ) : ?>
+	<?php if ( $bpjm_submit_resume_form_page_id && ( resume_manager_count_user_resumes() < $bpjm_submission_limit || ! $bpjm_submission_limit ) ) : ?>
 		<div class="resume-dashboard__actions">
-			<a class="button" href="<?php echo esc_url( get_permalink( $submit_resume_form_page_id ) ); ?>"><?php esc_html_e( 'Add Resume', 'bp-job-manager' ); ?></a>
+			<a class="button" href="<?php echo esc_url( get_permalink( $bpjm_submit_resume_form_page_id ) ); ?>"><?php esc_html_e( 'Add Resume', 'bp-job-manager' ); ?></a>
 		</div>
 	<?php endif; ?>
 <?php endif; ?>
@@ -23,8 +23,8 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 		<thead class="resume-dashboard-header">
 			<tr>
 				<?php if ( ! empty( $candidate_dashboard_columns ) ) : ?>
-					<?php foreach ( $candidate_dashboard_columns as $key => $column ) : ?>
-						<th class="resume-dashboard-resume-column-label <?php echo esc_attr( $key ); ?>"><?php echo esc_html( $column ); ?></th>
+					<?php foreach ( $candidate_dashboard_columns as $bpjm_key => $bpjm_column ) : ?>
+						<th class="resume-dashboard-resume-column-label <?php echo esc_attr( $bpjm_key ); ?>"><?php echo esc_html( $bpjm_column ); ?></th>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</tr>
@@ -35,42 +35,42 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 					<td colspan="<?php echo esc_attr( sizeof( $candidate_dashboard_columns ) ); ?>"><?php esc_html_e( 'You do not have any active resume listings.', 'bp-job-manager' ); ?></td>
 				</tr>
 			<?php else : ?>
-				<?php foreach ( $resumes as $resume ) : ?>
+				<?php foreach ( $resumes as $bpjm_resume ) : ?>
 					<tr>
 						<?php if ( ! empty( $candidate_dashboard_columns ) ) : ?>
-							<?php foreach ( $candidate_dashboard_columns as $key => $column ) : ?>
-								<td class="<?php echo esc_attr( $key ); ?>">
-									<?php if ( 'resume-title' === $key ) : ?>
-										<?php if ( 'publish' === $resume->post_status ) : ?>
-											<a href="<?php echo esc_url( get_permalink( $resume->ID ) ); ?>"><?php echo esc_html( $resume->post_title ); ?></a>
+							<?php foreach ( $candidate_dashboard_columns as $bpjm_key => $bpjm_column ) : ?>
+								<td class="<?php echo esc_attr( $bpjm_key ); ?>">
+									<?php if ( 'resume-title' === $bpjm_key ) : ?>
+										<?php if ( 'publish' === $bpjm_resume->post_status ) : ?>
+											<a href="<?php echo esc_url( get_permalink( $bpjm_resume->ID ) ); ?>"><?php echo esc_html( $bpjm_resume->post_title ); ?></a>
 										<?php else : ?>
-											<?php echo esc_html( $resume->post_title ); ?> <small>(<?php the_resume_status( $resume ); ?>)</small>
+											<?php echo esc_html( $bpjm_resume->post_title ); ?> <small>(<?php the_resume_status( $bpjm_resume ); ?>)</small>
 										<?php endif; ?>
 										<ul class="candidate-dashboard-actions">
 											<?php
-												$actions = array();
+												$bpjm_actions = array();
 
-											switch ( $resume->post_status ) {
+											switch ( $bpjm_resume->post_status ) {
 												case 'publish':
 													if ( resume_manager_user_can_edit_published_submissions() ) {
-														$actions['edit'] = array(
+														$bpjm_actions['edit'] = array(
 															'label' => __( 'Edit', 'bp-job-manager' ),
 															'nonce' => false,
 														);
 													}
-													$actions['hide'] = array(
+													$bpjm_actions['hide'] = array(
 														'label' => __( 'Hide', 'bp-job-manager' ),
 														'nonce' => true,
 													);
 													break;
 												case 'hidden':
 													if ( resume_manager_user_can_edit_published_submissions() ) {
-														$actions['edit'] = array(
+														$bpjm_actions['edit'] = array(
 															'label' => __( 'Edit', 'bp-job-manager' ),
 															'nonce' => false,
 														);
 													}
-													$actions['publish'] = array(
+													$bpjm_actions['publish'] = array(
 														'label' => __( 'Publish', 'bp-job-manager' ),
 														'nonce' => true,
 													);
@@ -78,7 +78,7 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 												case 'pending_payment':
 												case 'pending':
 													if ( resume_manager_user_can_edit_pending_submissions() ) {
-														$actions['edit'] = array(
+														$bpjm_actions['edit'] = array(
 															'label' => __( 'Edit', 'bp-job-manager' ),
 															'nonce' => false,
 														);
@@ -86,7 +86,7 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 													break;
 												case 'expired':
 													if ( get_option( 'resume_manager_submit_resume_form_page_id' ) ) {
-														$actions['relist'] = array(
+														$bpjm_actions['relist'] = array(
 															'label' => __( 'Relist', 'bp-job-manager' ),
 															'nonce' => true,
 														);
@@ -94,83 +94,83 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 													break;
 											}
 
-												$actions['delete'] = array(
+												$bpjm_actions['delete'] = array(
 													'label' => __( 'Delete', 'bp-job-manager' ),
 													'nonce' => true,
 												);
 
-												$actions = apply_filters( 'resume_manager_my_resume_actions', $actions, $resume );
+												$bpjm_actions = apply_filters( 'bpjm_resume_manager_my_resume_actions', $bpjm_actions, $bpjm_resume );
 
-												foreach ( $actions as $action => $value ) {
-													if ( 'edit' === $action ) {
-														$candidate_dashboard_page_id = get_option( 'resume_manager_candidate_dashboard_page_id' );
-														if ( $candidate_dashboard_page_id ) {
-															$redirect_url = get_permalink( $candidate_dashboard_page_id );
+												foreach ( $bpjm_actions as $bpjm_action => $bpjm_value ) {
+													if ( 'edit' === $bpjm_action ) {
+														$bpjm_candidate_dashboard_page_id = get_option( 'resume_manager_candidate_dashboard_page_id' );
+														if ( $bpjm_candidate_dashboard_page_id ) {
+															$bpjm_redirect_url = get_permalink( $bpjm_candidate_dashboard_page_id );
 
 														} else {
-															$redirect_url = home_url( 'candidate-dashboard' );
+															$bpjm_redirect_url = home_url( 'candidate-dashboard' );
 														}
-														$action_url = add_query_arg(
+														$bpjm_action_url = add_query_arg(
 															array(
-																'action' => $action,
-																'resume_id' => $resume->ID,
+																'action' => $bpjm_action,
+																'resume_id' => $bpjm_resume->ID,
 															),
-															$redirect_url
+															$bpjm_redirect_url
 														);
-													} elseif ( 'relist' === $action ) {
-														$candidate_dashboard_page_id = get_option( 'resume_manager_candidate_dashboard_page_id' );
-														if ( $candidate_dashboard_page_id ) {
-															$redirect_url = get_permalink( $candidate_dashboard_page_id );
+													} elseif ( 'relist' === $bpjm_action ) {
+														$bpjm_candidate_dashboard_page_id = get_option( 'resume_manager_candidate_dashboard_page_id' );
+														if ( $bpjm_candidate_dashboard_page_id ) {
+															$bpjm_redirect_url = get_permalink( $bpjm_candidate_dashboard_page_id );
 
 														} else {
-															$redirect_url = home_url( 'candidate-dashboard' );
+															$bpjm_redirect_url = home_url( 'candidate-dashboard' );
 														}
-														$action_url = add_query_arg(
+														$bpjm_action_url = add_query_arg(
 															array(
-																'action' => $action,
-																'resume_id' => $resume->ID,
+																'action' => $bpjm_action,
+																'resume_id' => $bpjm_resume->ID,
 															),
-															$redirect_url
+															$bpjm_redirect_url
 														);
 													} else {
 
-														$action_url = add_query_arg(
+														$bpjm_action_url = add_query_arg(
 															array(
-																'action' => $action,
-																'resume_id' => $resume->ID,
+																'action' => $bpjm_action,
+																'resume_id' => $bpjm_resume->ID,
 															)
 														);
 
 													}
 
 
-													if ( $value['nonce'] ) {
-														$action_url = wp_nonce_url( $action_url, 'resume_manager_my_resume_actions' );
+													if ( $bpjm_value['nonce'] ) {
+														$bpjm_action_url = wp_nonce_url( $bpjm_action_url, 'resume_manager_my_resume_actions' );
 													}
 
-													echo '<li><a href="' . esc_url( $action_url ) . '" class="candidate-dashboard-action-' . esc_attr( $action ) . '">' . esc_html( $value['label'] ) . '</a></li>';
+													echo '<li><a href="' . esc_url( $bpjm_action_url ) . '" class="candidate-dashboard-action-' . esc_attr( $bpjm_action ) . '">' . esc_html( $bpjm_value['label'] ) . '</a></li>';
 												}
 												?>
 										</ul>
-									<?php elseif ( 'candidate-title' === $key ) : ?>
-										<?php the_candidate_title( '', '', true, $resume ); ?>
-									<?php elseif ( 'candidate-location' === $key ) : ?>
-										<?php the_candidate_location( false, $resume ); ?></td>
-									<?php elseif ( 'resume-category' === $key ) : ?>
-										<?php the_resume_category( $resume ); ?>
-									<?php elseif ( 'status' === $key ) : ?>
-										<?php the_resume_status( $resume ); ?>
-									<?php elseif ( 'date' === $key ) : ?>
+									<?php elseif ( 'candidate-title' === $bpjm_key ) : ?>
+										<?php the_candidate_title( '', '', true, $bpjm_resume ); ?>
+									<?php elseif ( 'candidate-location' === $bpjm_key ) : ?>
+										<?php the_candidate_location( false, $bpjm_resume ); ?></td>
+									<?php elseif ( 'resume-category' === $bpjm_key ) : ?>
+										<?php the_resume_category( $bpjm_resume ); ?>
+									<?php elseif ( 'status' === $bpjm_key ) : ?>
+										<?php the_resume_status( $bpjm_resume ); ?>
+									<?php elseif ( 'date' === $bpjm_key ) : ?>
 										<?php
-										if ( ! empty( $resume->_resume_expires ) && strtotime( $resume->_resume_expires ) > current_time( 'timestamp' ) ) {
+										if ( ! empty( $bpjm_resume->_resume_expires ) && strtotime( $bpjm_resume->_resume_expires ) > current_time( 'timestamp' ) ) {
 											/* translators: %s: Expire Date*/
-											printf( esc_html__( 'Expires %s', 'bp-job-manager' ), esc_html( wp_date( get_option( 'date_format' ), strtotime( $resume->_resume_expires ) ) ) );
+											printf( esc_html__( 'Expires %s', 'bp-job-manager' ), esc_html( wp_date( get_option( 'date_format' ), strtotime( $bpjm_resume->_resume_expires ) ) ) );
 										} else {
-											echo esc_html( wp_date( get_option( 'date_format' ), strtotime( $resume->post_date ) ) );
+											echo esc_html( wp_date( get_option( 'date_format' ), strtotime( $bpjm_resume->post_date ) ) );
 										}
 										?>
 									<?php else : ?>
-										<?php do_action( 'bpjm_candidate_dashboard_column_' . $key, $resume ); ?>
+										<?php do_action( 'bpjm_candidate_dashboard_column_' . $bpjm_key, $bpjm_resume ); ?>
 									<?php endif; ?>
 								</td>
 							<?php endforeach; ?>
@@ -180,5 +180,5 @@ $submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_pag
 			<?php endif; ?>
 		</tbody>
 	</table>
-	<?php do_action( 'resume_manager_candidate_dashboard_actions', $resumes ); ?>
+	<?php do_action( 'bpjm_resume_manager_candidate_dashboard_actions', $resumes ); ?>
 </div>

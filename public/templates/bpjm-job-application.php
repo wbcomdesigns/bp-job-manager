@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-$job_id = filter_input(INPUT_GET, 'args', FILTER_SANITIZE_NUMBER_INT) ? filter_input(INPUT_GET, 'args', FILTER_SANITIZE_NUMBER_INT) : '';
+$bpjm_job_id = filter_input(INPUT_GET, 'args', FILTER_SANITIZE_NUMBER_INT) ? filter_input(INPUT_GET, 'args', FILTER_SANITIZE_NUMBER_INT) : '';
 
 get_header();
 if (!isset($post)) {
@@ -23,17 +23,17 @@ if (!isset($post)) {
 			<header class="entry-header">
 				<h1 class="entry-title">
 					<?php echo esc_html($post->post_title); ?>
-					<?php if (!empty($job_id)) : 
-						$job = get_post($job_id);
-						if ($job) {
-							echo esc_html(': ' . $job->post_title);
+					<?php if (!empty($bpjm_job_id)) :
+						$bpjm_job = get_post($bpjm_job_id);
+						if ($bpjm_job) {
+							echo esc_html(': ' . $bpjm_job->post_title);
 						}
 					endif; ?>
 				</h1>
 			</header><!-- .entry-header -->
 			<div class="entry-content">
-				<?php if (!empty($job_id)) : ?>
-					<?php echo do_shortcode('[job_apply id="' . $job_id . '"]'); ?>
+				<?php if (!empty($bpjm_job_id)) : ?>
+					<?php echo do_shortcode('[job_apply id="' . $bpjm_job_id . '"]'); ?>
 				<?php else : ?>
 					<div>
 						<p><?php esc_html_e('No content available.', 'bp-job-manager'); ?></p>

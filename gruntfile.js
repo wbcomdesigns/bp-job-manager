@@ -61,10 +61,60 @@ module.exports = function ( grunt ) {
 						updateTimestamp: true // Whether the POT-Creation-Date should be updated without other changes.
 					}
 				}
+			},
+				// Clean dist folder
+			clean: {
+				dist: ['dist']
+			},
+				// Copy files to dist folder
+			copy: {
+				dist: {
+					files: [{
+						expand: true,
+						src: [
+							'**',
+							'!node_modules/**',
+							'!dist/**',
+							'!.git/**',
+							'!.github/**',
+							'!.gitignore',
+							'!.gitattributes',
+							'!composer.lock',
+							'!package-lock.json',
+							'!package.json',
+							'!gruntfile.js',
+							'!phpcs.xml',
+							'!phpunit.xml',
+							'!tests/**',
+							'!*.zip'
+						],
+						dest: 'dist/bp-job-manager/'
+					}]
+				}
+			},
+				// Create zip file
+			compress: {
+				dist: {
+					options: {
+						archive: 'dist/bp-job-manager.zip'
+					},
+					files: [{
+						expand: true,
+						cwd: 'dist/',
+						src: ['bp-job-manager/**'],
+						dest: ''
+					}]
+				}
 			}
 		}
 	);
 
 	// register task  'checktextdomain', 'makepot',
 	grunt.registerTask( 'default', [ 'checktextdomain','makepot' ] );
+
+	// Build task - creates clean dist folder and zip file
+	grunt.registerTask( 'build', [ 'clean:dist', 'copy:dist' ] );
+
+	// Dist task - creates distribution zip file
+	grunt.registerTask( 'dist', [ 'clean:dist', 'copy:dist', 'compress:dist' ] );
 };

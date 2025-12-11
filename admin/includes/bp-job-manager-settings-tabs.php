@@ -1,6 +1,6 @@
 <?php
 
-$current_tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'bpjm-welcome';
+$bpjm_current_tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'bpjm-welcome';
 echo '<div class="wbcom-tabs-section">
 		<div class="nav-tab-wrapper">
 			<div class="wb-responsive-menu">
@@ -10,10 +10,10 @@ echo '<div class="wbcom-tabs-section">
 				</label>
 			</div>
 			<ul>';
-foreach ( $this->plugin_settings_tabs as $tab_key => $tab_caption ) {
-	$active = $current_tab == $tab_key ? 'nav-tab-active' : '';
-	echo '<li class="' . esc_attr( $tab_key ) . '">
-			<a class="nav-tab ' . esc_attr( $active ) . '" id="' . esc_attr( $tab_key ) . '-tab" href="?page=' . esc_attr( $this->plugin_name ) . '&tab=' . esc_attr( $tab_key ) . '">' . esc_html( $tab_caption, 'bp-job-manager' ) . '</a>
+foreach ( $this->plugin_settings_tabs as $bpjm_tab_key => $bpjm_tab_caption ) {
+	$bpjm_active = $bpjm_current_tab == $bpjm_tab_key ? 'nav-tab-active' : '';
+	echo '<li class="' . esc_attr( $bpjm_tab_key ) . '">
+			<a class="nav-tab ' . esc_attr( $bpjm_active ) . '" id="' . esc_attr( $bpjm_tab_key ) . '-tab" href="?page=' . esc_attr( $this->plugin_name ) . '&tab=' . esc_attr( $bpjm_tab_key ) . '">' . esc_html( $bpjm_tab_caption, 'bp-job-manager' ) . '</a>
 		</li>';
 }
 echo '</div>

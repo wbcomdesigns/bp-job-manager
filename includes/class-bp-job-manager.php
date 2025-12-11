@@ -272,14 +272,14 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 
 		
 		/**
-		 * Registers a global variable of the plugin - $bp_job_manager
+		 * Registers a global variable of the plugin - $bpjm_bp_job_manager
 		 *
 		 * @since    1.0.0
 		 * @access   public
 		 */
 		public function define_globals() {
-			global $bp_job_manager;
-			$bp_job_manager = new Bp_Job_Manager_Globals( $this->get_plugin_name(), $this->get_version() );
+			global $bpjm_bp_job_manager;
+			$bpjm_bp_job_manager = new Bp_Job_Manager_Globals( $this->get_plugin_name(), $this->get_version() );
 		}
 
 		/**

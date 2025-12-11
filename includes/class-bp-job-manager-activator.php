@@ -9,7 +9,7 @@
  * @subpackage Bp_Job_Manager/includes
  */
 
-if ( ! class_exists( 'Bp_Job_Manager_Activator' ) ) :
+if ( ! class_exists( 'Bpjm_Job_Manager_Activator' ) ) :
 
 	/**
 	 * Fired during plugin activation.
@@ -21,7 +21,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Activator' ) ) :
 	 * @subpackage Bp_Job_Manager/includes
 	 * @author     Wbcom Designs <admin@wbcomdesigns.com>
 	 */
-	class Bp_Job_Manager_Activator {
+	class Bpjm_Job_Manager_Activator {
 
 		/**
 		 * Short Description. (use period)

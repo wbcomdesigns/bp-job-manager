@@ -42,9 +42,9 @@ if ( ! defined( 'BPJM_PLUGIN_VERSION' ) ) {
  * @author  wbcomdesigns
  * @since   1.0.0
  */
-function activate_bp_job_manager() {
+function bpjm_activate_bp_job_manager() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bp-job-manager-activator.php';
-	Bp_Job_Manager_Activator::activate();
+	Bpjm_Job_Manager_Activator::activate();
 }
 
 /**
@@ -54,13 +54,13 @@ function activate_bp_job_manager() {
  * @author  wbcomdesigns
  * @since   1.0.0
  */
-function deactivate_bp_job_manager() {
+function bpjm_deactivate_bp_job_manager() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bp-job-manager-deactivator.php';
-	Bp_Job_Manager_Deactivator::deactivate();
+	Bpjm_Job_Manager_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_bp_job_manager' );
-register_deactivation_hook( __FILE__, 'deactivate_bp_job_manager' );
+register_activation_hook( __FILE__, 'bpjm_activate_bp_job_manager' );
+register_deactivation_hook( __FILE__, 'bpjm_deactivate_bp_job_manager' );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -76,7 +76,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-bp-job-manager.php';
  *
  * @since    1.0.0
  */
-function run_bp_job_manager() {
+function bpjm_run_bp_job_manager() {
 
 	$plugin = new Bp_Job_Manager();
 	$plugin->run();
@@ -91,7 +91,7 @@ function run_bp_job_manager() {
  * BuddyPress, WP Job Manager, WP Job Manager Applications & WP Job Manager Resumes
  * to be installed and active.
  */
-add_action( 'plugins_loaded', 'wpbpjm_plugin_init' );
+add_action( 'plugins_loaded', 'bpjm_plugin_init' );
 
 /**
  * Check plugin requirement on plugins loaded.
@@ -99,15 +99,15 @@ add_action( 'plugins_loaded', 'wpbpjm_plugin_init' );
  * @author  wbcomdesigns
  * @since   1.0.0
  */
-function wpbpjm_plugin_init() {
+function bpjm_plugin_init() {
 	if ( current_user_can( 'activate_plugins' ) && ( ! class_exists( 'BuddyPress' ) || ! class_exists( 'WP_Job_Manager' ) ) ) {
 		add_action( 'admin_notices', 'bpjm_required_plugin_admin_notice' );
-		add_action( 'admin_init', 'wpbpjm_existing_checkin_plugin' );
+		add_action( 'admin_init', 'bpjm_existing_checkin_plugin' );
 	} else {
 		if ( ! defined( 'BPJM_PLUGIN_BASENAME' ) ) {
 			define( 'BPJM_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 		}
-		run_bp_job_manager();
+		bpjm_run_bp_job_manager();
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpjm_plugin_links' );
 	}
 }
@@ -141,7 +141,7 @@ function bpjm_required_plugin_admin_notice() {
  *
  * @since 1.0.0
  */
-function wpbpjm_existing_checkin_plugin() {
+function bpjm_existing_checkin_plugin() {
 	// Check to see if plugin is already active.
 	if ( is_plugin_active( plugin_basename( __FILE__ ) ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
