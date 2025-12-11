@@ -337,10 +337,10 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			if( ! bp_is_user() ){
 				return;
 			}
-			global $bp_job_manager;
+			global $bpjm_bp_job_manager;
 		
-			// Ensure $bp_job_manager exists and post_job_user_roles is defined
-			if ( ! isset( $bp_job_manager ) || ! isset( $bp_job_manager->post_job_user_roles ) ) {
+			// Ensure $bpjm_bp_job_manager exists and post_job_user_roles is defined
+			if ( ! isset( $bpjm_bp_job_manager ) || ! isset( $bpjm_bp_job_manager->post_job_user_roles ) ) {
 				return;
 			}
 		
@@ -364,8 +364,8 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 			$job_tab = sprintf( __( 'Jobs %s', 'bp-job-manager' ), '<span class="count">' . bp_core_number_format( $job_count ) . '</span>' );
 		
 			// Check if the user has roles to see the Jobs tab
-			$post_job_roles_curr_user = array_intersect( $bp_job_manager->post_job_user_roles, $curr_user->roles );
-			$post_job_roles_disp_user = array_intersect( $bp_job_manager->post_job_user_roles, $displayed_user->roles );
+			$post_job_roles_curr_user = array_intersect( $bpjm_bp_job_manager->post_job_user_roles, $curr_user->roles );
+			$post_job_roles_disp_user = array_intersect( $bpjm_bp_job_manager->post_job_user_roles, $displayed_user->roles );
 		
 			if ( ! empty( $post_job_roles_curr_user ) || ! empty( $post_job_roles_disp_user ) ) {
 				bp_core_new_nav_item( array(
@@ -792,12 +792,12 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 */
 		public function bpjm_job_dashboard_actions_col_content($job)
 		{
-			global $bp_job_manager;
+			global $bpjm_bp_job_manager;
 			if (is_user_logged_in()) {
 				if (bp_is_user() && (bp_loggedin_user_id() != bp_displayed_user_id())) {
 					$user_id                        = bp_loggedin_user_id();
-					$apply_job_user_roles           = !empty($bp_job_manager->apply_job_user_roles) ? $bp_job_manager->apply_job_user_roles : array();
-					$job_application_page           = get_permalink($bp_job_manager->job_application_pgid);
+					$apply_job_user_roles           = !empty($bpjm_bp_job_manager->apply_job_user_roles) ? $bpjm_bp_job_manager->apply_job_user_roles : array();
+					$job_application_page           = get_permalink($bpjm_bp_job_manager->job_application_pgid);
 					$job_application_page          .= '?args=' . $job->ID;
 					$user                           = get_userdata($user_id);
 					$match_apply_job_roles_curr_usr = array_intersect($apply_job_user_roles, $user->roles);
@@ -837,8 +837,8 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 */
 		public function bpjm_job_application_page($template)
 		{
-			global $bp_job_manager, $post;
-			if (!empty($post) && $bp_job_manager->job_application_pgid == $post->ID) {
+			global $bpjm_bp_job_manager, $post;
+			if (!empty($post) && $bpjm_bp_job_manager->job_application_pgid == $post->ID) {
 				$file = BPJM_PLUGIN_PATH . 'public/templates/bpjm-job-application.php';
 				if (file_exists($file)) {
 					$template = $file;
@@ -855,7 +855,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @access   public
 		 */
 		public function bpjm_member_profile_resumes_tab() {
-            global $bp_job_manager;
+            global $bpjm_bp_job_manager;
             $my_resumes_count = 0;
             $user_id = bp_displayed_user_id();
             $resume_id = get_user_meta($user_id, 'bpjm_profile_resume_show_id', true);
@@ -1141,13 +1141,13 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 */
 		public function bpjm_bp_profile_field_item()
 		{
-			global $bp_job_manager, $wpdb;
+			global $bpjm_bp_job_manager, $wpdb;
 
 			$user_id = bp_displayed_user_id();
 			$resume_id = get_user_meta($user_id, 'bpjm_profile_resume_show_id', true);
 
 			if (!empty($resume_id)) {
-				if (isset($bp_job_manager->bpjm_resume_at_profile) && 'yes' === $bp_job_manager->bpjm_resume_at_profile) {
+				if (isset($bpjm_bp_job_manager->bpjm_resume_at_profile) && 'yes' === $bpjm_bp_job_manager->bpjm_resume_at_profile) {
 					bpjm_show_resume_at_profile($resume_id);
 				}
 			} else {
@@ -1155,7 +1155,7 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 				// Concatenate the WHERE clause directly.
 				$post = $wpdb->get_row( "SELECT ID FROM {$wpdb->posts} {$where} ORDER BY post_modified DESC" );		// phpcs:ignore.
 
-				if ($post && isset($bp_job_manager->bpjm_resume_at_profile) && 'yes' === $bp_job_manager->bpjm_resume_at_profile) {
+				if ($post && isset($bpjm_bp_job_manager->bpjm_resume_at_profile) && 'yes' === $bpjm_bp_job_manager->bpjm_resume_at_profile) {
 					bpjm_show_resume_at_profile($post->ID);
 				}
 			}
@@ -1213,8 +1213,8 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 				$display_resume = isset($fields_display['display_resume']) ? $fields_display['display_resume'] : 'no';
 				$display_class = ($display_resume === 'yes') ? 'display-true' : 'display-false';
 
-				global $bp_job_manager;
-				if ($user_posts && isset($bp_job_manager->bpjm_resume_at_profile) && $bp_job_manager->bpjm_resume_at_profile === 'yes') {
+				global $bpjm_bp_job_manager;
+				if ($user_posts && isset($bpjm_bp_job_manager->bpjm_resume_at_profile) && $bpjm_bp_job_manager->bpjm_resume_at_profile === 'yes') {
 					if(class_exists('Youzify')){?>
 						<form method="post">
 					<?php } ?>
@@ -1569,9 +1569,9 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 */
 		public function bpjm_add_bp_notification_for_job_post($application_id, $job_id)
 		{
-			global $bp_job_manager;
+			global $bpjm_bp_job_manager;
 
-			if (isset($bp_job_manager->bpjm_app_notify) && $bp_job_manager->bpjm_app_notify == 'yes') {
+			if (isset($bpjm_bp_job_manager->bpjm_app_notify) && $bpjm_bp_job_manager->bpjm_app_notify == 'yes') {
 				$job          = get_post($job_id);
 				$job_admin_id = $job->post_author;
 				if (bp_is_active('notifications')) {
@@ -1682,18 +1682,18 @@ if (!class_exists('Bp_Job_Manager_Public')) :
 		 * @return boolean
 		 */
 		public function bpjm_restrict_user_post_job($can_post) {
-			global $bp_job_manager;
+			global $bpjm_bp_job_manager;
 		
 			if (!is_user_logged_in()) {
 				// Allow posting if "Guest" role is in the allowed posting roles
-				return in_array('guest', $bp_job_manager->post_job_user_roles, true);
+				return in_array('guest', $bpjm_bp_job_manager->post_job_user_roles, true);
 			}
 		
 			// Proceed with checking roles if the user is logged in
 			$user_id = bp_loggedin_user_id();
 			$user = get_userdata($user_id);
 		
-			$match_post_job_roles_curr_user = (!empty($bp_job_manager) && !empty($user)) ? array_intersect($bp_job_manager->post_job_user_roles, $user->roles) : array();
+			$match_post_job_roles_curr_user = (!empty($bpjm_bp_job_manager) && !empty($user)) ? array_intersect($bpjm_bp_job_manager->post_job_user_roles, $user->roles) : array();
 		
 			return !empty($match_post_job_roles_curr_user);
 		}		

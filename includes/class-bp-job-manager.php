@@ -200,17 +200,17 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			/* Check if Resume Manager plugin active to add tab. */
 			$wpjm_resumes_active = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
 			if ( $wpjm_resumes_active ) {
-				global $bp_job_manager;
+				global $bpjm_bp_job_manager;
 
-				if ( isset( $bp_job_manager->bpjm_resume_at_profile ) && $bp_job_manager->bpjm_resume_at_profile == 'yes' ) {
+				if ( isset( $bpjm_bp_job_manager->bpjm_resume_at_profile ) && $bpjm_bp_job_manager->bpjm_resume_at_profile == 'yes' ) {
 					$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_resumes_tab' );
 				}
 
 				/*Action to render resume content at buddypress profile page*/
 				$this->loader->add_action( 'bp_after_profile_loop_content', $plugin_public, 'bpjm_bp_profile_field_item' );
 				if( class_exists( 'Youzify' ) ) {
-					global $bp_job_manager;
-					if ( isset($bp_job_manager->bpjm_resume_at_profile) && $bp_job_manager->bpjm_resume_at_profile === 'yes' ) {
+					global $bpjm_bp_job_manager;
+					if ( isset($bpjm_bp_job_manager->bpjm_resume_at_profile) && $bpjm_bp_job_manager->bpjm_resume_at_profile === 'yes' ) {
 						$this->loader->add_action( 'wp', $plugin_public, 'bpjm_add_resume_fields_visibility_menu' );
 					}
 					

@@ -235,7 +235,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @param    array $wp_admin_nav Contains wp nav items.
 		 */
 		public function bpjm_setup_admin_bar_links( $wp_admin_nav = array() ) {
-			global $wp_admin_bar, $bp_job_manager;
+			global $wp_admin_bar, $bpjm_bp_job_manager;
 			if ( is_user_logged_in() ) {
 				$curr_user = wp_get_current_user();
 				if ( ! empty( $curr_user->roles ) ) {
@@ -243,7 +243,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					/**
 					 * Resumes menu - for the roles allowed for job posting.
 					 */
-					$apply_job_roles = isset( $bp_job_manager->apply_job_user_roles ) ? $bp_job_manager->apply_job_user_roles : [];
+					$apply_job_roles = isset( $bpjm_bp_job_manager->apply_job_user_roles ) ? $bpjm_bp_job_manager->apply_job_user_roles : [];
 					$match_apply_job_roles = array_intersect( $apply_job_roles, $curr_user->roles );
 					if ( ! empty( $match_apply_job_roles ) ) {
 						// Resumes menu
@@ -299,7 +299,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					/**
 					 * Jobs menu - for the roles allowed for job posting.
 					 */
-					$job_posting_roles = isset( $bp_job_manager->post_job_user_roles ) ? $bp_job_manager->post_job_user_roles : [];
+					$job_posting_roles = isset( $bpjm_bp_job_manager->post_job_user_roles ) ? $bpjm_bp_job_manager->post_job_user_roles : [];
 					$match_job_posting_roles = array_intersect( $job_posting_roles, $curr_user->roles );
 					if ( ! empty( $match_job_posting_roles ) ) {
 						// Jobs menu
@@ -355,8 +355,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @return void
 		 */
 		public function bpjm_publish_job_listing( $ID, $post ) {
-			global $bp_job_manager;
-			if ( isset( $bp_job_manager->bpjm_job_post_activity ) && 'yes' === $bp_job_manager->bpjm_job_post_activity ) {
+			global $bpjm_bp_job_manager;
+			if ( isset( $bpjm_bp_job_manager->bpjm_job_post_activity ) && 'yes' === $bpjm_bp_job_manager->bpjm_job_post_activity ) {
 				global $wpdb;
 				$table_name = $wpdb->prefix . 'bp_activity';
 				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
@@ -395,8 +395,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @return void
 		 */
 		public function bpjm_publish_resume( $ID, $post ) {
-			global $bp_job_manager;
-			if ( isset( $bp_job_manager->bpjm_resume_activity ) && 'yes' === $bp_job_manager->bpjm_resume_activity ) {
+			global $bpjm_bp_job_manager;
+			if ( isset( $bpjm_bp_job_manager->bpjm_resume_activity ) && 'yes' === $bpjm_bp_job_manager->bpjm_resume_activity ) {
 
 				global $wpdb;
 				$table_name = $wpdb->prefix . 'bp_activity';
