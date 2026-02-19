@@ -13,7 +13,7 @@ $bpjm_job_id = filter_input( INPUT_GET, 'args', FILTER_SANITIZE_NUMBER_INT ) ? f
 
 get_header();
 if ( ! isset( $post ) ) {
-	$post = get_post();
+	$post = get_post(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Required for template rendering.
 }
 ?>
 <div id="primary" class="content-area">

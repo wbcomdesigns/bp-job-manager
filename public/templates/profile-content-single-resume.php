@@ -26,7 +26,7 @@ function bpjm_show_resume_at_profile( $post_id ) {
 	if ( 'yes' !== $display_resume ) {
 		return;
 	}
-	$post = get_post( $post_id, OBJECT );
+	$post = get_post( $post_id, OBJECT ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Required for setup_postdata() in template.
 	setup_postdata( $post );
 
 	if ( empty( $post ) ) {
@@ -92,7 +92,8 @@ function bpjm_show_resume_at_profile( $post_id ) {
 			<?php
 	}
 	if ( ! empty( $fields_display['education'] ) ) {
-		if ( $items = get_post_meta( $post_id, '_candidate_education', true ) ) :
+		$items = get_post_meta( $post_id, '_candidate_education', true );
+		if ( $items ) :
 			?>
 			<div class="bp-widget">
 				<h2><?php echo esc_html( apply_filters( 'bpjm_profile_education_txt', 'Education' ) ); ?></h2>
@@ -130,7 +131,8 @@ function bpjm_show_resume_at_profile( $post_id ) {
 			endif;
 	}
 	if ( ! empty( $fields_display['experience'] ) ) {
-		if ( $items = get_post_meta( $post_id, '_candidate_experience', true ) ) :
+		$items = get_post_meta( $post_id, '_candidate_experience', true );
+		if ( $items ) :
 			?>
 			<div class="bp-widget">
 				<h2>

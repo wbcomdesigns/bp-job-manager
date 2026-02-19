@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, wp-job-manager, job-manager, resume-manager, buddypress-jobs
 Requires at least: 3.0.1
 Tested up to: 6.9
-Stable tag: 2.8.2
+Stable tag: 2.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -95,6 +95,13 @@ The screenshots are present in the root of the plugin folder.
 7. screenshot-7
 
 == Changelog ==
+= 2.8.5 =
+* Code Quality: Fixed all WordPress Coding Standards (WPCS) violations across all PHP files
+* Code Quality: Fixed multiple assignment on single line in wbcom admin settings
+* Code Quality: Fixed assignment-in-condition patterns in resume template
+* Code Quality: Added phpcs:ignore for template $post global overrides
+* Code Quality: Fixed all Plugin Check errors (0 errors)
+
 = 2.8.2 =
 * Fix: Explicitly cast float to int in `seconds_to_words` function to prevent deprecated warnings about implicit conversion.
 * Fix: Resolved issue with the resume-manager tab not displaying correctly on single profile pages.
