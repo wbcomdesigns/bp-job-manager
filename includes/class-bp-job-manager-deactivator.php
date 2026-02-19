@@ -9,6 +9,10 @@
  * @subpackage Bp_Job_Manager/includes
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'Bpjm_Job_Manager_Deactivator' ) ) :
 
 	/**
@@ -31,8 +35,6 @@ if ( ! class_exists( 'Bpjm_Job_Manager_Deactivator' ) ) :
 		 * @since    1.0.0
 		 */
 		public static function deactivate() {
-
 		}
-
 	}
 endif;

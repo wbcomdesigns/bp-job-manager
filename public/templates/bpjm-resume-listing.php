@@ -1,6 +1,8 @@
 <?php
 /**
  * Template for the candidate resume listing.
+ *
+ * @package bp-job-manager
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -10,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $bpjm_submission_limit           = get_option( 'resume_manager_submission_limit' );
 $bpjm_submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_page_id' );
 ?>
-<?php if ( is_user_logged_in() && ( bp_loggedin_user_id() == bp_displayed_user_id() ) ) : ?>
+<?php if ( is_user_logged_in() && ( bp_loggedin_user_id() === bp_displayed_user_id() ) ) : ?>
 	<?php if ( $bpjm_submit_resume_form_page_id && ( resume_manager_count_user_resumes() < $bpjm_submission_limit || ! $bpjm_submission_limit ) ) : ?>
 		<div class="resume-dashboard__actions">
 			<a class="button" href="<?php echo esc_url( get_permalink( $bpjm_submit_resume_form_page_id ) ); ?>"><?php esc_html_e( 'Add Resume', 'bp-job-manager' ); ?></a>
@@ -32,7 +34,7 @@ $bpjm_submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_for
 		<tbody>
 			<?php if ( ! $resumes ) : ?>
 				<tr>
-					<td colspan="<?php echo esc_attr( sizeof( $candidate_dashboard_columns ) ); ?>"><?php esc_html_e( 'You do not have any active resume listings.', 'bp-job-manager' ); ?></td>
+					<td colspan="<?php echo esc_attr( count( $candidate_dashboard_columns ) ); ?>"><?php esc_html_e( 'You do not have any active resume listings.', 'bp-job-manager' ); ?></td>
 				</tr>
 			<?php else : ?>
 				<?php foreach ( $resumes as $bpjm_resume ) : ?>

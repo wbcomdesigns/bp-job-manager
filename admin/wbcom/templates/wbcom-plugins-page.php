@@ -1,9 +1,20 @@
+<?php
+/**
+ * Plugins page template for BuddyPress Job Manager.
+ *
+ * @package bp-job-manager
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+?>
 <div class="wrap">
 	<div class="wbcom-bb-plugins-offer-wrapper">
 		<div id="wb_admin_logo">
 		</div>
 	</div>
-	<div class="wbcom-wrap wbcom-plugin-wrapper">    	
+	<div class="wbcom-wrap wbcom-plugin-wrapper">
 		<div class="wbcom_admin_header-wrapper">
 			<div id="wb_admin_plugin_name">
 				<?php esc_html_e( 'Themes & Extensions', 'bp-job-manager' ); ?>

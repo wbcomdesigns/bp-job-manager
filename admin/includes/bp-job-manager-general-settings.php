@@ -109,8 +109,8 @@ global $bpjm_bp_job_manager, $wp_roles;
 									</div>
 								</div>
 								<?php
-									$bpjm_wpjm_resumes_active = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
-								if ( $bpjm_wpjm_resumes_active == true ) {
+									$bpjm_wpjm_resumes_active = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ), true );
+								if ( true === $bpjm_wpjm_resumes_active ) {
 									?>
 										<div class="wbcom-settings-section-wrap">
 											<div class="wbcom-settings-section-options-heading">
@@ -152,8 +152,8 @@ global $bpjm_bp_job_manager, $wp_roles;
 										</div>
 									<?php } ?>
 									<?php
-									$bpjm_wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ) );
-									if ( $bpjm_wpjm_applications_active == true ) {
+									$bpjm_wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', get_option( 'active_plugins' ), true );
+									if ( true === $bpjm_wpjm_applications_active ) {
 										?>
 										<div class="wbcom-settings-section-wrap">
 											<div class="wbcom-settings-section-options-heading">

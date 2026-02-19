@@ -45,7 +45,6 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 				echo esc_html( $display_extention );
 				die;
 			}
-
 		}
 
 		/**
@@ -173,8 +172,8 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 		 * @access public
 		 */
 		public function wbcom_enqueue_admin_scripts() {
-			// Font Awesome removed to comply with WordPress.org guidelines (no external CDN resources)
-			// If FontAwesome is needed, it should be included locally in the plugin
+			// Font Awesome removed to comply with WordPress.org guidelines (no external CDN resources).
+			// If FontAwesome is needed, it should be included locally in the plugin.
 			if ( ! wp_script_is( 'wbcom_admin_setting_js', 'enqueued' ) ) {
 
 				wp_register_script(
@@ -316,7 +315,6 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			</div>
 			<?php
 		}
-
 	}
 
 	/**

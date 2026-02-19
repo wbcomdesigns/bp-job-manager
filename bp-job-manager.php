@@ -1,5 +1,6 @@
 <?php
 /**
+ * Wbcom Designs - BuddyPress Job Manager.
  *
  * @link              https://wbcomdesigns.com/
  * @since             1.0.0
@@ -80,7 +81,6 @@ function bpjm_run_bp_job_manager() {
 
 	$plugin = new Bp_Job_Manager();
 	$plugin->run();
-
 }
 
 
@@ -123,7 +123,7 @@ function bpjm_required_plugin_admin_notice() {
 	$bp_plugin   = esc_html__( 'BuddyPress', 'bp-job-manager' );
 	$wpjm_plugin = esc_html__( 'WP Job Manager', 'bp-job-manager' );
 	echo '<div class="error"><p>';
-	echo sprintf(
+	printf(
 		/* translators: %1$s: BuddyPress Job Manager ;  %2$s: BuddyPress ; %3$s: WP Job Manager*/
 		esc_html__( '%1$s is ineffective now as it requires %2$s and %3$s to be installed and active.', 'bp-job-manager' ),
 		'<strong>' . esc_html( $bpjm_plugin ) . '</strong>',
@@ -165,37 +165,42 @@ function bpjm_plugin_links( $links ) {
 
 
 /**
- * Redirect to plugin settings page after activation
+ * Redirect to plugin settings page after activation.
+ *
+ * @param string $plugin Plugin basename.
  */
 function bpjm_activation_redirect_settings( $plugin ) {
 
-    // Verify nonce for security
-    if ( isset( $_REQUEST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'bpjm_activation_nonce' ) ) {
-        return; // Exit if nonce is invalid
-    }
+	// Verify nonce for security.
+	if ( isset( $_REQUEST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'bpjm_activation_nonce' ) ) {
+		return; // Exit if nonce is invalid.
+	}
 
-    if ( isset( $_REQUEST['action'], $_REQUEST['plugin'] ) && $_REQUEST['plugin'] === $plugin ) {
-        if ( class_exists( 'BuddyPress' ) && class_exists( 'WP_Job_Manager' ) && plugin_basename( __FILE__ ) === $plugin ) {
-            if ( $_REQUEST['action'] === 'activate' ) {
-                wp_safe_redirect( admin_url( 'admin.php?page=bp-job-manager' ) );
-                exit;
-            }
-        }
-    
-        if ( $_REQUEST['action'] === 'activate-plugin' && class_exists( 'BuddyPress' ) ) {
-            set_transient( '_bpjm_is_new_install', true, 30 );
-        }
-    }
+	if ( isset( $_REQUEST['action'], $_REQUEST['plugin'] ) && $_REQUEST['plugin'] === $plugin ) {
+		if ( class_exists( 'BuddyPress' ) && class_exists( 'WP_Job_Manager' ) && plugin_basename( __FILE__ ) === $plugin ) {
+			if ( 'activate' === $_REQUEST['action'] ) {
+				wp_safe_redirect( admin_url( 'admin.php?page=bp-job-manager' ) );
+				exit;
+			}
+		}
+
+		if ( 'activate-plugin' === $_REQUEST['action'] && class_exists( 'BuddyPress' ) ) {
+			set_transient( '_bpjm_is_new_install', true, 30 );
+		}
+	}
 }
 add_action( 'activated_plugin', 'bpjm_activation_redirect_settings' );
 
-// Enqueue nonce field for the plugin activation form (if needed elsewhere)
+// Enqueue nonce field for the plugin activation form (if needed elsewhere).
+/**
+ * Add activation nonce field.
+ */
 function bpjm_add_activation_nonce() {
-    wp_nonce_field( 'bpjm_activation_nonce', '_wpnonce' );
+	wp_nonce_field( 'bpjm_activation_nonce', '_wpnonce' );
 }
 
 /**
- * bpjm_do_activation_redirect
+ * Bpjm_do_activation_redirect
  *
  * @return void
  */

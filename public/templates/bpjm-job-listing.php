@@ -1,6 +1,8 @@
 <?php
 /**
  * Job dashboard shortcode content.
+ *
+ * @package bp-job-manager
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,7 +38,7 @@ $bpjm_job_dashboard_columns = array(
 						<?php foreach ( $bpjm_job_dashboard_columns as $bpjm_key => $bpjm_column ) : ?>
 							<td class="<?php echo esc_attr( $bpjm_key ); ?>">
 								<?php if ( 'job_title' === $bpjm_key ) : ?>
-									<?php if ( $bpjm_job->post_status == 'publish' ) : ?>
+									<?php if ( 'publish' === $bpjm_job->post_status ) : ?>
 										<a href="<?php echo esc_url( get_permalink( $bpjm_job->ID ) ); ?>"><?php wpjm_the_job_title( $bpjm_job ); ?></a>
 									<?php else : ?>
 										<?php wpjm_the_job_title( $bpjm_job ); ?> <small>(<?php the_job_status( $bpjm_job ); ?>)</small>

@@ -9,6 +9,10 @@
  * @package Bp_Job_Manager
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 
 	/**
@@ -58,7 +62,7 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 		 */
 		public function __construct( $args ) {
 			$this->slug = $args['slug'];
-			
+
 			$this->date_option  = $this->slug . '_activation_date';
 			$this->nobug_option = $this->slug . '_no_bug';
 
@@ -81,7 +85,7 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 		public function seconds_to_words( $seconds ) {
 
 			// Get the years.
-			$years = (int)( intval( $seconds ) / YEAR_IN_SECONDS ) % 100;
+			$years = (int) ( intval( $seconds ) / YEAR_IN_SECONDS ) % 100;
 			if ( $years > 1 ) {
 				/* translators: Number of years */
 				return sprintf( __( '%s years', 'bp-job-manager' ), $years );
@@ -90,7 +94,7 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 			}
 
 			// Get the weeks.
-			$weeks = (int)( intval( $seconds ) / WEEK_IN_SECONDS ) % 52;
+			$weeks = (int) ( intval( $seconds ) / WEEK_IN_SECONDS ) % 52;
 			if ( $weeks > 1 ) {
 				/* translators: Number of weeks */
 				return sprintf( __( '%s weeks', 'bp-job-manager' ), $weeks );
@@ -99,7 +103,7 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 			}
 
 			// Get the days.
-			$days = (int)( intval( $seconds ) / DAY_IN_SECONDS ) % 7;
+			$days = (int) ( intval( $seconds ) / DAY_IN_SECONDS ) % 7;
 			if ( $days > 1 ) {
 				/* translators: Number of days */
 				return sprintf( __( '%s days', 'bp-job-manager' ), $days );
@@ -108,7 +112,7 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 			}
 
 			// Get the hours.
-			$hours = (int)( intval( $seconds ) / HOUR_IN_SECONDS ) % 24;
+			$hours = (int) ( intval( $seconds ) / HOUR_IN_SECONDS ) % 24;
 			if ( $hours > 1 ) {
 				/* translators: Number of hours */
 				return sprintf( __( '%s hours', 'bp-job-manager' ), $hours );
@@ -117,7 +121,7 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 			}
 
 			// Get the minutes.
-			$minutes = (int)( intval( $seconds ) / MINUTE_IN_SECONDS ) % 60;
+			$minutes = (int) ( intval( $seconds ) / MINUTE_IN_SECONDS ) % 60;
 			if ( $minutes > 1 ) {
 				/* translators: Number of minutes */
 				return sprintf( __( '%s minutes', 'bp-job-manager' ), $minutes );
@@ -126,7 +130,7 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 			}
 
 			// Get the seconds.
-			$seconds = (int)( intval( $seconds ) % 60 );
+			$seconds = (int) ( intval( $seconds ) % 60 );
 			if ( $seconds > 1 ) {
 				/* translators: Number of seconds */
 				return sprintf( __( '%s seconds', 'bp-job-manager' ), $seconds );
@@ -278,7 +282,8 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 							?>
 							<?php
 							/* translators: 1. Name */
-							printf( esc_html__( 'We hope you\'re enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'bp-job-manager' ), esc_html( $this->name ) ); ?>
+							printf( esc_html__( 'We hope you\'re enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?', 'bp-job-manager' ), esc_html( $this->name ) );
+							?>
 						</p>
 					</div>
 					<div class="bp-job-manager-install-now">

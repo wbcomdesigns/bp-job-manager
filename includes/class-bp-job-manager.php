@@ -12,6 +12,10 @@
  * @subpackage Bp_Job_Manager/includes
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * The core plugin class.
  *
@@ -27,6 +31,11 @@
  * @author     Wbcom Designs <admin@wbcomdesigns.com>
  */
 if ( ! class_exists( 'Bp_Job_Manager' ) ) :
+	/**
+	 * The core plugin class.
+	 *
+	 * @since 1.0.0
+	 */
 	class Bp_Job_Manager {
 
 		/**
@@ -76,7 +85,6 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			$this->define_admin_hooks();
 			$this->define_globals();
 			$this->define_public_hooks();
-
 		}
 
 		/**
@@ -101,49 +109,48 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			 * The class responsible for orchestrating the actions and filters of the
 			 * core plugin.
 			 */
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-bp-job-manager-loader.php';
+			require_once plugin_dir_path( __DIR__ ) . 'includes/class-bp-job-manager-loader.php';
 				/**
 			 * The class responsible for orchestrating the actions and filters of the
 			 * core plugin.
 			 */
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-bp-job-manager-function.php';
+			require_once plugin_dir_path( __DIR__ ) . 'includes/class-bp-job-manager-function.php';
 
 			/**
 			 * The class responsible for defining internationalization functionality
 			 * of the plugin.
 			 */
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-bp-job-manager-i18n.php';
+			require_once plugin_dir_path( __DIR__ ) . 'includes/class-bp-job-manager-i18n.php';
 
 			/**
 			 * The class responsible for defining all actions that occur in the admin area.
 			 */
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-admin-settings.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-bp-job-manager-admin.php';
+			require_once plugin_dir_path( __DIR__ ) . 'admin/wbcom/wbcom-admin-settings.php';
+			require_once plugin_dir_path( __DIR__ ) . 'admin/class-bp-job-manager-admin.php';
 
 			/**
 			 * The class responsible for admin review.
 			 */
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-bp-job-manager-admin-feedback.php';
+			require_once plugin_dir_path( __DIR__ ) . 'admin/class-bp-job-manager-admin-feedback.php';
 
 			/**
 			 * The class responsible for defining the global variable of the plugin.
 			 */
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-bp-job-manager-globals.php';
+			require_once plugin_dir_path( __DIR__ ) . 'includes/class-bp-job-manager-globals.php';
 
 			/**
 			 * The class responsible for defining all actions that occur in the public-facing
 			 * side of the site.
 			 */
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-bp-job-manager-public.php';
+			require_once plugin_dir_path( __DIR__ ) . 'public/class-bp-job-manager-public.php';
 
 			/**
 			 * The class responsible for defining all actions that occur in the public-facing
 			 * side of the site.
 			 */
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . '/public/templates/profile-content-single-resume.php';
+			require_once plugin_dir_path( __DIR__ ) . '/public/templates/profile-content-single-resume.php';
 
 			$this->loader = new Bp_Job_Manager_Loader();
-
 		}
 
 		/**
@@ -160,7 +167,6 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			$plugin_i18n = new Bp_Job_Manager_I18n();
 
 			$this->loader->add_action( 'bp_loaded', $plugin_i18n, 'load_plugin_textdomain' );
-
 		}
 
 		/**
@@ -198,26 +204,25 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_jobs_tab' );
 
 			/* Check if Resume Manager plugin active to add tab. */
-			$wpjm_resumes_active = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ) );
+			$wpjm_resumes_active = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ), true );
 			if ( $wpjm_resumes_active ) {
 				global $bpjm_bp_job_manager;
 
-				if ( isset( $bpjm_bp_job_manager->bpjm_resume_at_profile ) && $bpjm_bp_job_manager->bpjm_resume_at_profile == 'yes' ) {
+				if ( isset( $bpjm_bp_job_manager->bpjm_resume_at_profile ) && 'yes' === $bpjm_bp_job_manager->bpjm_resume_at_profile ) {
 					$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_resumes_tab' );
 				}
 
 				/*Action to render resume content at buddypress profile page*/
 				$this->loader->add_action( 'bp_after_profile_loop_content', $plugin_public, 'bpjm_bp_profile_field_item' );
-				if( class_exists( 'Youzify' ) ) {
+				if ( class_exists( 'Youzify' ) ) {
 					global $bpjm_bp_job_manager;
-					if ( isset($bpjm_bp_job_manager->bpjm_resume_at_profile) && $bpjm_bp_job_manager->bpjm_resume_at_profile === 'yes' ) {
+					if ( isset( $bpjm_bp_job_manager->bpjm_resume_at_profile ) && 'yes' === $bpjm_bp_job_manager->bpjm_resume_at_profile ) {
 						$this->loader->add_action( 'wp', $plugin_public, 'bpjm_add_resume_fields_visibility_menu' );
 					}
-					
 				} else {
 					$this->loader->add_action( 'bp_core_xprofile_settings_before_submit', $plugin_public, 'bpjm_resume_settings_before_submit' );
 				}
-				
+
 				$this->loader->add_action( 'bp_init', $plugin_public, 'custom_bp_init' );
 			}
 
@@ -241,10 +246,13 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			$this->loader->add_action( 'resume_manager_contact_details', $plugin_public, 'bpjm_add_private_message_link' );
 
 			/*
-			 Register job post type activity*/
+			 * Register job post type activity.
+			 */
 			// $this->loader->add_filter( 'bp_activity_check_activity_types', $plugin_public, 'bpjm_add_job_post_type_activity', 10, 1 );
+
 			/*
-			 Register job post type activity action */
+			 * Register job post type activity action.
+			 */
 			// $this->loader->add_action( 'bp_register_activity_actions', $plugin_public, 'bpjm_register_job_post_activity_actions' );
 			// $this->loader->add_filter( 'bp_get_activity_action_pre_meta' , $plugin_public,'bpjm_activity_action_wall_posts', 9999, 2 );
 
@@ -263,14 +271,13 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			$this->loader->add_filter( 'job_manager_user_can_post_job', $plugin_public, 'bpjm_restrict_user_post_job' );
 			$this->loader->add_filter( 'submit_job_form_show_signin', $plugin_public, 'bpjm_restrict_user_post_job' );
 			$this->loader->add_action( 'submit_job_form_disabled', $plugin_public, 'bpjm_restrict_user_post_job_message' );
-			if ( in_array( 'bp-rewrites/class-bp-rewrites.php', get_option( 'active_plugins' ) ) ) {
+			if ( in_array( 'bp-rewrites/class-bp-rewrites.php', get_option( 'active_plugins' ), true ) ) {
 				$this->loader->add_filter( 'bp_nouveau_get_nav_link', $plugin_public, 'bpjm_nouveau_link_fix', 10, 2 );
 				$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_legacy_link_fix', 9999 );
 			}
-
 		}
 
-		
+
 		/**
 		 * Registers a global variable of the plugin - $bpjm_bp_job_manager
 		 *
@@ -321,6 +328,5 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 		public function get_version() {
 			return $this->version;
 		}
-
 	}
 endif;

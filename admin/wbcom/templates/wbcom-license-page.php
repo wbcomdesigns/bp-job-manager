@@ -1,3 +1,14 @@
+<?php
+/**
+ * License page template for BuddyPress Job Manager.
+ *
+ * @package bp-job-manager
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+?>
 <div class="wrap">
 	<div class="wbcom-bb-plugins-offer-wrapper">
 		<div id="wb_admin_logo">
