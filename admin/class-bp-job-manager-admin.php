@@ -30,6 +30,14 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @author     Wbcom Designs <admin@wbcomdesigns.com>
  */
 if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
+
+	/**
+	 * Class Bp_Job_Manager_Admin
+	 *
+	 * Handles admin-specific functionality for the BP Job Manager plugin.
+	 *
+	 * @since 1.0.0
+	 */
 	class Bp_Job_Manager_Admin {
 
 		/**
