@@ -272,7 +272,7 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 			<div class="notice updated bp-job-manager-notice">
 				<div class="bp-job-manager-notice-inner">
 					<div class="bp-job-manager-notice-icon">
-						<img src="<?php echo esc_url( BPJM_PLUGIN_URL . '/admin/wbcom/assets/imgs/bp_job_manager.png' ); ?>" alt="<?php echo esc_attr__( 'BuddyPress Job Manager', 'bp-job-manager' ); ?>" />
+						<span class="dashicons dashicons-businessman" aria-hidden="true"></span>
 					</div>
 					<div class="bp-job-manager-notice-content">
 						<h3><?php echo esc_html__( 'Are you enjoying BuddyPress Job Manager?', 'bp-job-manager' ); ?></h3>

@@ -20,10 +20,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 /**
- * The admin-specific functionality of the plugin.
+ * Legacy admin service class for BuddyPress Job Manager.
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
+ * As of 2.8.5 the admin UI (menu, settings page, enqueues, notice
+ * suppression) is owned by Bp_Job_Manager_Admin_Panel. This class is
+ * retained ONLY for its non-UI responsibilities that remain wired via
+ * the loader / reused by the panel:
+ *
+ *  - bpjm_setup_admin_bar_links()  (bp_setup_admin_bar)
+ *  - bpjm_publish_job_listing()    (publish_job_listing)
+ *  - bpjm_publish_resume()         (publish_resume)
+ *  - bpjm_sanitize_settings()      (delegated to by the panel sanitizer)
  *
  * @package    Bp_Job_Manager
  * @subpackage Bp_Job_Manager/admin
@@ -34,7 +41,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 	/**
 	 * Class Bp_Job_Manager_Admin
 	 *
-	 * Handles admin-specific functionality for the BP Job Manager plugin.
+	 * Retained non-UI admin helpers (admin-bar links, activity writers,
+	 * settings sanitizer). UI moved to Bp_Job_Manager_Admin_Panel in 2.8.5.
 	 *
 	 * @since 1.0.0
 	 */
@@ -59,15 +67,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		protected $version;
 
 		/**
-		 * Store plugin settings tabs.
-		 *
-		 * @since    1.0.0
-		 * @access   private
-		 * @var      array     $plugin_settings_tabs    Array of plugin settings tabs.
-		 */
-		protected $plugin_settings_tabs = array();
-
-		/**
 		 * Initialize the class and set its properties.
 		 *
 		 * @since    1.0.0
@@ -80,170 +79,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 
 			$this->plugin_name = $plugin_name;
 			$this->version     = $version;
-		}
-
-		/**
-		 * Register the stylesheets for the admin area.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function enqueue_styles() {
-			$tab = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'bp-job-manager';
-			if ( ! empty( $tab ) && strpos( $tab, 'bp-job-manager' ) !== false ) {
-				wp_enqueue_style( $this->plugin_name . '-selectize', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
-				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-admin.css', array(), $this->version, 'all' );
-			}
-		}
-
-		/**
-		 * Register the JavaScript for the admin area.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function enqueue_scripts() {
-			$tab = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'bp-job-manager';
-			if ( ! empty( $tab ) && strpos( $tab, 'bp-job-manager' ) !== false ) {
-				wp_enqueue_script( $this->plugin_name . '-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
-				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-admin.js', array( 'jquery' ), $this->version, false );
-			}
-		}
-
-		/**
-		 * Hide all notices from the setting page.
-		 *
-		 * @return void
-		 */
-		public function wbcom_hide_all_admin_notices_from_setting_page() {
-			$wbcom_pages_array  = array( 'wbcomplugins', 'wbcom-plugins-page', 'wbcom-support-page', 'bp-job-manager' );
-			$wbcom_setting_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : '';
-
-			if ( in_array( $wbcom_setting_page, $wbcom_pages_array, true ) ) {
-				remove_all_actions( 'admin_notices' );
-				remove_all_actions( 'all_admin_notices' );
-			}
-		}
-
-		/**
-		 * Register a settings page to handle groups export import settings.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function bpjm_add_options_page() {
-
-			$capability = 'manage_options';
-			if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
-				$capability = apply_filters( 'bpjm_menu_page_capability', 'manage_options' );
-				add_menu_page( esc_html__( 'WB Plugins', 'bp-job-manager' ), esc_html__( 'WB Plugins', 'bp-job-manager' ), $capability, 'wbcomplugins', array( $this, 'bpjm_admin_settings_page' ), 'dashicons-lightbulb', 59 );
-				add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'bp-job-manager' ), esc_html__( 'General', 'bp-job-manager' ), $capability, 'wbcomplugins' );
-			}
-			add_submenu_page( 'wbcomplugins', esc_html__( 'Job Manager', 'bp-job-manager' ), esc_html__( 'Job Manager', 'bp-job-manager' ), $capability, $this->plugin_name, array( $this, 'bpjm_admin_settings_page' ) );
-		}
-
-		/**
-		 * Actions performed to create a settings page content.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function bpjm_admin_settings_page() {
-			$tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'bpjm-welcome';
-			?>
-		<div class="wrap">
-			<div class="wbcom-bb-plugins-offer-wrapper">
-				<div id="wb_admin_logo">
-				</div>
-			</div>
-			<div class="wbcom-wrap">
-				<div class="bupr-header">
-					<div class="wbcom_admin_header-wrapper">
-						<div id="wb_admin_plugin_name">
-							<?php esc_html_e( 'BuddyPress Job Manager', 'bp-job-manager' ); ?>
-							<span>
-								<?php
-								/* translators: %s: */
-								printf( esc_html__( 'Version %s', 'bp-job-manager' ), esc_attr( BPJM_PLUGIN_VERSION ) );
-								?>
-							</span>
-						</div>
-						<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
-					</div>
-				</div>
-			<?php settings_errors(); ?>
-				<div class="wbcom-admin-settings-page">
-					<?php
-					$this->bpjm_plugin_settings_tabs();
-					do_settings_sections( $tab );
-					?>
-				</div>
-			</div>
-		</div>
-			<?php
-		}
-
-		/**
-		 * Actions performed to create tabs on the sub menu page.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function bpjm_plugin_settings_tabs() {
-			if ( file_exists( __DIR__ . '/includes/bp-job-manager-settings-tabs.php' ) ) {
-				require_once __DIR__ . '/includes/bp-job-manager-settings-tabs.php';
-			}
-		}
-
-		/**
-		 * Actions performed to create General Tab.
-		 *
-		 * @since    1.0.0
-		 */
-		public function bpjm_general_settings() {
-			$this->plugin_settings_tabs['bpjm-welcome'] = __( 'Welcome', 'bp-job-manager' );
-			add_settings_section( 'bp-job-manager-welcome', ' ', array( $this, 'bpjm_welcome_content' ), 'bpjm-welcome' );
-
-			$this->plugin_settings_tabs[ $this->plugin_name ] = __( 'General', 'bp-job-manager' );
-			register_setting(
-				'bpjm_general_settings',
-				'bpjm_general_settings',
-				array(
-					'sanitize_callback' => array( $this, 'bpjm_sanitize_settings' ),
-				)
-			);
-			add_settings_section( 'bp-job-manager-section', ' ', array( $this, 'bpjm_general_settings_content' ), $this->plugin_name );
-		}
-
-		/**
-		 * Actions performed to create welcome Tab Content.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function bpjm_welcome_content() {
-			if ( file_exists( __DIR__ . '/includes/bp-job-manager-welcome-page.php' ) ) {
-				require_once __DIR__ . '/includes/bp-job-manager-welcome-page.php';
-			}
-		}
-
-		/**
-		 * Actions performed to create General Tab Content.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function bpjm_general_settings_content() {
-			if ( file_exists( __DIR__ . '/includes/bp-job-manager-general-settings.php' ) ) {
-				require_once __DIR__ . '/includes/bp-job-manager-general-settings.php';
-			}
 		}
 
 		/**

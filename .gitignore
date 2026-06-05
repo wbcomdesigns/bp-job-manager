@@ -5,3 +5,11 @@ error_log
 
 # *.json
 *.json
+.claude-tmp/
+
+# AutoVAP onboarding artifacts — keep tracked despite broad ignores above
+!CLAUDE.md
+!audit/
+!audit/**
+!audit/manifest.json
+!audit/manifest.summary.json

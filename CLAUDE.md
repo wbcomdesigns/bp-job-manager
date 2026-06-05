@@ -1,0 +1,58 @@
+# Plugin: BuddyPress Job Manager
+
+> **READ FIRST:** [`audit/manifest.json`](audit/manifest.json) is the canonical inventory — 0 REST endpoints, 2 AJAX actions, 5 admin pages, 1 settings option (`bpjm_general_settings`), 1 shortcode, 0 tables, 0 cron, 0 CPTs. Use it before grepping. See also [`audit/FEATURE_AUDIT.md`](audit/FEATURE_AUDIT.md), [`audit/CODE_FLOWS.md`](audit/CODE_FLOWS.md), [`audit/ROLE_MATRIX.md`](audit/ROLE_MATRIX.md), and the wppqa baseline at [`audit/wppqa-baseline-2026-06-05/SUMMARY.md`](audit/wppqa-baseline-2026-06-05/SUMMARY.md). Refresh via `/wp-plugin-onboard --refresh` after non-trivial changes.
+
+> **Development conventions:** follow the [`wp-plugin-development`](https://example/skills/wp-plugin-development) skill for ALL code work (architecture, hooks ownership, REST patterns, escaping, security, admin UI, release packaging). This plugin predates the modern conventions; align new code to the skill, do not copy the legacy patterns below.
+
+## Quick reference
+- **Main file**: `bp-job-manager.php`
+- **Version**: `2.8.5` (branch `2.8.5`)
+- **Namespace**: none — class-prefix convention `Bp_Job_Manager_*`
+- **Text domain**: `bp-job-manager`
+- **Extends**: null (standalone; not a Free/Pro pair)
+- **Requires (hard)**: BuddyPress + WP Job Manager. Resume/Application features also need Resume Manager / Applications add-ons. Self-deactivates if BP or WPJM missing.
+
+## Admin wrapper classification: **OLD**
+Uses the legacy shared wrapper `admin/wbcom/wbcom-admin-settings.php` (class `Wbcom_Admin_Settings`).
+- NOT intermediate (`includes/shared-admin/class-wbcom-shared-dashboard.php` absent).
+- NOT new (`includes/admin/views/shell.php` absent).
+- Admin menu: hook `admin_menu` -> `Bp_Job_Manager_Admin::bpjm_add_options_page` (parent slug `wbcomplugins`, own page slug `bp-job-manager`); wrapper adds Our Plugins/Themes/Support at `admin_menu@999`.
+- A migration to the NEW card-based wrapper is a tracked follow-up (see global task "Migrate 10 addons to new card wrapper").
+
+## Key entry points
+- Bootstrap: `bp-job-manager.php` (dependency gate, activation redirect)
+- Orchestrator: `includes/class-bp-job-manager.php` (wires all hooks via `Bp_Job_Manager_Loader`)
+- Runtime config: `includes/class-bp-job-manager-globals.php` (`global $bpjm_bp_job_manager` from option `bpjm_general_settings`)
+- Admin: `admin/class-bp-job-manager-admin.php`
+- Public (everything user-facing, 1810 lines): `public/class-bp-job-manager-public.php`
+- Settings form: `admin/includes/bp-job-manager-general-settings.php`
+
+## Architecture
+WordPress-Plugin-Boilerplate layout (Bootstrap -> Loader -> Globals -> Admin/Public). No PHP namespace, no service container, no DB tables, no REST. Integration is hook-driven: it consumes BuddyPress + WP Job Manager / Resume Manager / Applications hooks and surfaces job/resume management inside BP member profiles. See `audit/CODE_FLOWS.md` for the six runtime flows.
+
+## Important patterns
+- **No own tables / CPTs** — operates entirely on WPJM `job_listing` / `resume` posts and BP `bp_activity`.
+- **Role-based front-end gating**, capability-based admin gating. Front-end tab access is driven by `post_job_user_roles` / `apply_job_user_roles` arrays, NOT WP caps.
+- **`bpjm_load_more_jobs` is intentionally public** (priv + nopriv), nonce-only — do not add a capability check; it would break the public infinite-scroll feed.
+- Release via `grunt dist` (-> `dist/bp-job-manager.zip`).
+- Source literal hook `bpjm_profile_peronal_inf_txt` is misspelled ("peronal") — do not "fix" it; it is a public contract.
+
+## CSS selectors (for testing/dev)
+- Admin: `.wbcom-wrap`, `.wbcom-admin-settings-page`, `#wb_admin_plugin_name`
+- Settings tabs rendered from `admin/includes/bp-job-manager-settings-tabs.php`
+- Front-end: BP profile nav items `jobs` / `resumes` and their subnav slugs (my-jobs, post-job, my-resumes, applied-jobs, add-resume)
+
+## wppqa baseline (2026-06-05)
+plugin-dev-rules: 5 high `nonce-no-cap` findings — **all pre-triaged false positives** (nopriv public AJAX, activation-hook redirect, and self-meta xProfile saves). See the baseline SUMMARY for per-finding justification. rest-js-contract and wiring-completeness: skipped (no REST, no template-layer settings reads). Net real high-severity bugs from wppqa: 0.
+
+## Onboarding follow-ups (out of scope of this onboarding run)
+Not yet present; route to the owning skills when ready:
+- CI/journey scaffold (`bin/local-ci.sh`, journeys, scale benchmark) -> `/wp-plugin-ci-setup` + `/wp-plugin-development`
+- Release build gate / `.distignore` -> `/wp-plugin-release`
+- QA model (`docs/qa/qa-config.json`) -> `/wp-plugin-release-qa` (then `/wp-plugin-smoke`)
+- Admin-wrapper migration OLD -> NEW card pattern
+
+## Recent changes
+| Date | Type | Description | Files |
+|---|---|---|---|
+| 2026-06-05 | onboard | Clean regeneration of audit/ artifacts + READ-FIRST CLAUDE.md | audit/*, CLAUDE.md |

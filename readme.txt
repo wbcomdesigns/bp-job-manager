@@ -96,6 +96,7 @@ The screenshots are present in the root of the plugin folder.
 
 == Changelog ==
 = 2.8.5 =
+* Admin UX: Rebuilt the settings screen on the modern Wbcom card-panel layout (sidebar navigation, Overview dashboard, General settings, Help & Support) and removed the legacy shared admin wrapper. Settings and saved data are unchanged.
 * Code Quality: Fixed all WordPress Coding Standards (WPCS) violations across all PHP files
 * Code Quality: Fixed multiple assignment on single line in wbcom admin settings
 * Code Quality: Fixed assignment-in-condition patterns in resume template

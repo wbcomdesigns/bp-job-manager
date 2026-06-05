@@ -1,0 +1,1170 @@
+/**
+ * BuddyPress Job Manager — Admin Styles
+ *
+ * Card-based settings panel following the wp-plugin-development skill
+ * Part 6 pattern. All tokens scoped under --bpjm-admin-* so nothing
+ * leaks to other plugins on the same admin screen.
+ *
+ * @since 1.5.0
+ */
+
+/* ═══════════════════════════════════════════════════════════
+   Design Tokens
+   ═══════════════════════════════════════════════════════════ */
+
+.bpjm-admin {
+	/* Accent */
+	--bpjm-admin-accent: #2563eb;
+	--bpjm-admin-accent-hover: #1d4ed8;
+	--bpjm-admin-accent-light: #eff6ff;
+
+	/* Surfaces */
+	--bpjm-admin-white: #ffffff;
+	--bpjm-admin-surface-1: #f8fafc;
+	--bpjm-admin-surface-2: #f1f5f9;
+	--bpjm-admin-border: #e2e8f0;
+	--bpjm-admin-border-strong: #cbd5e1;
+
+	/* Text scale */
+	--bpjm-admin-text: #1e293b;
+	--bpjm-admin-text-2: #475569;
+	--bpjm-admin-text-3: #64748b;
+	--bpjm-admin-text-4: #374151;
+	--bpjm-admin-text-muted: #94a3b8;
+
+	/* Semantic */
+	--bpjm-admin-success: #16a34a;
+	--bpjm-admin-success-light: #dcfce7;
+	--bpjm-admin-warn: #f59e0b;
+	--bpjm-admin-warn-light: #fef9c3;
+	--bpjm-admin-danger: #dc2626;
+	--bpjm-admin-danger-dark: #b91c1c;
+	--bpjm-admin-danger-light: #fee2e2;
+
+	/* Radius / Shadow */
+	--bpjm-admin-radius: 8px;
+	--bpjm-admin-radius-sm: 6px;
+	--bpjm-admin-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+	--bpjm-admin-shadow-hover: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.04);
+
+	/* Spacing */
+	--bpjm-admin-gap-sm: 8px;
+	--bpjm-admin-gap-md: 16px;
+	--bpjm-admin-gap-lg: 20px;
+	--bpjm-admin-gap-xl: 32px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Page wrapper + page header
+   ═══════════════════════════════════════════════════════════ */
+
+.bpjm-admin {
+	margin: 0 20px 0 0;
+	color: var(--bpjm-admin-text);
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.bpjm-admin h1,
+.bpjm-admin h2,
+.bpjm-admin h3,
+.bpjm-admin p {
+	margin: 0;
+	color: inherit;
+}
+
+.bpjm-admin a {
+	color: var(--bpjm-admin-accent);
+}
+
+.bpjm-page-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--bpjm-admin-gap-md);
+	padding: 18px 0 14px;
+	margin: 0 0 18px;
+	border-bottom: 1px solid var(--bpjm-admin-border);
+}
+
+.bpjm-page-header__title {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.bpjm-page-header__title h1 {
+	font-size: 20px;
+	font-weight: 700;
+	line-height: 1.2;
+	margin: 0;
+	padding: 0;
+}
+
+.bpjm-page-header__title .dashicons {
+	color: var(--bpjm-admin-accent);
+	width: 24px;
+	height: 24px;
+	font-size: 24px;
+}
+
+.bpjm-page-header__subtitle {
+	font-size: 13px;
+	color: var(--bpjm-admin-text-3);
+	margin: 2px 0 0;
+}
+
+.bpjm-page-header__actions {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.bpjm-version-pill {
+	display: inline-block;
+	padding: 4px 10px;
+	background: var(--bpjm-admin-accent);
+	color: #fff;
+	border-radius: 999px;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.03em;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Two-column settings layout
+   ═══════════════════════════════════════════════════════════ */
+
+.bpjm-settings-layout {
+	display: flex;
+	align-items: flex-start;
+	gap: 0;
+	margin-top: var(--bpjm-admin-gap-md);
+}
+
+.bpjm-settings-sidebar {
+	width: 240px;
+	flex-shrink: 0;
+	background: var(--bpjm-admin-white);
+	border: 1px solid var(--bpjm-admin-border);
+	border-radius: var(--bpjm-admin-radius);
+	box-shadow: var(--bpjm-admin-shadow);
+	position: sticky;
+	top: 32px;
+	overflow: hidden;
+}
+
+.bpjm-settings-sidebar-brand {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 16px 16px 14px;
+	border-bottom: 1px solid var(--bpjm-admin-surface-2);
+}
+
+.bpjm-settings-brand-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border-radius: var(--bpjm-admin-radius-sm);
+	background: var(--bpjm-admin-accent);
+	color: #fff;
+	flex-shrink: 0;
+}
+
+.bpjm-settings-brand-icon .dashicons {
+	color: #fff;
+	width: 18px;
+	height: 18px;
+	font-size: 18px;
+}
+
+.bpjm-settings-brand-text {
+	min-width: 0;
+}
+
+.bpjm-settings-brand-name {
+	margin: 0;
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--bpjm-admin-text);
+	line-height: 1.2;
+}
+
+.bpjm-settings-brand-sub {
+	margin: 2px 0 0;
+	font-size: 10px;
+	color: var(--bpjm-admin-text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	font-weight: 600;
+}
+
+.bpjm-settings-sidebar-nav {
+	padding: 8px;
+}
+
+.bpjm-snav-link {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 9px 10px;
+	border-radius: var(--bpjm-admin-radius-sm);
+	color: var(--bpjm-admin-text-2);
+	text-decoration: none;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.4;
+	transition: background 0.12s, color 0.12s;
+	margin-bottom: 1px;
+}
+
+.bpjm-snav-link .dashicons {
+	width: 16px;
+	height: 16px;
+	font-size: 16px;
+	flex-shrink: 0;
+	color: var(--bpjm-admin-text-muted);
+	transition: color 0.12s;
+}
+
+.bpjm-snav-link:hover,
+.bpjm-snav-link:focus {
+	background: var(--bpjm-admin-surface-1);
+	color: var(--bpjm-admin-text);
+	box-shadow: none;
+}
+
+/* Mouse-focus only — keyboard users get a visible outline via the
+   .bpjm-snav-link:focus-visible rule below. */
+.bpjm-snav-link:focus:not(:focus-visible) {
+	outline: none;
+}
+
+.bpjm-snav-link:hover .dashicons,
+.bpjm-snav-link:focus .dashicons {
+	color: var(--bpjm-admin-text-3);
+}
+
+.bpjm-snav-link:focus-visible {
+	outline: 2px solid var(--bpjm-admin-accent);
+	outline-offset: 2px;
+}
+
+.bpjm-snav-link--active,
+.bpjm-snav-link--active:hover,
+.bpjm-snav-link--active:focus {
+	background: var(--bpjm-admin-accent-light);
+	color: var(--bpjm-admin-accent);
+	font-weight: 600;
+}
+
+.bpjm-snav-link--active .dashicons {
+	color: var(--bpjm-admin-accent);
+}
+
+.bpjm-snav-divider {
+	height: 1px;
+	background: var(--bpjm-admin-surface-2);
+	margin: 8px 0;
+}
+
+.bpjm-snav-section-label {
+	margin: 8px 0 4px 10px;
+	font-size: 10px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: var(--bpjm-admin-text-muted);
+}
+
+.bpjm-settings-main {
+	flex: 1;
+	min-width: 0;
+	margin-left: var(--bpjm-admin-gap-lg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Cards
+   ═══════════════════════════════════════════════════════════ */
+
+.bpjm-card {
+	background: var(--bpjm-admin-white);
+	border: 1px solid var(--bpjm-admin-border);
+	border-radius: var(--bpjm-admin-radius);
+	box-shadow: var(--bpjm-admin-shadow);
+	margin-bottom: var(--bpjm-admin-gap-lg);
+	overflow: hidden;
+}
+
+.bpjm-card__head {
+	padding: 14px 20px 12px;
+	border-bottom: 1px solid var(--bpjm-admin-border);
+	background: var(--bpjm-admin-surface-1);
+}
+
+.bpjm-card__title {
+	font-size: 13px;
+	font-weight: 700;
+	color: var(--bpjm-admin-text);
+	margin: 0 0 2px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.bpjm-card__desc {
+	font-size: 13px;
+	color: var(--bpjm-admin-text-3);
+	margin: 0;
+	line-height: 1.5;
+}
+
+.bpjm-card__body {
+	padding: 20px;
+}
+
+.bpjm-card .form-table {
+	margin: 0;
+}
+
+.bpjm-card .form-table th {
+	padding: 14px 20px;
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--bpjm-admin-text-4);
+	width: 240px;
+	vertical-align: middle;
+}
+
+.bpjm-card .form-table td {
+	padding: 14px 20px;
+}
+
+.bpjm-card .form-table tr {
+	border-bottom: 1px solid var(--bpjm-admin-surface-2);
+}
+
+.bpjm-card .form-table tr:last-child {
+	border-bottom: none;
+}
+
+.bpjm-card .form-table .description {
+	margin: 6px 0 0;
+	color: var(--bpjm-admin-text-3);
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+.bpjm-card .form-table input[type="text"],
+.bpjm-card .form-table input[type="number"],
+.bpjm-card .form-table input[type="email"],
+.bpjm-card .form-table input[type="url"],
+.bpjm-card .form-table input[type="date"],
+.bpjm-card .form-table select {
+	padding: 8px 10px;
+	border: 1px solid var(--bpjm-admin-border-strong);
+	border-radius: var(--bpjm-admin-radius-sm);
+	font-size: 13px;
+	line-height: 1.4;
+	box-shadow: none;
+	background: var(--bpjm-admin-white);
+	color: var(--bpjm-admin-text);
+}
+
+.bpjm-card .form-table input[type="text"]:focus,
+.bpjm-card .form-table input[type="number"]:focus,
+.bpjm-card .form-table input[type="email"]:focus,
+.bpjm-card .form-table input[type="url"]:focus,
+.bpjm-card .form-table input[type="date"]:focus,
+.bpjm-card .form-table select:focus {
+	border-color: var(--bpjm-admin-accent);
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Mouse-focus gets the subtle box-shadow ring (above). Keyboard-focus
+   also keeps the browser's default outline so screen-reader / keyboard
+   users get the strongest indicator. Only suppress the outline on
+   mouse click. */
+.bpjm-card .form-table input[type="text"]:focus:not(:focus-visible),
+.bpjm-card .form-table input[type="email"]:focus:not(:focus-visible),
+.bpjm-card .form-table input[type="number"]:focus:not(:focus-visible),
+.bpjm-card .form-table input[type="url"]:focus:not(:focus-visible),
+.bpjm-card .form-table input[type="date"]:focus:not(:focus-visible),
+.bpjm-card .form-table select:focus:not(:focus-visible) {
+	outline: none;
+}
+
+.bpjm-card .form-table input.regular-text,
+.bpjm-card .form-table input.large-text {
+	width: 100%;
+	max-width: 480px;
+}
+
+.bpjm-card .form-table input.small-text {
+	width: 100px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Role chip grid (Permissions tab)
+   ═══════════════════════════════════════════════════════════ */
+
+.bpjm-role-grid-wrap {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.bpjm-role-grid-toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 0 0 12px;
+	margin-bottom: 12px;
+	border-bottom: 1px solid var(--bpjm-admin-surface-2);
+}
+
+.bpjm-role-grid-count {
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--bpjm-admin-text-3);
+	letter-spacing: 0.02em;
+}
+
+.bpjm-role-grid-actions {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.bpjm-role-grid-sep {
+	color: var(--bpjm-admin-border-strong);
+}
+
+.bpjm-link {
+	background: transparent;
+	border: 0;
+	padding: 0;
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--bpjm-admin-accent);
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.bpjm-link:hover,
+.bpjm-link:focus {
+	color: var(--bpjm-admin-accent-hover);
+	text-decoration: underline;
+}
+
+/* Mouse-focus only — keyboard users get a visible outline via the
+   .bpjm-link:focus-visible rule below. */
+.bpjm-link:focus:not(:focus-visible) {
+	outline: none;
+}
+
+.bpjm-link:focus-visible {
+	outline: 2px solid var(--bpjm-admin-accent);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+.bpjm-role-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 8px;
+	margin-bottom: 12px;
+}
+
+.bpjm-role-chip {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 10px 12px;
+	background: var(--bpjm-admin-surface-1);
+	border: 1px solid var(--bpjm-admin-border);
+	border-radius: var(--bpjm-admin-radius-sm);
+	cursor: pointer;
+	transition: background 0.12s, border-color 0.12s;
+	min-height: 40px;
+}
+
+.bpjm-role-chip:hover {
+	background: var(--bpjm-admin-white);
+	border-color: var(--bpjm-admin-border-strong);
+}
+
+.bpjm-role-chip input[type="checkbox"] {
+	margin: 0;
+	flex-shrink: 0;
+	accent-color: var(--bpjm-admin-accent);
+}
+
+.bpjm-role-chip__label {
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--bpjm-admin-text-4);
+	line-height: 1.3;
+}
+
+.bpjm-role-chip:has(input:checked) {
+	background: var(--bpjm-admin-accent-light);
+	border-color: rgba(37, 99, 235, 0.35);
+}
+
+.bpjm-role-chip:has(input:checked) .bpjm-role-chip__label {
+	color: var(--bpjm-admin-accent);
+	font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Form helpers
+   ═══════════════════════════════════════════════════════════ */
+
+.bpjm-inline-hint {
+	display: inline-block;
+	margin-left: 8px;
+	color: var(--bpjm-admin-text-3);
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.bpjm-save-bar {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 16px 0 0;
+}
+
+/*
+ * When a save-bar sits at the bottom of a card (not inside a
+ * .bpjm-card__body wrapper), give it the same horizontal padding as
+ * form-table cells + a top separator so the buttons don't sit flush
+ * against the card border. Covers `<div class="bpjm-card"><form>...
+ * <div class="bpjm-save-bar">` and direct-child cases.
+ */
+.bpjm-card > .bpjm-save-bar,
+.bpjm-card > form > .bpjm-save-bar {
+	padding: 16px 20px 20px;
+	border-top: 1px solid var(--bpjm-admin-border);
+	background: var(--bpjm-admin-surface-1);
+}
+
+.bpjm-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	padding: 8px 16px;
+	border-radius: var(--bpjm-admin-radius-sm);
+	border: 1px solid transparent;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 1.4;
+	cursor: pointer;
+	text-decoration: none;
+	transition: background 0.12s, border-color 0.12s, color 0.12s;
+	min-height: 36px;
+	box-shadow: none;
+}
+
+.bpjm-btn-primary {
+	background: var(--bpjm-admin-accent);
+	color: #fff;
+	border-color: var(--bpjm-admin-accent);
+}
+
+.bpjm-btn-primary:hover,
+.bpjm-btn-primary:focus {
+	background: var(--bpjm-admin-accent-hover);
+	border-color: var(--bpjm-admin-accent-hover);
+	color: #fff;
+}
+
+.bpjm-btn-secondary {
+	background: var(--bpjm-admin-white);
+	color: var(--bpjm-admin-text);
+	border-color: var(--bpjm-admin-border-strong);
+}
+
+.bpjm-btn-secondary:hover,
+.bpjm-btn-secondary:focus {
+	background: var(--bpjm-admin-surface-1);
+	color: var(--bpjm-admin-text);
+	border-color: var(--bpjm-admin-border-strong);
+}
+
+.bpjm-btn-danger {
+	background: var(--bpjm-admin-white);
+	color: var(--bpjm-admin-danger);
+	border-color: var(--bpjm-admin-danger-light);
+}
+
+.bpjm-btn-danger:hover,
+.bpjm-btn-danger:focus {
+	background: var(--bpjm-admin-danger);
+	color: #fff;
+	border-color: var(--bpjm-admin-danger);
+}
+
+.bpjm-btn:focus-visible {
+	outline: 2px solid var(--bpjm-admin-accent);
+	outline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Overview — stat grid
+   ═══════════════════════════════════════════════════════════ */
+
+.bpjm-stats-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+	gap: var(--bpjm-admin-gap-md);
+	margin: 0 0 var(--bpjm-admin-gap-lg);
+}
+
+.bpjm-stat {
+	background: var(--bpjm-admin-white);
+	border: 1px solid var(--bpjm-admin-border);
+	border-radius: var(--bpjm-admin-radius);
+	box-shadow: var(--bpjm-admin-shadow);
+	padding: 18px;
+}
+
+.bpjm-stat__label {
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: var(--bpjm-admin-text-muted);
+	margin: 0 0 6px;
+}
+
+.bpjm-stat__value {
+	font-size: 26px;
+	font-weight: 700;
+	color: var(--bpjm-admin-text);
+	line-height: 1.1;
+}
+
+.bpjm-stat__trend {
+	margin: 4px 0 0;
+	font-size: 12px;
+	color: var(--bpjm-admin-text-3);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Notices + empty states
+   ═══════════════════════════════════════════════════════════ */
+
+.bpjm-notice {
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	padding: 12px 16px;
+	border-radius: var(--bpjm-admin-radius-sm);
+	border: 1px solid var(--bpjm-admin-border);
+	background: var(--bpjm-admin-surface-1);
+	margin-bottom: var(--bpjm-admin-gap-md);
+	font-size: 13px;
+}
+
+.bpjm-notice--info {
+	background: var(--bpjm-admin-accent-light);
+	border-color: rgba(37, 99, 235, 0.2);
+	color: var(--bpjm-admin-accent);
+}
+
+.bpjm-notice--warn {
+	background: var(--bpjm-admin-warn-light);
+	border-color: rgba(245, 158, 11, 0.3);
+	color: #92400e;
+}
+
+.bpjm-notice--success {
+	background: var(--bpjm-admin-success-light);
+	border-color: rgba(22, 163, 74, 0.2);
+	color: var(--bpjm-admin-success);
+}
+
+.bpjm-empty-state {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0;
+	background: var(--bpjm-admin-white);
+	border: 1px solid var(--bpjm-admin-border);
+	border-radius: var(--bpjm-admin-radius);
+	box-shadow: var(--bpjm-admin-shadow);
+	padding: 56px 32px;
+	text-align: center;
+}
+
+.bpjm-empty-state__icon {
+	display: flex !important;
+	align-items: center;
+	justify-content: center;
+	width: 64px;
+	height: 64px;
+	margin: 0 auto 16px;
+	background: var(--bpjm-admin-accent-light);
+	color: var(--bpjm-admin-accent);
+	border-radius: 50%;
+	font-size: 32px;
+}
+
+.bpjm-empty-state__icon .dashicons {
+	width: 32px;
+	height: 32px;
+	font-size: 32px;
+	line-height: 1;
+	color: inherit;
+}
+
+.bpjm-empty-state__title {
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--bpjm-admin-text);
+	margin: 0 0 6px;
+	line-height: 1.3;
+}
+
+.bpjm-empty-state__desc {
+	font-size: 13px;
+	color: var(--bpjm-admin-text-3);
+	margin: 0 auto 20px;
+	max-width: 440px;
+	line-height: 1.55;
+}
+
+.bpjm-empty-state__desc:last-child {
+	margin-bottom: 0;
+}
+
+.bpjm-empty-state .bpjm-btn {
+	margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Toast + confirm modal (JS-driven)
+   ═══════════════════════════════════════════════════════════ */
+
+.bpjm-toast-host {
+	position: fixed;
+	right: 24px;
+	bottom: 24px;
+	z-index: 100000;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	pointer-events: none;
+}
+
+.bpjm-toast {
+	background: var(--bpjm-admin-text);
+	color: #fff;
+	padding: 12px 16px;
+	border-radius: var(--bpjm-admin-radius-sm);
+	font-size: 13px;
+	font-weight: 500;
+	box-shadow: var(--bpjm-admin-shadow-hover);
+	min-width: 240px;
+	max-width: 360px;
+	pointer-events: auto;
+	transform: translateY(8px);
+	opacity: 0;
+	transition: opacity 0.2s, transform 0.2s;
+}
+
+.bpjm-toast--visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.bpjm-toast--success {
+	background: var(--bpjm-admin-success);
+}
+
+.bpjm-toast--error {
+	background: var(--bpjm-admin-danger);
+}
+
+.bpjm-confirm-backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(15, 23, 42, 0.5);
+	z-index: 100001;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 24px;
+}
+
+.bpjm-confirm {
+	background: var(--bpjm-admin-white);
+	border-radius: var(--bpjm-admin-radius);
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+	max-width: 420px;
+	width: 100%;
+	padding: 24px;
+}
+
+.bpjm-confirm__title {
+	font-size: 16px;
+	font-weight: 700;
+	margin: 0 0 8px;
+	color: var(--bpjm-admin-text);
+}
+
+.bpjm-confirm__desc {
+	font-size: 13px;
+	color: var(--bpjm-admin-text-3);
+	margin: 0 0 18px;
+	line-height: 1.5;
+}
+
+.bpjm-confirm__actions {
+	display: flex;
+	gap: 8px;
+	justify-content: flex-end;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Responsive — exactly two media blocks per skill Part 7.5
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+	.bpjm-settings-layout {
+		flex-direction: column;
+	}
+
+	.bpjm-settings-sidebar {
+		width: 100%;
+		position: static;
+		top: auto;
+	}
+
+	.bpjm-settings-sidebar-nav {
+		display: flex;
+		flex-wrap: wrap;
+		padding: 8px;
+	}
+
+	.bpjm-snav-link {
+		flex: 1 1 auto;
+		justify-content: center;
+	}
+
+	.bpjm-snav-divider,
+	.bpjm-snav-section-label {
+		display: none;
+	}
+
+	.bpjm-settings-main {
+		margin-left: 0;
+		margin-top: var(--bpjm-admin-gap-md);
+	}
+}
+
+@media (max-width: 640px) {
+	.bpjm-admin {
+		margin-right: 0;
+	}
+
+	.bpjm-page-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
+
+	.bpjm-card .form-table th,
+	.bpjm-card .form-table td {
+		display: block;
+		width: 100%;
+		padding: 8px 16px;
+	}
+
+	.bpjm-card .form-table th {
+		padding-top: 16px;
+		padding-bottom: 4px;
+	}
+
+	.bpjm-stats-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WB Plugins hub landing dashboard
+   ═══════════════════════════════════════════════════════════ */
+
+.bpjm-hub-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: var(--bpjm-admin-gap-md);
+	margin: 0 0 var(--bpjm-admin-gap-lg);
+}
+
+.bpjm-hub-card {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+	padding: 20px;
+	background: var(--bpjm-admin-white);
+	border: 1px solid var(--bpjm-admin-border);
+	border-radius: var(--bpjm-admin-radius);
+	box-shadow: var(--bpjm-admin-shadow);
+	text-decoration: none;
+	color: var(--bpjm-admin-text);
+	transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
+}
+
+.bpjm-hub-card:hover,
+.bpjm-hub-card:focus {
+	border-color: var(--bpjm-admin-accent);
+	box-shadow: var(--bpjm-admin-shadow-hover);
+	transform: translateY(-1px);
+	color: var(--bpjm-admin-text);
+	text-decoration: none;
+}
+
+/* Mouse-focus only — keyboard users get a visible outline via the
+   .bpjm-hub-card:focus-visible rule below. */
+.bpjm-hub-card:focus:not(:focus-visible) {
+	outline: none;
+}
+
+.bpjm-hub-card:focus-visible {
+	outline: 2px solid var(--bpjm-admin-accent);
+	outline-offset: 2px;
+}
+
+.bpjm-hub-card__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	border-radius: 10px;
+	background: var(--bpjm-admin-accent-light);
+	color: var(--bpjm-admin-accent);
+}
+
+.bpjm-hub-card__icon .dashicons {
+	width: 22px;
+	height: 22px;
+	font-size: 22px;
+	color: inherit;
+}
+
+.bpjm-hub-card__title {
+	font-size: 15px;
+	font-weight: 700;
+	color: var(--bpjm-admin-text);
+	line-height: 1.2;
+}
+
+.bpjm-hub-card__subtitle {
+	font-size: 12px;
+	color: var(--bpjm-admin-text-3);
+	line-height: 1.4;
+}
+
+.bpjm-hub-card__cta {
+	margin-top: auto;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding-top: 6px;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--bpjm-admin-accent);
+}
+
+.bpjm-hub-card__cta .dashicons {
+	width: 16px;
+	height: 16px;
+	font-size: 16px;
+	transition: transform 0.12s;
+}
+
+.bpjm-hub-card:hover .bpjm-hub-card__cta .dashicons {
+	transform: translateX(2px);
+}
+
+/* ---------------------------------------------------------------------
+ * Settings notices ("Settings saved.", error banners, etc.)
+ *
+ * WP core's common.js hoists every .notice up to sit right after the
+ * first <h1> inside .wrap (or after .wp-header-end), regardless of
+ * where settings_errors() is called in PHP. With the notice's default
+ * styling the banner reads as a stray browser pill against our card
+ * panel below — flat, full-width, no chrome consistency.
+ *
+ * Scope styling to .bpjm-admin .notice so the banner picks up our
+ * radius + shadow + padding tokens and reads as part of the same UI.
+ * Reference: Basecamp card 9828831122.
+ * ------------------------------------------------------------------ */
+.bpjm-admin .notice {
+	border-radius: var( --bpjm-admin-radius );
+	box-shadow: var( --bpjm-admin-shadow );
+	padding: 12px 16px;
+	margin: 0 0 18px;
+	font-size: 14px;
+	line-height: 1.5;
+	border-width: 0 0 0 4px;
+	border-style: solid;
+}
+
+.bpjm-admin .notice p {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+/* Restore the dismiss button into the new padding rhythm. */
+.bpjm-admin .notice.is-dismissible {
+	padding-right: 38px;
+}
+
+.bpjm-admin .notice .notice-dismiss {
+	top: 8px;
+	right: 8px;
+}
+
+/* ════════════════════════════════════════════════
+   Job Manager — plugin-specific helpers
+   (status rows, toggles, role multi-select, resource grid)
+   ════════════════════════════════════════════════ */
+
+/* Spacing + body text helpers (replace inline styles). */
+.bpjm-card--spaced {
+	margin-top: var(--bpjm-admin-gap-lg);
+}
+
+.bpjm-card__body-lead {
+	margin: 0 0 8px;
+}
+
+.bpjm-save-bar--wrap {
+	flex-wrap: wrap;
+}
+
+/* Status row in the Overview config tables. */
+.bpjm-status {
+	font-weight: 600;
+}
+
+.bpjm-status--ok {
+	color: var(--bpjm-admin-success);
+}
+
+.bpjm-status--off {
+	color: var(--bpjm-admin-danger);
+}
+
+.bpjm-status--muted {
+	color: var(--bpjm-admin-text-3);
+	font-weight: 400;
+}
+
+/* Checkbox toggle label. */
+.bpjm-toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 13px;
+	color: var(--bpjm-admin-text-4);
+	cursor: pointer;
+	min-height: 24px;
+}
+
+.bpjm-toggle input[type="checkbox"] {
+	margin: 0;
+	flex-shrink: 0;
+	accent-color: var(--bpjm-admin-accent);
+}
+
+/* Role multi-select. */
+.bpjm-role-select {
+	width: 100%;
+	max-width: 360px;
+	padding: 8px 10px;
+	border: 1px solid var(--bpjm-admin-border-strong);
+	border-radius: var(--bpjm-admin-radius-sm);
+	font-size: 13px;
+	line-height: 1.5;
+	background: var(--bpjm-admin-white);
+	color: var(--bpjm-admin-text);
+}
+
+.bpjm-role-select:focus {
+	border-color: var(--bpjm-admin-accent);
+	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+	outline: none;
+}
+
+.bpjm-role-select option {
+	padding: 4px 6px;
+}
+
+/* Help & Support resource grid. */
+.bpjm-resource-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: var(--bpjm-admin-gap-md);
+}
+
+.bpjm-resource {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 8px;
+	padding: 18px;
+	background: var(--bpjm-admin-surface-1);
+	border: 1px solid var(--bpjm-admin-border);
+	border-radius: var(--bpjm-admin-radius);
+}
+
+.bpjm-resource__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	border-radius: 10px;
+	background: var(--bpjm-admin-accent-light);
+	color: var(--bpjm-admin-accent);
+}
+
+.bpjm-resource__icon .dashicons {
+	width: 20px;
+	height: 20px;
+	font-size: 20px;
+	color: inherit;
+}
+
+.bpjm-resource__title {
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--bpjm-admin-text);
+	margin: 0;
+}
+
+.bpjm-resource__desc {
+	font-size: 13px;
+	color: var(--bpjm-admin-text-3);
+	line-height: 1.5;
+	margin: 0;
+	flex: 1;
+}
+
+.bpjm-resource .bpjm-btn {
+	margin-top: 4px;
+}

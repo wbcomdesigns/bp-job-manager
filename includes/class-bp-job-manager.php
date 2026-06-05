@@ -124,9 +124,14 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 
 			/**
 			 * The class responsible for defining all actions that occur in the admin area.
+			 *
+			 * The legacy Bp_Job_Manager_Admin class is retained for its non-UI
+			 * concerns (settings sanitizer, admin-bar links, activity helpers).
+			 * The card-panel admin UI lives in Bp_Job_Manager_Admin_Panel; the
+			 * old admin/wbcom/ shared wrapper has been removed as of 2.8.5.
 			 */
-			require_once plugin_dir_path( __DIR__ ) . 'admin/wbcom/wbcom-admin-settings.php';
 			require_once plugin_dir_path( __DIR__ ) . 'admin/class-bp-job-manager-admin.php';
+			require_once plugin_dir_path( __DIR__ ) . 'includes/admin/class-bp-job-manager-admin-panel.php';
 
 			/**
 			 * The class responsible for admin review.
@@ -178,16 +183,22 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 		 */
 		private function define_admin_hooks() {
 
+			// Legacy admin service — retained ONLY for its non-UI helpers
+			// (admin-bar links + activity-feed writers + the settings
+			// sanitizer reused by the panel). Its UI methods
+			// (enqueue_styles/scripts, bpjm_add_options_page,
+			// bpjm_general_settings, wbcom_hide_all_admin_notices_*) are no
+			// longer hooked — Bp_Job_Manager_Admin_Panel owns that surface
+			// as of 2.8.5.
 			$plugin_admin = new Bp_Job_Manager_Admin( $this->get_plugin_name(), $this->get_version() );
 
-			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-			$this->loader->add_action( 'admin_menu', $plugin_admin, 'bpjm_add_options_page' );
-			$this->loader->add_action( 'admin_init', $plugin_admin, 'bpjm_general_settings' );
 			$this->loader->add_action( 'bp_setup_admin_bar', $plugin_admin, 'bpjm_setup_admin_bar_links', 70 );
 			$this->loader->add_action( 'publish_job_listing', $plugin_admin, 'bpjm_publish_job_listing', 999, 2 );
 			$this->loader->add_action( 'publish_resume', $plugin_admin, 'bpjm_publish_resume', 999, 2 );
-			$this->loader->add_action( 'in_admin_header', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
+
+			// New card-panel admin (menu + settings + enqueue + notices).
+			$admin_panel = new Bp_Job_Manager_Admin_Panel();
+			$admin_panel->register();
 		}
 
 		/**
