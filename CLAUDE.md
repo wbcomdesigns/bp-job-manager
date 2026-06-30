@@ -55,4 +55,5 @@ Not yet present; route to the owning skills when ready:
 ## Recent changes
 | Date | Type | Description | Files |
 |---|---|---|---|
+| 2026-06-30 | bug-fix | Dark-mode UI: WP Job Manager core surfaces (Add Job `.jm-ui-button`, submit preview bar `.job_listing_preview_title`, confirmation `.job-manager-message`) rendered light/invisible in BuddyX/BuddyX Pro/Reign dark mode. Added explicit dark block scoped to `[data-bx-mode="dark"]`/`.buddyx-dark-theme`. | public/css/bp-job-manager-public.css |
 | 2026-06-05 | onboard | Clean regeneration of audit/ artifacts + READ-FIRST CLAUDE.md | audit/*, CLAUDE.md |
