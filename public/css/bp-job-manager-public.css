@@ -454,3 +454,59 @@ body.wb-reign-theme.my-jobs .job-manager-jobs div#bpjm-job-application-btn a {
     color: #48a82a;
     background-color: var(--yzfy-card-bg-color);
 }
+/*--------------------------------------------------------------
+# Dark mode
+# BuddyX, BuddyX Pro and Reign all expose the dark state as
+# html[data-bx-mode="dark"]; .buddyx-dark-theme covers older builds.
+# WP Job Manager core renders light surfaces (dashboard buttons, the
+# submit-form preview bar and confirmation notices) that these themes do
+# not darken, so they are restyled explicitly here. Scoped to the
+# BuddyPress job area so other plugins are unaffected.
+--------------------------------------------------------------*/
+
+/* "Add Job" / dashboard buttons: were light bg + inherited light text
+   (invisible) in dark mode. */
+[data-bx-mode="dark"] .job-manager-jobs .jm-ui-button,
+[data-bx-mode="dark"] #job-manager-job-dashboard .jm-ui-button,
+[data-bx-mode="dark"] .bpjm-job-dashboard .jm-ui-button,
+.buddyx-dark-theme .job-manager-jobs .jm-ui-button,
+.buddyx-dark-theme #job-manager-job-dashboard .jm-ui-button {
+    background-color: #2b2b2b;
+    color: #f0f0f0;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+[data-bx-mode="dark"] .job-manager-jobs .jm-ui-button:hover,
+[data-bx-mode="dark"] #job-manager-job-dashboard .jm-ui-button:hover,
+.buddyx-dark-theme .job-manager-jobs .jm-ui-button:hover {
+    background-color: #3a3a3a;
+    color: #ffffff;
+}
+
+/* Submit-form preview header bar: was a light bar with invisible
+   "Preview" heading text. */
+[data-bx-mode="dark"] .job_listing_preview_title,
+.buddyx-dark-theme .job_listing_preview_title {
+    background-color: #1f1f1f;
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-bx-mode="dark"] .job_listing_preview_title h2,
+[data-bx-mode="dark"] .job_listing_preview_title h3,
+[data-bx-mode="dark"] .job_listing_preview_title .job_listing_preview_title__label,
+.buddyx-dark-theme .job_listing_preview_title h2,
+.buddyx-dark-theme .job_listing_preview_title h3 {
+    color: #e6e6e6;
+}
+
+/* Submit confirmation / info notices: were white boxes on the dark page. */
+[data-bx-mode="dark"] .job-manager-message,
+[data-bx-mode="dark"] .job-manager-info,
+[data-bx-mode="dark"] .job-manager-error,
+.buddyx-dark-theme .job-manager-message,
+.buddyx-dark-theme .job-manager-info,
+.buddyx-dark-theme .job-manager-error {
+    background-color: #1f1f1f;
+    color: #e6e6e6;
+    border-color: rgba(255, 255, 255, 0.14);
+}
