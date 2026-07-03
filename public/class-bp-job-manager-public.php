@@ -338,7 +338,15 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 								<?php elseif ( 'filled' === $key ) : ?>
 									<?php echo is_position_filled( $job ) ? '&#10004;' : '&ndash;'; ?>
 								<?php else : ?>
-									<?php do_action( 'job_manager_job_dashboard_column_' . $key, $job ); ?>
+									<?php
+									/*
+									 * WPJM 2.3+ hooks the actions column with 2 required args
+									 * ($job, $actions) - see WPJM templates/job-dashboard.php.
+									 * Pass an empty actions array to satisfy that contract; this
+									 * handler renders its own owner actions in the title column.
+									 */
+									do_action( 'job_manager_job_dashboard_column_' . $key, $job, array() );
+									?>
 								<?php endif; ?>
 							</td>
 						<?php endforeach; ?>
