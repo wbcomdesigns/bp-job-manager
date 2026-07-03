@@ -86,6 +86,8 @@ module.exports = function ( grunt ) {
 							'!phpcs.xml',
 							'!phpunit.xml',
 							'!tests/**',
+							'!*.md',
+							'!audit/**',
 							'!*.zip'
 						],
 						dest: 'dist/bp-job-manager/'
