@@ -456,57 +456,172 @@ body.wb-reign-theme.my-jobs .job-manager-jobs div#bpjm-job-application-btn a {
 }
 /*--------------------------------------------------------------
 # Dark mode
-# BuddyX, BuddyX Pro and Reign all expose the dark state as
-# html[data-bx-mode="dark"]; .buddyx-dark-theme covers older builds.
-# WP Job Manager core renders light surfaces (dashboard buttons, the
-# submit-form preview bar and confirmation notices) that these themes do
-# not darken, so they are restyled explicitly here. Scoped to the
-# BuddyPress job area so other plugins are unaffected.
+# BuddyX, BuddyX Pro and Reign share one color-mode mechanism:
+#   html[data-bx-mode="dark"]  — explicit dark choice
+#   html[data-bx-mode="auto"]  — follow the OS, dark applies only under
+#                                @media (prefers-color-scheme: dark)
+#   .buddyx-dark-theme         — legacy builds (always explicit dark)
+# WP Job Manager core renders light surfaces (dashboard buttons, search
+# icon, actions popover, jm-notice boxes, the submit-form preview panel
+# and confirmation notices) that these themes do not darken, so they are
+# restyled here for BOTH dark scopes. The rules are intentionally
+# duplicated inside the prefers-color-scheme media query for "auto" —
+# the same pattern the themes use for their own token overrides.
 --------------------------------------------------------------*/
+
+/* WP Job Manager --jm-ui-* design tokens (defined at :where(:root) in
+   ui.css, so any scoped override wins). These flip the token-driven
+   surfaces in one place:
+   - --jm-ui-background-color: .jm-notice boxes and the three-dot
+     actions popover (.jm-ui-action-menu__content, fallback #fff).
+   - --jm-ui-svg-search: the dashboard search-input icon is a black-fill
+     SVG background image — invisible on the dark input. Re-declared
+     with a light fill (#e6e6e6).
+   - --jm-ui-danger-color: WPJM ships a dark-mode variant for the
+     Delete action link; use it. */
+[data-bx-mode="dark"],
+.buddyx-dark-theme {
+    --jm-ui-background-color: #1f1f1f;
+    --jm-ui-danger-color: var(--jm-ui-danger-color-dark-mode, #f86c80);
+    --jm-ui-svg-search: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27 fill=%27none%27%3E%3Cpath fill=%27%23e6e6e6%27 fill-rule=%27evenodd%27 d=%27M19 11a6 6 0 0 1-9.68 4.74l-3.79 3.79-1.06-1.06 3.79-3.8A6 6 0 1 1 19 11Zm-1.5 0a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z%27 clip-rule=%27evenodd%27/%3E%3C/svg%3E");
+}
 
 /* "Add Job" / dashboard buttons: were light bg + inherited light text
    (invisible) in dark mode. */
-[data-bx-mode="dark"] .job-manager-jobs .jm-ui-button,
-[data-bx-mode="dark"] #job-manager-job-dashboard .jm-ui-button,
-[data-bx-mode="dark"] .bpjm-job-dashboard .jm-ui-button,
-.buddyx-dark-theme .job-manager-jobs .jm-ui-button,
-.buddyx-dark-theme #job-manager-job-dashboard .jm-ui-button {
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job-manager-jobs .jm-ui-button,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) #job-manager-job-dashboard .jm-ui-button,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-job-dashboard .jm-ui-button {
     background-color: #2b2b2b;
     color: #f0f0f0;
     border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-[data-bx-mode="dark"] .job-manager-jobs .jm-ui-button:hover,
-[data-bx-mode="dark"] #job-manager-job-dashboard .jm-ui-button:hover,
-.buddyx-dark-theme .job-manager-jobs .jm-ui-button:hover {
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job-manager-jobs .jm-ui-button:hover,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) #job-manager-job-dashboard .jm-ui-button:hover {
     background-color: #3a3a3a;
     color: #ffffff;
 }
 
 /* Submit-form preview header bar: was a light bar with invisible
    "Preview" heading text. */
-[data-bx-mode="dark"] .job_listing_preview_title,
-.buddyx-dark-theme .job_listing_preview_title {
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_preview_title {
     background-color: #1f1f1f;
     border-color: rgba(255, 255, 255, 0.12);
 }
 
-[data-bx-mode="dark"] .job_listing_preview_title h2,
-[data-bx-mode="dark"] .job_listing_preview_title h3,
-[data-bx-mode="dark"] .job_listing_preview_title .job_listing_preview_title__label,
-.buddyx-dark-theme .job_listing_preview_title h2,
-.buddyx-dark-theme .job_listing_preview_title h3 {
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_preview_title h2,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_preview_title h3,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_preview_title .job_listing_preview_title__label {
     color: #e6e6e6;
 }
 
-/* Submit confirmation / info notices: were white boxes on the dark page. */
-[data-bx-mode="dark"] .job-manager-message,
-[data-bx-mode="dark"] .job-manager-info,
-[data-bx-mode="dark"] .job-manager-error,
-.buddyx-dark-theme .job-manager-message,
-.buddyx-dark-theme .job-manager-info,
-.buddyx-dark-theme .job-manager-error {
+/* Preview panel: WPJM frontend.css hardcodes light borders
+   (.job_listing_preview 5px #eee, .company 1px #eee) that read as
+   bright white frames on the dark page. */
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_preview {
+    border-color: #2f2f2f;
+}
+
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .single_job_listing .company {
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: none;
+}
+
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .single_job_listing .company .company_video {
+    border-top-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Legacy submit confirmation / info notices: were white boxes on the
+   dark page. */
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job-manager-message,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job-manager-info,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job-manager-error {
     background-color: #1f1f1f;
     color: #e6e6e6;
     border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* jm-ui notices (dashboard empty state "You do not have any active
+   listings." and the deleted/updated confirmations): light boxes with
+   low-contrast text in dark mode. */
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .jm-notice {
+    background-color: #1f1f1f;
+    color: #e6e6e6;
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Three-dot actions popover (Edit / Duplicate / Delete): rendered as a
+   light panel with the page's light text — unreadable in dark mode. */
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .jm-ui-action-menu__content {
+    background-color: #1f1f1f;
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* "Auto" (system) mode — same fixes when the OS prefers dark. Keep in
+   sync with the explicit-dark block above. */
+@media (prefers-color-scheme: dark) {
+    [data-bx-mode="auto"] {
+        --jm-ui-background-color: #1f1f1f;
+        --jm-ui-danger-color: var(--jm-ui-danger-color-dark-mode, #f86c80);
+        --jm-ui-svg-search: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27 fill=%27none%27%3E%3Cpath fill=%27%23e6e6e6%27 fill-rule=%27evenodd%27 d=%27M19 11a6 6 0 0 1-9.68 4.74l-3.79 3.79-1.06-1.06 3.79-3.8A6 6 0 1 1 19 11Zm-1.5 0a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z%27 clip-rule=%27evenodd%27/%3E%3C/svg%3E");
+    }
+
+    [data-bx-mode="auto"] .job-manager-jobs .jm-ui-button,
+    [data-bx-mode="auto"] #job-manager-job-dashboard .jm-ui-button,
+    [data-bx-mode="auto"] .bpjm-job-dashboard .jm-ui-button {
+        background-color: #2b2b2b;
+        color: #f0f0f0;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    [data-bx-mode="auto"] .job-manager-jobs .jm-ui-button:hover,
+    [data-bx-mode="auto"] #job-manager-job-dashboard .jm-ui-button:hover {
+        background-color: #3a3a3a;
+        color: #ffffff;
+    }
+
+    [data-bx-mode="auto"] .job_listing_preview_title {
+        background-color: #1f1f1f;
+        border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    [data-bx-mode="auto"] .job_listing_preview_title h2,
+    [data-bx-mode="auto"] .job_listing_preview_title h3,
+    [data-bx-mode="auto"] .job_listing_preview_title .job_listing_preview_title__label {
+        color: #e6e6e6;
+    }
+
+    [data-bx-mode="auto"] .job_listing_preview {
+        border-color: #2f2f2f;
+    }
+
+    [data-bx-mode="auto"] .single_job_listing .company {
+        border-color: rgba(255, 255, 255, 0.14);
+        box-shadow: none;
+    }
+
+    [data-bx-mode="auto"] .single_job_listing .company .company_video {
+        border-top-color: rgba(255, 255, 255, 0.14);
+    }
+
+    [data-bx-mode="auto"] .job-manager-message,
+    [data-bx-mode="auto"] .job-manager-info,
+    [data-bx-mode="auto"] .job-manager-error {
+        background-color: #1f1f1f;
+        color: #e6e6e6;
+        border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    [data-bx-mode="auto"] .jm-notice {
+        background-color: #1f1f1f;
+        color: #e6e6e6;
+        border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    [data-bx-mode="auto"] .jm-ui-action-menu__content {
+        background-color: #1f1f1f;
+        border-color: rgba(255, 255, 255, 0.18);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
 }
