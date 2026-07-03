@@ -70,6 +70,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			add_action( 'wp_ajax_bpjm_load_more_jobs', array( $this, 'bpjm_load_more_jobs' ) );
 			add_action( 'wp_ajax_nopriv_bpjm_load_more_jobs', array( $this, 'bpjm_load_more_jobs' ) );
 			add_action( 'transition_post_status', array( $this, 'flush_job_listings_transient_on_update' ), 10, 3 );
+			add_action( 'deleted_post', array( $this, 'flush_job_listings_transient_on_delete' ), 10, 2 );
 		}
 
 		/**
@@ -1830,6 +1831,21 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			if ( in_array( $post->post_type, array( 'job_listing', 'resume' ), true ) ) {
 				delete_transient( "user_{$post->post_author}_job_listings" );
 				delete_transient( "user_{$post->post_author}_my_resumes_count" );
+			}
+		}
+
+		/**
+		 * Flush the cached profile-nav counts when a job or resume is force-deleted
+		 * (bypasses trash, so transition_post_status never fires).
+		 *
+		 * @since    2.8.5
+		 * @access   public
+		 * @param int     $post_id Deleted post ID.
+		 * @param WP_Post $post    Deleted post object.
+		 */
+		public function flush_job_listings_transient_on_delete( $post_id, $post ) {
+			if ( $post instanceof WP_Post ) {
+				$this->flush_job_listings_transient_on_update( '', '', $post );
 			}
 		}
 	}
