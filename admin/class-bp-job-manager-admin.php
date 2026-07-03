@@ -286,6 +286,45 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		}
 
 		/**
+		 * Remove the BuddyPress activity tied to a job/resume when the post is
+		 * trashed or permanently deleted, so the stream never keeps a dead link.
+		 *
+		 * Mirrors the activity written on publish in bpjm_publish_job_listing()
+		 * / bpjm_publish_resume(): item_id = post ID, component 'activity', type
+		 * 'bpjm_job_post' for jobs and 'bpjm_resume_publish' for resumes. Wired
+		 * to both wp_trash_post (trash) and before_delete_post (permanent/force
+		 * delete) so every removal path is covered. Re-firing on an already
+		 * cleaned item is a harmless no-op.
+		 *
+		 * @since 2.8.5
+		 * @param int $post_id Post ID being trashed or deleted.
+		 * @return void
+		 */
+		public function bpjm_delete_job_activity( $post_id ) {
+			if ( ! function_exists( 'bp_activity_delete' ) ) {
+				return;
+			}
+
+			$post_type = get_post_type( $post_id );
+
+			if ( 'job_listing' === $post_type ) {
+				$activity_type = 'bpjm_job_post';
+			} elseif ( 'resume' === $post_type ) {
+				$activity_type = 'bpjm_resume_publish';
+			} else {
+				return;
+			}
+
+			bp_activity_delete(
+				array(
+					'item_id'   => $post_id,
+					'type'      => $activity_type,
+					'component' => 'activity',
+				)
+			);
+		}
+
+		/**
 		 * Sanitize settings for register_setting()
 		 *
 		 * @param array $input Input settings array.

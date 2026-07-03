@@ -196,6 +196,11 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			$this->loader->add_action( 'publish_job_listing', $plugin_admin, 'bpjm_publish_job_listing', 999, 2 );
 			$this->loader->add_action( 'publish_resume', $plugin_admin, 'bpjm_publish_resume', 999, 2 );
 
+			// Remove the matching BP activity when a job/resume is trashed or
+			// permanently deleted so the stream never keeps a dead link.
+			$this->loader->add_action( 'wp_trash_post', $plugin_admin, 'bpjm_delete_job_activity' );
+			$this->loader->add_action( 'before_delete_post', $plugin_admin, 'bpjm_delete_job_activity' );
+
 			// New card-panel admin (menu + settings + enqueue + notices).
 			$admin_panel = new Bp_Job_Manager_Admin_Panel();
 			$admin_panel->register();
