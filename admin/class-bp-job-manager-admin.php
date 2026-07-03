@@ -213,11 +213,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 			if ( isset( $bpjm_bp_job_manager->bpjm_job_post_activity ) && 'yes' === $bpjm_bp_job_manager->bpjm_job_post_activity ) {
 				global $wpdb;
 				$table_name = $wpdb->prefix . 'bp_activity';
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Existence probe for the BuddyPress activity table on the publish write path; no WP API exposes SHOW TABLES and caching a schema probe on a write path is not useful.
 				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 
 				if ( $table_name === $get_table ) {
-					// Query BuddyPress activity table with proper escaping.
 					$activity_table = $wpdb->prefix . 'bp_activity';
+					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Duplicate-activity guard against the BuddyPress custom activity table (no core CRUD API for this item_id+type lookup); runs once on the publish write path so caching adds no value. Fully prepared.
 					$check          = $wpdb->get_results(
 						$wpdb->prepare(
 							'SELECT * FROM `' . esc_sql( $activity_table ) . '` WHERE item_id = %d AND type = %s',
@@ -256,9 +257,11 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 
 				global $wpdb;
 				$table_name = $wpdb->prefix . 'bp_activity';
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Existence probe for the BuddyPress activity table on the publish write path; no WP API exposes SHOW TABLES and caching a schema probe on a write path is not useful.
 				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
 				if ( $table_name === $get_table ) {
 					$activity_table = $wpdb->prefix . 'bp_activity';
+					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Duplicate-activity guard against the BuddyPress custom activity table (no core CRUD API for this item_id+type lookup); runs once on the publish write path so caching adds no value. Fully prepared.
 					$check          = $wpdb->get_results(
 						$wpdb->prepare(
 							'SELECT * FROM `' . esc_sql( $activity_table ) . '` WHERE item_id = %d AND type = %s',

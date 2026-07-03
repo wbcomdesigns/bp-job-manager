@@ -1230,9 +1230,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$user_id   = bp_loggedin_user_id();
 			$resume_id = get_user_meta( $user_id, 'bpjm_profile_resume_show_id', true );
 
-			$where = get_posts_by_author_sql( 'resume', true, $user_id, '' );
-
-			// Use WordPress function for safer query execution.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Small prepared lookup of the logged-in member's own published resumes on the BP settings screen; per-user caching would add invalidation complexity for no measurable gain.
 			$user_posts = $wpdb->get_results(
 				$wpdb->prepare(
 					"SELECT ID, post_title FROM {$wpdb->posts} WHERE post_author = %d AND post_type = %s AND post_status = %s ORDER BY post_modified DESC",
