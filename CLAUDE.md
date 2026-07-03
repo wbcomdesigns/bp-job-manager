@@ -55,5 +55,6 @@ Not yet present; route to the owning skills when ready:
 ## Recent changes
 | Date | Type | Description | Files |
 |---|---|---|---|
+| 2026-07-03 | bug-fix | Dark-mode round 2 (QA re-bounce): covered WPJM `.jm-notice` (dashboard empty state + deleted/updated confirmations), the three-dot actions popover `.jm-ui-action-menu__content`, the search-input icon (dark scope re-declares WPJM token `--jm-ui-svg-search` with a light fill), and the preview panel borders (`.job_listing_preview`, `.single_job_listing .company`). Also duplicated the whole dark block for the themes' "auto" (system) mode: `@media (prefers-color-scheme: dark) [data-bx-mode="auto"]` — QA's "Desktop Mode UI Issue" card was auto mode falling back to light styles. | public/css/bp-job-manager-public.css |
 | 2026-06-30 | bug-fix | Dark-mode UI: WP Job Manager core surfaces (Add Job `.jm-ui-button`, submit preview bar `.job_listing_preview_title`, confirmation `.job-manager-message`) rendered light/invisible in BuddyX/BuddyX Pro/Reign dark mode. Added explicit dark block scoped to `[data-bx-mode="dark"]`/`.buddyx-dark-theme`. | public/css/bp-job-manager-public.css |
 | 2026-06-05 | onboard | Clean regeneration of audit/ artifacts + READ-FIRST CLAUDE.md | audit/*, CLAUDE.md |
