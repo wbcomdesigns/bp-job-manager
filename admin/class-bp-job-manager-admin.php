@@ -228,7 +228,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 
 					if ( ! $check ) {
 						$args['type']  = 'bpjm_job_post';
-						$job_permalink = '<a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a>';
+						$job_permalink = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '">' . esc_html( $post->post_title ) . '</a>';
 						/* translators: %1$s: BP user link ;  %2$s: Job Link*/
 						$args['action']    = sprintf( __( '%1$s posted a new job %2$s', 'bp-job-manager' ), bp_core_get_userlink( $post->post_author ), $job_permalink );
 						$args['component'] = 'activity';
@@ -268,7 +268,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					);
 					if ( ! $check ) {
 						$args['type']  = 'bpjm_resume_publish';
-						$job_permalink = '<a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a>';
+						$job_permalink = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '">' . esc_html( $post->post_title ) . '</a>';
 						/* translators: %1$s: Resume user link ;  %2$s: Resume Link*/
 						$args['action']    = sprintf( __( '%1$s posted resume %2$s', 'bp-job-manager' ), bp_core_get_userlink( $post->post_author ), $job_permalink );
 						$args['component'] = 'activity';
