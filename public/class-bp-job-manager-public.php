@@ -163,6 +163,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 						'max_num_pages'     => $this->max_num_pages,
 						'ajax_nonce'        => wp_create_nonce( 'bpjm_load_jobs_nonce' ),
 						'displayed_user_id' => bp_displayed_user_id(),
+						'loading_text'      => __( 'Loading...', 'bp-job-manager' ),
 					)
 				);
 				wp_enqueue_script( $this->plugin_name );

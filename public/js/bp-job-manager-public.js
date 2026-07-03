@@ -4,7 +4,6 @@ jQuery( document ).ready(
 
 		// Open the job application url.
 		$(document).on('click', '.bpjm-job-application-btn-action a', function() {
-			console.log("asd");
 			var url = $(this).data('url');
 			if (url) {
 				window.open(url, '_blank');
@@ -84,7 +83,8 @@ jQuery( document ).ready(
 					type: 'POST',
 					data: data,
 					beforeSend: function() {
-						$( '.wb-grid-cell' ).find( '.job-manager-jobs' ).after( '<div class="inifinite-loader-wrapper"><a id="inifiniteLoader" href="javascript: void(0)" ><button class="loading">Loading...</button></a></div >' );
+						$( '.wb-grid-cell' ).find( '.job-manager-jobs' ).after( '<div class="inifinite-loader-wrapper"><a id="inifiniteLoader" href="javascript: void(0)" ><button class="loading"></button></a></div >' );
+						$( '#inifiniteLoader .loading' ).text( bpjm_load_jobs_object.loading_text );
 					},
 					success: function(response) {
 						$(".bpjm-loader").css("display", "none");
