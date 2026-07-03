@@ -78,7 +78,7 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 		public function __construct() {
 
 			$this->plugin_name = 'bp-job-manager';
-			$this->version     = '1.0.0';
+			$this->version     = defined( 'BPJM_PLUGIN_VERSION' ) ? BPJM_PLUGIN_VERSION : '1.0.0';
 
 			$this->load_dependencies();
 			$this->set_locale();
