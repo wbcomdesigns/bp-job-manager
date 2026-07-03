@@ -158,9 +158,10 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					$this->plugin_name,
 					'bpjm_load_jobs_object',
 					array(
-						'ajaxurl'       => admin_url( 'admin-ajax.php' ),
-						'max_num_pages' => $this->max_num_pages,
-						'ajax_nonce'    => wp_create_nonce( 'bpjm_load_jobs_nonce' ),
+						'ajaxurl'           => admin_url( 'admin-ajax.php' ),
+						'max_num_pages'     => $this->max_num_pages,
+						'ajax_nonce'        => wp_create_nonce( 'bpjm_load_jobs_nonce' ),
+						'displayed_user_id' => bp_displayed_user_id(),
 					)
 				);
 				wp_enqueue_script( $this->plugin_name );
@@ -203,7 +204,24 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 */
 		public function bpjm_load_more_jobs() {
 				check_ajax_referer( 'bpjm_load_jobs_nonce', 'ajax_nonce' );
-				$paged                 = ! empty( $_POST['page_no'] ) ? intval( sanitize_text_field( wp_unslash( $_POST['page_no'] ) ) ) : 1;
+				$paged = ! empty( $_POST['page_no'] ) ? intval( sanitize_text_field( wp_unslash( $_POST['page_no'] ) ) ) : 1;
+
+				/*
+				 * Resolve the profile owner whose jobs are being listed. BuddyPress cannot
+				 * parse a member URL out of an admin-ajax.php request, so bp_displayed_user_id()
+				 * is 0 here; the profile page passes its displayed user ID in the payload.
+				 * Never fall through to an unfiltered query - WP_Query drops the author
+				 * clause entirely when 'author' is 0, which would leak every user's jobs.
+				 */
+				$author = ! empty( $_POST['user_id'] ) ? absint( wp_unslash( $_POST['user_id'] ) ) : bp_displayed_user_id();
+				if ( empty( $author ) ) {
+					wp_send_json_error( array( 'message' => __( 'Invalid member profile.', 'bp-job-manager' ) ), 400 );
+				}
+
+				// Only the profile owner may see their non-public (draft/pending/expired/preview) listings.
+				$is_profile_owner = ( get_current_user_id() === $author );
+				$post_status      = $is_profile_owner ? array( 'publish', 'expired', 'pending', 'draft', 'preview' ) : array( 'publish' );
+
 				$per_page              = get_option( 'job_manager_per_page' );
 				$job_dashboard_columns = array(
 					'job_title' => __( 'Title', 'bp-job-manager' ),
@@ -215,12 +233,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 				$args = array(
 					'post_type'           => 'job_listing',
-					'post_status'         => array( 'publish', 'expired', 'pending', 'draft', 'preview' ),
+					'post_status'         => $post_status,
 					'ignore_sticky_posts' => true,
 					'posts_per_page'      => $per_page,
 					'orderby'             => 'date',
 					'order'               => 'desc',
-					'author'              => bp_displayed_user_id(),
+					'author'              => $author,
 					'paged'               => $paged,
 				);
 				$jobs = get_posts( $args );
@@ -236,7 +254,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 										<?php wpjm_the_job_title( $job ); ?> <small>(<?php the_job_status( $job ); ?>)</small>
 									<?php endif; ?>
 									<?php echo is_position_featured( $job ) ? '<span class="featured-job-icon" title="' . esc_attr__( 'Featured Job', 'bp-job-manager' ) . '"></span>' : ''; ?>
-									<?php if ( bp_loggedin_user_id() === bp_displayed_user_id() ) { ?>
+									<?php if ( $is_profile_owner ) { ?>
 										<ul class="job-dashboard-actions">
 											<?php
 											$actions = array();

@@ -75,6 +75,7 @@ jQuery( document ).ready(
 			var data = {
 				'action': 'bpjm_load_more_jobs',
 				'page_no': pageNumber,
+				'user_id': bpjm_load_jobs_object.displayed_user_id,
 				'ajax_nonce': bpjm_load_jobs_object.ajax_nonce,
 			};
 			$.ajax(
