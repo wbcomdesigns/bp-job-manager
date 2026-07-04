@@ -55,6 +55,17 @@ Check out paid community add-ons by Wbcom Designs:
 
 = EXPERT SUPPORT =
 We are ready to provide incredible support. Ask your questions at [contact us directly](https://wbcomdesigns.com/support/).
+
+== More Free Tools from Wbcom Designs ==
+
+BuddyPress Job Manager turns member profiles into a hiring hub for jobs, resumes, and applications. Build out the rest of the community around those careers with these free Wbcom Designs plugins.
+
+* **[BuddyNext](https://wbcomdesigns.com/downloads/buddynext/)** - Stand up a complete social network on WordPress with activity feeds, member spaces, profiles, directories, and private messaging.
+* **[Jetonomy](https://wbcomdesigns.com/downloads/jetonomy/)** - Add forums, Q&A, and idea boards where trust levels keep discussion clean across tens of thousands of topics.
+* **[Mediaverse](https://wbcomdesigns.com/downloads/mediaverse/)** - Give members a place to share photos and video in albums, react, follow each other, and message privately, with AI moderation built in.
+* **[Listora](https://wbcomdesigns.com/downloads/listora/)** - Publish searchable directories with ten listing types, reviews, maps, and front-end submissions from your members.
+* **[Learnomy](https://wbcomdesigns.com/downloads/learnomy/)** - Run a full learning platform to sell courses, grade quizzes automatically, take payments, and award certificates.
+
 == Installation ==
 
 1. Upload the entire `bp-job-manager` folder to the /wp-content/plugins/ directory.
