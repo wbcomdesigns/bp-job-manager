@@ -834,6 +834,76 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
+   Discover — ecosystem cross-promotion cards (read-only)
+   ═══════════════════════════════════════════════════════════ */
+
+.bpjm-discover-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: var(--bpjm-admin-gap-md);
+}
+
+.bpjm-discover-card {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+	padding: var(--bpjm-admin-gap-lg);
+	background: var(--bpjm-admin-white);
+	border: 1px solid var(--bpjm-admin-border);
+	border-radius: var(--bpjm-admin-radius);
+	box-shadow: var(--bpjm-admin-shadow);
+	transition: box-shadow 0.12s, border-color 0.12s, transform 0.12s;
+}
+
+.bpjm-discover-card:hover {
+	border-color: var(--bpjm-admin-border-strong);
+	box-shadow: var(--bpjm-admin-shadow-hover);
+	transform: translateY(-1px);
+}
+
+.bpjm-discover-card__logo {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 52px;
+	height: 52px;
+}
+
+.bpjm-discover-card__logo img {
+	width: 52px;
+	height: 52px;
+	display: block;
+	border-radius: var(--bpjm-admin-radius-sm);
+}
+
+.bpjm-discover-card__title {
+	font-size: 15px;
+	font-weight: 700;
+	color: var(--bpjm-admin-text);
+	line-height: 1.2;
+	margin: 0;
+}
+
+.bpjm-discover-card__desc {
+	font-size: 13px;
+	color: var(--bpjm-admin-text-3);
+	line-height: 1.5;
+	margin: 0;
+	flex: 1 1 auto;
+}
+
+.bpjm-discover-card__cta {
+	margin-top: 4px;
+}
+
+.bpjm-discover-card__cta .dashicons {
+	width: 14px;
+	height: 14px;
+	font-size: 14px;
+}
+
+/* ═══════════════════════════════════════════════════════════
    Responsive — exactly two media blocks per skill Part 7.5
    ═══════════════════════════════════════════════════════════ */
 
@@ -894,6 +964,10 @@
 	}
 
 	.bpjm-stats-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.bpjm-discover-grid {
 		grid-template-columns: 1fr;
 	}
 }

@@ -67,6 +67,7 @@ $bpjm_version = defined( 'BPJM_PLUGIN_VERSION' ) ? BPJM_PLUGIN_VERSION : '';
 				$group_labels   = array(
 					'settings' => esc_html__( 'Settings', 'bp-job-manager' ),
 					'account'  => esc_html__( 'Resources', 'bp-job-manager' ),
+					'discover' => esc_html__( 'More Tools', 'bp-job-manager' ),
 				);
 				foreach ( $bpjm_tabs as $bpjm_slug => $bpjm_tab ) {
 					$group = isset( $bpjm_tab['group'] ) ? $bpjm_tab['group'] : 'main';

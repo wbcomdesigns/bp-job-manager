@@ -63,6 +63,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin_Panel' ) ) :
 					'icon'  => 'dashicons-sos',
 					'group' => 'account',
 				),
+				// Discover — ecosystem cross-promotion (read-only display view).
+				'discover' => array(
+					'label' => __( 'Discover', 'bp-job-manager' ),
+					'icon'  => 'dashicons-products',
+					'group' => 'discover',
+				),
 			);
 			return apply_filters( 'bpjm_admin_tabs', $tabs );
 		}
@@ -354,6 +360,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin_Panel' ) ) :
 				'overview' => 'overview',
 				'general'  => 'settings-general',
 				'welcome'  => 'welcome',
+				'discover' => 'discover',
 			);
 
 			$view                = isset( $view_map[ $active ] ) ? $view_map[ $active ] : 'overview';
