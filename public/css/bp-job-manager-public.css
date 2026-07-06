@@ -558,6 +558,37 @@ body.wb-reign-theme.my-jobs .job-manager-jobs div#bpjm-job-application-btn a {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
+/* Job/Resume Packages: light background on dark page. */
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .entry-content .job_listing_packages_title,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .entry-content .resume_packages_title,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages_title,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages_title {
+    background-color: #1f1f1f;
+}
+
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages {
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages ul.job_packages li.user-job-package,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages ul.job_packages li.user-resume-package, 
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages ul.resume_packages li.user-job-package,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages ul.resume_packages li.user-resume-package,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages ul.job_packages li.user-job-package,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages ul.job_packages li.user-resume-package, 
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages ul.resume_packages li.user-job-package,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages ul.resume_packages li.user-resume-package {
+    background-color: #1f1f1f;
+}
+
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages ul.job_packages li,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages ul.resume_packages li,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages ul.job_packages li,
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages ul.resume_packages li {
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
 /* "Auto" (system) mode — same fixes when the OS prefers dark. Keep in
    sync with the explicit-dark block above. */
 @media (prefers-color-scheme: dark) {
