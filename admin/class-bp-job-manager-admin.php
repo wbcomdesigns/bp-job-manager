@@ -202,87 +202,81 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 
 
 		/**
-		 * Display Job listings
+		 * Post a BuddyPress activity when a job is published for the first time.
 		 *
-		 * @param  int   $post_id Job ID.
-		 * @param  array $post Job post object.
+		 * Publish and update are different: this fires only on the transition to
+		 * publish (e.g. pending/draft -> publish). Editing or re-saving an
+		 * already published job (publish -> publish) adds nothing.
+		 *
+		 * @param string $new_status New post status.
+		 * @param string $old_status Previous post status.
+		 * @param object $post       Post object.
 		 * @return void
 		 */
-		public function bpjm_publish_job_listing( $post_id, $post ) {
-			global $bpjm_bp_job_manager;
-			if ( isset( $bpjm_bp_job_manager->bpjm_job_post_activity ) && 'yes' === $bpjm_bp_job_manager->bpjm_job_post_activity ) {
-				global $wpdb;
-				$table_name = $wpdb->prefix . 'bp_activity';
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Existence probe for the BuddyPress activity table on the publish write path; no WP API exposes SHOW TABLES and caching a schema probe on a write path is not useful.
-				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
-
-				if ( $table_name === $get_table ) {
-					$activity_table = $wpdb->prefix . 'bp_activity';
-					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Duplicate-activity guard against the BuddyPress custom activity table (no core CRUD API for this item_id+type lookup); runs once on the publish write path so caching adds no value. Fully prepared.
-					$check          = $wpdb->get_results(
-						$wpdb->prepare(
-							'SELECT * FROM `' . esc_sql( $activity_table ) . '` WHERE item_id = %d AND type = %s',
-							$post->ID,
-							'bpjm_job_post'
-						)
-					);
-
-					if ( ! $check ) {
-						$args['type']  = 'bpjm_job_post';
-						$job_permalink = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '">' . esc_html( $post->post_title ) . '</a>';
-						/* translators: %1$s: BP user link ;  %2$s: Job Link*/
-						$args['action']    = sprintf( __( '%1$s posted a new job %2$s', 'bp-job-manager' ), bp_core_get_userlink( $post->post_author ), $job_permalink );
-						$args['component'] = 'activity';
-						$args['user_id']   = $post->post_author;
-						$args['item_id']   = $post->ID;
-						$args['content']   = $post->post_content;
-
-						bp_activity_add( $args );
-					}
-				}
+		public function bpjm_publish_job_listing( $new_status, $old_status, $post ) {
+			if ( 'publish' !== $new_status || 'publish' === $old_status || 'job_listing' !== $post->post_type ) {
+				return;
 			}
+
+			global $bpjm_bp_job_manager;
+			if ( ! isset( $bpjm_bp_job_manager->bpjm_job_post_activity ) || 'yes' !== $bpjm_bp_job_manager->bpjm_job_post_activity ) {
+				return;
+			}
+
+			/* translators: %1$s: BP user link ; %2$s: Job link */
+			$this->bpjm_add_publish_activity( $post, 'bpjm_job_post', __( '%1$s posted a new job %2$s', 'bp-job-manager' ) );
 		}
 
-
 		/**
-		 * Publish resume.
+		 * Post a BuddyPress activity when a resume is published for the first time.
 		 *
-		 * @param  int   $post_id Job ID.
-		 * @param  array $post Job post object.
+		 * Same publish-only rule as bpjm_publish_job_listing(): fires on the
+		 * transition to publish, never on later updates.
+		 *
+		 * @param string $new_status New post status.
+		 * @param string $old_status Previous post status.
+		 * @param object $post       Post object.
 		 * @return void
 		 */
-		public function bpjm_publish_resume( $post_id, $post ) {
-			global $bpjm_bp_job_manager;
-			if ( isset( $bpjm_bp_job_manager->bpjm_resume_activity ) && 'yes' === $bpjm_bp_job_manager->bpjm_resume_activity ) {
-
-				global $wpdb;
-				$table_name = $wpdb->prefix . 'bp_activity';
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Existence probe for the BuddyPress activity table on the publish write path; no WP API exposes SHOW TABLES and caching a schema probe on a write path is not useful.
-				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
-				if ( $table_name === $get_table ) {
-					$activity_table = $wpdb->prefix . 'bp_activity';
-					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Duplicate-activity guard against the BuddyPress custom activity table (no core CRUD API for this item_id+type lookup); runs once on the publish write path so caching adds no value. Fully prepared.
-					$check          = $wpdb->get_results(
-						$wpdb->prepare(
-							'SELECT * FROM `' . esc_sql( $activity_table ) . '` WHERE item_id = %d AND type = %s',
-							$post->ID,
-							'bpjm_resume_publish'
-						)
-					);
-					if ( ! $check ) {
-						$args['type']  = 'bpjm_resume_publish';
-						$job_permalink = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '">' . esc_html( $post->post_title ) . '</a>';
-						/* translators: %1$s: Resume user link ;  %2$s: Resume Link*/
-						$args['action']    = sprintf( __( '%1$s posted resume %2$s', 'bp-job-manager' ), bp_core_get_userlink( $post->post_author ), $job_permalink );
-						$args['component'] = 'activity';
-						$args['user_id']   = $post->post_author;
-						$args['item_id']   = $post->ID;
-						$args['content']   = $post->post_content;
-
-						bp_activity_add( $args );
-					}
-				}
+		public function bpjm_publish_resume( $new_status, $old_status, $post ) {
+			if ( 'publish' !== $new_status || 'publish' === $old_status || 'resume' !== $post->post_type ) {
+				return;
 			}
+
+			global $bpjm_bp_job_manager;
+			if ( ! isset( $bpjm_bp_job_manager->bpjm_resume_activity ) || 'yes' !== $bpjm_bp_job_manager->bpjm_resume_activity ) {
+				return;
+			}
+
+			/* translators: %1$s: Resume user link ; %2$s: Resume link */
+			$this->bpjm_add_publish_activity( $post, 'bpjm_resume_publish', __( '%1$s posted resume %2$s', 'bp-job-manager' ) );
+		}
+
+		/**
+		 * Add the "posted a new job/resume" BuddyPress activity for a post.
+		 *
+		 * @param object $post          Post object.
+		 * @param string $activity_type Activity type (bpjm_job_post|bpjm_resume_publish).
+		 * @param string $action_format Translated sprintf format for the activity action.
+		 * @return void
+		 */
+		private function bpjm_add_publish_activity( $post, $activity_type, $action_format ) {
+			if ( ! function_exists( 'bp_activity_add' ) ) {
+				return;
+			}
+
+			$permalink = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '">' . esc_html( $post->post_title ) . '</a>';
+
+			bp_activity_add(
+				array(
+					'type'      => $activity_type,
+					'action'    => sprintf( $action_format, bp_core_get_userlink( $post->post_author ), $permalink ),
+					'component' => 'activity',
+					'user_id'   => $post->post_author,
+					'item_id'   => $post->ID,
+					'content'   => $post->post_content,
+				)
+			);
 		}
 
 		/**

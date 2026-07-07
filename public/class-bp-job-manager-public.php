@@ -1544,77 +1544,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		}
 
 		/**
-		 * Filters the default activity types to add job post type activity.
-		 *
-		 * @since 2.1.0
-		 *
-		 * @param array $types Default activity types to moderate.
-		 */
-		public function bpolls_add_polls_type_activity( $types ) {
-			$types[] = 'bpjm_job_post';
-			return $types;
-		}
-
-		/**
-		 * Register the activity stream actions for job post updates.
-		 *
-		 * @since 2.1.0
-		 */
-		public function bpjm_register_job_post_activity_actions() {
-			$bp = buddypress();
-
-			bp_activity_set_action(
-				$bp->activity->id,
-				'bpjm_job_post',
-				__( 'Jobs Update', 'bp-job-manager' ),
-				array( $this, 'bpjm_job_post_activity_action_format' ),
-				__( 'Jobs', 'bp-job-manager' ),
-				array( 'activity', 'group', 'member', 'member_groups' )
-			);
-		}
-
-		/**
-		 * Format 'bpjm_job_post' activity actions.
-		 *
-		 * @since 2.1.0
-		 *
-		 * @param string $action   Static activity action.
-		 * @param object $activity Activity data object.
-		 * @return string $action
-		 */
-		public function bpjm_job_post_activity_action_format( $action, $activity ) {
-			/* translators: %1$s: Activity user ID*/
-			$action = sprintf( __( '%s shared a new job update.', 'bp-job-manager' ), bp_core_get_userlink( $activity->user_id ) );
-
-			/**
-			 * Filters the formatted activity action update string.
-			 *
-			 * @since 1.0.0
-			 *
-			 * @param string               $action   Activity action string value.
-			 * @param BP_Activity_Activity $activity Activity item object.
-			 */
-			return apply_filters( 'bp_activity_new_job_post_action', $action, $activity );
-		}
-
-		/**
-		 * Activity action for job post.
-		 *
-		 * @since 2.1.0
-		 *
-		 * @param string $retval Activity Action.
-		 * @param object $activity Acitivity Object.
-		 */
-		public function bpjm_activity_action_wall_posts( $retval, $activity ) {
-			if ( 'bpjm_job_post' !== $activity->type ) {
-				return $retval;
-			}
-			/* translators: %1$s: BP User core link */
-			$retval = sprintf( __( '%s posted a job update', 'bp-job-manager' ), bp_core_get_userlink( $activity->user_id ) );
-			return $retval;
-		}
-
-		/**
 		 * Add bp notification on sending job application.
 		 *
 		 * @since 2.1.0
@@ -1637,7 +1566,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 							'component_name'    => 'bpjm_notify_actions',
 							'component_action'  => 'applied_job',
 							'allow_duplicate'   => false,
-							// 'is_new'         => 1
 						)
 					);
 				}
