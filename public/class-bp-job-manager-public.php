@@ -154,6 +154,19 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$job_related_actions   = array( 'my-jobs', 'applied-jobs', 'post-job', 'my-resumes', 'add-resume' );
 			if ( in_array( bp_current_action(), $job_related_actions, true ) || get_the_ID() === $get_dashboard_page_id ) {
 				$this->get_jobs_max_num_pages();
+
+				/*
+				 * WP Job Manager's [job_dashboard] "Add Job" button links to the standalone
+				 * submit_job_form page (job_manager_submit_job_form_page_id). Inside a BuddyPress
+				 * profile that either renders empty (when the WPJM page is unconfigured) or navigates
+				 * the member out of their profile. Point it at the in-profile "Post Job" tab instead,
+				 * for the member viewing their own dashboard.
+				 */
+				$bpjm_post_job_url = '';
+				if ( bp_loggedin_user_id() === bp_displayed_user_id() ) {
+					$bpjm_post_job_url = bp_core_get_userlink( bp_displayed_user_id(), false, true ) . 'jobs/post-job/';
+				}
+
 				wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-public.js', array( 'jquery' ), $this->version, false );
 				wp_localize_script(
 					$this->plugin_name,
@@ -164,6 +177,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 						'ajax_nonce'        => wp_create_nonce( 'bpjm_load_jobs_nonce' ),
 						'displayed_user_id' => bp_displayed_user_id(),
 						'loading_text'      => __( 'Loading...', 'bp-job-manager' ),
+						'post_job_url'      => $bpjm_post_job_url,
 					)
 				);
 				wp_enqueue_script( $this->plugin_name );
