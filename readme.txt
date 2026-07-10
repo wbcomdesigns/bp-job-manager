@@ -3,7 +3,9 @@ Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, wp-job-manager, job-manager, resume-manager, buddypress-jobs
 Requires at least: 3.0.1
-Tested up to: 6.9
+Tested up to: 7.0
+Requires PHP: 7.4
+Requires Plugins: buddypress, wp-job-manager
 Stable tag: 2.8.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -106,13 +108,19 @@ The screenshots are present in the root of the plugin folder.
 7. screenshot-7
 
 == Changelog ==
-= 2.8.5 =
-* Admin UX: Rebuilt the settings screen on the modern Wbcom card-panel layout (sidebar navigation, Overview dashboard, General settings, Help & Support) and removed the legacy shared admin wrapper. Settings and saved data are unchanged.
-* Code Quality: Fixed all WordPress Coding Standards (WPCS) violations across all PHP files
-* Code Quality: Fixed multiple assignment on single line in wbcom admin settings
-* Code Quality: Fixed assignment-in-condition patterns in resume template
-* Code Quality: Added phpcs:ignore for template $post global overrides
-* Code Quality: Fixed all Plugin Check errors (0 errors)
+= 2.8.5 - July 2026 =
+
+* Improve  - Rebuilt the admin settings screen on the modern Wbcom card-panel layout (sidebar navigation, Overview, General settings, Help and Support); saved settings and data are unchanged.
+* Improve  - Applied Jobs tab now uses real LIMIT/OFFSET pagination with batched post-cache priming, removing the per-row query on large lists.
+* Improve  - Profile Jobs and Resumes nav counts are cached in per-user transients and invalidated on job status change or deletion.
+* Fix      - Add Job button on the profile dashboard now opens the in-profile Post Job tab instead of an empty link or a page outside the profile.
+* Fix      - Plugin and WP Job Manager frontend styles now load on the profile Jobs tab for owners whose role cannot post jobs.
+* Fix      - WP Job Manager dark surfaces (dashboard buttons, notices, actions popover, submit preview) now render correctly in BuddyX, BuddyX Pro and Reign dark mode.
+* Fix      - Resolved a fatal ArgumentCountError in the load-more job rows on WP Job Manager 2.3 and later.
+* Fix      - Public CSS and JS now enqueue with the correct plugin version for cache busting.
+* Security - Restricted the load-more jobs AJAX response to the profile owner's published jobs and rejected requests with no resolvable member.
+* Dev      - Fixed all WordPress Coding Standards violations and cleared all Plugin Check errors; removed leftover debug logging and localized the loading string.
+* Compat   - Aligned with WP Job Manager 2.3 and later dashboard action hooks.
 
 = 2.8.2 =
 * Fix: Explicitly cast float to int in `seconds_to_words` function to prevent deprecated warnings about implicit conversion.

@@ -496,29 +496,16 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				);
 
 				/*
-				 * Neither viewer nor owner has a post_job_user_roles role, so no "Post
-				 * Job" subnav was registered above - but WP Job Manager's own [job_dashboard]
-				 * "Add Job" button still renders unconditionally (it isn't aware of this
-				 * setting) and, via enqueue_scripts(), still points at jobs/post-job/ for
-				 * the owner viewing their own dashboard. Without a matching subnav that
-				 * link 404s. Register it here too so the click lands on [submit_job_form],
-				 * which already shows the "not authorized" message via the existing
-				 * job_manager_user_can_post_job filter (bpjm_restrict_user_post_job())
-				 * instead of a dead end.
+				 * No "Post Job" subnav is registered in this no-post-role branch.
+				 * bpjm_my_jobs_tab_function_to_show_content() hides WP Job
+				 * Manager's [job_dashboard] "Add Job" button for owners without
+				 * posting permission (read-only listing instead), so there is no
+				 * in-profile link to jobs/post-job/ to catch - and registering the
+				 * subnav would only surface an action the member cannot use.
+				 * (Owner decision: hide the button rather than show-and-route it
+				 * to a "not authorized" message. This also makes the 404 the route
+				 * approach guarded against impossible.)
 				 */
-				if ( $is_current_user ) {
-					bp_core_new_subnav_item(
-						array(
-							'name'            => __( 'Post Job', 'bp-job-manager' ),
-							'slug'            => 'post-job',
-							'parent_url'      => $jobs_tab_link . 'post-job',
-							'parent_slug'     => 'jobs',
-							'screen_function' => array( $this, 'bpjm_post_job_show_screen' ),
-							'position'        => 200,
-							'link'            => $jobs_tab_link . 'post-job',
-						)
-					);
-				}
 			}
 		}
 
@@ -614,7 +601,17 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_my_jobs_tab_function_to_show_content() {
-			if ( bp_loggedin_user_id() === bp_displayed_user_id() ) {
+			/*
+			 * The WP Job Manager [job_dashboard] (and its "Add Job" button) is a
+			 * posting surface, so it is only shown to the profile owner when that
+			 * owner's role is allowed to post jobs (post_job_user_roles). Owners
+			 * without posting permission - and every other viewer - get the
+			 * read-only listing below instead of the Add Job dashboard.
+			 */
+			$is_owner   = ( bp_loggedin_user_id() === bp_displayed_user_id() );
+			$can_manage = $is_owner && $this->bpjm_restrict_user_post_job( true );
+
+			if ( $can_manage ) {
 				echo do_shortcode( '[job_dashboard]' );
 				?>
 				<div class="bpjm-loader" style="display:none;">

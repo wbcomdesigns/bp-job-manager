@@ -29,7 +29,7 @@
     font-family: "FontAwesome";
     font-size: 18px;
     line-height: 1;
-    margin-left: 10px;
+    margin-inline-start: 10px;
     text-align: center;
     display: inline-block;
     -webkit-animation: spin 1s infinite linear;
@@ -89,10 +89,10 @@
         border: none;
         border-bottom: 1px solid #eee;
         position: relative;
-        padding-left: 50% !important;
+        padding-inline-start: 50% !important;
         display: block;
         width: 100%;
-        text-align: left !important;
+        text-align: start !important;
         min-height: 54px;
     }
 
@@ -100,11 +100,11 @@
     .resume-manager-resumes td:before {
         content: attr(data-header);
         position: absolute;
-        left: 15px;
+        inset-inline-start: 15px;
         width: 45%;
-        padding-right: 10px;
+        padding-inline-end: 10px;
         white-space: nowrap;
-        text-align: left;
+        text-align: start;
     }
 
     .job-manager-jobs td .job-dashboard-actions {
@@ -314,7 +314,7 @@ body.wb-reign-theme.my-jobs .job-manager-jobs div#bpjm-job-application-btn a {
     line-height: 1.5 !important;
     color: #807f7f;
     margin-top: 12px;
-    margin-left: 24px;
+    margin-inline-start: 24px;
 }
 
 /* Youzify */
@@ -456,16 +456,15 @@ body.wb-reign-theme.my-jobs .job-manager-jobs div#bpjm-job-application-btn a {
 }
 /*--------------------------------------------------------------
 # Dark mode
-# BuddyX, BuddyX Pro and Reign share one color-mode mechanism:
-#   html[data-bx-mode="dark"]  — explicit dark choice
-#   html[data-bx-mode="auto"]  — follow the OS, dark applies only under
-#   .buddyx-dark-theme         — legacy builds (always explicit dark)
-# WP Job Manager core renders light surfaces (dashboard buttons, search
-# icon, actions popover, jm-notice boxes, the submit-form preview panel
-# and confirmation notices) that these themes do not darken, so they are
-# restyled here for BOTH dark scopes. The rules are intentionally
-# duplicated inside the prefers-color-scheme media query for "auto" —
-# the same pattern the themes use for their own token overrides.
+# Dark styling is applied ONLY under an explicit dark choice:
+#   html[data-bx-mode="dark"]  - BuddyX / BuddyX Pro / Reign explicit dark
+#   .buddyx-dark-theme         - legacy BuddyX builds (always explicit dark)
+# Never key dark styling off the OS via prefers-color-scheme (owner rule):
+# "auto" mode must fall back to the theme's own handling, not to a media
+# query here. WP Job Manager core renders light surfaces (dashboard
+# buttons, search icon, actions popover, jm-notice boxes, the submit-form
+# preview panel and confirmation notices) that these themes do not darken,
+# so they are restyled here for the explicit dark scopes only.
 --------------------------------------------------------------*/
 
 /* WP Job Manager --jm-ui-* design tokens (defined at :where(:root) in

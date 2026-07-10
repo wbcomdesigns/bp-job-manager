@@ -17,6 +17,8 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       bp-job-manager
  * Domain Path:       /languages
+ * Requires PHP:      7.4
+ * Requires Plugins:  buddypress, wp-job-manager
  */
 
 // If this file is called directly, abort.
@@ -46,6 +48,10 @@ if ( ! defined( 'BPJM_PLUGIN_VERSION' ) ) {
 function bpjm_activate_bp_job_manager() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bp-job-manager-activator.php';
 	Bpjm_Job_Manager_Activator::activate();
+
+	// Flag a fresh activation so the next admin page load can redirect to the
+	// settings screen (handled by bpjm_do_activation_redirect on admin_init).
+	set_transient( '_bpjm_is_new_install', true, 30 );
 }
 
 /**
@@ -165,50 +171,35 @@ function bpjm_plugin_links( $links ) {
 
 
 /**
- * Redirect to plugin settings page after activation.
+ * Redirect to the plugin settings page after a fresh single activation.
  *
- * @param string $plugin Plugin basename.
- */
-function bpjm_activation_redirect_settings( $plugin ) {
-
-	// Verify nonce for security.
-	if ( isset( $_REQUEST['_wpnonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'bpjm_activation_nonce' ) ) {
-		return; // Exit if nonce is invalid.
-	}
-
-	if ( isset( $_REQUEST['action'], $_REQUEST['plugin'] ) && $_REQUEST['plugin'] === $plugin ) {
-		if ( class_exists( 'BuddyPress' ) && class_exists( 'WP_Job_Manager' ) && plugin_basename( __FILE__ ) === $plugin ) {
-			if ( 'activate' === $_REQUEST['action'] ) {
-				wp_safe_redirect( admin_url( 'admin.php?page=bp-job-manager' ) );
-				exit;
-			}
-		}
-
-		if ( 'activate-plugin' === $_REQUEST['action'] && class_exists( 'BuddyPress' ) ) {
-			set_transient( '_bpjm_is_new_install', true, 30 );
-		}
-	}
-}
-add_action( 'activated_plugin', 'bpjm_activation_redirect_settings' );
-
-// Enqueue nonce field for the plugin activation form (if needed elsewhere).
-/**
- * Add activation nonce field.
- */
-function bpjm_add_activation_nonce() {
-	wp_nonce_field( 'bpjm_activation_nonce', '_wpnonce' );
-}
-
-/**
- * Bpjm_do_activation_redirect
+ * The activation hook (bpjm_activate_bp_job_manager) sets the
+ * _bpjm_is_new_install transient. This one-shot admin_init handler consumes it
+ * on the next admin page load and redirects, skipping bulk activation and
+ * running only while both dependencies are present.
  *
  * @return void
  */
 function bpjm_do_activation_redirect() {
-	if ( get_transient( '_bpjm_is_new_install' ) ) {
-		delete_transient( '_bpjm_is_new_install' );
-		wp_safe_redirect( admin_url( 'admin.php?page=bp-job-manager' ) );
-
+	if ( ! get_transient( '_bpjm_is_new_install' ) ) {
+		return;
 	}
+
+	// One-shot: clear the flag before any early return so it never loops.
+	delete_transient( '_bpjm_is_new_install' );
+
+	// Skip bulk activation - WordPress adds ?activate-multi to that redirect.
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only presence check; WordPress core already verified the activation nonce before firing the activation hook.
+	if ( isset( $_GET['activate-multi'] ) ) {
+		return;
+	}
+
+	// Dependencies are required for the settings screen to exist.
+	if ( ! class_exists( 'BuddyPress' ) || ! class_exists( 'WP_Job_Manager' ) ) {
+		return;
+	}
+
+	wp_safe_redirect( admin_url( 'admin.php?page=bp-job-manager' ) );
+	exit;
 }
 add_action( 'admin_init', 'bpjm_do_activation_redirect' );
