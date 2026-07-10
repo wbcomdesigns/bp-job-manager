@@ -494,6 +494,31 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 						'show_for_displayed_user' => true,
 					)
 				);
+
+				/*
+				 * Neither viewer nor owner has a post_job_user_roles role, so no "Post
+				 * Job" subnav was registered above - but WP Job Manager's own [job_dashboard]
+				 * "Add Job" button still renders unconditionally (it isn't aware of this
+				 * setting) and, via enqueue_scripts(), still points at jobs/post-job/ for
+				 * the owner viewing their own dashboard. Without a matching subnav that
+				 * link 404s. Register it here too so the click lands on [submit_job_form],
+				 * which already shows the "not authorized" message via the existing
+				 * job_manager_user_can_post_job filter (bpjm_restrict_user_post_job())
+				 * instead of a dead end.
+				 */
+				if ( $is_current_user ) {
+					bp_core_new_subnav_item(
+						array(
+							'name'            => __( 'Post Job', 'bp-job-manager' ),
+							'slug'            => 'post-job',
+							'parent_url'      => $jobs_tab_link . 'post-job',
+							'parent_slug'     => 'jobs',
+							'screen_function' => array( $this, 'bpjm_post_job_show_screen' ),
+							'position'        => 200,
+							'link'            => $jobs_tab_link . 'post-job',
+						)
+					);
+				}
 			}
 		}
 
