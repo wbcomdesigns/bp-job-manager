@@ -120,7 +120,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			 * class.
 			 */
 
-			$job_related_actions = array( 'my-jobs', 'applied-jobs', 'post-job', 'my-resumes', 'add-resume', 'job-alerts' );
+			$job_related_actions = array( 'jobs', 'my-jobs', 'applied-jobs', 'post-job', 'my-resumes', 'add-resume', 'job-alerts' );
 
 			if ( in_array( bp_current_action(), $job_related_actions, true ) ) {
 				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-public.css', array(), $this->version, 'all' );
@@ -151,7 +151,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			 */
 			// Global $wp_query.
 			$get_dashboard_page_id = (int) get_option( 'job_manager_job_dashboard_page_id' );
-			$job_related_actions   = array( 'my-jobs', 'applied-jobs', 'post-job', 'my-resumes', 'add-resume' );
+			$job_related_actions   = array( 'jobs', 'my-jobs', 'applied-jobs', 'post-job', 'my-resumes', 'add-resume' );
 			if ( in_array( bp_current_action(), $job_related_actions, true ) || get_the_ID() === $get_dashboard_page_id ) {
 				$this->get_jobs_max_num_pages();
 
@@ -192,6 +192,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		public function bpjm_has_wpjm_shortcode() {
 			$action = bp_current_action();
 
+			if ( 'jobs' === $action ) {
+				return true;
+			}
 			if ( 'my-jobs' === $action ) {
 				return true;
 			}
