@@ -98,14 +98,10 @@ BuddyPress Job Manager is built by the experienced developers at Wbcom Designs, 
 
 == Screenshots ==
 
-The screenshots are present in the root of the plugin folder.
-1. screenshot-1
-2. screenshot-2
-3. screenshot-3
-4. screenshot-4
-5. screenshot-5
-6. screenshot-6
-7. screenshot-7
+1. My Jobs dashboard on a member profile - post, manage, and track job listings with an Add Job button.
+2. Read-only Jobs tab for a member whose role cannot post jobs - listings only, no Add Job button.
+3. Admin settings - choose which member roles can post jobs and apply, plus activity options.
+4. Discover more free Wbcom Designs community plugins from the admin screen.
 
 == Changelog ==
 = 2.8.5 - July 2026 =
