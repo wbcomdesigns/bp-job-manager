@@ -1,100 +1,215 @@
 === Wbcom Designs - BuddyPress Job Manager ===
 Contributors: wbcomdesigns, vapvarun
 Donate link: https://wbcomdesigns.com/donate/
-Tags: buddypress, wp-job-manager, job-manager, resume-manager, buddypress-jobs
-Requires at least: 3.0.1
+Tags: buddypress, wp-job-manager, job-manager, resume-manager, jobs
+Requires at least: 6.5
 Tested up to: 7.0
-Requires PHP: 7.4
-Requires Plugins: buddypress, wp-job-manager
 Stable tag: 2.8.5
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: bp-job-manager
+Domain Path: /languages
 
-Integrates BuddyPress with WP Job Manager to create job and resume management tabs in user profiles with activity stream integration.
+Brings WP Job Manager into BuddyPress member profiles: post and manage jobs, list resumes, track applications, and publish job activity to the stream.
 
 == Description ==
 
-This plugin does the following:
-1. Incorporates BuddyPress with the WP Job Manager plugin by creating specific tabs in employers' and candidates' profiles.
-2. WP Job Manager - Resume manager allows candidates to add multiple resumes using BuddyPress Job Manager. You have a choice to display your latest resume in your BuddyPress Profile. It also lets you choose which resume fields should be visible on the BuddyPress Profile page.
-3. Allow to enable user roles to post jobs.
-4. Apply to enable user roles to apply for jobs.
-5. Allow to publish new jobs and resume activities in the BuddyPress activity stream
+**BuddyPress Job Manager** connects WP Job Manager to your BuddyPress community. Instead of sending members to a separate job board page, it puts a Jobs tab (and, with the Resume Manager add-on, a Resumes tab) right on the member profile, so posting a job, managing listings, and browsing resumes all happen inside the community.
 
+It needs two plugins: BuddyPress and WP Job Manager. That is the whole hard requirement. The WP Job Manager add-ons (Resume Manager, Applications, Bookmarks, Job Alerts) are entirely optional, and the plugin is built to run without them: each one simply unlocks an extra tab or setting when you install it.
 
-You can also check details on our plugin document page
-== Links ==
-[vimeo https://vimeo.com/556674671 ]
+= What you get =
+
+**Jobs on the member profile**
+* A Jobs tab on member profiles with a My Jobs dashboard to post, edit, and track listings.
+* A Post Job tab that keeps job submission inside the profile instead of sending members to a standalone page.
+* Load-more / infinite scroll on the My Jobs dashboard so long listing histories stay fast.
+* Choose which member roles can post jobs and which can apply, from one settings screen.
+* Members whose role cannot post jobs get a read-only listing view, with no Add Job button.
+
+**Resumes on the member profile (needs the Resume Manager add-on)**
+* A Resumes tab with My Resumes and Add Resume, so candidates can keep several resumes.
+* Members pick which of their resumes shows on their BuddyPress profile from a dropdown on the profile settings. If they never pick one, the most recently updated resume is shown as a fallback.
+* Choose which resume fields are visible on the profile, per member.
+* A "Send Private Message" link on candidate contact details, using BuddyPress Messages.
+
+**Applications (needs the Applications add-on)**
+* An Applied Jobs tab on the profile, paginated for members with long application histories.
+* A BuddyPress notification to the job author when someone applies, with its own on/off setting.
+
+**Bookmarks and Job Alerts (need their matching add-ons)**
+* A My Bookmarks tab on the profile for jobs the member saved.
+* A Job Alerts tab so members manage their alerts without leaving the community.
+
+**Activity stream**
+* Publish new jobs and new resumes to the BuddyPress activity stream, each with its own admin toggle.
+* Activity is removed automatically when a job or resume is trashed or deleted, so the stream never keeps dead links.
+
+**Quick access and guests**
+* Jobs and Resumes menus in the WordPress admin bar with live counts and submenus for My Jobs, Post Job, My Resumes, Applied Jobs, and Add Resume.
+* An optional "Guest" role for job posting and applying, so people who are not logged in can take part when you allow it.
+
+= Perfect For =
+
+* Community sites that want a careers area without a separate job board
+* Professional and alumni networks matching members to openings
+* Niche industry communities where employers and candidates are already members
+* Membership sites adding hiring on top of an existing BuddyPress profile
+
+= Premium Support =
+
+Our dedicated support team is ready to help you get the most out of this plugin. Whether you need help with setup, customization, or troubleshooting, we're here to assist.
+
+= Documentation =
+
+* **[Documentation and Support](https://docs.wbcomdesigns.com/)** - Setup walkthrough, settings reference, and usage guides
+* The plugin's Help & Support tab covers setup and common questions inside the admin itself
+
+= Translations =
+
+* English (default)
+* Ready for translation in your language with included POT file
+
+= Links =
 
 * [Plugin Homepage](https://wbcomdesigns.com/downloads/buddypress-job-manager/)
+* [Documentation](https://docs.wbcomdesigns.com/)
+* [Support](https://wbcomdesigns.com/support/)
+* [Request Features](https://wbcomdesigns.com/contact/)
 
-=== THEME - WORDPRESS THEME WITH OUTSTANDING BUDDYPRESS SUPPORT ===
-* [FREE BuddyPress Theme: BuddyX](https://wordpress.org/themes/buddyx/) - Offers unique layouts with clean code and easy-to-customize options, giving you a whole new way to visualize BuddyPress.
+= Compatibility =
 
-#### OUR ADON PLUGINS TO FURTHER IMPROVE YOUR BUDDYPRESS OR BUDDYBOSS PLATFORM COMMUNITY
-Check out free community add-ons by Wbcom Designs:
+* WordPress 6.5 and higher
+* PHP 7.4 and higher (8.0+ recommended)
+* BuddyPress 12.0+ - required
+* WP Job Manager - required
+* WP Job Manager add-ons (Resume Manager, Applications, Bookmarks, Job Alerts) - all optional, each unlocks its own tab
+* Works with BP Rewrites
+* Tested with popular themes including BuddyX, Reign and Youzify
 
-* **[Wbcom Designs - BuddyPress Member Reviews](https://wordpress.org/plugins/bp-user-profile-reviews/)** Allow members to add ratings or feedback to other community members.
-* **[Wbcom Designs - BuddyPress Group Reviews](https://wordpress.org/plugins/review-buddypress-groups/)** Allow members to add ratings or feedback to BuddyPress groups.
-* **[Wbcom Designs - BuddyPress Activity Social Share](https://wordpress.org/plugins/bp-activity-social-share/)** Allow members to share activities on their social profiles like Facebook, Twitter, What's App, and LinkedIn with OG metadata.
-* **[Wbcom Designs - Private Community with BP Lock](https://wordpress.org/plugins/lock-my-bp/)** A plugin to make your community private and only accessible to logged-in users. It also allows you to keep select pages or the component public.
-* **[Wbcom Designs - BuddyPress Job Manager](https://wordpress.org/plugins/bp-job-manager/)** Allows you to integrate WP Job Manager plugin to BuddyPress.
-* **[Wbcom Designs - Check-ins for BuddyPress Activity](https://wordpress.org/plugins/bp-check-in/)** Allow members to add their location or post their check-in updates to the activity.
-* **[Wbcom Designs - BuddyPress Favorite Notification](https://wordpress.org/plugins/bp-favorite-notification/)** Allow members to be notified after any like or favorite on their BuddyPress activity.
-* **[Wbcom Designs - Shortcodes & Elementor Widgets For BuddyPress](https://wordpress.org/plugins/shortcodes-for-buddypress/)** It offers shortcodes and elementor widgets for the activity listing, member's directory display, and the group's directory on any post/page.
+= What's New in 2.8.5 =
 
-Check out paid community add-ons by Wbcom Designs:
-
-* **[Wbcom Designs - BuddyPress Hashtags](https://wbcomdesigns.com/downloads/buddypress-hashtags/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allows members to use hashtags in BuddyPress or BuddyBoss Platform activities and bbPress topics.
-* **[Wbcom Designs - BuddyPress Polls](https://wbcomdesigns.com/downloads/buddypress-polls/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)**  It allows you to extend BuddyPress or BuddyBoss Platform Activity for members to publish Polls with various options and works perfectly for individual activities and group activities.
-* **[Wbcom Designs - BuddyPress Quotes](https://wbcomdesigns.com/downloads/buddypress-quotes/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** It allows the feature to let members post their activity updates with interactive background selection such as colors and images set by the site administrator to tell a more expressive story.
-* **[Wbcom Designs - BuddyPress Status & Reaction](https://wbcomdesigns.com/downloads/buddypress-status/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow your members to set a status icon and tagline on their profile and offer a big set of icons to react to published activities.
-* **[Wbcom Designs - BuddyPress Profanity](https://wbcomdesigns.com/downloads/buddypress-profanity/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow you to censor content in your community! Easily Censor all the unwanted words in activities' private message contents by specifying a list of keywords to be filtered.
-* **[Wbcom Designs - BuddyPress Sticky Post](https://wbcomdesigns.com/downloads/buddypress-sticky-post/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allows site administrators to prioritize certain activities over others. It lets the admin pin up site-wide and group activities to the top of the activity list.
-* **[Wbcom Designs - BuddyPress Auto Friends](https://wbcomdesigns.com/downloads/buddypress-auto-friends/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** Allow the site admin to select global friends for all his members and add bulk global friends.
-* **[Wbcom Designs - Shortcodes & Elementor Widgets For BuddyPress Pro](https://wordpress.org/plugins/shortcodes-for-buddypress/?utm_source=wp.org&utm_medium=plugins&utm_campaign=wp.org)** It offers shortcodes and elementor widgets with various argument parameters for the activity listing, member's directory display, and the group's directory on any post/page.
-
-
-= EXPERT SUPPORT =
-We are ready to provide incredible support. Ask your questions at [contact us directly](https://wbcomdesigns.com/support/).
+The admin settings screen is rebuilt on the modern Wbcom card-panel layout with sidebar navigation, and your saved settings are unchanged. The Applied Jobs tab now uses real pagination, profile nav counts are cached, and the Add Job button reliably opens the in-profile Post Job tab. Job and resume activity is now cleaned up automatically when the listing is trashed or deleted, so the stream never keeps dead links. Dark mode rendering for WP Job Manager surfaces is fixed across BuddyX, BuddyX Pro and Reign.
 
 == More Free Tools from Wbcom Designs ==
 
-BuddyPress Job Manager turns member profiles into a hiring hub for jobs, resumes, and applications. Build out the rest of the community around those careers with these free Wbcom Designs plugins.
+BuddyPress Job Manager turns member profiles into a hiring hub for jobs, resumes, and applications. A careers area works best inside a community members already want to spend time in, so these other free Wbcom Designs tools build out the space around it, from the theme and social network itself to forums, media, events, gamification, directories, and courses.
 
-* **[BuddyNext](https://wbcomdesigns.com/downloads/buddynext/)** - Stand up a complete social network on WordPress with activity feeds, member spaces, profiles, directories, and private messaging.
-* **[Jetonomy](https://wbcomdesigns.com/downloads/jetonomy/)** - Add forums, Q&A, and idea boards where trust levels keep discussion clean across tens of thousands of topics.
-* **[Mediaverse](https://wbcomdesigns.com/downloads/mediaverse/)** - Give members a place to share photos and video in albums, react, follow each other, and message privately, with AI moderation built in.
-* **[Listora](https://wbcomdesigns.com/downloads/listora/)** - Publish searchable directories with ten listing types, reviews, maps, and front-end submissions from your members.
-* **[Learnomy](https://wbcomdesigns.com/downloads/learnomy/)** - Run a full learning platform to sell courses, grade quizzes automatically, take payments, and award certificates.
+* **[BuddyX](https://wbcomdesigns.com/downloads/buddyx-theme/)** - A free, fast community theme for BuddyPress, BuddyBoss and PeepSo with a modern layout and dark mode.
+* **[BuddyNext](https://wbcomdesigns.com/downloads/buddynext/)** - Stand up a complete WordPress community with activity streams, member spaces, profiles, direct messaging, and built-in moderation.
+* **[Jetonomy](https://wbcomdesigns.com/downloads/jetonomy/)** - Add forums, question-and-answer boards, and idea spaces that stay tidy through trust-based auto-moderation even past 100,000 topics.
+* **[Mediaverse](https://wbcomdesigns.com/downloads/mediaverse/)** - Let members build photo and video albums, react, follow each other, and message privately while AI moderation keeps things clean.
+* **[Eventonomy](https://wbcomdesigns.com/downloads/eventonomy/)** - Run community events with RSVPs, calendars, and front-end submissions.
+* **[WB Gamification](https://wbcomdesigns.com/downloads/wordpress-gamification-plugin/)** - Reward members with points, badges, and leaderboards to keep engagement high.
+* **[Listora](https://wbcomdesigns.com/downloads/listora/)** - Publish searchable directories across ten listing types with reviews, maps, and member-submitted entries from the front end.
+* **[WP Career Board](https://wbcomdesigns.com/downloads/wp-career-board/)** - Add a job board with front-end listings, applications, and employer profiles.
+* **[Learnomy](https://wbcomdesigns.com/downloads/learnomy/)** - Build and sell online courses, auto-grade quizzes, collect payments, and award certificates when learners finish.
 
 == Installation ==
 
-1. Upload the entire `bp-job-manager` folder to the /wp-content/plugins/ directory.
-2. Activate the plugin through the 'Plugins' menu in WordPress.
+= Automatic Installation (Recommended) =
+
+1. Make sure BuddyPress and WP Job Manager are installed and active first
+2. Log in to your WordPress admin dashboard
+3. Navigate to Plugins > Add New
+4. Search for "BuddyPress Job Manager"
+5. Click "Install Now" on the Wbcom Designs - BuddyPress Job Manager plugin
+6. After installation, click "Activate"
+7. Go to WB Plugins > BuddyPress Job Manager > General to choose which roles can post and apply for jobs
+
+= Manual Installation =
+
+1. Upload the entire `bp-job-manager` folder to the /wp-content/plugins/ directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Configure settings at WB Plugins > BuddyPress Job Manager
+
+= Post-Installation Setup =
+
+After activating the plugin, we recommend:
+
+1. Visit **WB Plugins > BuddyPress Job Manager > General** and pick the roles allowed to post jobs and to apply for jobs
+2. Decide whether new jobs and new resumes should publish to the BuddyPress activity stream
+3. Install any WP Job Manager add-ons you want (Resume Manager, Applications, Bookmarks, Job Alerts) to unlock their profile tabs
+4. Visit a member profile and confirm the Jobs tab appears for a member in an allowed role
+5. See the [documentation](https://docs.wbcomdesigns.com/) for detailed instructions
+
+= Requirements =
+
+* WordPress 6.5 or higher
+* PHP 7.4 or higher
+* BuddyPress 12.0 or higher - required
+* WP Job Manager - required
+* WP Job Manager add-ons - all optional
 
 == Frequently Asked Questions ==
 
 = What are the plugin requirements? =
 
-The plugin requires plugins :
+Two plugins, and only two:
+
 1. [BuddyPress](https://buddypress.org/download/)
-2. [WordPress Job Manager](https://wpjobmanager.com/)
-3. [WordPress Job Manager - Applications](https://wpjobmanager.com/add-ons/applications/)
-4. [WordPress Job Manager - Resume Manager](https://wpjobmanager.com/add-ons/resume-manager/)
+2. [WP Job Manager](https://wpjobmanager.com/)
 
-Optional Plugin
+If either is missing, the plugin shows an admin notice and stays inactive.
 
-* [WordPress Job Manager - Bookmarks](https://wpjobmanager.com/add-ons/bookmarks/)
-* [WordPress Job Manager - Alerts](https://wpjobmanager.com/add-ons/job-alerts/)
+= Which WP Job Manager add-ons do I need? =
 
-= For support, You can contact us at our website. =
+None of them. Every add-on is optional, and each one unlocks an extra part of the plugin when you install it:
 
-You can contact us at our website [wbcomdesigns.com](https://wbcomdesigns.com/contact) for any query related to plugin and BuddyPress.
+* [Resume Manager](https://wpjobmanager.com/add-ons/resume-manager/) - unlocks the Resumes tab (My Resumes and Add Resume), resume display on the profile, and the resume field visibility controls.
+* [Applications](https://wpjobmanager.com/add-ons/applications/) - unlocks the Applied Jobs tab and the BuddyPress notification to the job author when someone applies.
+* [Bookmarks](https://wpjobmanager.com/add-ons/bookmarks/) - unlocks the My Bookmarks tab on the profile.
+* [Job Alerts](https://wpjobmanager.com/add-ons/job-alerts/) - unlocks the Job Alerts tab on the profile.
 
-= EXTEND BUDDYPRESS JOB MANAGER WITH 'Jobmate' =
+Without any add-ons, the plugin still gives you the Jobs tab, the My Jobs dashboard, in-profile job posting, role controls, admin bar menus, and job activity in the stream. The settings screen tells you which options are still locked and which add-on unlocks them.
 
-BuddyPress Job Manager is built by the experienced developers at Wbcom Designs, who also offer a premium Job Directory solution called [JobMate - Jobs & Resumes Listing](https://wbcomdesigns.com/downloads/jobmate-theme/).
+= What does the "Resume on profile" setting actually control? =
+
+More than its label suggests. When you turn off "Show the latest resume on the member's BuddyPress profile", you do not just hide the resume from the profile: the entire Resumes nav item stops being registered, which removes **Add Resume, My Resumes and Applied Jobs** along with it. Leave it on if you want members to manage resumes or see their applications.
+
+= Which resume shows on a member's profile? =
+
+The member chooses. On their profile settings they get a "Select resume to display at profile" dropdown listing their resumes, and whichever they pick is the one shown. If a member never picks one, the plugin falls back to their most recently updated resume.
+
+= How do I control who can post jobs and who can apply? =
+
+Go to WB Plugins > BuddyPress Job Manager > General. Both are role pickers, so you select any roles that exist on your site. There is also a "Guest (not logged in)" option in each picker if you want people who are not logged in to be able to post or apply.
+
+= Do I need "employer" and "candidate" roles? =
+
+No. The plugin ships `employer` and `candidate` as default selections because WP Job Manager and Resume Manager can create roles with those names, but this plugin never creates them itself. On a stock site those roles may not exist at all, in which case they simply match nobody. Pick whichever roles your site actually uses, for example Subscriber, and the gating follows your choice.
+
+= Does the job author get notified when someone applies? =
+
+Yes, when the Applications add-on is active. The job author receives a BuddyPress notification for each application, and you can turn it off under Application notifications in the General settings.
+
+= Are jobs and resumes added to the activity stream? =
+
+Yes, if you enable it. New jobs and new resumes each have their own toggle in the settings. When a job or resume is later trashed or deleted, its activity entry is removed automatically, so members never click through to a listing that no longer exists.
+
+= Can members message a candidate? =
+
+Yes. When the BuddyPress Messages component is active, candidate contact details include a "Send Private Message" link that opens a BuddyPress private message to that candidate.
+
+= Will this work with my theme? =
+
+The plugin has been tested with popular BuddyPress themes including BuddyX, Reign, and Youzify, and it follows BuddyPress template standards, so it should work with any properly coded BuddyPress-compatible theme. WP Job Manager surfaces are styled for dark mode in BuddyX, BuddyX Pro and Reign. BP Rewrites is supported.
+
+= Is the plugin translation ready? =
+
+Yes. The plugin is fully translation ready with an included POT file.
+
+= Where can I get support? =
+
+We offer comprehensive support through multiple channels:
+* [Documentation](https://docs.wbcomdesigns.com/) - Free guides for every Wbcom plugin
+* [Support](https://wbcomdesigns.com/support/) - Get help from our team
+* [Contact us](https://wbcomdesigns.com/contact/) - Report bugs and request features
+
+= How often is the plugin updated? =
+
+We regularly update the plugin to ensure compatibility with the latest versions of WordPress, BuddyPress, and WP Job Manager. Security patches are released promptly when needed.
 
 == Screenshots ==
 
@@ -104,11 +219,14 @@ BuddyPress Job Manager is built by the experienced developers at Wbcom Designs, 
 4. Discover more free Wbcom Designs community plugins from the admin screen.
 
 == Changelog ==
+
 = 2.8.5 - July 2026 =
 
-* Improve  - Rebuilt the admin settings screen on the modern Wbcom card-panel layout (sidebar navigation, Overview, General settings, Help and Support); saved settings and data are unchanged.
+* New      - Job and resume activity is now removed automatically when the listing is trashed or deleted, so the activity stream no longer keeps links to listings that are gone.
+* Improve  - Rebuilt the admin settings screen on the modern Wbcom card-panel layout (sidebar navigation, Overview, General, Help & Support, and Discover); saved settings and data are unchanged.
 * Improve  - Applied Jobs tab now uses real LIMIT/OFFSET pagination with batched post-cache priming, removing the per-row query on large lists.
 * Improve  - Profile Jobs and Resumes nav counts are cached in per-user transients and invalidated on job status change or deletion.
+* Improve  - The settings screen now states which WP Job Manager add-ons unlock the remaining options, instead of hiding them without explanation.
 * Fix      - Add Job button on the profile dashboard now opens the in-profile Post Job tab instead of an empty link or a page outside the profile.
 * Fix      - Plugin and WP Job Manager frontend styles now load on the profile Jobs tab for owners whose role cannot post jobs.
 * Fix      - WP Job Manager dark surfaces (dashboard buttons, notices, actions popover, submit preview) now render correctly in BuddyX, BuddyX Pro and Reign dark mode.
@@ -267,3 +385,10 @@ BuddyPress Job Manager is built by the experienced developers at Wbcom Designs, 
 
 = 1.0.0 =
 * first version.
+
+== Upgrade Notice ==
+
+= 2.8.5 =
+Modernized admin settings screen, real pagination on Applied Jobs, cached profile nav counts, automatic activity cleanup for deleted jobs and resumes, and dark mode fixes for WP Job Manager surfaces. Settings and data are unchanged.
+</content>
+</invoke>

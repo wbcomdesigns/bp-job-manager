@@ -17,6 +17,7 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       bp-job-manager
  * Domain Path:       /languages
+ * Requires at least: 6.5
  * Requires PHP:      7.4
  * Requires Plugins:  buddypress, wp-job-manager
  */
