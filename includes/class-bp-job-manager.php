@@ -171,7 +171,9 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 
 			$plugin_i18n = new Bp_Job_Manager_I18n();
 
-			$this->loader->add_action( 'bp_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+			// init, not bp_loaded: bp_loaded fires during plugins_loaded, and loading a
+			// text domain before init triggers _load_textdomain_just_in_time on WP 6.7+.
+			$this->loader->add_action( 'init', $plugin_i18n, 'load_plugin_textdomain' );
 		}
 
 		/**
