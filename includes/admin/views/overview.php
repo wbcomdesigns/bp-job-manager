@@ -86,7 +86,7 @@ $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 	</div>
 	<table class="form-table">
 		<tr>
-			<th scope="row"><?php esc_html_e( 'BuddyPress', 'bp-job-manager' ); ?></th>
+			<th scope="row"><?php echo 'BuddyPress'; ?></th>
 			<td>
 				<?php if ( $bpjm_bp_active ) : ?>
 					<span class="bpjm-status bpjm-status--ok"><?php esc_html_e( 'Active', 'bp-job-manager' ); ?></span>
@@ -96,7 +96,7 @@ $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 			</td>
 		</tr>
 		<tr>
-			<th scope="row"><?php esc_html_e( 'WP Job Manager', 'bp-job-manager' ); ?></th>
+			<th scope="row"><?php echo 'WP Job Manager'; ?></th>
 			<td>
 				<?php if ( $bpjm_wpjm_active ) : ?>
 					<span class="bpjm-status bpjm-status--ok"><?php esc_html_e( 'Active', 'bp-job-manager' ); ?></span>

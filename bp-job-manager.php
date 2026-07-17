@@ -18,7 +18,7 @@
  * Text Domain:       bp-job-manager
  * Domain Path:       /languages
  * Requires at least: 6.5
- * Requires PHP:      7.4
+ * Requires PHP:      8.0
  * Requires Plugins:  buddypress, wp-job-manager
  */
 
@@ -127,8 +127,8 @@ function bpjm_plugin_init() {
  */
 function bpjm_required_plugin_admin_notice() {
 	$bpjm_plugin = esc_html__( 'BuddyPress Job Manager', 'bp-job-manager' );
-	$bp_plugin   = esc_html__( 'BuddyPress', 'bp-job-manager' );
-	$wpjm_plugin = esc_html__( 'WP Job Manager', 'bp-job-manager' );
+	$bp_plugin   = 'BuddyPress';
+	$wpjm_plugin = 'WP Job Manager';
 	echo '<div class="error"><p>';
 	printf(
 		/* translators: %1$s: BuddyPress Job Manager ;  %2$s: BuddyPress ; %3$s: WP Job Manager*/

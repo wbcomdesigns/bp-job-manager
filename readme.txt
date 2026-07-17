@@ -5,7 +5,7 @@ Tags: buddypress, wp-job-manager, job-manager, resume-manager, jobs
 Requires at least: 6.5
 Tested up to: 7.0
 Stable tag: 2.8.5
-Requires PHP: 7.4
+Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: bp-job-manager
@@ -81,7 +81,7 @@ Our dedicated support team is ready to help you get the most out of this plugin.
 = Compatibility =
 
 * WordPress 6.5 and higher
-* PHP 7.4 and higher (8.0+ recommended)
+* PHP 8.0 and higher
 * BuddyPress 12.0+ - required
 * WP Job Manager - required
 * WP Job Manager add-ons (Resume Manager, Applications, Bookmarks, Job Alerts) - all optional, each unlocks its own tab
@@ -137,7 +137,7 @@ After activating the plugin, we recommend:
 = Requirements =
 
 * WordPress 6.5 or higher
-* PHP 7.4 or higher
+* PHP 8.0 or higher
 * BuddyPress 12.0 or higher - required
 * WP Job Manager - required
 * WP Job Manager add-ons - all optional
