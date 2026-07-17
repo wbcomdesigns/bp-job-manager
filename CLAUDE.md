@@ -1,0 +1,67 @@
+# Plugin: BuddyPress Job Manager
+
+> **READ FIRST:** [`audit/manifest.json`](audit/manifest.json) is the canonical inventory — 0 REST endpoints, 1 AJAX action (`bpjm_load_more_jobs`), 2 admin pages (the shared `wbcomplugins` hub + this plugin's single 4-tab page), 1 settings option (`bpjm_general_settings`), 0 shortcodes, 0 blocks, 0 tables, 0 cron, 0 CPTs. Use it before grepping. See also [`audit/FEATURE_AUDIT.md`](audit/FEATURE_AUDIT.md), [`audit/CODE_FLOWS.md`](audit/CODE_FLOWS.md), [`audit/ROLE_MATRIX.md`](audit/ROLE_MATRIX.md), and the wppqa baseline at [`audit/wppqa-baseline-2026-06-05/SUMMARY.md`](audit/wppqa-baseline-2026-06-05/SUMMARY.md). Refresh via `/wp-plugin-onboard --refresh` after non-trivial changes.
+
+> **Development conventions:** follow the [`wp-plugin-development`](https://example/skills/wp-plugin-development) skill for ALL code work (architecture, hooks ownership, REST patterns, escaping, security, admin UI, release packaging). This plugin predates the modern conventions; align new code to the skill, do not copy the legacy patterns below.
+
+## Quick reference
+- **Main file**: `bp-job-manager.php`
+- **Version**: `2.8.5` (branch `2.8.5`)
+- **Namespace**: none — class-prefix convention `Bp_Job_Manager_*`
+- **Text domain**: `bp-job-manager`
+- **Extends**: null (standalone; not a Free/Pro pair)
+- **Requires (hard)**: BuddyPress + WP Job Manager ONLY (gate at `bp-job-manager.php:109`; header `Requires Plugins: buddypress, wp-job-manager`). Resume Manager, Applications, Bookmarks and Alerts are **optional** add-ons, each detected at runtime and each unlocking one nav/notification surface.
+- **Requires at least**: WP `6.5` (added to the header in 2.8.5; readme floor is now 6.5, was 3.0.1) — **Requires PHP**: `7.4`
+
+## Admin wrapper classification: **NEW** (card-panel)
+Migration DONE in 2.8.5. `includes/admin/views/shell.php` EXISTS; the legacy `admin/wbcom/` wrapper (class `Wbcom_Admin_Settings`) was **deleted**.
+- Admin UI owner: `includes/admin/class-bp-job-manager-admin-panel.php` (`Bp_Job_Manager_Admin_Panel`, wired at `includes/class-bp-job-manager.php:205-206`).
+- Admin menu: `admin_menu` -> `Bp_Job_Manager_Admin_Panel::add_menu` (parent slug `wbcomplugins`, own page slug `bp-job-manager`). Plus `admin_menu@999` -> `takeover_hub_landing` so this plugin renders the shared hub landing (`includes/admin/views/hub.php`) even when an un-migrated Wbcom plugin registered the menu first.
+- **ONE page, 4 tabs** (`get_tabs()` @ `:49-74`, filterable via `bpjm_admin_tabs`): Overview, General, Discover, Help & Support. The old Our Plugins / Our Themes / Support wrapper pages, the `wbcom_admin_setting_header` shortcode and the `wbcom_addons_cards` AJAX action are all GONE.
+- `Bp_Job_Manager_Admin` (`admin/class-bp-job-manager-admin.php`) is retained for **non-UI helpers only**: admin-bar links, activity writers + cleanup, settings sanitizer. Its UI methods are no longer hooked.
+
+## Key entry points
+- Bootstrap: `bp-job-manager.php` (dependency gate, activation redirect)
+- Orchestrator: `includes/class-bp-job-manager.php` (wires all hooks via `Bp_Job_Manager_Loader`)
+- Runtime config: `includes/class-bp-job-manager-globals.php` (`global $bpjm_bp_job_manager` from option `bpjm_general_settings`)
+- Admin UI (menu, tabs, settings registration, enqueue): `includes/admin/class-bp-job-manager-admin-panel.php`
+- Admin non-UI helpers (admin bar, activity writers, sanitizer): `admin/class-bp-job-manager-admin.php`
+- Public (everything user-facing): `public/class-bp-job-manager-public.php`
+- Settings form: `includes/admin/views/settings-general.php` (rendered through `includes/admin/views/shell.php`)
+
+## Architecture
+WordPress-Plugin-Boilerplate layout (Bootstrap -> Loader -> Globals -> Admin/Public). No PHP namespace, no service container, no DB tables, no REST. Integration is hook-driven: it consumes BuddyPress + WP Job Manager / Resume Manager / Applications hooks and surfaces job/resume management inside BP member profiles. See `audit/CODE_FLOWS.md` for the six runtime flows.
+
+## Important patterns
+- **No own tables / CPTs** — operates entirely on WPJM `job_listing` / `resume` posts and BP `bp_activity`.
+- **Role-based front-end gating**, capability-based admin gating. Front-end tab access is driven by `post_job_user_roles` / `apply_job_user_roles` arrays, NOT WP caps.
+- **`bpjm_load_more_jobs` is intentionally public** (priv + nopriv), nonce-only — do not add a capability check; it would break the public infinite-scroll feed. It IS author-scoped: the request must carry the displayed profile's `user_id` (localized as `displayed_user_id`), resolves to `wp_send_json_error()` when the author is 0, and non-owners only ever get `publish` rows.
+- Release via `grunt dist` (-> `dist/bp-job-manager.zip`).
+- Source literal hook `bpjm_profile_peronal_inf_txt` is misspelled ("peronal") — do not "fix" it; it is a public contract.
+
+## CSS selectors (for testing/dev)
+- Admin: card-panel classes from `assets/css/admin.css` (`.bpjm-btn`, `.bpjm-resource__title`, …) — the legacy `.wbcom-wrap` / `.wbcom-admin-settings-page` / `#wb_admin_plugin_name` selectors are GONE as of 2.8.5.
+- Tabs rendered from `includes/admin/views/shell.php` (tab list from `Bp_Job_Manager_Admin_Panel::get_tabs()`)
+- Front-end: BP profile nav items `jobs` / `resumes` and their subnav slugs (my-jobs, post-job, my-resumes, applied-jobs, add-resume)
+
+## wppqa baseline (2026-06-05)
+plugin-dev-rules: 5 high `nonce-no-cap` findings — **all pre-triaged false positives** (nopriv public AJAX, activation-hook redirect, and self-meta xProfile saves). See the baseline SUMMARY for per-finding justification. rest-js-contract and wiring-completeness: skipped (no REST, no template-layer settings reads). Net real high-severity bugs from wppqa: 0.
+
+## Onboarding follow-ups (out of scope of this onboarding run)
+Not yet present; route to the owning skills when ready:
+- CI/journey scaffold (`bin/local-ci.sh`, journeys, scale benchmark) -> `/wp-plugin-ci-setup` + `/wp-plugin-development`
+- Release build gate / `.distignore` -> `/wp-plugin-release`
+- QA model (`docs/qa/qa-config.json`) -> `/wp-plugin-release-qa` (then `/wp-plugin-smoke`)
+- ~~Admin-wrapper migration OLD -> NEW card pattern~~ — **DONE in 2.8.5**
+- Remove orphaned dead code `Bp_Job_Manager_Public::bpjm_jobs_listing_show_screen()` (`public/class-bp-job-manager-public.php:699-703`) — no caller, no hook; the "Job Listings" subnav it serves is never registered.
+
+## Recent changes
+| Date | Type | Description | Files |
+|---|---|---|---|
+| 2026-07-10 | bug-fix | QA cards (Suggestions column). (1) "After activate the plugin not redirect on plugin setting page": root cause was `bpjm_activation_redirect_settings()` bailing on `wp_verify_nonce( $_REQUEST['_wpnonce'], 'bpjm_activation_nonce' )` - the request only ever carries WP's own `activate-plugin_{file}` nonce (the `bpjm_add_activation_nonce()` field emitter was never hooked), so the guard always failed and returned before redirecting; the transient fallback was also dead (keyed on non-existent action `activate-plugin`). Replaced both with the canonical pattern: activation hook sets `_bpjm_is_new_install`, one-shot `admin_init` handler consumes it and redirects (skips bulk via `activate-multi`, requires BP+WPJM). Removed the broken function + unused nonce emitter. Browser-verified redirect fires once then stops. (2) "Showing add job button to all user": the no-post-role bare `jobs` screen (`bpjm_jobs_tab_show_screen`) reused `bpjm_my_jobs_tab_function_to_show_content`, which renders `[job_dashboard]` (with WPJM's Add Job button) for any profile owner - so subscribers without posting permission saw Add Job on their own tab. Gated the dashboard branch on `bpjm_restrict_user_post_job( true )`; owners without permission (and all other viewers) now get the read-only listing. **This supersedes the show-and-route approach in commit 64eb930 (Nitin, card 10079130206), per lead-dev/owner decision: hide the action a member can't take rather than show it and route the click to a "not authorized" message. Hiding the button also makes the 404 impossible, so it resolves BOTH cards (9006458893 + 10079130206); removed the now-redundant `post-job` subnav 64eb930 registered in the no-role branch.** Browser-verified: subscriber = no Add Job + no Post Job subnav, admin = Add Job + Post Job intact. readme.txt: Tested up to 7.0, added Requires PHP 7.4 + Requires Plugins (buddypress, wp-job-manager) to readme AND plugin header, reformatted 2.8.5 changelog to WooCommerce action-prefix house style. CSS: removed stale prefers-color-scheme/auto-mode comment (block itself was already gone) and converted 6 physical props to logical (RTL) in the responsive stacked-table + spinner/margins. | bp-job-manager.php, public/class-bp-job-manager-public.php, public/css/bp-job-manager-public.css, readme.txt |
+| 2026-07-10 | bug-fix | Plugin CSS (and WPJM's own core frontend CSS) silently failed to enqueue on the profile Jobs tab for any visitor - owner or otherwise - whose role isn't in `post_job_user_roles` (e.g. Candidate/Subscriber). Root cause: `bpjm_member_profile_jobs_tab()` registers a bare `jobs` nav item (no `my-jobs` subnav) for that case, so `bp_current_action()` resolves to `'jobs'` instead of `'my-jobs'` - but `enqueue_styles()`, `enqueue_scripts()`, and `bpjm_has_wpjm_shortcode()` all checked action lists that only had `'my-jobs'`, never bare `'jobs'` (the `'jobs'` value was already correctly handled in the unrelated `get_jobs_max_num_pages()`, just missed here). `bpjm_has_wpjm_shortcode()` feeds WPJM core's `is_wpjm()`/`job_manager_enqueue_frontend_style` gate, so this also skipped WPJM's own frontend.css, not just this plugin's. Added `'jobs'` to all three checks. Browser-verified with a Candidate-role profile owner and a separate Candidate-role visitor on `/members/{user}/jobs/` - both stylesheets now enqueue. | public/class-bp-job-manager-public.php |
+| 2026-07-09 | bug-fix | Bug card "Add Job button does nothing": WPJM's `[job_dashboard]` Add Job button links to `job_manager_submit_job_form_page_id` (empty href when that WPJM page is unconfigured, and it leaves the BP profile even when set). Localized `post_job_url` (own dashboard only, via `bp_core_get_userlink()`) and a JS rewrite of `.jm-dashboard__actions a.jm-ui-button` -> in-profile `jobs/post-job/` tab. Off-profile (standalone dashboard page ID) `bp_displayed_user_id()` is 0 so `post_job_url` is empty and the rewrite is skipped, leaving WPJM's native button untouched. Browser-verified. Companion card "extra required input below the description editor" triaged as WPJM core (job-submission.js 1px-textarea + native `reportValidity()`), reproduces on WPJM's own submit page - no addon change. | public/class-bp-job-manager-public.php, public/js/bp-job-manager-public.js |
+| 2026-07-03 | bug-fix | Audit-verdict sweep: (1) BLOCKER anonymous AJAX data leak in `bpjm_load_more_jobs` — author now resolved from a localized `user_id` payload, request rejected via `wp_send_json_error()` when it resolves to 0, non-owners restricted to `publish` rows; (2) BLOCKER stale hardcoded `$this->version` `'1.0.0'`/`'1.0.1'` — both classes now read `BPJM_PLUGIN_VERSION`, so public CSS/JS enqueue with `?ver=2.8.5` (cache-busting works again); (3) MAJOR applied-jobs tab — real LIMIT/OFFSET pagination (`bpjm-applied-page` + `paginate_links()`, filter `bpjm_applied_jobs_per_page`, default 20), DESC order, `_prime_post_caches()` batch fetch kills the N+1; (4) MEDIUM profile-nav counts cached in `user_{ID}_job_listings`/`user_{ID}_my_resumes_count` transients (WPML-language keyed) invalidated by the existing `transition_post_status` flush + new `deleted_post` flush, WPML `SHOW TABLES` probe memoized per request; (5) fixed pre-existing `ArgumentCountError` fatal in load-more rows against WPJM 2.3+ (`job_manager_job_dashboard_column_actions` needs 2 args); (6) removed `console.log("asd")`, localized the `Loading...` string. | public/class-bp-job-manager-public.php, public/js/bp-job-manager-public.js, public/templates/bpjm-my-applied-jobs.php, includes/class-bp-job-manager.php, includes/class-bp-job-manager-globals.php, includes/class-bp-job-manager-function.php |
+| 2026-07-03 | bug-fix | Dark-mode round 2 (QA re-bounce): covered WPJM `.jm-notice` (dashboard empty state + deleted/updated confirmations), the three-dot actions popover `.jm-ui-action-menu__content`, the search-input icon (dark scope re-declares WPJM token `--jm-ui-svg-search` with a light fill), and the preview panel borders (`.job_listing_preview`, `.single_job_listing .company`). Also duplicated the whole dark block for the themes' "auto" (system) mode: `@media (prefers-color-scheme: dark) [data-bx-mode="auto"]` — QA's "Desktop Mode UI Issue" card was auto mode falling back to light styles. | public/css/bp-job-manager-public.css |
+| 2026-06-30 | bug-fix | Dark-mode UI: WP Job Manager core surfaces (Add Job `.jm-ui-button`, submit preview bar `.job_listing_preview_title`, confirmation `.job-manager-message`) rendered light/invisible in BuddyX/BuddyX Pro/Reign dark mode. Added explicit dark block scoped to `[data-bx-mode="dark"]`/`.buddyx-dark-theme`. | public/css/bp-job-manager-public.css |
+| 2026-06-05 | onboard | Clean regeneration of audit/ artifacts + READ-FIRST CLAUDE.md | audit/*, CLAUDE.md |

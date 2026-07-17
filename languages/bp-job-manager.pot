@@ -1,1476 +1,994 @@
-# Copyright (C) 2025
-# This file is distributed under the same license as the  package.
+# Copyright (C) 2026 Wbcom Designs
+# This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-11 06:59:22+00:00\n"
+"Project-Id-Version: Wbcom Designs - BuddyPress Job Manager 2.8.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-job-manager\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2025-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Varun Dubey\n"
-"Language-Team: Wbcom Designs\n"
-"Language: en\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Country: United States\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: "
-"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
-"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
-"X-Poedit-Basepath: ../\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-Bookmarks: \n"
-"X-Textdomain-Support: yes\n"
-"X-Generator: grunt-wp-i18n 1.0.3\n"
+"POT-Creation-Date: 2026-07-16T13:55:50+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: bp-job-manager\n"
 
-#: admin/class-bp-job-manager-admin-feedback.php:88
+#. Plugin Name of the plugin
+#: bp-job-manager.php
+msgid "Wbcom Designs - BuddyPress Job Manager"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: bp-job-manager.php
+msgid "https://wbcomdesigns.com/"
+msgstr ""
+
+#. Description of the plugin
+#: bp-job-manager.php
+msgid "This plugin integrates WordPress Job Manager with BuddyPress. Allows the members to post jobs, and others to apply for those posted jobs."
+msgstr ""
+
+#. Author of the plugin
+#: bp-job-manager.php
+msgid "Wbcom Designs"
+msgstr ""
+
 #. translators: Number of years
+#: admin/class-bp-job-manager-admin-feedback.php:91
+#, php-format
 msgid "%s years"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:90
+#: admin/class-bp-job-manager-admin-feedback.php:93
 msgid "a year"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:97
 #. translators: Number of weeks
+#: admin/class-bp-job-manager-admin-feedback.php:100
+#, php-format
 msgid "%s weeks"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:99
+#: admin/class-bp-job-manager-admin-feedback.php:102
 msgid "a week"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:106
 #. translators: Number of days
+#: admin/class-bp-job-manager-admin-feedback.php:109
+#, php-format
 msgid "%s days"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:108
+#: admin/class-bp-job-manager-admin-feedback.php:111
 msgid "a day"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:115
 #. translators: Number of hours
+#: admin/class-bp-job-manager-admin-feedback.php:118
+#, php-format
 msgid "%s hours"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:117
+#: admin/class-bp-job-manager-admin-feedback.php:120
 msgid "an hour"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:124
 #. translators: Number of minutes
+#: admin/class-bp-job-manager-admin-feedback.php:127
+#, php-format
 msgid "%s minutes"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:126
+#: admin/class-bp-job-manager-admin-feedback.php:129
 msgid "a minute"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:133
 #. translators: Number of seconds
+#: admin/class-bp-job-manager-admin-feedback.php:136
+#, php-format
 msgid "%s seconds"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:135
+#: admin/class-bp-job-manager-admin-feedback.php:138
 msgid "a second"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:272
-#: admin/class-bp-job-manager-admin-feedback.php:312
-#: admin/class-bp-job-manager-admin.php:151
-#: admin/wbcom/templates/wbcom-license-page.php:9
-#: admin/wbcom/templates/wbcom-plugins-page.php:552 bp-job-manager.php:122
-msgid "BuddyPress Job Manager"
-msgstr ""
-
-#: admin/class-bp-job-manager-admin-feedback.php:275
+#: admin/class-bp-job-manager-admin-feedback.php:278
 msgid "Are you enjoying BuddyPress Job Manager?"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:278
-#. translators: 1. Name
-msgid ""
-"We hope you're enjoying %1$s! Could you please do us a BIG favor and give "
-"it a 5-star rating on WordPress to help us spread the word and boost our "
-"motivation?"
+#: admin/class-bp-job-manager-admin-feedback.php:281
+#: bp-job-manager.php:129
+#: includes/admin/class-bp-job-manager-admin-panel.php:112
+#: includes/admin/views/shell.php:31
+msgid "BuddyPress Job Manager"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:282
+#. translators: 1. Name
+#: admin/class-bp-job-manager-admin-feedback.php:285
+#, php-format
+msgid "We hope you're enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin-feedback.php:290
 msgid "Leave a Review"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin-feedback.php:283
+#: admin/class-bp-job-manager-admin-feedback.php:291
 msgid "No thanks / I already have"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:126
-msgid "WB Plugins"
-msgstr ""
-
-#: admin/class-bp-job-manager-admin.php:127
-#: admin/class-bp-job-manager-admin.php:197
-msgid "General"
-msgstr ""
-
-#: admin/class-bp-job-manager-admin.php:129
-msgid "Job Manager"
-msgstr ""
-
-#: admin/class-bp-job-manager-admin.php:155
-#: admin/wbcom/templates/wbcom-license-page.php:13
-#. translators: %s:
-msgid "Version %s"
-msgstr ""
-
-#: admin/class-bp-job-manager-admin.php:194
-msgid "Welcome"
-msgstr ""
-
-#: admin/class-bp-job-manager-admin.php:249
+#: admin/class-bp-job-manager-admin.php:105
 msgid "Resumes"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:273
-#: public/class-bp-job-manager-public.php:861
-#: public/class-bp-job-manager-public.php:976
+#: admin/class-bp-job-manager-admin.php:129
+#: public/class-bp-job-manager-public.php:960
+#: public/class-bp-job-manager-public.php:1079
 msgid "My Resumes"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:282
-#: public/class-bp-job-manager-public.php:902
-#: public/class-bp-job-manager-public.php:1066
+#: admin/class-bp-job-manager-admin.php:138
+#: public/class-bp-job-manager-public.php:1009
+#: public/class-bp-job-manager-public.php:1169
 msgid "Applied Jobs"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:291
-#: public/class-bp-job-manager-public.php:889
-#: public/class-bp-job-manager-public.php:937
-#: public/templates/bpjm-resume-listing.php:16
+#: admin/class-bp-job-manager-admin.php:147
+#: public/class-bp-job-manager-public.php:994
+#: public/class-bp-job-manager-public.php:1043
+#: public/templates/bpjm-resume-listing.php:18
 msgid "Add Resume"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:305
-#: public/class-bp-job-manager-public.php:376
-#: public/class-bp-job-manager-public.php:517
-#: public/class-bp-job-manager-public.php:1504
+#: admin/class-bp-job-manager-admin.php:161
+#: public/class-bp-job-manager-public.php:434
+#: public/class-bp-job-manager-public.php:623
 msgid "Jobs"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:328
-#: public/class-bp-job-manager-public.php:358
-#: public/class-bp-job-manager-public.php:510
+#. translators: %s: User's display name
+#: admin/class-bp-job-manager-admin.php:184
+#: public/class-bp-job-manager-public.php:412
+#: public/class-bp-job-manager-public.php:616
 msgid "My Jobs"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:337
-#: public/class-bp-job-manager-public.php:412
-#: public/class-bp-job-manager-public.php:470
+#: admin/class-bp-job-manager-admin.php:193
+#: public/class-bp-job-manager-public.php:476
+#: public/class-bp-job-manager-public.php:517
+#: public/class-bp-job-manager-public.php:579
 msgid "Post Job"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:374
-#. translators: %1$s: BP user link ;  %2$s: Job Link
+#. translators: %1$s: BP user link ; %2$s: Job link
+#: admin/class-bp-job-manager-admin.php:227
+#, php-format
 msgid "%1$s posted a new job %2$s"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:407
-#. translators: %1$s: Resume user link ;  %2$s: Resume Link
+#. translators: %1$s: Resume user link ; %2$s: Resume link
+#: admin/class-bp-job-manager-admin.php:252
+#, php-format
 msgid "%1$s posted resume %2$s"
 msgstr ""
 
-#: admin/includes/bp-job-manager-general-settings.php:22
-msgid "General Settings"
-msgstr ""
-
-#: admin/includes/bp-job-manager-general-settings.php:35
-msgid "Roles Allowed for Job Posting"
-msgstr ""
-
-#: admin/includes/bp-job-manager-general-settings.php:37
-msgid ""
-"Select the user roles that can post jobs on your site. Choose \"Guest\" to "
-"allow non-logged-in users to post jobs."
-msgstr ""
-
-#: admin/includes/bp-job-manager-general-settings.php:56
-#: admin/includes/bp-job-manager-general-settings.php:86
-msgid "Guest (Non-Logged-In Users)"
-msgstr ""
-
-#: admin/includes/bp-job-manager-general-settings.php:65
-msgid "Roles Allowed for Job Applications"
-msgstr ""
-
-#: admin/includes/bp-job-manager-general-settings.php:66
-msgid ""
-"Select the user roles that can apply for jobs on your site. Choose "
-"\"Guest\" to allow non-logged-in users to apply for jobs."
-msgstr ""
-
-#: admin/includes/bp-job-manager-general-settings.php:95
-msgid "BuddyPress Activity for Job Posting"
-msgstr ""
-
-#: admin/includes/bp-job-manager-general-settings.php:96
-msgid "Enable this option to create BuddyPress activity entries for job postings."
-msgstr ""
-
-#: admin/includes/bp-job-manager-general-settings.php:118
-msgid "BuddyPress Activity for Resume Posting"
-msgstr ""
-
-#: admin/includes/bp-job-manager-general-settings.php:119
-msgid ""
-"Enable this option to create BuddyPress activity entries for resume "
-"postings."
-msgstr ""
-
-#: admin/includes/bp-job-manager-general-settings.php:137
-msgid "Display Resume in BuddyPress Profile"
-msgstr ""
-
-#: admin/includes/bp-job-manager-general-settings.php:150
-msgid "Enable this option to display the latest resume on BuddyPress profiles."
-msgstr ""
-
-#: admin/includes/bp-job-manager-general-settings.php:161
-msgid "Send BuddyPress Notification for Job Applications"
-msgstr ""
-
-#: admin/includes/bp-job-manager-general-settings.php:162
-msgid ""
-"Enable this option to send a BuddyPress notification to job authors when a "
-"user applies to their job."
-msgstr ""
-
-#: admin/includes/bp-job-manager-general-settings.php:181
-#: public/class-bp-job-manager-public.php:1326
-msgid "Save Changes"
-msgstr ""
-
-#: admin/includes/bp-job-manager-welcome-page.php:20
-msgid ""
-"Integrates BuddyPress with the WP Job Manager plugin by adding dedicated "
-"tabs for employers and candidates in their profiles."
-msgstr ""
-
-#: admin/includes/bp-job-manager-welcome-page.php:25
-msgid "Help & Support Resources"
-msgstr ""
-
-#: admin/includes/bp-job-manager-welcome-page.php:26
-msgid ""
-"Find the resources you need to get help from us. The documentation is a "
-"great place to start. For additional assistance, our customer care team is "
-"available through the support center."
-msgstr ""
-
-#: admin/includes/bp-job-manager-welcome-page.php:31
-msgid "Documentation"
-msgstr ""
-
-#: admin/includes/bp-job-manager-welcome-page.php:32
-msgid ""
-"Our comprehensive guide to BuddyPress Job Manager covers all aspects of the "
-"plugin. You’ll find most of your answers here."
-msgstr ""
-
-#: admin/includes/bp-job-manager-welcome-page.php:33
-msgid "Read Documentation"
-msgstr ""
-
-#: admin/includes/bp-job-manager-welcome-page.php:39
-msgid "Support Center"
-msgstr ""
-
-#: admin/includes/bp-job-manager-welcome-page.php:40
-msgid ""
-"Our support center is here to provide you with top-notch assistance. Once "
-"your plugin is activated, feel free to reach out for help at any time."
-msgstr ""
-
-#: admin/includes/bp-job-manager-welcome-page.php:41
-msgid "Get Support"
-msgstr ""
-
-#: admin/includes/bp-job-manager-welcome-page.php:46
-msgid "Share Your Feedback"
-msgstr ""
-
-#: admin/includes/bp-job-manager-welcome-page.php:47
-msgid ""
-"We’d love to hear about your experience with the plugin and welcome any "
-"suggestions for future updates."
-msgstr ""
-
-#: admin/includes/bp-job-manager-welcome-page.php:48
-msgid "Send Feedback"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-license-page.php:20
-msgid "Plugin License"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-license-page.php:26
-#: admin/wbcom/templates/wbcom-license-page.php:38
-msgid "Product"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-license-page.php:27
-#: admin/wbcom/templates/wbcom-license-page.php:39
-msgid "Version"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-license-page.php:28
-#: admin/wbcom/templates/wbcom-license-page.php:40
-msgid "Key"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-license-page.php:29
-#: admin/wbcom/templates/wbcom-license-page.php:41
-msgid "Status"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-license-page.php:30
-#: admin/wbcom/templates/wbcom-license-page.php:42
-msgid "Action"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:9
-msgid "Themes & Extensions"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:17
-#: admin/wbcom/templates/wbcom-plugins-page.php:25
-msgid "Paid Extensions"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:18
-msgid "Free Extensions"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:19
-msgid "LearnDash Extensions"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:20
-#: admin/wbcom/templates/wbcom-plugins-page.php:366
-#: admin/wbcom/wbcom-admin-settings.php:224
-#: admin/wbcom/wbcom-admin-settings.php:225
-msgid "Our Themes"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:26
-#: admin/wbcom/templates/wbcom-plugins-page.php:327
-#: admin/wbcom/templates/wbcom-plugins-page.php:417
-msgid "View More Extensions"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:31
-msgid "Advanced Username Manager"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:32
-msgid ""
-"Allow users to change their usernames directly from their profile settings. "
-"Enhance flexibility for members while keeping admin-level approval and "
-"control over username updates."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:34
-#: admin/wbcom/templates/wbcom-plugins-page.php:44
-#: admin/wbcom/templates/wbcom-plugins-page.php:54
-#: admin/wbcom/templates/wbcom-plugins-page.php:64
-#: admin/wbcom/templates/wbcom-plugins-page.php:74
-#: admin/wbcom/templates/wbcom-plugins-page.php:84
-#: admin/wbcom/templates/wbcom-plugins-page.php:94
-#: admin/wbcom/templates/wbcom-plugins-page.php:104
-#: admin/wbcom/templates/wbcom-plugins-page.php:114
-#: admin/wbcom/templates/wbcom-plugins-page.php:124
-#: admin/wbcom/templates/wbcom-plugins-page.php:134
-#: admin/wbcom/templates/wbcom-plugins-page.php:144
-#: admin/wbcom/templates/wbcom-plugins-page.php:154
-#: admin/wbcom/templates/wbcom-plugins-page.php:164
-#: admin/wbcom/templates/wbcom-plugins-page.php:174
-#: admin/wbcom/templates/wbcom-plugins-page.php:184
-#: admin/wbcom/templates/wbcom-plugins-page.php:194
-#: admin/wbcom/templates/wbcom-plugins-page.php:204
-#: admin/wbcom/templates/wbcom-plugins-page.php:214
-#: admin/wbcom/templates/wbcom-plugins-page.php:224
-#: admin/wbcom/templates/wbcom-plugins-page.php:234
-#: admin/wbcom/templates/wbcom-plugins-page.php:244
-#: admin/wbcom/templates/wbcom-plugins-page.php:254
-#: admin/wbcom/templates/wbcom-plugins-page.php:264
-#: admin/wbcom/templates/wbcom-plugins-page.php:274
-#: admin/wbcom/templates/wbcom-plugins-page.php:284
-#: admin/wbcom/templates/wbcom-plugins-page.php:294
-#: admin/wbcom/templates/wbcom-plugins-page.php:304
-#: admin/wbcom/templates/wbcom-plugins-page.php:314
-#: admin/wbcom/templates/wbcom-plugins-page.php:335
-#: admin/wbcom/templates/wbcom-plugins-page.php:345
-#: admin/wbcom/templates/wbcom-plugins-page.php:355
-#: admin/wbcom/templates/wbcom-plugins-page.php:375
-#: admin/wbcom/templates/wbcom-plugins-page.php:385
-#: admin/wbcom/templates/wbcom-plugins-page.php:395
-#: admin/wbcom/templates/wbcom-plugins-page.php:405
-#: admin/wbcom/templates/wbcom-plugins-page.php:425
-#: admin/wbcom/templates/wbcom-plugins-page.php:435
-#: admin/wbcom/templates/wbcom-plugins-page.php:445
-#: admin/wbcom/templates/wbcom-plugins-page.php:455
-#: admin/wbcom/templates/wbcom-plugins-page.php:465
-#: admin/wbcom/templates/wbcom-plugins-page.php:475
-#: admin/wbcom/templates/wbcom-plugins-page.php:485
-#: admin/wbcom/templates/wbcom-plugins-page.php:495
-#: admin/wbcom/templates/wbcom-plugins-page.php:505
-#: admin/wbcom/templates/wbcom-plugins-page.php:515
-#: admin/wbcom/templates/wbcom-plugins-page.php:525
-#: admin/wbcom/templates/wbcom-plugins-page.php:535
-#: admin/wbcom/templates/wbcom-plugins-page.php:545
-#: admin/wbcom/templates/wbcom-plugins-page.php:555
-#: admin/wbcom/templates/wbcom-plugins-page.php:565
-#: admin/wbcom/templates/wbcom-plugins-page.php:575
-#: admin/wbcom/templates/wbcom-plugins-page.php:585
-#: admin/wbcom/templates/wbcom-plugins-page.php:595
-#: admin/wbcom/templates/wbcom-plugins-page.php:605
-#: admin/wbcom/templates/wbcom-plugins-page.php:615
-msgid "View Details"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:35
-#: admin/wbcom/templates/wbcom-plugins-page.php:45
-#: admin/wbcom/templates/wbcom-plugins-page.php:55
-#: admin/wbcom/templates/wbcom-plugins-page.php:65
-#: admin/wbcom/templates/wbcom-plugins-page.php:75
-#: admin/wbcom/templates/wbcom-plugins-page.php:85
-#: admin/wbcom/templates/wbcom-plugins-page.php:95
-#: admin/wbcom/templates/wbcom-plugins-page.php:105
-#: admin/wbcom/templates/wbcom-plugins-page.php:115
-#: admin/wbcom/templates/wbcom-plugins-page.php:125
-#: admin/wbcom/templates/wbcom-plugins-page.php:135
-#: admin/wbcom/templates/wbcom-plugins-page.php:145
-#: admin/wbcom/templates/wbcom-plugins-page.php:155
-#: admin/wbcom/templates/wbcom-plugins-page.php:165
-#: admin/wbcom/templates/wbcom-plugins-page.php:175
-#: admin/wbcom/templates/wbcom-plugins-page.php:185
-#: admin/wbcom/templates/wbcom-plugins-page.php:195
-#: admin/wbcom/templates/wbcom-plugins-page.php:205
-#: admin/wbcom/templates/wbcom-plugins-page.php:215
-#: admin/wbcom/templates/wbcom-plugins-page.php:225
-#: admin/wbcom/templates/wbcom-plugins-page.php:235
-#: admin/wbcom/templates/wbcom-plugins-page.php:245
-#: admin/wbcom/templates/wbcom-plugins-page.php:255
-#: admin/wbcom/templates/wbcom-plugins-page.php:265
-#: admin/wbcom/templates/wbcom-plugins-page.php:275
-#: admin/wbcom/templates/wbcom-plugins-page.php:285
-#: admin/wbcom/templates/wbcom-plugins-page.php:295
-#: admin/wbcom/templates/wbcom-plugins-page.php:305
-#: admin/wbcom/templates/wbcom-plugins-page.php:315
-#: admin/wbcom/templates/wbcom-plugins-page.php:336
-#: admin/wbcom/templates/wbcom-plugins-page.php:346
-#: admin/wbcom/templates/wbcom-plugins-page.php:356
-#: admin/wbcom/templates/wbcom-plugins-page.php:376
-#: admin/wbcom/templates/wbcom-plugins-page.php:386
-#: admin/wbcom/templates/wbcom-plugins-page.php:396
-#: admin/wbcom/templates/wbcom-plugins-page.php:406
-#: admin/wbcom/templates/wbcom-plugins-page.php:426
-#: admin/wbcom/templates/wbcom-plugins-page.php:436
-#: admin/wbcom/templates/wbcom-plugins-page.php:446
-#: admin/wbcom/templates/wbcom-plugins-page.php:456
-#: admin/wbcom/templates/wbcom-plugins-page.php:466
-#: admin/wbcom/templates/wbcom-plugins-page.php:476
-#: admin/wbcom/templates/wbcom-plugins-page.php:486
-#: admin/wbcom/templates/wbcom-plugins-page.php:496
-#: admin/wbcom/templates/wbcom-plugins-page.php:506
-#: admin/wbcom/templates/wbcom-plugins-page.php:516
-#: admin/wbcom/templates/wbcom-plugins-page.php:526
-#: admin/wbcom/templates/wbcom-plugins-page.php:536
-#: admin/wbcom/templates/wbcom-plugins-page.php:546
-#: admin/wbcom/templates/wbcom-plugins-page.php:556
-#: admin/wbcom/templates/wbcom-plugins-page.php:566
-#: admin/wbcom/templates/wbcom-plugins-page.php:576
-#: admin/wbcom/templates/wbcom-plugins-page.php:586
-#: admin/wbcom/templates/wbcom-plugins-page.php:596
-#: admin/wbcom/templates/wbcom-plugins-page.php:606
-#: admin/wbcom/templates/wbcom-plugins-page.php:616
-msgid "Docs"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:41
-msgid "BuddyLists"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:42
-msgid ""
-"Empower users to create personalized lists of friends, follow curated "
-"streams, and organize their connections for a better social experience "
-"within your community."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:51
-msgid "BuddyPress Schedule Activity"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:52
-msgid ""
-"Plan posts and activities in advance with easy scheduling tools. Keep your "
-"community active even during off-hours and automate important updates."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:61
-msgid "BuddyPress Anonymous Activity"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:62
-msgid ""
-"Enable members to share updates anonymously without revealing their "
-"identity, encouraging more honest, open, and candid conversations across "
-"your platform."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:71
-msgid "BuddyPress Edit Activity"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:72
-msgid ""
-"Let users edit their posted activities anytime. Help members fix mistakes "
-"or update their posts, keeping conversations fresh and accurate."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:81
-msgid "WP Stories"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:82
-msgid ""
-"Introduce Instagram-style stories where users can share photos and videos. "
-"Boost community engagement through visual storytelling and real-time "
-"content sharing."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:91
-msgid "BuddyPress Business Profile"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:92
-msgid ""
-"Allow businesses to set up profile pages, showcase their services, and "
-"directly connect with potential customers through your social network."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:101
-msgid "BuddyPress Moderation Pro"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:102
-msgid ""
-"Allow members to flag inappropriate content and maintain a safe, "
-"respectful, and welcoming community environment."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:111
-msgid "BuddyPress Resume Manager"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:112
-msgid ""
-"Let users upload and display professional resumes right on their profiles. "
-"Ideal for building career-focused communities."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:121
-msgid "BuddyPress Polls"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:122
-msgid ""
-"Let members create polls and surveys directly inside activity streams to "
-"collect opinions, boost participation, and spark discussions easily."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:131
-msgid "BuddyPress Private Community Pro"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:132
-msgid ""
-"Restrict access to BuddyPress areas. Protect member profiles and create a "
-"fully private, members-only experience."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:141
-msgid "BuddyPress Profile Pro"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:142
-msgid ""
-"Add custom repeater fields and groups to member profiles. Collect richer "
-"information and enhance profile personalization."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:151
-msgid "BuddyPress Check-ins Pro"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:152
-msgid ""
-"Allow users to check in at places like restaurants or events. Encourage "
-"social interactions and real-world meetups through your platform."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:161
-msgid "BuddyPress Ideapush Integration"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:162
-msgid ""
-"Streamline idea management. Let members submit ideas, provide feedback, and "
-"spark innovation directly within their profiles."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:171
-msgid "BuddyPress Contact Me"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:172
-msgid ""
-"Add easy-to-use contact forms on member profiles. Enable seamless "
-"communication between visitors and users without sharing personal "
-"information."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:181
-msgid "BuddyPress Member Blog Pro"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:182
-msgid ""
-"Offer personal blogging spaces for members. Let users share articles, "
-"stories, and updates, turning your community into a vibrant content hub."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:191
-msgid "BuddyVendor"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:192
-msgid ""
-"Combine e-commerce with social networking. Allow users to buy, sell, and "
-"interact on a community-driven multi-vendor marketplace."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:201
-msgid "BuddyPress Statistics"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:202
-msgid ""
-"Get detailed community analytics. Monitor activities, understand engagement "
-"patterns, and make smarter decisions to grow your site."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:211
-msgid "Who viewed my profile"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:212
-msgid ""
-"Give users visibility into who has visited their profile. Build curiosity, "
-"drive more profile views, and increase member engagement."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:221
-msgid "BuddyPress Friend & Follow Suggestion"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:222
-msgid ""
-"Provide personalized friend and follow suggestions based on profile data, "
-"boosting connections and community interactions."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:231
-msgid "BuddyPress Giphy"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:232
-msgid ""
-"Enable GIF sharing in activities, comments, and private messages. Make "
-"conversations more fun, expressive, and visually engaging."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:241
-msgid "Shortcodes for BuddyPress Pro"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:242
-msgid ""
-"Add BuddyPress components anywhere on your site with shortcodes and "
-"Elementor widgets. Enjoy full design freedom and flexibility."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:251
-msgid "BuddyPress Sticky Post"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:252
-msgid ""
-"Highlight important updates by pinning posts to the top of activity "
-"streams. Ensure key messages are always seen by members."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:261
-msgid "BuddyPress Quotes"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:262
-msgid ""
-"Let users decorate their posts with vibrant backgrounds and images, making "
-"activity updates more expressive and attention-grabbing."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:271
-msgid "BuddyPress Auto Friends"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:272
-msgid ""
-"Automatically add specific users as friends to new members, helping them "
-"build their network and feel connected from day one."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:281
-msgid "BuddyPress Newsfeed"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:282
-msgid ""
-"Organize activity updates into a familiar Facebook-style newsfeed, helping "
-"members find new content quickly and engage more."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:291
-msgid "BuddyPress Status"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:292
-msgid ""
-"Allow members to post quick status updates and react to activities, making "
-"your community more dynamic and lively."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:301
-msgid "BuddyPress Hashtags"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:302
-msgid ""
-"Boost discoverability and organize discussions by adding hashtag "
-"functionality across activities, posts, and comments."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:311
-msgid "BuddyPress Profanity Filter"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:312
-msgid ""
-"Block unwanted words and keep your community safe, family-friendly, and "
-"free from offensive language."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:326
-msgid "Extensions for LearnDash"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:332
-msgid "LMS Notes"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:333
-msgid ""
-"LMS Notes will extend the LMS functionality to create Notes for courses, "
-"lessons and topics."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:342
-msgid "Learndash wpForo"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:343
-msgid ""
-"The LearnDash wpForo integration allows you to create dedicated discussion "
-"channels for your learners and link your courses to multiple forums."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:352
-msgid "LearnDash Dashboard"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:353
-msgid ""
-"The LearnDash Dashboard provides admins, instructors, group leaders, and "
-"students with personalized dashboards, allowing them to easily manage their "
-"courses, lessons, and communication."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:367
-msgid "View More Themes"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:372
-msgid "Reign Theme"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:373
-msgid ""
-"Create your social network website for the company, school, sports team, or "
-"any niche community using a highly customizable WordPress, Community theme."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:382
-msgid "BuddyX Pro Theme"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:383
-msgid ""
-"Build a flexible, code-free online community website with full control. "
-"Enjoy unique layouts, clean code, and easy customization for "
-"BuddyPress/BossBoss Platform."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:392
-msgid "BuddyX Theme"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:393
-msgid ""
-"BuddyX is a free, fast, and responsive WordPress theme for creating social "
-"network sites like Facebook. Ideal for BuddyPress and BuddyBoss "
-"communities, memberships, eLearning, and marketplaces."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:402
-msgid "KnowX Theme"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:403
-msgid ""
-"A Free WordPress Knowledge base Theme. KnowX helps you set up a Knowledge "
-"Base in WordPress in less time than it takes to brew a coffee."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:416
-msgid "Our Free Extensions"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:422
-msgid "Wbcom Essential"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:423
-msgid ""
-"Get dozens of stylish widgets packed inside Wbcom Essential. Enhance your "
-"BuddyPress site's design with advanced customizations without needing any "
-"technical skills."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:432
-msgid "BuddyPress Member Type"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:433
-msgid ""
-"Effortlessly create and manage multiple member types. Personalize user "
-"experiences and organize your community more effectively based on user "
-"profiles."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:442
-msgid "BuddyPress Advertisement Placements"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:443
-msgid ""
-"Add advertisement placements across your BuddyPress community. Increase "
-"engagement and generate extra revenue with seamless ad integration."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:452
-msgid "reCaptcha for BuddyPress"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:453
-msgid ""
-"Secure your BuddyPress, WordPress, and WooCommerce sites by adding powerful "
-"Google reCaptcha protection against bots and spam activities."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:462
-msgid "BuddyPress Member Blog"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:463
-msgid ""
-"Allow community members to create and manage their blog posts directly from "
-"their BuddyPress profiles, boosting engagement and user-generated content."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:472
-msgid "BuddyPress WooCommerce Integration"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:473
-msgid ""
-"Easily integrate WooCommerce with BuddyPress. Showcase WooCommerce "
-"activities inside profiles and create a seamless social shopping experience."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:482
-msgid "BuddyPress Activity Link Preview"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:483
-msgid ""
-"Automatically generate rich link previews inside the activity feed, "
-"displaying title, description, and image to make posts more engaging."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:492
-msgid "BuddyPress Birthday Widget"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:493
-msgid ""
-"Celebrate community members' birthdays by displaying upcoming birthdays in "
-"a sidebar widget, fostering deeper social interactions."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:502
-msgid "BuddyPress Redirect"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:503
-msgid ""
-"Redirect users to custom pages after login or logout, based on their user "
-"roles, creating a more personalized navigation experience."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:512
-msgid "BuddyPress Activity Bump"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:513
-msgid ""
-"Move the most recent interactions to the top of the activity feed "
-"automatically, keeping your BuddyPress newsfeed lively and active."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:522
-msgid "BuddyPress Lock – Private Community"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:523
-msgid ""
-"Lock down selected BuddyPress components to create a private, members-only "
-"community and protect your site's content from the public."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:532
-msgid "Shortcodes for BuddyPress"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:533
-msgid ""
-"Use simple shortcodes to embed BuddyPress components like activity streams, "
-"member lists, or groups on any page or post."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:542
-msgid "BuddyPress User Todo List"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:543
-msgid ""
-"Allow users to create, organize, and manage personal to-do lists with "
-"categories directly from their BuddyPress profiles."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:553
-msgid ""
-"Create dedicated job tabs for employers and candidates inside their "
-"BuddyPress profiles, enhancing your site's job board functionality."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:562
-msgid "BuddyPress Group Reviews"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:563
-msgid ""
-"Enable members to rate and review BuddyPress groups based on multiple "
-"criteria, improving group quality and encouraging community feedback."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:572
-msgid "BuddyPress Member Reviews"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:573
-msgid ""
-"Allow users to rate and review other member profiles based on customizable "
-"criteria, helping build trust and credibility within your community."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:582
-msgid "BuddyPress Check-ins"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:583
-msgid ""
-"Allow community members to post activity updates along with their current "
-"location, encouraging real-world interactions and meetups."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:592
-msgid "BuddyPress Activity Filter"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:593
-msgid ""
-"Display customized activity feeds by applying filters to show specific "
-"content types based on your community's needs."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:602
-msgid "BuddyPress Favorite Notification"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:603
-msgid ""
-"Send real-time notifications to members when someone favorites their "
-"content, boosting engagement and interaction across your community."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:612
-msgid "BuddyPress Activity Social Share"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-plugins-page.php:613
-msgid ""
-"Allow users to share their BuddyPress activity updates easily to external "
-"social media platforms, extending their reach. "
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-support-page.php:9
-#: admin/wbcom/wbcom-admin-settings.php:232
-#: admin/wbcom/wbcom-admin-settings.php:233 bp-job-manager.php:161
-msgid "Support"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-support-page.php:14
-msgid "How can we help you?"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-support-page.php:15
-msgid ""
-"Our team is here to help you out at anytime. If you have any idea about how "
-"we could improve. You can share access to your site on our helpdesk if it "
-"can help getting faster."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-support-page.php:24
-msgid "Tickets Support"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-support-page.php:25
-msgid ""
-"Open a ticket on our helpdesk, we don't guarantee a fast response but "
-"within a week. Except if you've purchased one of our product we'll reply "
-"within 24 hours."
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-support-page.php:28
-msgid "Open a ticket"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-support-page.php:41
-#: admin/wbcom/templates/wbcom-support-page.php:45
-msgid "Contact Us"
-msgstr ""
-
-#: admin/wbcom/templates/wbcom-support-page.php:42
-msgid ""
-"Create a new thread on our plugin page, participation is open to anyone "
-"from all around the world. We'll be there to help as well but can't "
-"guarantee any delay."
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:193
-msgid "Activate"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:194
-msgid "Deactivate"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:216
-#: admin/wbcom/wbcom-admin-settings.php:217
-msgid "Our Plugins"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:299 bp-job-manager.php:160
-msgid "Settings"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:305
-msgid "Themes & Extension"
-msgstr ""
-
-#: admin/wbcom/wbcom-admin-settings.php:311
-msgid "Help & Support"
-msgstr ""
-
-#: bp-job-manager.php:123
+#: bp-job-manager.php:130
+#: includes/admin/views/overview.php:89
 msgid "BuddyPress"
 msgstr ""
 
-#: bp-job-manager.php:124
+#: bp-job-manager.php:131
+#: includes/admin/views/overview.php:99
 msgid "WP Job Manager"
 msgstr ""
 
-#: bp-job-manager.php:128
-#. translators: %1$s: BuddyPress Job Manager ;  %2$s: BuddyPress ; %3$s: WP Job
-#. Manager
-msgid ""
-"%1$s is ineffective now as it requires %2$s and %3$s to be installed and "
-"active."
+#. translators: %1$s: BuddyPress Job Manager ;  %2$s: BuddyPress ; %3$s: WP Job Manager
+#: bp-job-manager.php:135
+#, php-format
+msgid "%1$s is ineffective now as it requires %2$s and %3$s to be installed and active."
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:204
-#: public/class-bp-job-manager-public.php:1021
-#: public/templates/bpjm-job-listing.php:11
+#: bp-job-manager.php:167
+#: includes/admin/views/shell.php:68
+msgid "Settings"
+msgstr ""
+
+#: bp-job-manager.php:168
+msgid "Support"
+msgstr ""
+
+#: includes/admin/class-bp-job-manager-admin-panel.php:52
+msgid "Overview"
+msgstr ""
+
+#: includes/admin/class-bp-job-manager-admin-panel.php:57
+msgid "General"
+msgstr ""
+
+#: includes/admin/class-bp-job-manager-admin-panel.php:62
+msgid "Help & Support"
+msgstr ""
+
+#: includes/admin/class-bp-job-manager-admin-panel.php:68
+msgid "Discover"
+msgstr ""
+
+#: includes/admin/class-bp-job-manager-admin-panel.php:100
+#: includes/admin/class-bp-job-manager-admin-panel.php:101
+#: includes/admin/views/hub.php:63
+msgid "WB Plugins"
+msgstr ""
+
+#: includes/admin/class-bp-job-manager-admin-panel.php:113
+#: includes/admin/views/shell.php:60
+msgid "Job Manager"
+msgstr ""
+
+#: includes/admin/class-bp-job-manager-admin-panel.php:294
+msgid "Settings saved."
+msgstr ""
+
+#: includes/admin/class-bp-job-manager-admin-panel.php:295
+msgid "Could not save. Please try again."
+msgstr ""
+
+#: includes/admin/class-bp-job-manager-admin-panel.php:296
+msgid "Are you sure? This cannot be undone."
+msgstr ""
+
+#: includes/admin/class-bp-job-manager-admin-panel.php:297
+msgid "Continue"
+msgstr ""
+
+#: includes/admin/class-bp-job-manager-admin-panel.php:298
+msgid "Cancel"
+msgstr ""
+
+#: includes/admin/views/discover.php:25
+msgid "BuddyNext"
+msgstr ""
+
+#: includes/admin/views/discover.php:27
+msgid "The social network layer for WordPress, with feeds, member spaces, and messaging."
+msgstr ""
+
+#: includes/admin/views/discover.php:31
+msgid "Jetonomy"
+msgstr ""
+
+#: includes/admin/views/discover.php:33
+msgid "Self-moderating forums and Q&A boards that scale to huge topic counts."
+msgstr ""
+
+#: includes/admin/views/discover.php:37
+msgid "Mediaverse"
+msgstr ""
+
+#: includes/admin/views/discover.php:39
+msgid "A photo and video community with albums, reactions, following, and DMs."
+msgstr ""
+
+#: includes/admin/views/discover.php:43
+msgid "Listora"
+msgstr ""
+
+#: includes/admin/views/discover.php:45
+msgid "Build directories your members can search, review, map, and submit to."
+msgstr ""
+
+#: includes/admin/views/discover.php:49
+msgid "Learnomy"
+msgstr ""
+
+#: includes/admin/views/discover.php:51
+msgid "Sell online courses with quizzes, payments, and completion certificates."
+msgstr ""
+
+#: includes/admin/views/discover.php:59
+msgid "More Free Tools from Wbcom Designs"
+msgstr ""
+
+#: includes/admin/views/discover.php:60
+msgid "Job Manager brings hiring into member profiles. These free Wbcom Designs plugins build out the rest of the community around those careers — the network itself, forums, media, directories, and courses."
+msgstr ""
+
+#: includes/admin/views/discover.php:72
+msgid "Get it free"
+msgstr ""
+
+#. translators: %s: product name.
+#: includes/admin/views/discover.php:77
+#, php-format
+msgid "%s (opens in a new tab)"
+msgstr ""
+
+#. translators: %d: active Wbcom plugin count
+#: includes/admin/views/hub.php:69
+#, php-format
+msgid "%d Wbcom plugin active on this site."
+msgid_plural "%d Wbcom plugins active on this site."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/views/hub.php:89
+msgid "No Wbcom plugins attached to this hub yet"
+msgstr ""
+
+#: includes/admin/views/hub.php:91
+msgid "Activate one or more Wbcom plugins and they will appear here automatically."
+msgstr ""
+
+#: includes/admin/views/hub.php:106
+msgid "Open settings"
+msgstr ""
+
+#: includes/admin/views/hub.php:116
+msgid "About WB Plugins"
+msgstr ""
+
+#: includes/admin/views/hub.php:120
+msgid "This hub is the single entry point for every Wbcom Designs plugin installed on your site. Each plugin lives on its own page under this menu and keeps its own settings and data."
+msgstr ""
+
+#: includes/admin/views/hub.php:124
+msgid "Visit wbcomdesigns.com for more plugins and themes →"
+msgstr ""
+
+#: includes/admin/views/overview.php:51
+msgid "Roles That Can Post Jobs"
+msgstr ""
+
+#: includes/admin/views/overview.php:53
+msgid "Members in these roles get the Jobs profile tab"
+msgstr ""
+
+#: includes/admin/views/overview.php:56
+msgid "Roles That Can Apply"
+msgstr ""
+
+#: includes/admin/views/overview.php:58
+msgid "Members in these roles get the Resumes profile tab"
+msgstr ""
+
+#: includes/admin/views/overview.php:61
+msgid "Resume Manager"
+msgstr ""
+
+#: includes/admin/views/overview.php:62
+#: includes/admin/views/overview.php:67
+msgid "On"
+msgstr ""
+
+#: includes/admin/views/overview.php:62
+#: includes/admin/views/overview.php:67
+#: includes/admin/views/overview.php:143
+#: includes/admin/views/overview.php:155
+#: includes/admin/views/overview.php:166
+#: includes/admin/views/overview.php:179
+msgid "Off"
+msgstr ""
+
+#: includes/admin/views/overview.php:63
+msgid "Adds resume management inside profiles"
+msgstr ""
+
+#: includes/admin/views/overview.php:66
+msgid "Applications"
+msgstr ""
+
+#: includes/admin/views/overview.php:68
+msgid "Lets members apply to jobs from their profile"
+msgstr ""
+
+#: includes/admin/views/overview.php:76
+msgid "Required plugins missing."
+msgstr ""
+
+#: includes/admin/views/overview.php:77
+msgid "BuddyPress Job Manager needs both BuddyPress and WP Job Manager to be active. Activate them to use the profile job and resume features."
+msgstr ""
+
+#: includes/admin/views/overview.php:84
+msgid "Required Integrations"
+msgstr ""
+
+#: includes/admin/views/overview.php:85
+msgid "What this plugin connects to. Resume and application features need the matching WP Job Manager add-ons."
+msgstr ""
+
+#: includes/admin/views/overview.php:92
+#: includes/admin/views/overview.php:102
+#: includes/admin/views/overview.php:112
+#: includes/admin/views/overview.php:122
+msgid "Active"
+msgstr ""
+
+#: includes/admin/views/overview.php:94
+#: includes/admin/views/overview.php:104
+msgid "Not active"
+msgstr ""
+
+#: includes/admin/views/overview.php:109
+msgid "Resume Manager add-on"
+msgstr ""
+
+#: includes/admin/views/overview.php:114
+#: includes/admin/views/overview.php:124
+msgid "Optional — not active"
+msgstr ""
+
+#: includes/admin/views/overview.php:119
+msgid "Applications add-on"
+msgstr ""
+
+#: includes/admin/views/overview.php:133
+msgid "Current Configuration"
+msgstr ""
+
+#: includes/admin/views/overview.php:134
+msgid "What happens right now when members post jobs, publish resumes, or apply. Change any of these on the General tab."
+msgstr ""
+
+#: includes/admin/views/overview.php:138
+msgid "Activity for job posts"
+msgstr ""
+
+#: includes/admin/views/overview.php:141
+msgid "On: a new job creates a BuddyPress activity update"
+msgstr ""
+
+#: includes/admin/views/overview.php:144
+#: includes/admin/views/overview.php:156
+#: includes/admin/views/overview.php:167
+#: includes/admin/views/overview.php:180
+msgid "Turn on"
+msgstr ""
+
+#: includes/admin/views/overview.php:150
+msgid "Activity for resumes"
+msgstr ""
+
+#: includes/admin/views/overview.php:153
+msgid "On: a new resume creates a BuddyPress activity update"
+msgstr ""
+
+#: includes/admin/views/overview.php:161
+#: includes/admin/views/settings-general.php:156
+msgid "Resume on profile"
+msgstr ""
+
+#: includes/admin/views/overview.php:164
+msgid "On: members see the latest resume on profiles"
+msgstr ""
+
+#: includes/admin/views/overview.php:174
+#: includes/admin/views/settings-general.php:167
+msgid "Application notifications"
+msgstr ""
+
+#: includes/admin/views/overview.php:177
+msgid "On: job authors get a BuddyPress notification for each application"
+msgstr ""
+
+#: includes/admin/views/overview.php:190
+msgid "Quick Actions"
+msgstr ""
+
+#: includes/admin/views/overview.php:196
+msgid "Configure Settings"
+msgstr ""
+
+#: includes/admin/views/overview.php:200
+#: includes/admin/views/welcome.php:41
+msgid "Read Documentation"
+msgstr ""
+
+#: includes/admin/views/settings-general.php:83
+msgid "Who Can Post & Apply"
+msgstr ""
+
+#: includes/admin/views/settings-general.php:84
+msgid "Pick the member roles that get each profile tab. Hold Ctrl (Windows) or Cmd (Mac) to select more than one. Add \"Guest\" to let people who are not logged in take part."
+msgstr ""
+
+#: includes/admin/views/settings-general.php:89
+msgid "Roles allowed to post jobs"
+msgstr ""
+
+#: includes/admin/views/settings-general.php:100
+#: includes/admin/views/settings-general.php:120
+msgid "Guest (not logged in)"
+msgstr ""
+
+#: includes/admin/views/settings-general.php:104
+msgid "Members in these roles get the Jobs tab on their profile, where they can post and manage job listings."
+msgstr ""
+
+#: includes/admin/views/settings-general.php:109
+msgid "Roles allowed to apply for jobs"
+msgstr ""
+
+#: includes/admin/views/settings-general.php:124
+msgid "Members in these roles get the Resumes tab on their profile, where they can manage resumes and apply for jobs."
+msgstr ""
+
+#: includes/admin/views/settings-general.php:132
+msgid "Activity & Notifications"
+msgstr ""
+
+#: includes/admin/views/settings-general.php:133
+msgid "Decide what shows up in the BuddyPress activity feed and which notifications members receive."
+msgstr ""
+
+#: includes/admin/views/settings-general.php:137
+msgid "Post job activity"
+msgstr ""
+
+#: includes/admin/views/settings-general.php:141
+msgid "Add a BuddyPress activity update when a member posts a job"
+msgstr ""
+
+#: includes/admin/views/settings-general.php:147
+msgid "Post resume activity"
+msgstr ""
+
+#: includes/admin/views/settings-general.php:151
+msgid "Add a BuddyPress activity update when a member publishes a resume"
+msgstr ""
+
+#: includes/admin/views/settings-general.php:160
+msgid "Show the latest resume on the member's BuddyPress profile"
+msgstr ""
+
+#: includes/admin/views/settings-general.php:171
+msgid "Send the job author a BuddyPress notification when someone applies"
+msgstr ""
+
+#: includes/admin/views/settings-general.php:183
+msgid "More options unlock with the WP Job Manager add-ons."
+msgstr ""
+
+#: includes/admin/views/settings-general.php:184
+msgid "Install the Resume Manager and Applications add-ons to manage resumes on profiles and notify job authors about new applications."
+msgstr ""
+
+#: includes/admin/views/shell.php:32
+msgid "Bring WP Job Manager into BuddyPress profiles — members post jobs, manage resumes, and apply, all from their profile."
+msgstr ""
+
+#: includes/admin/views/shell.php:61
+msgid "Plugin"
+msgstr ""
+
+#: includes/admin/views/shell.php:64
+msgid "Job Manager navigation"
+msgstr ""
+
+#: includes/admin/views/shell.php:69
+msgid "Resources"
+msgstr ""
+
+#: includes/admin/views/shell.php:70
+msgid "More Tools"
+msgstr ""
+
+#: includes/admin/views/shell.php:91
+msgid "Help"
+msgstr ""
+
+#: includes/admin/views/shell.php:94
+#: includes/admin/views/welcome.php:39
+msgid "Documentation"
+msgstr ""
+
+#: includes/admin/views/shell.php:96
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: includes/admin/views/shell.php:119
+msgid "Save Settings"
+msgstr ""
+
+#: includes/admin/views/welcome.php:18
+msgid "Getting Started"
+msgstr ""
+
+#: includes/admin/views/welcome.php:22
+msgid "BuddyPress Job Manager connects WP Job Manager to BuddyPress, adding dedicated Jobs and Resumes tabs to member profiles so employers and candidates can work entirely from their profile."
+msgstr ""
+
+#: includes/admin/views/welcome.php:25
+msgid "Use the General tab to choose which member roles can post jobs and apply, and to control activity-feed updates and application notifications."
+msgstr ""
+
+#: includes/admin/views/welcome.php:32
+msgid "Help & Support Resources"
+msgstr ""
+
+#: includes/admin/views/welcome.php:33
+msgid "Find the resources you need to get help from us. The documentation is a great place to start; for anything else, our support center is ready."
+msgstr ""
+
+#: includes/admin/views/welcome.php:40
+msgid "Our comprehensive guide covers every aspect of the plugin. You will find most of your answers here."
+msgstr ""
+
+#: includes/admin/views/welcome.php:45
+msgid "Support Center"
+msgstr ""
+
+#: includes/admin/views/welcome.php:46
+msgid "Our support center provides top-notch assistance. Reach out any time you need a hand."
+msgstr ""
+
+#: includes/admin/views/welcome.php:47
+msgid "Get Support"
+msgstr ""
+
+#: includes/admin/views/welcome.php:51
+msgid "Share Your Feedback"
+msgstr ""
+
+#: includes/admin/views/welcome.php:52
+msgid "We would love to hear about your experience and welcome suggestions for future updates."
+msgstr ""
+
+#: includes/admin/views/welcome.php:53
+msgid "Send Feedback"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:179
+msgid "Loading..."
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:237
+msgid "Invalid member profile."
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:246
+#: public/class-bp-job-manager-public.php:1126
+#: public/templates/bpjm-job-listing.php:13
 msgid "Title"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:205
-#: public/templates/bpjm-job-listing.php:12
+#: public/class-bp-job-manager-public.php:247
+#: public/templates/bpjm-job-listing.php:14
 msgid "Filled?"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:206
-#: public/class-bp-job-manager-public.php:1024
-#: public/templates/bpjm-job-listing.php:13
+#: public/class-bp-job-manager-public.php:248
+#: public/class-bp-job-manager-public.php:1129
+#: public/templates/bpjm-job-listing.php:15
 msgid "Date Posted"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:207
-#: public/templates/bpjm-job-listing.php:14
+#: public/class-bp-job-manager-public.php:249
+#: public/templates/bpjm-job-listing.php:16
 msgid "Listing Expires"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:208
-#: public/class-bp-job-manager-public.php:771
-#: public/templates/bpjm-job-listing.php:15
+#: public/class-bp-job-manager-public.php:250
+#: public/class-bp-job-manager-public.php:872
+#: public/templates/bpjm-job-listing.php:17
 msgid "Actions"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:233
-#: public/templates/bpjm-job-listing.php:44
+#: public/class-bp-job-manager-public.php:275
+#: public/templates/bpjm-job-listing.php:46
 msgid "Featured Job"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:243
-#: public/class-bp-job-manager-public.php:276
-#: public/templates/bpjm-resume-listing.php:57
-#: public/templates/bpjm-resume-listing.php:69
-#: public/templates/bpjm-resume-listing.php:82
+#: public/class-bp-job-manager-public.php:285
+#: public/class-bp-job-manager-public.php:318
+#: public/templates/bpjm-resume-listing.php:59
+#: public/templates/bpjm-resume-listing.php:71
+#: public/templates/bpjm-resume-listing.php:84
 msgid "Edit"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:249
+#: public/class-bp-job-manager-public.php:291
 msgid "Mark not filled"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:254
+#: public/class-bp-job-manager-public.php:296
 msgid "Mark filled"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:260
+#: public/class-bp-job-manager-public.php:302
 msgid "Duplicate"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:267
-#: public/templates/bpjm-resume-listing.php:90
+#: public/class-bp-job-manager-public.php:309
+#: public/templates/bpjm-resume-listing.php:92
 msgid "Relist"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:284
+#: public/class-bp-job-manager-public.php:326
 msgid "Continue Submission"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:291
-#: public/templates/bpjm-resume-listing.php:98
+#: public/class-bp-job-manager-public.php:333
+#: public/templates/bpjm-resume-listing.php:100
 msgid "Delete"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:358
+#. translators: %s: User's display name
+#: public/class-bp-job-manager-public.php:412
+#, php-format
 msgid "%s's Jobs"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:359
+#. translators: %s: Job count
+#: public/class-bp-job-manager-public.php:414
+#, php-format
 msgid "Jobs %s"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:389
-#: public/class-bp-job-manager-public.php:616
+#: public/class-bp-job-manager-public.php:449
+#: public/class-bp-job-manager-public.php:727
 msgid "My Bookmarks"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:401
-#: public/class-bp-job-manager-public.php:654
+#: public/class-bp-job-manager-public.php:463
+#: public/class-bp-job-manager-public.php:762
 msgid "Job Alerts"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:514
 #. Translators: %s is the name of the user.
+#: public/class-bp-job-manager-public.php:620
+#, php-format
 msgid "%s Jobs"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:809
+#: public/class-bp-job-manager-public.php:909
 msgid "Submit Application"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:815
+#: public/class-bp-job-manager-public.php:915
 msgid "This job position is no longer available."
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:818
+#: public/class-bp-job-manager-public.php:918
 msgid "You do not meet the requirements to apply for this job."
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:861
-#: public/class-bp-job-manager-public.php:980
 #. translators: %s: bp_core_get_user_displayname
 #. translators: %s: Author Name
+#: public/class-bp-job-manager-public.php:960
+#: public/class-bp-job-manager-public.php:1083
+#, php-format
 msgid "%s's Resumes"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:862
 #. translators: %s: bp_core_number_format
+#: public/class-bp-job-manager-public.php:962
+#, php-format
 msgid "Resumes %s"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:997
+#: public/class-bp-job-manager-public.php:1099
 msgid "You need to be signed in to manage your resumes."
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:999
+#: public/class-bp-job-manager-public.php:1104
 msgid "Sign in"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1020
+#: public/class-bp-job-manager-public.php:1125
 msgid "Name"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1022
-#: public/templates/profile-content-single-resume.php:54
+#: public/class-bp-job-manager-public.php:1127
+#: public/templates/profile-content-single-resume.php:67
 msgid "Location"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1023
+#: public/class-bp-job-manager-public.php:1128
 msgid "Category"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1214
+#: public/class-bp-job-manager-public.php:1268
+msgid "Resume Fields"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:1332
 msgid "Resume"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1215
+#: public/class-bp-job-manager-public.php:1333
 msgid "Visibility"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1220
+#: public/class-bp-job-manager-public.php:1338
 msgid "Show resume on the profile page"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1230
+#: public/class-bp-job-manager-public.php:1350
 msgid "Select resume to display at profile"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1242
+#: public/class-bp-job-manager-public.php:1362
 msgid "Show email field"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1252
+#: public/class-bp-job-manager-public.php:1374
 msgid "Display professional title"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1262
+#: public/class-bp-job-manager-public.php:1386
 msgid "Display location"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1272
+#: public/class-bp-job-manager-public.php:1398
 msgid "Display video link"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1282
+#: public/class-bp-job-manager-public.php:1410
 msgid "Display resume contents(description)"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1292
+#: public/class-bp-job-manager-public.php:1422
 msgid "Display URL(s)"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1302
+#: public/class-bp-job-manager-public.php:1434
 msgid "Display education"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1312
+#: public/class-bp-job-manager-public.php:1446
 msgid "Display experience"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1340
-msgid ""
-"No resume fields available. Please create a resume to enable display "
-"options."
+#: public/class-bp-job-manager-public.php:1463
+msgid "Save Changes"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1474
+#: public/class-bp-job-manager-public.php:1476
+msgid "No resume fields available. Please create a resume to enable display options."
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:1615
+msgid "Private Message"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:1615
 msgid "Send Private Message"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1502
-msgid "Jobs Update"
-msgstr ""
-
-#: public/class-bp-job-manager-public.php:1521
-#. translators: %1$s: Activity user ID
-msgid "%s shared a new job update."
-msgstr ""
-
-#: public/class-bp-job-manager-public.php:1548
-#. translators: %1$s: BP User core link
-msgid "%s posted a job update"
-msgstr ""
-
-#: public/class-bp-job-manager-public.php:1636
 #. translators: %1$s: Applicant Name
+#: public/class-bp-job-manager-public.php:1698
+#, php-format
 msgid "%s submitted an application for your job posting."
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1696
-msgid ""
-"You are not authorized to post a job. Please reach out to the administrator "
-"for further assistance."
+#: public/class-bp-job-manager-public.php:1757
+msgid "You are not authorized to post a job. Please reach out to the administrator for further assistance."
 msgstr ""
 
-#: public/templates/bpjm-job-application.php:39
+#: public/templates/bpjm-job-application.php:40
 msgid "No content available."
 msgstr ""
 
-#: public/templates/bpjm-job-listing.php:31
+#: public/templates/bpjm-job-listing.php:33
 msgid "No jobs found."
 msgstr ""
 
-#: public/templates/bpjm-my-applied-jobs.php:30
-msgid "Your applied jobs are shown in the table below."
-msgstr ""
+#. translators: %s: total number of job applications.
+#: public/templates/bpjm-my-applied-jobs.php:51
+#, php-format
+msgid "You have applied to %s job. Your applications are shown in the table below."
+msgid_plural "You have applied to %s jobs. Your applications are shown in the table below."
+msgstr[0] ""
+msgstr[1] ""
 
-#: public/templates/bpjm-my-applied-jobs.php:34
+#: public/templates/bpjm-my-applied-jobs.php:59
 msgid "Applied For"
 msgstr ""
 
-#: public/templates/bpjm-my-applied-jobs.php:35
+#: public/templates/bpjm-my-applied-jobs.php:60
 msgid "Applied Date"
 msgstr ""
 
-#: public/templates/bpjm-my-applied-jobs.php:36
+#: public/templates/bpjm-my-applied-jobs.php:61
 msgid "Attachment"
 msgstr ""
 
-#: public/templates/bpjm-my-applied-jobs.php:42
+#: public/templates/bpjm-my-applied-jobs.php:67
 msgid "You have not applied to any jobs yet."
 msgstr ""
 
-#: public/templates/bpjm-my-applied-jobs.php:64
+#: public/templates/bpjm-my-applied-jobs.php:88
 msgid "Unknown Job"
 msgstr ""
 
-#: public/templates/bpjm-my-applied-jobs.php:70
+#: public/templates/bpjm-my-applied-jobs.php:94
 msgid "File"
 msgstr ""
 
-#: public/templates/bpjm-my-applied-jobs.php:73
+#: public/templates/bpjm-my-applied-jobs.php:97
 msgid "No Attachment"
 msgstr ""
 
-#: public/templates/bpjm-resume-listing.php:35
+#: public/templates/bpjm-my-applied-jobs.php:107
+msgid "Applied jobs pagination"
+msgstr ""
+
+#: public/templates/bpjm-resume-listing.php:37
 msgid "You do not have any active resume listings."
 msgstr ""
 
-#: public/templates/bpjm-resume-listing.php:62
+#: public/templates/bpjm-resume-listing.php:64
 msgid "Hide"
 msgstr ""
 
-#: public/templates/bpjm-resume-listing.php:74
+#: public/templates/bpjm-resume-listing.php:76
 msgid "Publish"
 msgstr ""
 
-#: public/templates/bpjm-resume-listing.php:167
 #. translators: %s: Expire Date
+#: public/templates/bpjm-resume-listing.php:169
+#, php-format
 msgid "Expires %s"
 msgstr ""
 
-#: public/templates/profile-content-single-resume.php:44
+#: public/templates/profile-content-single-resume.php:45
+msgid "Personal Information"
+msgstr ""
+
+#: public/templates/profile-content-single-resume.php:57
 msgid "E-mail"
 msgstr ""
 
-#: public/templates/profile-content-single-resume.php:49
+#: public/templates/profile-content-single-resume.php:62
 msgid "Professional Title"
 msgstr ""
 
-#: public/templates/profile-content-single-resume.php:59
+#: public/templates/profile-content-single-resume.php:72
 msgid "Video"
 msgstr ""
 
-#: public/templates/profile-content-single-resume.php:64
+#: public/templates/profile-content-single-resume.php:77
 msgid "Description"
 msgstr ""
 
-#: public/templates/profile-content-single-resume.php:80
+#: public/templates/profile-content-single-resume.php:94
+#: public/templates/profile-content-single-resume.php:99
 msgid "URL(s)"
 msgstr ""
 
-#: public/templates/profile-content-single-resume.php:102
+#: public/templates/profile-content-single-resume.php:114
+msgid "Education"
+msgstr ""
+
+#: public/templates/profile-content-single-resume.php:127
 msgid "School Name"
 msgstr ""
 
-#: public/templates/profile-content-single-resume.php:106
+#: public/templates/profile-content-single-resume.php:131
 msgid "Qualification"
 msgstr ""
 
-#: public/templates/profile-content-single-resume.php:110
-#: public/templates/profile-content-single-resume.php:159
+#: public/templates/profile-content-single-resume.php:135
+#: public/templates/profile-content-single-resume.php:187
 msgid "Date"
 msgstr ""
 
-#: public/templates/profile-content-single-resume.php:114
-#: public/templates/profile-content-single-resume.php:163
+#: public/templates/profile-content-single-resume.php:139
+#: public/templates/profile-content-single-resume.php:191
 msgid "Notes"
 msgstr ""
 
-#: public/templates/profile-content-single-resume.php:132
+#: public/templates/profile-content-single-resume.php:160
 msgid "Experience"
 msgstr ""
 
-#: public/templates/profile-content-single-resume.php:151
+#: public/templates/profile-content-single-resume.php:179
 msgid "Employer"
 msgstr ""
 
-#: public/templates/profile-content-single-resume.php:155
+#: public/templates/profile-content-single-resume.php:183
 msgid "Job Title"
 msgstr ""

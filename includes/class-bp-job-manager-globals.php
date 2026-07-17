@@ -9,6 +9,10 @@
  * @author     Wbcom Designs <admin@wbcomdesigns.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 
 	/**
@@ -115,7 +119,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 		 */
 		public function __construct() {
 			$this->plugin_name = 'bp-job-manager';
-			$this->version     = '1.0.1';
+			$this->version     = defined( 'BPJM_PLUGIN_VERSION' ) ? BPJM_PLUGIN_VERSION : '1.0.0';
 			$this->setup_plugin_global();
 		}
 
@@ -130,7 +134,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 
 			if ( empty( $settings ) ) {
 				$this->apply_job_user_roles   = array( 'administrator', 'candidate', 'subscriber' );
-				$this->post_job_user_roles    = array( 'administrator', 'employer', 'guest' ); // Add "Guest" role here
+				$this->post_job_user_roles    = array( 'administrator', 'employer', 'guest' ); // Add "Guest" role here.
 				$this->bpjm_resume_at_profile = 'yes';
 			} else {
 				if ( ! empty( $settings['apply_job_user_roles'] ) ) {

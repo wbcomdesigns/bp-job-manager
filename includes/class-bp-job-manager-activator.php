@@ -9,7 +9,11 @@
  * @subpackage Bp_Job_Manager/includes
  */
 
-if ( ! class_exists( 'Bp_Job_Manager_Activator' ) ) :
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+if ( ! class_exists( 'Bpjm_Job_Manager_Activator' ) ) :
 
 	/**
 	 * Fired during plugin activation.
@@ -21,7 +25,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Activator' ) ) :
 	 * @subpackage Bp_Job_Manager/includes
 	 * @author     Wbcom Designs <admin@wbcomdesigns.com>
 	 */
-	class Bp_Job_Manager_Activator {
+	class Bpjm_Job_Manager_Activator {
 
 		/**
 		 * Short Description. (use period)
@@ -74,22 +78,27 @@ if ( ! class_exists( 'Bp_Job_Manager_Activator' ) ) :
 					update_user_meta( $user->ID, 'bpjm_display_fields', $resume_options );
 				}
 			}
-
 		}
 
+		/**
+		 * Get a page by its title.
+		 *
+		 * @param string $title Page title.
+		 * @return int|null Page ID or null.
+		 */
 		public static function bpjm_get_page_by_title( $title ) {
 			$args = array(
 				'post_type'      => 'page',
 				'title'          => $title,
-				'posts_per_page' => 1, // Limit the number of results to 1
+				'posts_per_page' => 1, // Limit the number of results to 1.
 			);
-			
+
 			$query = new WP_Query( $args );
-			
+
 			if ( $query->have_posts() ) {
 				$query->the_post();
 				$get_the_page_id = get_the_ID();
-				wp_reset_postdata(); // Always reset post data after WP_Query
+				wp_reset_postdata(); // Always reset post data after WP_Query.
 				return $get_the_page_id;
 			} else {
 				return null;

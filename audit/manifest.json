@@ -1,0 +1,368 @@
+{
+  "$schema": "https://wpmediaverse.com/schemas/wp-plugin-manifest-v2.json",
+  "plugin": {
+    "slug": "bp-job-manager",
+    "name": "Wbcom Designs - BuddyPress Job Manager",
+    "version": "2.8.5",
+    "namespace": "Bp_Job_Manager (class-prefix convention, no PHP namespace)",
+    "main_file": "bp-job-manager.php",
+    "text_domain": "bp-job-manager",
+    "extends": null,
+    "extension_hook_consumed": null,
+    "extension_hook_fired": null,
+    "requires_plugins": ["BuddyPress", "WP Job Manager"],
+    "optional_plugins": [
+      "WP Job Manager - Applications (unlocks the Applied Jobs subnav + the BP application notification path)",
+      "WP Job Manager - Resume Manager (unlocks the whole Resumes nav, resume profile fields, candidate dashboard filters)",
+      "WP Job Manager - Bookmarks (unlocks the My Bookmarks subnav)",
+      "WP Job Manager - Alerts (unlocks the Job Alerts subnav)",
+      "BP Rewrites (compat shim only)",
+      "Youzify (compat branch only)"
+    ],
+    "requirements": {
+      "requires_at_least": "6.5",
+      "requires_php": "7.4",
+      "header_requires_plugins": "buddypress, wp-job-manager",
+      "note": "'Requires at least: 6.5' was ADDED to the plugin header in 2.8.5 (previously absent). The readme.txt 'Requires at least' floor is now 6.5 (was 3.0.1)."
+    }
+  },
+  "rest": { "namespace": null, "endpoints": [] },
+  "ajax": [
+    {
+      "action": "bpjm_load_more_jobs",
+      "handler": "public/class-bp-job-manager-public.php::Bp_Job_Manager_Public::bpjm_load_more_jobs",
+      "nonce": "bpjm_load_jobs_nonce (check_ajax_referer, key 'ajax_nonce' @ public/class-bp-job-manager-public.php:225; nonce minted at public/class-bp-job-manager-public.php:177 via wp_localize_script)",
+      "capability": "none (public; registered as BOTH wp_ajax_ and wp_ajax_nopriv_)",
+      "purpose": "Infinite-scroll pagination of a member's job_listing posts on the BuddyPress profile My Jobs tab. Read-only over published jobs. Author-scoped: the request must carry the displayed profile's user_id, resolves to wp_send_json_error() when the author is 0, and non-owners only ever get 'publish' rows.",
+      "registered_at": "public/class-bp-job-manager-public.php:70-71"
+    }
+  ],
+  "admin_pages": [
+    {
+      "title": "WB Plugins",
+      "slug": "wbcomplugins",
+      "parent": "(top-level menu, dashicons-lightbulb, position 59)",
+      "capability": "manage_options (filterable via bpjm_menu_page_capability)",
+      "source": "includes/admin/class-bp-job-manager-admin-panel.php:98-108 (add_menu_page, callback render_hub)",
+      "registered_only_if": "GLOBALS['admin_page_hooks']['wbcomplugins'] is empty (no sibling Wbcom plugin already created the shared menu)",
+      "landing_takeover": "includes/admin/class-bp-job-manager-admin-panel.php:125-132 (admin_menu @999) — remove_all_actions('toplevel_page_wbcomplugins') then re-binds render_hub, so this plugin owns the hub landing even when a legacy wbcom-wrapper plugin registered the menu first. Renders includes/admin/views/hub.php."
+    },
+    {
+      "title": "BuddyPress Job Manager (menu label: Job Manager)",
+      "slug": "bp-job-manager",
+      "parent": "wbcomplugins",
+      "capability": "manage_options (filterable via bpjm_menu_page_capability)",
+      "source": "includes/admin/class-bp-job-manager-admin-panel.php:110-117 (add_submenu_page, callback render_page @ :344-374)",
+      "tabs": [
+        "overview (Overview) -> includes/admin/views/overview.php",
+        "general (General) -> includes/admin/views/settings-general.php (the sole settings-group tab)",
+        "welcome (Help & Support) -> includes/admin/views/welcome.php",
+        "discover (Discover) -> includes/admin/views/discover.php (read-only ecosystem cross-promotion)"
+      ],
+      "tab_source": "includes/admin/class-bp-job-manager-admin-panel.php:49-74 (get_tabs, filterable via bpjm_admin_tabs; Help & Support label at :62, Discover at :66-71); view_map at :359-364; rendered through the shell at :370-373",
+      "shell": "includes/admin/views/shell.php (card-panel chrome; sidebar tab nav + routed view include)"
+    }
+  ],
+  "admin_menu_registration": {
+    "hook": "admin_menu",
+    "plugin_callback": "Bp_Job_Manager_Admin_Panel::add_menu (registered at includes/admin/class-bp-job-manager-admin-panel.php:80, wired from includes/class-bp-job-manager.php:205-206)",
+    "hub_takeover_callback": "Bp_Job_Manager_Admin_Panel::takeover_hub_landing (admin_menu @999, includes/admin/class-bp-job-manager-admin-panel.php:85)",
+    "settings_init_hook": "admin_init -> Bp_Job_Manager_Admin_Panel::register_settings (includes/admin/class-bp-job-manager-admin-panel.php:86)",
+    "enqueue_hook": "admin_enqueue_scripts -> Bp_Job_Manager_Admin_Panel::enqueue_assets (:87; screen-gated via is_our_screen() @ :323-329 — our page + the hub landing only)",
+    "notice_suppression": "in_admin_header @1 -> Bp_Job_Manager_Admin_Panel::suppress_foreign_notices (:88; remove_all_actions on admin_notices + all_admin_notices, screen-gated)",
+    "parent_menu_slug": "wbcomplugins",
+    "own_page_slug": "bp-job-manager (Bp_Job_Manager_Admin_Panel::MENU_SLUG)"
+  },
+  "settings": [
+    {
+      "key": "bpjm_general_settings",
+      "group": "bpjm_general_settings",
+      "type": "array (serialized option)",
+      "default": "empty -> fallback apply_job_user_roles=[administrator,candidate,subscriber], post_job_user_roles=[administrator,employer,guest], bpjm_resume_at_profile=yes",
+      "registered_at": "includes/admin/class-bp-job-manager-admin-panel.php:139-147 (register_setting, sanitize_callback Bp_Job_Manager_Admin_Panel::sanitize_settings @ :171-257)",
+      "read_at": "includes/class-bp-job-manager-globals.php:133, :140-169",
+      "sub_keys": [
+        "apply_job_user_roles[] — roles allowed to apply for jobs / get Resumes tab",
+        "post_job_user_roles[] — roles allowed to post jobs / get Jobs tab (includes the 'guest' pseudo-role)",
+        "bpjm_resume_at_profile — show resume on BP profile (checkbox)",
+        "bpjm_resume_activity — post BP activity on new resume (checkbox)",
+        "bpjm_job_post_activity — post BP activity on new job (checkbox)",
+        "bpjm_app_notify — send BP notification on new application (checkbox)"
+      ],
+      "save_contract": "Sentinel-guarded merge. The view emits hidden bpjm_tab_rendered_keys[] / bpjm_array_rendered_keys[] listing every bool/array key it renders, so an unchecked checkbox (absent from $_POST) is an explicit 'off' (key unset) rather than 'untouched'. Preserves the legacy 'key present => yes, absent => off' contract that Bp_Job_Manager_Globals reads via array_key_exists(). Leftover scalar keys route through the legacy Bp_Job_Manager_Admin::bpjm_sanitize_settings() (admin/class-bp-job-manager-admin.php:327) so the text-field contract has one home.",
+      "controls": "General tab view (includes/admin/views/settings-general.php)"
+    },
+    {
+      "key": "bpjm_job_application_pgid",
+      "group": "(standalone option, not in a settings group)",
+      "type": "int (page ID)",
+      "default": "none",
+      "written_at": "includes/class-bp-job-manager-activator.php:52 (update_option on activation — ID of the auto-generated Job Application page)",
+      "read_at": "includes/class-bp-job-manager-globals.php:172 (job_application_pgid)",
+      "controls": "Internal; backs the Job Application virtual page template (page_template filter -> bpjm_job_application_page)."
+    }
+  ],
+  "transients": [
+    {
+      "key": "_bpjm_is_new_install",
+      "written_at": "bp-job-manager.php:55 (activation hook, 30s TTL)",
+      "read_at": "bp-job-manager.php:185, deleted at :190 (one-shot admin_init activation redirect, registered :206)",
+      "purpose": "Flags a fresh activation so the next admin page load redirects once to the settings screen."
+    },
+    {
+      "key": "user_{ID}_job_listings",
+      "written_at": "includes/class-bp-job-manager-function.php:90 (HOUR_IN_SECONDS; WPML-language keyed via wpml_current_language @ :52)",
+      "read_at": "includes/class-bp-job-manager-function.php:57",
+      "invalidated_at": "public/class-bp-job-manager-public.php:1831 (flush_job_listings_transient_on_update / _on_delete, hooked at :72-73)",
+      "purpose": "Caches the profile-nav job count."
+    },
+    {
+      "key": "user_{ID}_my_resumes_count",
+      "written_at": "includes/class-bp-job-manager-function.php:148 (HOUR_IN_SECONDS; WPML-language keyed via wpml_current_language @ :110)",
+      "read_at": "includes/class-bp-job-manager-function.php:115",
+      "invalidated_at": "public/class-bp-job-manager-public.php:1832",
+      "purpose": "Caches the profile-nav resume count."
+    }
+  ],
+  "user_meta": [
+    {
+      "key": "bpjm_display_fields",
+      "written_at": "includes/class-bp-job-manager-activator.php:78, public/class-bp-job-manager-public.php:1526",
+      "read_at": "public/class-bp-job-manager-public.php:1319, public/templates/profile-content-single-resume.php:20",
+      "purpose": "Per-user visibility map for resume fields rendered on the BP profile."
+    },
+    {
+      "key": "bpjm_profile_resume_show_id",
+      "written_at": "public/class-bp-job-manager-public.php:1504",
+      "read_at": "public/class-bp-job-manager-public.php:955, :1241, :1303",
+      "purpose": "Which resume post the member has chosen to surface on their BP profile."
+    }
+  ],
+  "external_options_read": [
+    "active_plugins (dependency + add-on detection)",
+    "date_format",
+    "job_manager_per_page (WP Job Manager)",
+    "job_manager_job_dashboard_page_id (WP Job Manager)",
+    "resume_manager_candidate_dashboard_page_id (Resume Manager)",
+    "resume_manager_enable_categories (Resume Manager)",
+    "resume_manager_submission_limit (Resume Manager)",
+    "resume_manager_submit_resume_form_page_id (Resume Manager)"
+  ],
+  "shortcodes": [],
+  "blocks": [],
+  "post_types": [],
+  "taxonomies": [],
+  "tables": [],
+  "capabilities": [
+    {
+      "cap": "manage_options",
+      "default_roles": ["administrator"],
+      "registered_at": "WordPress core (not registered by this plugin)",
+      "enforced_at": [
+        "includes/admin/class-bp-job-manager-admin-panel.php:95-117 (menu + submenu registration, filterable via bpjm_menu_page_capability)",
+        "admin/class-bp-job-manager-admin-feedback.php:305 (review-nag dismissal gate)"
+      ],
+      "enforcement_count": 3,
+      "meta": false,
+      "requires_context": "none"
+    },
+    {
+      "cap": "activate_plugins",
+      "default_roles": ["administrator"],
+      "registered_at": "WordPress core",
+      "enforced_at": ["bp-job-manager.php:109 (dependency admin-notice gate)"],
+      "enforcement_count": 1,
+      "meta": false,
+      "requires_context": "none"
+    }
+  ],
+  "services": [
+    { "key": "Bp_Job_Manager", "class": "includes/class-bp-job-manager.php (orchestrator: loads deps, defines locale, wires admin+public hooks)", "added": "1.0.0" },
+    { "key": "Bp_Job_Manager_Loader", "class": "includes/class-bp-job-manager-loader.php (hook collection + run())", "added": "1.0.0" },
+    { "key": "Bp_Job_Manager_Globals", "class": "includes/class-bp-job-manager-globals.php (settings -> typed runtime config, global $bpjm_bp_job_manager)", "added": "1.0.0" },
+    { "key": "Bp_Job_Manager_Admin", "class": "admin/class-bp-job-manager-admin.php (legacy admin service — RETAINED for non-UI helpers only: admin-bar links, activity writers + cleanup, settings sanitizer. Its UI methods are no longer hooked as of 2.8.5.)", "added": "1.0.0" },
+    { "key": "Bp_Job_Manager_Admin_Panel", "class": "includes/admin/class-bp-job-manager-admin-panel.php (NEW card-panel admin: menu, hub takeover, settings registration + sanitizer, enqueue, notice suppression, tab routing)", "added": "2.8.5" },
+    { "key": "BP_Job_Manager_Feedback", "class": "admin/class-bp-job-manager-admin-feedback.php (review-request admin nag; SELF-INSTANTIATING at :317 on require — not wired through the Loader)", "added": "2.0.0" },
+    { "key": "Bp_Job_Manager_Public", "class": "public/class-bp-job-manager-public.php (BP tabs, dashboards, AJAX, notifications)", "added": "1.0.0" },
+    { "key": "Bp_Job_Manager_i18n", "class": "includes/class-bp-job-manager-i18n.php", "added": "1.0.0" },
+    { "key": "Bp_Job_Manager_Function", "class": "includes/class-bp-job-manager-function.php (helper functions: cached profile counts)", "added": "1.0.0" },
+    { "key": "Bpjm_Job_Manager_Activator", "class": "includes/class-bp-job-manager-activator.php", "added": "1.0.0" },
+    { "key": "Bp_Job_Manager_Deactivator", "class": "includes/class-bp-job-manager-deactivator.php", "added": "1.0.0" }
+  ],
+  "hooks_fired": [
+    { "name": "bpjm_admin_tabs", "type": "filter", "args_count": 1, "args_signature": ["array $tabs"], "where": "includes/admin/class-bp-job-manager-admin-panel.php:73", "consumed_by": [] },
+    { "name": "bpjm_menu_page_capability", "type": "filter", "args_count": 1, "args_signature": ["string $capability"], "where": "includes/admin/class-bp-job-manager-admin-panel.php:95", "consumed_by": [] },
+    { "name": "wbcom_hub_wrapper_helper_slugs", "type": "filter", "args_count": 1, "args_signature": ["array $slugs"], "where": "includes/admin/views/hub.php:29 (legacy wrapper helper-page slugs excluded from hub cards)", "consumed_by": [] },
+    { "name": "bpjm_resume_tab_name", "type": "filter", "args_count": 1, "args_signature": ["string $label"], "where": "public/class-bp-job-manager-public.php:958", "consumed_by": [] },
+    { "name": "bpjm_resumes_tab_link", "type": "filter", "args_count": 1, "args_signature": ["string $link"], "where": "public/class-bp-job-manager-public.php:964", "consumed_by": [] },
+    { "name": "bpjm_resumes_subnav_item_add_resume", "type": "filter", "args_count": 1, "args_signature": ["string $label"], "where": "public/class-bp-job-manager-public.php:994", "consumed_by": [] },
+    { "name": "bpjm_resumes_subnav_item_applied_jobs", "type": "filter", "args_count": 1, "args_signature": ["string $label"], "where": "public/class-bp-job-manager-public.php:1009", "consumed_by": [] },
+    { "name": "bpjm_resume_fields_custom_text", "type": "filter", "args_count": 1, "args_signature": ["string $text"], "where": "public/class-bp-job-manager-public.php:1268", "consumed_by": [] },
+    { "name": "bpjm_resume_fields_custom_slug", "type": "filter", "args_count": 1, "args_signature": ["string $slug"], "where": "public/class-bp-job-manager-public.php:1269", "consumed_by": [] },
+    { "name": "bpjm_applied_jobs_per_page", "type": "filter", "args_count": 1, "args_signature": ["int $per_page"], "where": "public/templates/bpjm-my-applied-jobs.php:14 (default 20)", "consumed_by": [] },
+    { "name": "bpjm_profile_peronal_inf_txt", "type": "filter", "args_count": 1, "args_signature": ["string $label"], "where": "public/templates/profile-content-single-resume.php:40 (NOTE: the misspelled 'peronal' is the literal in source and is a public contract — do not 'fix' it)", "consumed_by": [] },
+    { "name": "bpjm_profile_urls_txt", "type": "filter", "args_count": 1, "args_signature": ["string $label"], "where": "public/templates/profile-content-single-resume.php:84", "consumed_by": [] },
+    { "name": "bpjm_profile_education_txt", "type": "filter", "args_count": 1, "args_signature": ["string $label"], "where": "public/templates/profile-content-single-resume.php:99", "consumed_by": [] },
+    { "name": "bpjm_profile_experience_txt", "type": "filter", "args_count": 1, "args_signature": ["string $label"], "where": "public/templates/profile-content-single-resume.php:144", "consumed_by": [] },
+    { "name": "_bprwg_notification_text", "type": "filter", "args_count": 1, "args_signature": ["string $text"], "where": "public/class-bp-job-manager-public.php:1698 (BP application-notification text; underscore-prefixed legacy name)", "consumed_by": [] },
+    { "name": "job_manager_job_dashboard_column_<key>", "type": "action", "args_count": 2, "args_signature": ["WP_Post $job", "array|string $context"], "where": "public/class-bp-job-manager-public.php:367 (load-more rows) + public/templates/bpjm-job-listing.php:55 — dynamic dashboard-column RE-EMIT of a WP Job Manager hook", "consumed_by": ["WP Job Manager (third party)"] },
+    { "name": "resume_manager_candidate_dashboard_column_<key>", "type": "action", "args_count": 1, "args_signature": ["WP_Post $resume"], "where": "public/templates/bpjm-resume-listing.php:175 — dynamic dashboard-column RE-EMIT of a Resume Manager hook", "consumed_by": ["WP Job Manager - Resume Manager (third party)"] },
+    { "name": "resume_manager_candidate_dashboard_actions", "type": "action", "args_count": 1, "args_signature": ["array $resumes"], "where": "public/templates/bpjm-resume-listing.php:185 — RE-EMIT of a Resume Manager hook", "consumed_by": ["WP Job Manager - Resume Manager (third party)"] },
+    { "name": "resume_manager_my_resume_actions", "type": "filter", "args_count": 2, "args_signature": ["array $actions", "WP_Post $resume"], "where": "public/templates/bpjm-resume-listing.php:104 — RE-EMIT of a Resume Manager hook (this plugin ALSO consumes it, see consumes_third_party_hooks)", "consumed_by": ["Bp_Job_Manager_Public::bpjm_candidate_dashboard_resume_actions (includes/class-bp-job-manager.php:259)"] },
+    { "name": "resume_manager_candidate_dashboard_login_url", "type": "filter", "args_count": 1, "args_signature": ["string $url"], "where": "public/class-bp-job-manager-public.php:1102 — RE-EMIT of a Resume Manager hook", "consumed_by": ["WP Job Manager - Resume Manager (third party)"] },
+    { "name": "the_resume_description", "type": "filter", "args_count": 1, "args_signature": ["string $content"], "where": "public/templates/profile-content-single-resume.php:71 — RE-EMIT of a Resume Manager hook", "consumed_by": ["WP Job Manager - Resume Manager (third party)"] },
+    { "name": "bp_core_template_plugin", "type": "filter", "args_count": 1, "args_signature": ["string $template"], "where": "public/class-bp-job-manager-public.php:541, :568, :604, :702, :716, :751, :1032, :1067, :1158, :1291 — RE-EMIT of a BuddyPress core hook inside bp_core_load_template()", "consumed_by": ["BuddyPress (third party)"] },
+    { "name": "wpml_current_language", "type": "filter", "args_count": 1, "args_signature": ["null $lang"], "where": "includes/class-bp-job-manager-function.php:52, :110 — WPML query (only when ICL_LANGUAGE_CODE is defined)", "consumed_by": ["WPML (third party)"] }
+  ],
+  "consumes_third_party_hooks": {
+    "wordpress_core": ["plugins_loaded", "admin_menu", "admin_init", "admin_notices", "admin_enqueue_scripts", "in_admin_header", "wp_enqueue_scripts", "wp", "page_template", "wp_redirect", "transition_post_status", "wp_trash_post", "before_delete_post", "deleted_post", "plugin_action_links_{basename}", "toplevel_page_wbcomplugins"],
+    "buddypress": ["bp_loaded", "bp_setup_nav", "bp_setup_admin_bar", "bp_after_profile_loop_content", "bp_core_xprofile_settings_before_submit", "bp_init", "bp_template_title", "bp_template_content", "bp_nouveau_get_nav_link", "bp_notifications_get_registered_components", "bp_notifications_get_notifications_for_user"],
+    "wp_job_manager": ["job_manager_user_can_edit_published_submissions", "job_manager_user_can_edit_pending_submissions", "job_manager_my_job_actions", "job_manager_job_dashboard_columns", "job_manager_job_dashboard_column_actions", "job_manager_user_can_post_job", "submit_job_form_show_signin", "submit_job_form_disabled", "job_manager_should_run_shortcode_action_handler", "job_manager_get_dashboard_jobs_args", "has_wpjm_shortcode"],
+    "wpjm_applications": ["new_job_application", "job_manager_applications_new_job_application"],
+    "wpjm_resumes": ["resume_manager_get_dashboard_resumes_args", "resume_manager_my_resume_actions", "resume_manager_contact_details"]
+  },
+  "interactivity": [],
+  "ui_activation": [],
+  "static_analysis": {
+    "dead_listeners": [],
+    "dead_code": [
+      {
+        "symbol": "Bp_Job_Manager_Public::bpjm_jobs_listing_show_screen()",
+        "where": "public/class-bp-job-manager-public.php:699-703",
+        "finding": "ORPHANED. No caller and no hook. It is a BP screen function for a 'Job Listings' subnav that is NEVER registered by bpjm_member_profile_jobs_tab() (the real Jobs subnavs are my-jobs, my-bookmarks, job-alerts, post-job). Its companion content callback bpjm_jobs_listing_tab_function_to_show_content is reachable only through this dead function.",
+        "action": "Remove, or register the subnav if the screen was intended to ship."
+      }
+    ],
+    "cap_context_mismatches": [],
+    "extensibility_gaps": [],
+    "js_only_activation": [
+      { "selector": "infinite-scroll job list (My Jobs tab)", "default_hidden_by": "public/js/bp-job-manager-public.js", "php_fallback": true, "note": "First page is server-rendered; AJAX only appends additional pages, so JS-off degrades gracefully." }
+    ],
+    "rest_hang_risks": [],
+    "visual_required_no_enforcement": [],
+    "grid_track_overflow_risks": [],
+    "hook_signature_drift": [],
+    "adapter_undefined_calls": [],
+    "registry_bypasses": [],
+    "suppressed_baseline_inventory": { "stub_class_missing": { "count": 0, "action": "none" }, "stub_const_missing": { "count": 0, "action": "none" }, "undef_var_risk": { "count": 0, "action": "none" }, "real_type_debt": { "count": 0, "action": "none" }, "phpcs_excludes": { "count": 0, "action": "none — the file-name exclude went away with admin/wbcom/ in 2.8.5" } },
+    "registry_strategy": []
+  },
+  "coverage_notes": [
+    "DEPENDENCY TRUTH: the plugin HARD-requires only BuddyPress + WP Job Manager. The gate at bp-job-manager.php:109 checks only class_exists('BuddyPress') / class_exists('WP_Job_Manager'), and the header 'Requires Plugins: buddypress, wp-job-manager' matches. Applications, Resume Manager, Bookmarks and Alerts are OPTIONAL add-ons, each detected at runtime via get_option('active_plugins') and each gating one nav/notification surface. Do NOT record them as required.",
+    "COUPLING WORTH FLAGGING: the setting bpjm_resume_at_profile gates REGISTRATION of the whole Resumes nav, not just its display (includes/class-bp-job-manager.php:227-229 wraps the bp_setup_nav add_action for bpjm_member_profile_resumes_tab). Turning the setting off therefore removes the nav item, its subnavs, and their screen functions — direct hits on /resumes/ URLs will 404 rather than render an empty state. The same global also gates the Youzify visibility-menu branch at :235-237.",
+    "DEAD CODE: bpjm_jobs_listing_show_screen() (public/class-bp-job-manager-public.php:699-703) is orphaned — see static_analysis.dead_code. The 'Job Listings' Jobs subnav that would call it is never registered anywhere in the plugin.",
+    "ACTIVITY WRITES USE transition_post_status, NOT the WPJM publish_job_listing / publish_resume hooks. includes/class-bp-job-manager.php:196-197 hooks transition_post_status -> bpjm_publish_job_listing / bpjm_publish_resume (admin/class-bp-job-manager-admin.php:216, :241), which self-filter to the publish transition. The docblock at admin/class-bp-job-manager-admin.php:31-32 still names the old publish_* hooks and is stale prose, not wiring.",
+    "NEW IN 2.8.5: activity auto-cleanup. bpjm_delete_job_activity (admin/class-bp-job-manager-admin.php:297-319) is wired to wp_trash_post + before_delete_post (includes/class-bp-job-manager.php:201-202) so a trashed or permanently deleted job/resume never leaves a dead-link activity in the stream.",
+    "BP_Job_Manager_Feedback (admin/class-bp-job-manager-admin-feedback.php) is SELF-INSTANTIATING at :317 when the file is required (includes/class-bp-job-manager.php:139) — it is not wired through Bp_Job_Manager_Loader and registers its own admin_init hooks at :76-77. The review nag renders via admin_notices (:146-163, :272-291) and dismisses at :302-313. Note the class name is BP_Job_Manager_Feedback, which matches neither the Bp_Job_Manager_* prefix used everywhere else nor its own file name.",
+    "GUEST PSEUDO-ROLE: 'guest' is not a WP role. bpjm_restrict_user_post_job (public/class-bp-job-manager-public.php:1739-1742) treats a logged-OUT visitor as allowed to post when 'guest' is present in post_job_user_roles.",
+    "The 2.8.5 admin rebuild DELETED admin/wbcom/ (class Wbcom_Admin_Settings), admin/includes/, admin/css/, admin/js/ and admin/fonts/. Everything those directories supplied — the wbcom_admin_setting_header shortcode, the wbcom_addons_cards AJAX action, the Our Plugins / Our Themes / Support pages, the wbcom_add_header_menu and wbcom_add_plugin_license_code extension slots, selectize and FontAwesome — is GONE. The admin surface is now ONE page with 4 tabs, styled by assets/css/admin.css + assets/js/admin.js.",
+    "Admin wrapper classification: NEW (card-panel). includes/admin/views/shell.php EXISTS. The OLD-wrapper migration is DONE as of 2.8.5.",
+    "The filter bp_activity_new_job_post_action recorded by the 2026-06-05 manifest is NOT fired anywhere in the shipped code and has been removed from hooks_fired. It is not a public contract."
+  ],
+  "buddypress_integration": {
+    "enabled_when": "class_exists('BuddyPress') && class_exists('WP_Job_Manager') (gate in bp-job-manager.php:109-119)",
+    "manager": "Bp_Job_Manager_Public",
+    "sub_classes": [],
+    "profile_tabs": [
+      "Jobs — bp_setup_nav -> bpjm_member_profile_jobs_tab (includes/class-bp-job-manager.php:220). Two mutually exclusive branches: (a) viewer OR profile owner has a post_job_user_roles role (public/class-bp-job-manager-public.php:421-485) -> nav slug $parent_slug, default subnav my-jobs; subnavs: Jobs/my-jobs (:432), My Bookmarks/my-bookmarks (:447, only if wp-job-manager-bookmarks active AND own profile), Job Alerts/job-alerts (:461, only if wp-job-manager-alerts active AND own profile), Post Job/post-job (:474, own profile). (b) no post role (:487-524) -> bare nav slug 'jobs' rendering a read-only listing; post-job is registered with user_has_access => false for the owner so a direct URL hit is routed by BP instead of 404ing.",
+      "Resumes — bp_setup_nav -> bpjm_member_profile_resumes_tab (includes/class-bp-job-manager.php:223-229, registered ONLY if wp-job-manager-resumes is active AND bpjm_resume_at_profile === 'yes'). Nav slug 'resumes' (public/class-bp-job-manager-public.php:966), default subnav my-resumes; subnavs: My Resumes/my-resumes (:978), Add Resume/add-resume (:992, own profile), Applied Jobs/applied-jobs (:1007, own profile AND wp-job-manager-applications active — gate at :1005).",
+      "Resume Fields — settings subnav registered at public/class-bp-job-manager-public.php:1270 (slug filterable via bpjm_resume_fields_custom_slug, default 'resume-fields'); xProfile visibility controls, saved at :1496-1526."
+    ],
+    "admin_bar": "Bp_Job_Manager_Admin::bpjm_setup_admin_bar_links (bp_setup_admin_bar @70, wired includes/class-bp-job-manager.php:195; admin/class-bp-job-manager-admin.php:91-200). Two role-gated My Account menus: Resumes (apply_job_user_roles) with My Resumes / Applied Jobs / Add Resume children (:118-150), and Jobs (post_job_user_roles) with My Jobs / Post Job children (:173-195). Both carry a live count badge.",
+    "notifications": "Component bpjm_notify_actions / action applied_job. Written by bpjm_add_bp_notification_for_job_post (public/class-bp-job-manager-public.php:1626-1645, gated on the bpjm_app_notify setting AND bp_is_active('notifications')); hooked to new_job_application when Applications provides it, else job_manager_applications_new_job_application (includes/class-bp-job-manager.php:264-268). Component registered via bp_notifications_get_registered_components (:273); rendered by bpjm_job_application_notifications on bp_notifications_get_notifications_for_user @11 (:275, public:1675-1728, text filterable via _bprwg_notification_text @ :1698).",
+    "messaging": "Send Private Message link on the candidate contact block — bpjm_add_private_message_link (public/class-bp-job-manager-public.php:1602-1616, wired to resume_manager_contact_details at includes/class-bp-job-manager.php:262). No-ops unless bp_is_active('messages'); BP >= 12.0.0 uses bp_members_get_user_slug(), older uses bp_core_get_username().",
+    "compat": {
+      "youzify": "public/class-bp-job-manager-public.php:1325-1328, :1460-1478, :1495 (class_exists('Youzify') branches). When Youzify is active the xProfile resume-visibility menu is hooked on 'wp' (bpjm_add_resume_fields_visibility_menu) instead of bp_core_xprofile_settings_before_submit — includes/class-bp-job-manager.php:233-240.",
+      "bp_rewrites": "includes/class-bp-job-manager.php:278-281 (only when bp-rewrites/class-bp-rewrites.php is in active_plugins): bp_nouveau_get_nav_link -> bpjm_nouveau_link_fix (public:1768-1803) and bp_setup_nav @9999 -> bpjm_legacy_link_fix (public:1792)."
+    }
+  },
+  "frontend_assets": {
+    "js": ["public/js/bp-job-manager-public.js (jquery; ajax_nonce + displayed user_id + post_job_url localized at public/class-bp-job-manager-public.php:163-180)"],
+    "css": ["public/css/bp-job-manager-public.css"],
+    "images": ["public/images/spinner.gif"],
+    "templates": [
+      "public/templates/bpjm-job-listing.php",
+      "public/templates/bpjm-my-applied-jobs.php",
+      "public/templates/bpjm-job-application.php",
+      "public/templates/bpjm-resume-listing.php",
+      "public/templates/profile-content-single-resume.php"
+    ]
+  },
+  "admin_assets": {
+    "js": ["assets/js/admin.js (jquery; bpjmAdmin localized — ajaxUrl + i18n, includes/admin/class-bp-job-manager-admin-panel.php:288-301)"],
+    "css": ["assets/css/admin.css"],
+    "images": ["assets/images/ecosystem/{buddynext,jetonomy,learnomy,listora,mediaverse}.svg (Discover tab cards)"],
+    "views": [
+      "includes/admin/views/shell.php (card-panel chrome + sidebar tab nav)",
+      "includes/admin/views/hub.php (shared WB Plugins hub landing)",
+      "includes/admin/views/overview.php",
+      "includes/admin/views/settings-general.php",
+      "includes/admin/views/welcome.php (Help & Support tab)",
+      "includes/admin/views/discover.php"
+    ],
+    "enqueue_gate": "includes/admin/class-bp-job-manager-admin-panel.php:264-302 — screen-gated to the plugin page + toplevel_page_wbcomplugins only.",
+    "removed_in_2_8_5": ["admin/wbcom/assets/css/wbcom-admin-setting.css", "admin/wbcom/assets/js/wbcom-admin-setting.js", "admin/css/bp-job-manager-admin.css", "admin/css/selectize.css", "admin/js/bp-job-manager-admin.js", "admin/js/selectize.min.js", "admin/fonts/fontawesome-webfont.*"]
+  },
+  "cron": [],
+  "wp_cli": [],
+  "storage_drivers": [],
+  "security": {
+    "uploads_gate": "n/a (no uploads handled)",
+    "signing_entry_points": [],
+    "always_sign_filter": null,
+    "rate_limit_middleware": "n/a",
+    "nonces": [
+      "bpjm_load_jobs_nonce — AJAX bpjm_load_more_jobs; minted public/class-bp-job-manager-public.php:177, checked :225 (key 'ajax_nonce')",
+      "bpjm_resume_fields_settings_nonce — front-end xProfile resume settings save; emitted public/class-bp-job-manager-public.php:1465, checked :1496",
+      "bp_xprofile_settings — BuddyPress core nonce also verified on the same save path, public/class-bp-job-manager-public.php:1498",
+      "bp-job-manager-feedback-nounce — review-nag dismissal; minted admin/class-bp-job-manager-admin-feedback.php:167, checked :305 (paired with a current_user_can('manage_options') gate)"
+    ],
+    "uninstall": "uninstall.php guards WP_UNINSTALL_PLUGIN (no destructive option cleanup performed)",
+    "notes": [
+      "The 2.8.5 activation redirect is transient-driven (_bpjm_is_new_install), NOT nonce-driven — the old bpjm_activation_nonce and its emitter were removed as dead code.",
+      "bpjm_load_more_jobs is intentionally nonce-only with no capability check (it serves the public infinite-scroll feed) but IS author-scoped — see ajax[0]."
+    ]
+  },
+  "ci_guards": { "script": null, "url_emission_regex": null, "storage_internal_marker": null, "phpstan_level": null },
+  "coding_rules": [
+    "Class-prefix convention (Bp_Job_Manager_*), WordPress-Plugin-Boilerplate layout (includes/admin/public).",
+    "Hooks wired through Bp_Job_Manager_Loader; business classes avoid direct add_action (exceptions: Bp_Job_Manager_Admin_Panel::register(), constructor-time AJAX/filters in Public, BP screen-function callbacks, and the self-instantiating BP_Job_Manager_Feedback).",
+    "NEW card-panel admin wrapper: one page (slug 'bp-job-manager') under the shared parent slug 'wbcomplugins', 4 tabs routed through includes/admin/views/shell.php. The OLD admin/wbcom/ wrapper was removed in 2.8.5.",
+    "Settings save uses the sentinel-guarded merge pattern (bpjm_tab_rendered_keys / bpjm_array_rendered_keys) — see settings[0].save_contract."
+  ],
+  "build_commands": {
+    "release": "grunt dist (clean:dist + copy:dist -> dist/bp-job-manager/ + compress:dist -> dist/bp-job-manager.zip)",
+    "build": "grunt build",
+    "i18n": "grunt-wp-i18n + grunt-checktextdomain",
+    "ci_local": null
+  },
+  "category_sources": {
+    "rest": ["includes/**/*.php", "public/**/*.php", "admin/**/*.php"],
+    "ajax": ["public/class-bp-job-manager-public.php"],
+    "admin_pages": ["includes/admin/class-bp-job-manager-admin-panel.php", "includes/admin/views/*.php"],
+    "settings": ["includes/admin/class-bp-job-manager-admin-panel.php", "includes/admin/views/settings-general.php", "includes/class-bp-job-manager-globals.php", "admin/class-bp-job-manager-admin.php"],
+    "shortcodes": [],
+    "blocks": [],
+    "post_types": [],
+    "taxonomies": [],
+    "tables": [],
+    "capabilities": ["**/*.php"],
+    "services": ["includes/**/*.php", "admin/**/*.php", "public/**/*.php"],
+    "hooks_fired": ["includes/**/*.php", "admin/**/*.php", "public/**/*.php"],
+    "frontend_assets": ["public/**/*.{js,css}"],
+    "admin_assets": ["assets/**/*.{js,css,svg}", "includes/admin/views/*.php"],
+    "cron": [],
+    "wp_cli": [],
+    "security": ["**/*.php"]
+  },
+  "generated": {
+    "at": "2026-07-16T10:31:21+00:00",
+    "from": "structural manual re-scan (grep/glob against shipped code)",
+    "branch": "2.8.5",
+    "scan_scope": "full_rescan",
+    "scan_path": ".",
+    "php_file_count": 28,
+    "size_class": "small",
+    "schema_version": "v2.2"
+  }
+}

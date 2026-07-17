@@ -1,5 +1,15 @@
 <?php
 /**
+ * Admin class for BuddyPress Job Manager plugin.
+ *
+ * @package Bp_Job_Manager
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
  * The admin-specific functionality of the plugin.
  *
  * @link       https://wbcomdesigns.com/
@@ -10,16 +20,32 @@
  */
 
 /**
- * The admin-specific functionality of the plugin.
+ * Legacy admin service class for BuddyPress Job Manager.
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the admin-specific stylesheet and JavaScript.
+ * As of 2.8.5 the admin UI (menu, settings page, enqueues, notice
+ * suppression) is owned by Bp_Job_Manager_Admin_Panel. This class is
+ * retained ONLY for its non-UI responsibilities that remain wired via
+ * the loader / reused by the panel:
+ *
+ *  - bpjm_setup_admin_bar_links()  (bp_setup_admin_bar)
+ *  - bpjm_publish_job_listing()    (publish_job_listing)
+ *  - bpjm_publish_resume()         (publish_resume)
+ *  - bpjm_sanitize_settings()      (delegated to by the panel sanitizer)
  *
  * @package    Bp_Job_Manager
  * @subpackage Bp_Job_Manager/admin
  * @author     Wbcom Designs <admin@wbcomdesigns.com>
  */
 if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
+
+	/**
+	 * Class Bp_Job_Manager_Admin
+	 *
+	 * Retained non-UI admin helpers (admin-bar links, activity writers,
+	 * settings sanitizer). UI moved to Bp_Job_Manager_Admin_Panel in 2.8.5.
+	 *
+	 * @since 1.0.0
+	 */
 	class Bp_Job_Manager_Admin {
 
 		/**
@@ -41,15 +67,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		protected $version;
 
 		/**
-		 * Store plugin settings tabs.
-		 *
-		 * @since    1.0.0
-		 * @access   private
-		 * @var      array     $plugin_settings_tabs    Array of plugin settings tabs.
-		 */
-		protected $plugin_settings_tabs = array();
-
-		/**
 		 * Initialize the class and set its properties.
 		 *
 		 * @since    1.0.0
@@ -62,167 +79,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 
 			$this->plugin_name = $plugin_name;
 			$this->version     = $version;
-
-		}
-
-		/**
-		 * Register the stylesheets for the admin area.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function enqueue_styles() {
-			$tab = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'bp-job-manager';
-			if ( ! empty( $tab ) && strpos( $tab, 'bp-job-manager' ) !== false ) {
-				wp_enqueue_style( $this->plugin_name . '-selectize', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
-				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-admin.css', array(), $this->version, 'all' );
-			}
-		}
-
-		/**
-		 * Register the JavaScript for the admin area.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function enqueue_scripts() {
-			$tab = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'bp-job-manager';
-			if ( ! empty( $tab ) && strpos( $tab, 'bp-job-manager' ) !== false ) {
-				wp_enqueue_script( $this->plugin_name . '-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
-				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-admin.js', array( 'jquery' ), $this->version, false );
-			}
-
-		}
-
-		/**
-		 * Hide all notices from the setting page.
-		 *
-		 * @return void
-		 */
-		public function wbcom_hide_all_admin_notices_from_setting_page() {
-			$wbcom_pages_array  = array( 'wbcomplugins', 'wbcom-plugins-page', 'wbcom-support-page', 'bp-job-manager' );
-			$wbcom_setting_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : '';
-
-			if ( in_array( $wbcom_setting_page, $wbcom_pages_array, true ) ) {
-				remove_all_actions( 'admin_notices' );
-				remove_all_actions( 'all_admin_notices' );
-			}
-		}
-
-		/**
-		 * Register a settings page to handle groups export import settings.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function bpjm_add_options_page() {
-			
-			$capability = 'manage_options';
-			if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
-				$capability = apply_filters( 'bpjm_menu_page_capability', 'manage_options' );
-				add_menu_page( esc_html__( 'WB Plugins', 'bp-job-manager' ), esc_html__( 'WB Plugins', 'bp-job-manager' ), $capability, 'wbcomplugins', array( $this, 'bpjm_admin_settings_page' ), 'dashicons-lightbulb', 59 );
-				add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'bp-job-manager' ), esc_html__( 'General', 'bp-job-manager' ), $capability, 'wbcomplugins' );
-			}
-			add_submenu_page( 'wbcomplugins', esc_html__( 'Job Manager', 'bp-job-manager' ), esc_html__( 'Job Manager', 'bp-job-manager' ), $capability, $this->plugin_name, array( $this, 'bpjm_admin_settings_page' ) );
-		}
-
-		/**
-		 * Actions performed to create a settings page content.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function bpjm_admin_settings_page() {
-			$tab = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'bpjm-welcome';
-			?>
-		<div class="wrap">
-			<div class="wbcom-bb-plugins-offer-wrapper">
-				<div id="wb_admin_logo">
-				</div>
-			</div>
-			<div class="wbcom-wrap">
-				<div class="bupr-header">
-					<div class="wbcom_admin_header-wrapper">
-						<div id="wb_admin_plugin_name">
-							<?php esc_html_e( 'BuddyPress Job Manager', 'bp-job-manager' ); ?>
-							<span>
-								<?php
-								/* translators: %s: */
-								printf( esc_html__( 'Version %s', 'bp-job-manager' ), esc_attr( BPJM_PLUGIN_VERSION ) );
-								?>
-							</span>
-						</div>
-						<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
-					</div>
-				</div>
-			<?php settings_errors(); ?>
-				<div class="wbcom-admin-settings-page">
-					<?php
-					$this->bpjm_plugin_settings_tabs();
-					do_settings_sections( $tab );
-					?>
-				</div>
-			</div>
-		</div>
-			<?php
-		}
-
-		/**
-		 * Actions performed to create tabs on the sub menu page.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function bpjm_plugin_settings_tabs() {
-			if ( file_exists( dirname( __FILE__ ) . '/includes/bp-job-manager-settings-tabs.php' ) ) {
-				require_once dirname( __FILE__ ) . '/includes/bp-job-manager-settings-tabs.php';
-			}
-		}
-
-		/**
-		 * Actions performed to create General Tab.
-		 *
-		 * @since    1.0.0
-		 */
-		public function bpjm_general_settings()
-		{
-			$this->plugin_settings_tabs['bpjm-welcome'] = __('Welcome', 'bp-job-manager');
-			add_settings_section('bp-job-manager-welcome', ' ', array($this, 'bpjm_welcome_content'), 'bpjm-welcome');
-
-			$this->plugin_settings_tabs[$this->plugin_name] = __('General', 'bp-job-manager');
-			register_setting('bpjm_general_settings', 'bpjm_general_settings');
-			add_settings_section('bp-job-manager-section', ' ', array($this, 'bpjm_general_settings_content'), $this->plugin_name);
-		}
-
-		/**
-		 * Actions performed to create welcome Tab Content.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function bpjm_welcome_content() {
-			if ( file_exists( dirname( __FILE__ ) . '/includes/bp-job-manager-welcome-page.php' ) ) {
-				require_once dirname( __FILE__ ) . '/includes/bp-job-manager-welcome-page.php';
-			}
-		}
-
-		/**
-		 * Actions performed to create General Tab Content.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function bpjm_general_settings_content() {
-			if ( file_exists( dirname( __FILE__ ) . '/includes/bp-job-manager-general-settings.php' ) ) {
-				require_once dirname( __FILE__ ) . '/includes/bp-job-manager-general-settings.php';
-			}
 		}
 
 		/**
@@ -233,22 +89,22 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @param    array $wp_admin_nav Contains wp nav items.
 		 */
 		public function bpjm_setup_admin_bar_links( $wp_admin_nav = array() ) {
-			global $wp_admin_bar, $bp_job_manager;
+			global $wp_admin_bar, $bpjm_bp_job_manager;
 			if ( is_user_logged_in() ) {
 				$curr_user = wp_get_current_user();
 				if ( ! empty( $curr_user->roles ) ) {
-					
+
 					/**
 					 * Resumes menu - for the roles allowed for job posting.
 					 */
-					$apply_job_roles = isset( $bp_job_manager->apply_job_user_roles ) ? $bp_job_manager->apply_job_user_roles : [];
+					$apply_job_roles       = isset( $bpjm_bp_job_manager->apply_job_user_roles ) ? $bpjm_bp_job_manager->apply_job_user_roles : array();
 					$match_apply_job_roles = array_intersect( $apply_job_roles, $curr_user->roles );
 					if ( ! empty( $match_apply_job_roles ) ) {
-						// Resumes menu
+						// Resumes menu.
 						$profile_menu_slug  = 'resumes';
 						$profile_menu_title = esc_html__( 'Resumes', 'bp-job-manager' );
 
-						// Get resume count using the helper function
+						// Get resume count using the helper function.
 						$my_resumes_count = bpjm_member_profile_resumes_count( get_current_user_id() );
 
 						$base_url         = bp_loggedin_user_domain() . $profile_menu_slug;
@@ -260,12 +116,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 							array(
 								'parent' => 'my-account-buddypress',
 								'id'     => 'my-account-' . $profile_menu_slug,
-								'title'  => esc_html( $profile_menu_title ) . ' <span class="count">' . bp_core_number_format($my_resumes_count) . '</span>',
+								'title'  => esc_html( $profile_menu_title ) . ' <span class="count">' . bp_core_number_format( $my_resumes_count ) . '</span>',
 								'href'   => trailingslashit( $my_resumes_url ),
 							)
 						);
 
-						// Add resume submenu items
+						// Add resume submenu items.
 						$wp_admin_bar->add_menu(
 							array(
 								'parent' => 'my-account-' . $profile_menu_slug,
@@ -297,30 +153,30 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					/**
 					 * Jobs menu - for the roles allowed for job posting.
 					 */
-					$job_posting_roles = isset( $bp_job_manager->post_job_user_roles ) ? $bp_job_manager->post_job_user_roles : [];
+					$job_posting_roles       = isset( $bpjm_bp_job_manager->post_job_user_roles ) ? $bpjm_bp_job_manager->post_job_user_roles : array();
 					$match_job_posting_roles = array_intersect( $job_posting_roles, $curr_user->roles );
 					if ( ! empty( $match_job_posting_roles ) ) {
-						// Jobs menu
-						$jobs_menu_slug   = 'jobs';
-						$jobs_menu_title  = esc_html__( 'Jobs', 'bp-job-manager' );
+						// Jobs menu.
+						$jobs_menu_slug  = 'jobs';
+						$jobs_menu_title = esc_html__( 'Jobs', 'bp-job-manager' );
 
-						// Get job count using the helper function
+						// Get job count using the helper function.
 						$my_jobs_count = bpjm_member_profile_jobs_count( get_current_user_id() );
 
-						$jobs_base_url    = bp_loggedin_user_domain() . $jobs_menu_slug;
-						$my_jobs_url      = $jobs_base_url . '/my-jobs';
-						$post_job_url     = $jobs_base_url . '/post-job';
+						$jobs_base_url = bp_loggedin_user_domain() . $jobs_menu_slug;
+						$my_jobs_url   = $jobs_base_url . '/my-jobs';
+						$post_job_url  = $jobs_base_url . '/post-job';
 
 						$wp_admin_bar->add_menu(
 							array(
 								'parent' => 'my-account-buddypress',
 								'id'     => 'my-account-' . $jobs_menu_slug,
-								'title'  => esc_html( $jobs_menu_title ) . ' <span class="count">' . bp_core_number_format($my_jobs_count) . '</span>',
+								'title'  => esc_html( $jobs_menu_title ) . ' <span class="count">' . bp_core_number_format( $my_jobs_count ) . '</span>',
 								'href'   => trailingslashit( $my_jobs_url ),
 							)
 						);
 
-						// Add job submenu items
+						// Add job submenu items.
 						$wp_admin_bar->add_menu(
 							array(
 								'parent' => 'my-account-' . $jobs_menu_slug,
@@ -346,74 +202,142 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 
 
 		/**
-		 * Display Job listings
+		 * Post a BuddyPress activity when a job is published for the first time.
 		 *
-		 * @param  int   $ID Job ID.
-		 * @param  array $post Job post object.
+		 * Publish and update are different: this fires only on the transition to
+		 * publish (e.g. pending/draft -> publish). Editing or re-saving an
+		 * already published job (publish -> publish) adds nothing.
+		 *
+		 * @param string $new_status New post status.
+		 * @param string $old_status Previous post status.
+		 * @param object $post       Post object.
 		 * @return void
 		 */
-		public function bpjm_publish_job_listing( $ID, $post ) {
-			global $bp_job_manager;
-			if ( isset( $bp_job_manager->bpjm_job_post_activity ) && 'yes' === $bp_job_manager->bpjm_job_post_activity ) {
-				global $wpdb;
-				$table_name = $wpdb->prefix . 'bp_activity';
-				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
-
-				if ( $get_table == $table_name ) {
-					// Use prepare with placeholders to avoid direct interpolation
-					$check = $wpdb->get_results( $wpdb->prepare( 
-						"SELECT * FROM {$table_name} WHERE item_id = %d AND type = %s", 
-						$post->ID, 
-						'bpjm_job_post' 
-					) );
-
-					if ( ! $check ) {
-						$args['type']  = 'bpjm_job_post';
-						$job_permalink = '<a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a>';
-						/* translators: %1$s: BP user link ;  %2$s: Job Link*/
-						$args['action']    = sprintf( __( '%1$s posted a new job %2$s', 'bp-job-manager' ), bp_core_get_userlink( $post->post_author ), $job_permalink );
-						$args['component'] = 'activity';
-						$args['user_id']   = $post->post_author;
-						$args['item_id']   = $post->ID;
-						$args['content']   = $post->post_content;
-
-						bp_activity_add( $args );
-					}
-				}
+		public function bpjm_publish_job_listing( $new_status, $old_status, $post ) {
+			if ( 'publish' !== $new_status || 'publish' === $old_status || 'job_listing' !== $post->post_type ) {
+				return;
 			}
+
+			global $bpjm_bp_job_manager;
+			if ( ! isset( $bpjm_bp_job_manager->bpjm_job_post_activity ) || 'yes' !== $bpjm_bp_job_manager->bpjm_job_post_activity ) {
+				return;
+			}
+
+			/* translators: %1$s: BP user link ; %2$s: Job link */
+			$this->bpjm_add_publish_activity( $post, 'bpjm_job_post', __( '%1$s posted a new job %2$s', 'bp-job-manager' ) );
 		}
 
-
 		/**
-		 * Publish resume.
+		 * Post a BuddyPress activity when a resume is published for the first time.
 		 *
-		 * @param  int   $ID Job ID.
-		 * @param  array $post Job post object.
+		 * Same publish-only rule as bpjm_publish_job_listing(): fires on the
+		 * transition to publish, never on later updates.
+		 *
+		 * @param string $new_status New post status.
+		 * @param string $old_status Previous post status.
+		 * @param object $post       Post object.
 		 * @return void
 		 */
-		public function bpjm_publish_resume( $ID, $post ) {
-			global $bp_job_manager;
-			if ( isset( $bp_job_manager->bpjm_resume_activity ) && 'yes' === $bp_job_manager->bpjm_resume_activity ) {
+		public function bpjm_publish_resume( $new_status, $old_status, $post ) {
+			if ( 'publish' !== $new_status || 'publish' === $old_status || 'resume' !== $post->post_type ) {
+				return;
+			}
 
-				global $wpdb;
-				$table_name = $wpdb->prefix . 'bp_activity';
-				$get_table  = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) );
-				if ( $get_table == $table_name ) {
-					$check = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$table_name} WHERE item_id = %d AND type IN (%s)", $post->ID, 'bpjm_resume_publish' ) );
-					if ( ! $check ) {
-						$args['type']  = 'bpjm_resume_publish';
-						$job_permalink = '<a href="' . get_permalink( $post->ID ) . '">' . $post->post_title . '</a>';
-						/* translators: %1$s: Resume user link ;  %2$s: Resume Link*/
-						$args['action']    = sprintf( __( '%1$s posted resume %2$s', 'bp-job-manager' ), bp_core_get_userlink( $post->post_author ), $job_permalink );
-						$args['component'] = 'activity';
-						$args['user_id']   = $post->post_author;
-						$args['item_id']   = $post->ID;
-						$args['content']   = $post->post_content;
+			global $bpjm_bp_job_manager;
+			if ( ! isset( $bpjm_bp_job_manager->bpjm_resume_activity ) || 'yes' !== $bpjm_bp_job_manager->bpjm_resume_activity ) {
+				return;
+			}
 
-						bp_activity_add( $args );
+			/* translators: %1$s: Resume user link ; %2$s: Resume link */
+			$this->bpjm_add_publish_activity( $post, 'bpjm_resume_publish', __( '%1$s posted resume %2$s', 'bp-job-manager' ) );
+		}
+
+		/**
+		 * Add the "posted a new job/resume" BuddyPress activity for a post.
+		 *
+		 * @param object $post          Post object.
+		 * @param string $activity_type Activity type (bpjm_job_post|bpjm_resume_publish).
+		 * @param string $action_format Translated sprintf format for the activity action.
+		 * @return void
+		 */
+		private function bpjm_add_publish_activity( $post, $activity_type, $action_format ) {
+			if ( ! function_exists( 'bp_activity_add' ) ) {
+				return;
+			}
+
+			$permalink = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '">' . esc_html( $post->post_title ) . '</a>';
+
+			bp_activity_add(
+				array(
+					'type'      => $activity_type,
+					'action'    => sprintf( $action_format, bp_core_get_userlink( $post->post_author ), $permalink ),
+					'component' => 'activity',
+					'user_id'   => $post->post_author,
+					'item_id'   => $post->ID,
+					'content'   => $post->post_content,
+				)
+			);
+		}
+
+		/**
+		 * Remove the BuddyPress activity tied to a job/resume when the post is
+		 * trashed or permanently deleted, so the stream never keeps a dead link.
+		 *
+		 * Mirrors the activity written on publish in bpjm_publish_job_listing()
+		 * / bpjm_publish_resume(): item_id = post ID, component 'activity', type
+		 * 'bpjm_job_post' for jobs and 'bpjm_resume_publish' for resumes. Wired
+		 * to both wp_trash_post (trash) and before_delete_post (permanent/force
+		 * delete) so every removal path is covered. Re-firing on an already
+		 * cleaned item is a harmless no-op.
+		 *
+		 * @since 2.8.5
+		 * @param int $post_id Post ID being trashed or deleted.
+		 * @return void
+		 */
+		public function bpjm_delete_job_activity( $post_id ) {
+			if ( ! function_exists( 'bp_activity_delete' ) ) {
+				return;
+			}
+
+			$post_type = get_post_type( $post_id );
+
+			if ( 'job_listing' === $post_type ) {
+				$activity_type = 'bpjm_job_post';
+			} elseif ( 'resume' === $post_type ) {
+				$activity_type = 'bpjm_resume_publish';
+			} else {
+				return;
+			}
+
+			bp_activity_delete(
+				array(
+					'item_id'   => $post_id,
+					'type'      => $activity_type,
+					'component' => 'activity',
+				)
+			);
+		}
+
+		/**
+		 * Sanitize settings for register_setting()
+		 *
+		 * @param array $input Input settings array.
+		 * @return array Sanitized settings array.
+		 */
+		public function bpjm_sanitize_settings( $input ) {
+			$sanitized = array();
+
+			if ( is_array( $input ) ) {
+				foreach ( $input as $key => $value ) {
+					if ( is_array( $value ) ) {
+						$sanitized[ sanitize_key( $key ) ] = array_map( 'sanitize_text_field', $value );
+					} else {
+						$sanitized[ sanitize_key( $key ) ] = sanitize_text_field( $value );
 					}
 				}
 			}
+
+			return $sanitized;
 		}
 	}
 endif;

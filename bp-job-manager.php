@@ -1,5 +1,6 @@
 <?php
 /**
+ * Wbcom Designs - BuddyPress Job Manager.
  *
  * @link              https://wbcomdesigns.com/
  * @since             1.0.0
@@ -9,13 +10,16 @@
  * Plugin Name:       Wbcom Designs - BuddyPress Job Manager
  * Plugin URI:        https://wbcomdesigns.com/
  * Description:       This plugin integrates WordPress Job Manager with BuddyPress. Allows the members to post jobs, and others to apply for those posted jobs.
- * Version:           2.8.2
+ * Version:           2.8.5
  * Author:            Wbcom Designs
  * Author URI:        https://wbcomdesigns.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       bp-job-manager
  * Domain Path:       /languages
+ * Requires at least: 6.5
+ * Requires PHP:      7.4
+ * Requires Plugins:  buddypress, wp-job-manager
  */
 
 // If this file is called directly, abort.
@@ -32,7 +36,7 @@ if ( ! defined( 'BPJM_PLUGIN_URL' ) ) {
 }
 
 if ( ! defined( 'BPJM_PLUGIN_VERSION' ) ) {
-	define( 'BPJM_PLUGIN_VERSION', '2.8.2' );
+	define( 'BPJM_PLUGIN_VERSION', '2.8.5' );
 }
 
 
@@ -42,9 +46,13 @@ if ( ! defined( 'BPJM_PLUGIN_VERSION' ) ) {
  * @author  wbcomdesigns
  * @since   1.0.0
  */
-function activate_bp_job_manager() {
+function bpjm_activate_bp_job_manager() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bp-job-manager-activator.php';
-	Bp_Job_Manager_Activator::activate();
+	Bpjm_Job_Manager_Activator::activate();
+
+	// Flag a fresh activation so the next admin page load can redirect to the
+	// settings screen (handled by bpjm_do_activation_redirect on admin_init).
+	set_transient( '_bpjm_is_new_install', true, 30 );
 }
 
 /**
@@ -54,13 +62,13 @@ function activate_bp_job_manager() {
  * @author  wbcomdesigns
  * @since   1.0.0
  */
-function deactivate_bp_job_manager() {
+function bpjm_deactivate_bp_job_manager() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bp-job-manager-deactivator.php';
-	Bp_Job_Manager_Deactivator::deactivate();
+	Bpjm_Job_Manager_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_bp_job_manager' );
-register_deactivation_hook( __FILE__, 'deactivate_bp_job_manager' );
+register_activation_hook( __FILE__, 'bpjm_activate_bp_job_manager' );
+register_deactivation_hook( __FILE__, 'bpjm_deactivate_bp_job_manager' );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -76,11 +84,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-bp-job-manager.php';
  *
  * @since    1.0.0
  */
-function run_bp_job_manager() {
+function bpjm_run_bp_job_manager() {
 
 	$plugin = new Bp_Job_Manager();
 	$plugin->run();
-
 }
 
 
@@ -91,7 +98,7 @@ function run_bp_job_manager() {
  * BuddyPress, WP Job Manager, WP Job Manager Applications & WP Job Manager Resumes
  * to be installed and active.
  */
-add_action( 'plugins_loaded', 'wpbpjm_plugin_init' );
+add_action( 'plugins_loaded', 'bpjm_plugin_init' );
 
 /**
  * Check plugin requirement on plugins loaded.
@@ -99,15 +106,15 @@ add_action( 'plugins_loaded', 'wpbpjm_plugin_init' );
  * @author  wbcomdesigns
  * @since   1.0.0
  */
-function wpbpjm_plugin_init() {
+function bpjm_plugin_init() {
 	if ( current_user_can( 'activate_plugins' ) && ( ! class_exists( 'BuddyPress' ) || ! class_exists( 'WP_Job_Manager' ) ) ) {
 		add_action( 'admin_notices', 'bpjm_required_plugin_admin_notice' );
-		add_action( 'admin_init', 'wpbpjm_existing_checkin_plugin' );
+		add_action( 'admin_init', 'bpjm_existing_checkin_plugin' );
 	} else {
 		if ( ! defined( 'BPJM_PLUGIN_BASENAME' ) ) {
 			define( 'BPJM_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 		}
-		run_bp_job_manager();
+		bpjm_run_bp_job_manager();
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpjm_plugin_links' );
 	}
 }
@@ -123,7 +130,7 @@ function bpjm_required_plugin_admin_notice() {
 	$bp_plugin   = esc_html__( 'BuddyPress', 'bp-job-manager' );
 	$wpjm_plugin = esc_html__( 'WP Job Manager', 'bp-job-manager' );
 	echo '<div class="error"><p>';
-	echo sprintf(
+	printf(
 		/* translators: %1$s: BuddyPress Job Manager ;  %2$s: BuddyPress ; %3$s: WP Job Manager*/
 		esc_html__( '%1$s is ineffective now as it requires %2$s and %3$s to be installed and active.', 'bp-job-manager' ),
 		'<strong>' . esc_html( $bpjm_plugin ) . '</strong>',
@@ -141,7 +148,7 @@ function bpjm_required_plugin_admin_notice() {
  *
  * @since 1.0.0
  */
-function wpbpjm_existing_checkin_plugin() {
+function bpjm_existing_checkin_plugin() {
 	// Check to see if plugin is already active.
 	if ( is_plugin_active( plugin_basename( __FILE__ ) ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ) );
@@ -165,45 +172,35 @@ function bpjm_plugin_links( $links ) {
 
 
 /**
- * Redirect to plugin settings page after activation
- */
-function bpjm_activation_redirect_settings( $plugin ) {
-
-    // Verify nonce for security
-    if ( isset( $_REQUEST['_wpnonce'] ) && ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'bpjm_activation_nonce' ) ) {
-        return; // Exit if nonce is invalid
-    }
-
-    if ( isset( $_REQUEST['action'], $_REQUEST['plugin'] ) && $_REQUEST['plugin'] === $plugin ) {
-        if ( class_exists( 'BuddyPress' ) && class_exists( 'WP_Job_Manager' ) && plugin_basename( __FILE__ ) === $plugin ) {
-            if ( $_REQUEST['action'] === 'activate' ) {
-                wp_safe_redirect( admin_url( 'admin.php?page=bp-job-manager' ) );
-                exit;
-            }
-        }
-    
-        if ( $_REQUEST['action'] === 'activate-plugin' && class_exists( 'BuddyPress' ) ) {
-            set_transient( '_bpjm_is_new_install', true, 30 );
-        }
-    }
-}
-add_action( 'activated_plugin', 'bpjm_activation_redirect_settings' );
-
-// Enqueue nonce field for the plugin activation form (if needed elsewhere)
-function bpjm_add_activation_nonce() {
-    wp_nonce_field( 'bpjm_activation_nonce', '_wpnonce' );
-}
-
-/**
- * bpjm_do_activation_redirect
+ * Redirect to the plugin settings page after a fresh single activation.
+ *
+ * The activation hook (bpjm_activate_bp_job_manager) sets the
+ * _bpjm_is_new_install transient. This one-shot admin_init handler consumes it
+ * on the next admin page load and redirects, skipping bulk activation and
+ * running only while both dependencies are present.
  *
  * @return void
  */
 function bpjm_do_activation_redirect() {
-	if ( get_transient( '_bpjm_is_new_install' ) ) {
-		delete_transient( '_bpjm_is_new_install' );
-		wp_safe_redirect( admin_url( 'admin.php?page=bp-job-manager' ) );
-
+	if ( ! get_transient( '_bpjm_is_new_install' ) ) {
+		return;
 	}
+
+	// One-shot: clear the flag before any early return so it never loops.
+	delete_transient( '_bpjm_is_new_install' );
+
+	// Skip bulk activation - WordPress adds ?activate-multi to that redirect.
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only presence check; WordPress core already verified the activation nonce before firing the activation hook.
+	if ( isset( $_GET['activate-multi'] ) ) {
+		return;
+	}
+
+	// Dependencies are required for the settings screen to exist.
+	if ( ! class_exists( 'BuddyPress' ) || ! class_exists( 'WP_Job_Manager' ) ) {
+		return;
+	}
+
+	wp_safe_redirect( admin_url( 'admin.php?page=bp-job-manager' ) );
+	exit;
 }
 add_action( 'admin_init', 'bpjm_do_activation_redirect' );

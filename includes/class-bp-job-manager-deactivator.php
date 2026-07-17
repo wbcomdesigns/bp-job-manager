@@ -9,7 +9,11 @@
  * @subpackage Bp_Job_Manager/includes
  */
 
-if ( ! class_exists( 'Bp_Job_Manager_Deactivator' ) ) :
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+if ( ! class_exists( 'Bpjm_Job_Manager_Deactivator' ) ) :
 
 	/**
 	 * Fired during plugin deactivation.
@@ -21,7 +25,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Deactivator' ) ) :
 	 * @subpackage Bp_Job_Manager/includes
 	 * @author     Wbcom Designs <admin@wbcomdesigns.com>
 	 */
-	class Bp_Job_Manager_Deactivator {
+	class Bpjm_Job_Manager_Deactivator {
 
 		/**
 		 * Short Description. (use period)
@@ -31,8 +35,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Deactivator' ) ) :
 		 * @since    1.0.0
 		 */
 		public static function deactivate() {
-
 		}
-
 	}
 endif;

@@ -9,6 +9,10 @@
  * @subpackage Bp_Job_Manager/includes
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'Bp_Job_Manager_Loader' ) ) :
 	/**
 	 * Register all actions and filters for the plugin.
@@ -50,7 +54,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Loader' ) ) :
 
 			$this->actions = array();
 			$this->filters = array();
-
 		}
 
 		/**
@@ -106,7 +109,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Loader' ) ) :
 			);
 
 			return $hooks;
-
 		}
 
 		/**
@@ -123,8 +125,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Loader' ) ) :
 			foreach ( $this->actions as $hook ) {
 				add_action( $hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args'] );
 			}
-
 		}
-
 	}
 endif;

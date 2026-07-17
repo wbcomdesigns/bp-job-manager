@@ -2,9 +2,16 @@ jQuery( document ).ready(
 	function($) {
 		'use strict';
 
+		// Keep WP Job Manager's [job_dashboard] "Add Job" button inside the BuddyPress
+		// profile. WPJM hardcodes that button to its standalone submit_job_form page,
+		// which renders an empty href when unconfigured and otherwise leaves the profile.
+		// Point it at the in-profile "Post Job" tab instead (own dashboard only).
+		if ( typeof bpjm_load_jobs_object !== 'undefined' && bpjm_load_jobs_object.post_job_url ) {
+			$( '.jm-dashboard__actions a.jm-ui-button' ).attr( 'href', bpjm_load_jobs_object.post_job_url );
+		}
+
 		// Open the job application url.
 		$(document).on('click', '.bpjm-job-application-btn-action a', function() {
-			console.log("asd");
 			var url = $(this).data('url');
 			if (url) {
 				window.open(url, '_blank');
@@ -75,6 +82,7 @@ jQuery( document ).ready(
 			var data = {
 				'action': 'bpjm_load_more_jobs',
 				'page_no': pageNumber,
+				'user_id': bpjm_load_jobs_object.displayed_user_id,
 				'ajax_nonce': bpjm_load_jobs_object.ajax_nonce,
 			};
 			$.ajax(
@@ -83,7 +91,8 @@ jQuery( document ).ready(
 					type: 'POST',
 					data: data,
 					beforeSend: function() {
-						$( '.wb-grid-cell' ).find( '.job-manager-jobs' ).after( '<div class="inifinite-loader-wrapper"><a id="inifiniteLoader" href="javascript: void(0)" ><button class="loading">Loading...</button></a></div >' );
+						$( '.wb-grid-cell' ).find( '.job-manager-jobs' ).after( '<div class="inifinite-loader-wrapper"><a id="inifiniteLoader" href="javascript: void(0)" ><button class="loading"></button></a></div >' );
+						$( '#inifiniteLoader .loading' ).text( bpjm_load_jobs_object.loading_text );
 					},
 					success: function(response) {
 						$(".bpjm-loader").css("display", "none");
