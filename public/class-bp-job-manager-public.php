@@ -1612,7 +1612,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				$url = wp_nonce_url( bp_loggedin_user_domain() . bp_get_messages_slug() . '/compose/?r=' . bp_core_get_username( get_the_author_meta( 'ID' ) ) );
 			}
 
-			echo '<a href="' . esc_url( $url ) . '" title="Private Message">' . esc_html__( 'Send Private Message', 'bp-job-manager' ) . '</a>';
+			echo '<a href="' . esc_url( $url ) . '" title="' . esc_attr__( 'Private Message', 'bp-job-manager' ) . '">' . esc_html__( 'Send Private Message', 'bp-job-manager' ) . '</a>';
 		}
 
 		/**

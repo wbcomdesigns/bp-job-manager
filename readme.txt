@@ -222,11 +222,15 @@ We regularly update the plugin to ensure compatibility with the latest versions 
 
 = 2.8.5 - July 2026 =
 
+* New      - Added German, Spanish, French, Italian and Portuguese (Brazil) translations.
 * New      - Job and resume activity is now removed automatically when the listing is trashed or deleted, so the activity stream no longer keeps links to listings that are gone.
 * Improve  - Rebuilt the admin settings screen on the modern Wbcom card-panel layout (sidebar navigation, Overview, General, Help & Support, and Discover); saved settings and data are unchanged.
 * Improve  - Applied Jobs tab now uses real LIMIT/OFFSET pagination with batched post-cache priming, removing the per-row query on large lists.
 * Improve  - Profile Jobs and Resumes nav counts are cached in per-user transients and invalidated on job status change or deletion.
 * Improve  - The settings screen now states which WP Job Manager add-ons unlock the remaining options, instead of hiding them without explanation.
+* Fix      - The bundled French translation could never load: the text domain was not registered. It now loads on init.
+* Fix      - The Personal Information, URL(s) and Education profile headings had no translatable source.
+* Fix      - A double-escaped heading rendered HTML entities instead of accented characters in translated languages.
 * Fix      - Add Job button on the profile dashboard now opens the in-profile Post Job tab instead of an empty link or a page outside the profile.
 * Fix      - Plugin and WP Job Manager frontend styles now load on the profile Jobs tab for owners whose role cannot post jobs.
 * Fix      - WP Job Manager dark surfaces (dashboard buttons, notices, actions popover, submit preview) now render correctly in BuddyX, BuddyX Pro and Reign dark mode.
