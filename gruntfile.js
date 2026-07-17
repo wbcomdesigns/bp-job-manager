@@ -6,6 +6,7 @@ module.exports = function ( grunt ) {
 	require( 'load-grunt-tasks' )( grunt );
 	grunt.initConfig(
 		{
+			pkg: grunt.file.readJSON( 'package.json' ),
 
 				// Check text domain
 			checktextdomain: {
@@ -98,7 +99,11 @@ module.exports = function ( grunt ) {
 			compress: {
 				dist: {
 					options: {
-						archive: 'dist/bp-job-manager.zip'
+						// Versioned, like every other plugin in the free series. An
+					// unversioned asset is ambiguous on a release page and makes it
+					// impossible to tell two downloads apart. Keep package.json's
+					// version in step with the plugin header.
+					archive: 'dist/bp-job-manager-<%= pkg.version %>.zip'
 					},
 					files: [{
 						expand: true,
