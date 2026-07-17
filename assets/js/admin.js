@@ -117,43 +117,6 @@
 
 	window.bpjmConfirm = confirmModal;
 
-	/* ─── Role grid: select all / clear all + live count ─────── */
-
-	function refreshRoleGridCount( $grid ) {
-		var $all  = $grid.find( 'input[type="checkbox"]' );
-		var total = $all.length;
-		var picked = $all.filter( ':checked' ).length;
-		var $count = $grid.find( '.bpjm-role-grid-count' );
-		if ( ! $count.length || ! $count.data( 'bpjm-tpl' ) ) {
-			// Stash the original template on first call so we can format future updates.
-			$count.data( 'bpjm-tpl', $count.text() );
-		}
-		var tpl = $count.data( 'bpjm-tpl' ) || '%1$d of %2$d roles selected';
-		$count.text( tpl.replace( '%1$d', picked ).replace( '%2$d', total ) );
-	}
-
-	$( function () {
-		$( '[data-bpjm-role-grid]' ).each( function () {
-			var $grid = $( this );
-			$grid.find( '.bpjm-role-grid-count' ).data( 'bpjm-tpl', $grid.find( '.bpjm-role-grid-count' ).text() );
-
-			$grid.on( 'change', 'input[type="checkbox"]', function () {
-				refreshRoleGridCount( $grid );
-			} );
-
-			$grid.on( 'click', '[data-bpjm-role-action]', function () {
-				var action = $( this ).data( 'bpjm-role-action' );
-				var $boxes = $grid.find( 'input[type="checkbox"]' );
-				if ( 'select-all' === action ) {
-					$boxes.prop( 'checked', true );
-				} else if ( 'clear-all' === action ) {
-					$boxes.prop( 'checked', false );
-				}
-				refreshRoleGridCount( $grid );
-			} );
-		} );
-	} );
-
 	/* ─── Color picker ──────────────────────────────────────── */
 
 	$( function () {

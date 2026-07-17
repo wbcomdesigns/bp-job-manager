@@ -226,9 +226,16 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			if ( $wpjm_resumes_active ) {
 				global $bpjm_bp_job_manager;
 
-				if ( isset( $bpjm_bp_job_manager->bpjm_resume_at_profile ) && 'yes' === $bpjm_bp_job_manager->bpjm_resume_at_profile ) {
-					$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_resumes_tab' );
-				}
+				// The Resumes nav (My Resumes / Add Resume / Applied Jobs) is a
+				// management surface. Its only real dependency is Resume Manager
+				// being active — NOT the `bpjm_resume_at_profile` display option,
+				// which is scoped to showing a resume ON the profile and is
+				// enforced independently inside bpjm_bp_profile_field_item() and
+				// bpjm_resume_settings_before_submit(). Gating registration on the
+				// display option silently removed all three subnavs, which is not
+				// what its label ("Show the latest resume on the member's
+				// BuddyPress profile") promises.
+				$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_resumes_tab' );
 
 				/*Action to render resume content at buddypress profile page*/
 				$this->loader->add_action( 'bp_after_profile_loop_content', $plugin_public, 'bpjm_bp_profile_field_item' );
@@ -277,7 +284,11 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			$this->loader->add_filter( 'bp_notifications_get_notifications_for_user', $plugin_public, 'bpjm_job_application_notifications', 11, 7 );
 			$this->loader->add_filter( 'job_manager_user_can_post_job', $plugin_public, 'bpjm_restrict_user_post_job' );
 			$this->loader->add_filter( 'submit_job_form_show_signin', $plugin_public, 'bpjm_restrict_user_post_job' );
-			$this->loader->add_action( 'submit_job_form_disabled', $plugin_public, 'bpjm_restrict_user_post_job_message' );
+			// `submit_job_form_disabled` expects the callback to echo. The
+			// bare bpjm_restrict_user_post_job_message() only RETURNS the
+			// string (bp_core_add_message() needs the value), so this action
+			// goes through the printing wrapper.
+			$this->loader->add_action( 'submit_job_form_disabled', $plugin_public, 'bpjm_print_restrict_user_post_job_message' );
 			if ( in_array( 'bp-rewrites/class-bp-rewrites.php', get_option( 'active_plugins' ), true ) ) {
 				$this->loader->add_filter( 'bp_nouveau_get_nav_link', $plugin_public, 'bpjm_nouveau_link_fix', 10, 2 );
 				$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_legacy_link_fix', 9999 );

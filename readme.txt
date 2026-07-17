@@ -166,7 +166,7 @@ Without any add-ons, the plugin still gives you the Jobs tab, the My Jobs dashbo
 
 = What does the "Resume on profile" setting actually control? =
 
-More than its label suggests. When you turn off "Show the latest resume on the member's BuddyPress profile", you do not just hide the resume from the profile: the entire Resumes nav item stops being registered, which removes **Add Resume, My Resumes and Applied Jobs** along with it. Leave it on if you want members to manage resumes or see their applications.
+Exactly what its label says. When you turn off "Show the latest resume on the member's BuddyPress profile", the resume is no longer displayed on the profile - and nothing else changes. The Resumes tab and its **My Resumes**, **Add Resume** and **Applied Jobs** subnavs stay available, so members can still manage their resumes and see their applications. Those subnavs depend only on the Resume Manager add-on being active.
 
 = Which resume shows on a member's profile? =
 

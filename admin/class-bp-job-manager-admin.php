@@ -28,9 +28,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * the loader / reused by the panel:
  *
  *  - bpjm_setup_admin_bar_links()  (bp_setup_admin_bar)
- *  - bpjm_publish_job_listing()    (publish_job_listing)
- *  - bpjm_publish_resume()         (publish_resume)
+ *  - bpjm_publish_job_listing()    (transition_post_status)
+ *  - bpjm_publish_resume()         (transition_post_status)
+ *  - bpjm_delete_job_activity()    (wp_trash_post, before_delete_post)
  *  - bpjm_sanitize_settings()      (delegated to by the panel sanitizer)
+ *
+ * NOTE: the two activity writers hook WP core's `transition_post_status`,
+ * NOT WP Job Manager's `publish_job_listing` / `publish_resume`. This plugin
+ * consumes neither of those WPJM hooks — see includes/class-bp-job-manager.php
+ * (define_admin_hooks) for the real wiring.
  *
  * @package    Bp_Job_Manager
  * @subpackage Bp_Job_Manager/admin

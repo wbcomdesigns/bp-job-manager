@@ -13,3 +13,6 @@ error_log
 !audit/**
 !audit/manifest.json
 !audit/manifest.summary.json
+
+# Build artifacts (zips are release outputs, not source).
+dist/

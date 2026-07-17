@@ -22,6 +22,13 @@ $bpjm_ecosystem_img = BPJM_PLUGIN_URL . 'assets/images/ecosystem/';
  */
 $bpjm_ecosystem = array(
 	array(
+		'name' => __( 'BuddyX', 'bp-job-manager' ),
+		'logo' => 'buddyx.png',
+		'icon' => 'admin-appearance',
+		'desc' => __( 'A free, fast community theme for BuddyPress, BuddyBoss and PeepSo with a modern layout and dark mode.', 'bp-job-manager' ),
+		'url'  => 'https://wbcomdesigns.com/downloads/buddyx-theme/',
+	),
+	array(
 		'name' => __( 'BuddyNext', 'bp-job-manager' ),
 		'logo' => 'buddynext.svg',
 		'desc' => __( 'The social network layer for WordPress, with feeds, member spaces, and messaging.', 'bp-job-manager' ),
@@ -40,10 +47,31 @@ $bpjm_ecosystem = array(
 		'url'  => 'https://wbcomdesigns.com/downloads/mediaverse/',
 	),
 	array(
+		'name' => __( 'Eventonomy', 'bp-job-manager' ),
+		'logo' => 'eventonomy.svg',
+		'icon' => 'calendar-alt',
+		'desc' => __( 'Run community events with RSVPs, calendars, and front-end submissions.', 'bp-job-manager' ),
+		'url'  => 'https://wbcomdesigns.com/downloads/eventonomy/',
+	),
+	array(
+		'name' => __( 'WB Gamification', 'bp-job-manager' ),
+		'logo' => 'wb-gamification.svg',
+		'icon' => 'awards',
+		'desc' => __( 'Reward members with points, badges, and leaderboards to keep engagement high.', 'bp-job-manager' ),
+		'url'  => 'https://wbcomdesigns.com/downloads/wordpress-gamification-plugin/',
+	),
+	array(
 		'name' => __( 'Listora', 'bp-job-manager' ),
 		'logo' => 'listora.svg',
 		'desc' => __( 'Build directories your members can search, review, map, and submit to.', 'bp-job-manager' ),
 		'url'  => 'https://wbcomdesigns.com/downloads/listora/',
+	),
+	array(
+		'name' => __( 'WP Career Board', 'bp-job-manager' ),
+		'logo' => 'wp-career-board.svg',
+		'icon' => 'businessman',
+		'desc' => __( 'Add a job board with front-end listings, applications, and employer profiles.', 'bp-job-manager' ),
+		'url'  => 'https://wbcomdesigns.com/downloads/wp-career-board/',
 	),
 	array(
 		'name' => __( 'Learnomy', 'bp-job-manager' ),
@@ -51,13 +79,20 @@ $bpjm_ecosystem = array(
 		'desc' => __( 'Sell online courses with quizzes, payments, and completion certificates.', 'bp-job-manager' ),
 		'url'  => 'https://wbcomdesigns.com/downloads/learnomy/',
 	),
+	array(
+		'name' => __( 'WP Sell Services', 'bp-job-manager' ),
+		'logo' => 'wp-sell-services.svg',
+		'icon' => 'cart',
+		'desc' => __( 'A free service marketplace with vendor dashboards, an 11-status order flow, and Stripe or PayPal built in.', 'bp-job-manager' ),
+		'url'  => 'https://wbcomdesigns.com/downloads/wp-sell-services/',
+	),
 );
 ?>
 
 <div class="bpjm-card">
 	<div class="bpjm-card__head">
 		<p class="bpjm-card__title"><?php esc_html_e( 'More Free Tools from Wbcom Designs', 'bp-job-manager' ); ?></p>
-		<p class="bpjm-card__desc"><?php esc_html_e( 'Job Manager brings hiring into member profiles. These free Wbcom Designs plugins build out the rest of the community around those careers — the network itself, forums, media, directories, and courses.', 'bp-job-manager' ); ?></p>
+		<p class="bpjm-card__desc"><?php esc_html_e( 'Job Manager brings hiring into member profiles. These free Wbcom Designs plugins build out the rest of the community around those careers: the theme and network itself, forums, media, events, gamification, directories, jobs, courses, and services.', 'bp-job-manager' ); ?></p>
 	</div>
 	<div class="bpjm-card__body">
 		<div class="bpjm-discover-grid">

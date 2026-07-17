@@ -407,41 +407,8 @@
 }
 
 /* ═══════════════════════════════════════════════════════════
-   Role chip grid (Permissions tab)
+   Link-style button
    ═══════════════════════════════════════════════════════════ */
-
-.bpjm-role-grid-wrap {
-	margin: 0;
-	padding: 0;
-	border: 0;
-}
-
-.bpjm-role-grid-toolbar {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 12px;
-	padding: 0 0 12px;
-	margin-bottom: 12px;
-	border-bottom: 1px solid var(--bpjm-admin-surface-2);
-}
-
-.bpjm-role-grid-count {
-	font-size: 12px;
-	font-weight: 600;
-	color: var(--bpjm-admin-text-3);
-	letter-spacing: 0.02em;
-}
-
-.bpjm-role-grid-actions {
-	display: inline-flex;
-	align-items: center;
-	gap: 8px;
-}
-
-.bpjm-role-grid-sep {
-	color: var(--bpjm-admin-border-strong);
-}
 
 .bpjm-link {
 	background: transparent;
@@ -470,54 +437,6 @@
 	outline: 2px solid var(--bpjm-admin-accent);
 	outline-offset: 2px;
 	border-radius: 2px;
-}
-
-.bpjm-role-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-	gap: 8px;
-	margin-bottom: 12px;
-}
-
-.bpjm-role-chip {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	padding: 10px 12px;
-	background: var(--bpjm-admin-surface-1);
-	border: 1px solid var(--bpjm-admin-border);
-	border-radius: var(--bpjm-admin-radius-sm);
-	cursor: pointer;
-	transition: background 0.12s, border-color 0.12s;
-	min-height: 40px;
-}
-
-.bpjm-role-chip:hover {
-	background: var(--bpjm-admin-white);
-	border-color: var(--bpjm-admin-border-strong);
-}
-
-.bpjm-role-chip input[type="checkbox"] {
-	margin: 0;
-	flex-shrink: 0;
-	accent-color: var(--bpjm-admin-accent);
-}
-
-.bpjm-role-chip__label {
-	font-size: 13px;
-	font-weight: 500;
-	color: var(--bpjm-admin-text-4);
-	line-height: 1.3;
-}
-
-.bpjm-role-chip:has(input:checked) {
-	background: var(--bpjm-admin-accent-light);
-	border-color: rgba(37, 99, 235, 0.35);
-}
-
-.bpjm-role-chip:has(input:checked) .bpjm-role-chip__label {
-	color: var(--bpjm-admin-accent);
-	font-weight: 600;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -873,6 +792,7 @@
 .bpjm-discover-card__logo img {
 	width: 52px;
 	height: 52px;
+	object-fit: contain;
 	display: block;
 	border-radius: var(--bpjm-admin-radius-sm);
 }

@@ -225,14 +225,7 @@
   "ui_activation": [],
   "static_analysis": {
     "dead_listeners": [],
-    "dead_code": [
-      {
-        "symbol": "Bp_Job_Manager_Public::bpjm_jobs_listing_show_screen()",
-        "where": "public/class-bp-job-manager-public.php:699-703",
-        "finding": "ORPHANED. No caller and no hook. It is a BP screen function for a 'Job Listings' subnav that is NEVER registered by bpjm_member_profile_jobs_tab() (the real Jobs subnavs are my-jobs, my-bookmarks, job-alerts, post-job). Its companion content callback bpjm_jobs_listing_tab_function_to_show_content is reachable only through this dead function.",
-        "action": "Remove, or register the subnav if the screen was intended to ship."
-      }
-    ],
+    "dead_code": [],
     "cap_context_mismatches": [],
     "extensibility_gaps": [],
     "js_only_activation": [
@@ -249,9 +242,8 @@
   },
   "coverage_notes": [
     "DEPENDENCY TRUTH: the plugin HARD-requires only BuddyPress + WP Job Manager. The gate at bp-job-manager.php:109 checks only class_exists('BuddyPress') / class_exists('WP_Job_Manager'), and the header 'Requires Plugins: buddypress, wp-job-manager' matches. Applications, Resume Manager, Bookmarks and Alerts are OPTIONAL add-ons, each detected at runtime via get_option('active_plugins') and each gating one nav/notification surface. Do NOT record them as required.",
-    "COUPLING WORTH FLAGGING: the setting bpjm_resume_at_profile gates REGISTRATION of the whole Resumes nav, not just its display (includes/class-bp-job-manager.php:227-229 wraps the bp_setup_nav add_action for bpjm_member_profile_resumes_tab). Turning the setting off therefore removes the nav item, its subnavs, and their screen functions — direct hits on /resumes/ URLs will 404 rather than render an empty state. The same global also gates the Youzify visibility-menu branch at :235-237.",
-    "DEAD CODE: bpjm_jobs_listing_show_screen() (public/class-bp-job-manager-public.php:699-703) is orphaned — see static_analysis.dead_code. The 'Job Listings' Jobs subnav that would call it is never registered anywhere in the plugin.",
-    "ACTIVITY WRITES USE transition_post_status, NOT the WPJM publish_job_listing / publish_resume hooks. includes/class-bp-job-manager.php:196-197 hooks transition_post_status -> bpjm_publish_job_listing / bpjm_publish_resume (admin/class-bp-job-manager-admin.php:216, :241), which self-filter to the publish transition. The docblock at admin/class-bp-job-manager-admin.php:31-32 still names the old publish_* hooks and is stale prose, not wiring.",
+    "DECOUPLED (post-2.8.5): the setting bpjm_resume_at_profile now controls DISPLAY ONLY, matching its label. Registration of the Resumes nav (bp_setup_nav -> bpjm_member_profile_resumes_tab) depends solely on WP Job Manager Resume Manager being active. Display is enforced independently inside bpjm_bp_profile_field_item() (public/class-bp-job-manager-public.php:1244, :1252) and bpjm_resume_settings_before_submit() (:1324). The Youzify visibility-menu branch remains gated on the setting, which is correct — that menu IS the resume display control.",
+    "ACTIVITY WRITES USE transition_post_status, NOT the WPJM publish_job_listing / publish_resume hooks. includes/class-bp-job-manager.php hooks transition_post_status -> bpjm_publish_job_listing / bpjm_publish_resume (admin/class-bp-job-manager-admin.php:216, :241), which self-filter to the publish transition. The docblock at admin/class-bp-job-manager-admin.php now names transition_post_status correctly.",
     "NEW IN 2.8.5: activity auto-cleanup. bpjm_delete_job_activity (admin/class-bp-job-manager-admin.php:297-319) is wired to wp_trash_post + before_delete_post (includes/class-bp-job-manager.php:201-202) so a trashed or permanently deleted job/resume never leaves a dead-link activity in the stream.",
     "BP_Job_Manager_Feedback (admin/class-bp-job-manager-admin-feedback.php) is SELF-INSTANTIATING at :317 when the file is required (includes/class-bp-job-manager.php:139) — it is not wired through Bp_Job_Manager_Loader and registers its own admin_init hooks at :76-77. The review nag renders via admin_notices (:146-163, :272-291) and dismisses at :302-313. Note the class name is BP_Job_Manager_Feedback, which matches neither the Bp_Job_Manager_* prefix used everywhere else nor its own file name.",
     "GUEST PSEUDO-ROLE: 'guest' is not a WP role. bpjm_restrict_user_post_job (public/class-bp-job-manager-public.php:1739-1742) treats a logged-OUT visitor as allowed to post when 'guest' is present in post_job_user_roles.",

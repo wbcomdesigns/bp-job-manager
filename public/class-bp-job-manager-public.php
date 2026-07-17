@@ -233,9 +233,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				 * clause entirely when 'author' is 0, which would leak every user's jobs.
 				 */
 				$author = ! empty( $_POST['user_id'] ) ? absint( wp_unslash( $_POST['user_id'] ) ) : bp_displayed_user_id();
-				if ( empty( $author ) ) {
-					wp_send_json_error( array( 'message' => __( 'Invalid member profile.', 'bp-job-manager' ) ), 400 );
-				}
+			if ( empty( $author ) ) {
+				wp_send_json_error( array( 'message' => __( 'Invalid member profile.', 'bp-job-manager' ) ), 400 );
+			}
 
 				// Only the profile owner may see their non-public (draft/pending/expired/preview) listings.
 				$is_profile_owner = ( get_current_user_id() === $author );
@@ -688,20 +688,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			}
 			return $job_actions;
 		}
-
-		/**
-		 * Screen function for listing all my jobs in menu item.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function bpjm_jobs_listing_show_screen() {
-			add_action( 'bp_template_title', array( $this, 'bpjm_my_jobs_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_jobs_listing_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
-		}
-
 
 		/**
 		 * Screen function for listing all my bookmarked jobs in menu item.
@@ -1585,7 +1571,16 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 				// Redirect if 'job_id' is set and not '0'.
 				if ( isset( $parsed_query['job_id'] ) && '0' !== $parsed_query['job_id'] ) {
-					$location = bp_members_get_user_url( bp_displayed_user_id() ) . 'jobs/post-job/?job_id=' . $parsed_query['job_id'];
+					// bp_members_get_user_url() only exists on BuddyPress 12.0+.
+					// Mirror the guard used by bpjm_add_private_message_link()
+					// and fall back to bp_core_get_user_domain() on older BP.
+					if ( function_exists( 'bp_members_get_user_url' ) && version_compare( BP_VERSION, '12.0.0', '>=' ) ) {
+						$user_url = bp_members_get_user_url( bp_displayed_user_id() );
+					} else {
+						$user_url = bp_core_get_user_domain( bp_displayed_user_id() );
+					}
+
+					$location = trailingslashit( $user_url ) . 'jobs/post-job/?job_id=' . $parsed_query['job_id'];
 				}
 			}
 
@@ -1751,10 +1746,29 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		}
 
 		/**
-		 * Display message to restrict user role from posting a job
+		 * Message shown when a user's role is not allowed to post a job.
+		 *
+		 * RETURNS the string — it does not print. Callers that need it on the
+		 * page (the `submit_job_form_disabled` action) must go through
+		 * bpjm_print_restrict_user_post_job_message(); callers that need the
+		 * value (bp_core_add_message()) use this directly.
+		 *
+		 * @return string Translated restriction message.
 		 */
 		public function bpjm_restrict_user_post_job_message() {
-			echo esc_html_e( 'You are not authorized to post a job. Please reach out to the administrator for further assistance.', 'bp-job-manager' );
+			return __( 'You are not authorized to post a job. Please reach out to the administrator for further assistance.', 'bp-job-manager' );
+		}
+
+		/**
+		 * Print the "not authorized to post a job" message.
+		 *
+		 * Hooked to WP Job Manager's `submit_job_form_disabled` action, which
+		 * expects the callback to echo its own output.
+		 *
+		 * @return void
+		 */
+		public function bpjm_print_restrict_user_post_job_message() {
+			echo esc_html( $this->bpjm_restrict_user_post_job_message() );
 		}
 
 
