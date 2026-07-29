@@ -3,9 +3,18 @@ node_modules/
 .DS_Store
 error_log
 
-# *.json
+# Broad JSON ignore, kept for historical reasons. It is a footgun: anything
+# new ending in .json is invisible to git unless un-ignored below. If you add
+# JS translations (wp i18n make-json), un-ignore languages/*.json here or the
+# strings will never ship.
 *.json
 .claude-tmp/
+
+# Project config that must be tracked despite the broad ignore above.
+!composer.json
+!package.json
+!package-lock.json
+!.wbcom-i18n.json
 
 # AutoVAP onboarding artifacts — keep tracked despite broad ignores above
 !CLAUDE.md
@@ -13,6 +22,9 @@ error_log
 !audit/**
 !audit/manifest.json
 !audit/manifest.summary.json
+
+# Composer dev dependencies (phpstan, phpcs, wordpress-stubs).
+vendor/
 
 # Build artifacts (zips are release outputs, not source).
 dist/

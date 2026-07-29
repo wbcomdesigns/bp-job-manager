@@ -1,0 +1,50 @@
+includes:
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+    level: 5
+    phpVersion: 80000
+    paths:
+        - bp-job-manager.php
+        - uninstall.php
+        - admin/
+        - includes/
+        - public/
+    excludePaths:
+        - node_modules/
+        - dist/
+        - vendor/
+    scanDirectories:
+        - admin/
+        - includes/
+        - public/
+    bootstrapFiles:
+        - phpstan-bootstrap.php
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        # ------------------------------------------------------------------
+        # Optional / runtime-detected dependencies.
+        #
+        # BuddyPress and WP Job Manager are hard requirements but live outside
+        # this plugin's analysis path; Resume Manager, Applications, Bookmarks
+        # and Alerts are optional add-ons detected at runtime. Every call site
+        # below is already guarded by function_exists()/class_exists(), so an
+        # unresolved symbol here is a stub gap, not a bug. Keep this list
+        # explicit — a broad `.*not found` pattern would hide our own typos.
+        # ------------------------------------------------------------------
+        - '#Function (bp_[a-z_]+|buddypress|is_buddypress) not found#'
+        - '#Function (wpjm_the_job_title|the_job_status|is_position_featured|is_position_filled|get_job_manager_template|job_manager_get_permalink|user_has_applied_for_job) not found#'
+        - '#Call to static method [a-zA-Z_]+\(\) on an unknown class WP_Job_Manager_Post_Types#'
+        - '#Function (the_resume_[a-z_]+|the_candidate_[a-z_]+|get_the_candidate_title|resume_manager_[a-z_]+) not found#'
+        - '#Constant (BP_VERSION|JOB_MANAGER_APPLICATIONS_PLUGIN_DIR) not found#'
+        - '#(Instantiated c|C)lass (WP_Job_Manager_Shortcodes|WP_Resume_Manager_Shortcodes) not found#'
+        - '#Call to method [a-zA-Z_]+\(\) on an unknown class (WP_Job_Manager_Shortcodes|WP_Resume_Manager_Shortcodes)#'
+        # Bpjm_Job_Manager_Deactivator::deactivate() is an intentional no-op kept
+        # as the plugin's deactivation extension point. The wrapper function is
+        # still required by register_deactivation_hook().
+        -
+            message: '#Call to Bpjm_Job_Manager_Deactivator::deactivate\(\) on a separate line has no effect#'
+            path: bp-job-manager.php
+        # WP Job Manager stores the listing expiry as post meta and exposes it
+        # through WP_Post's magic __get(); PHPStan cannot see magic meta props.
+        - '#Access to an undefined property WP_Post::\$_job_expires#'

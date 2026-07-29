@@ -14,12 +14,13 @@
 
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Parent view provides $settings + $page_url.
- *
- * @var array  $settings bpjm_general_settings already loaded by render_page().
- * @var string $page_url Base admin URL for this plugin page.
+/*
+ * $settings (the bpjm_general_settings option) and $page_url (this plugin's
+ * base admin URL) are injected by Bp_Job_Manager_Admin_Panel::render_page()
+ * through include scope. Normalise both so this view is safe if it is ever
+ * included directly.
  */
+$settings = ( isset( $settings ) && is_array( $settings ) ) ? $settings : array(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Injected by Bp_Job_Manager_Admin_Panel::render_page() through include scope, not a global.
 
 $general_url = isset( $page_url ) ? $page_url . '&tab=general' : admin_url( 'admin.php?page=bp-job-manager&tab=general' );
 
@@ -58,12 +59,12 @@ $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 		<p class="bpjm-stat__trend"><?php esc_html_e( 'Members in these roles get the Resumes profile tab', 'bp-job-manager' ); ?></p>
 	</div>
 	<div class="bpjm-stat">
-		<p class="bpjm-stat__label"><?php esc_html_e( 'Resume Manager', 'bp-job-manager' ); ?></p>
+		<p class="bpjm-stat__label"><?php echo 'Resume Manager'; ?></p>
 		<p class="bpjm-stat__value"><?php echo $bpjm_resumes_on ? esc_html__( 'On', 'bp-job-manager' ) : esc_html__( 'Off', 'bp-job-manager' ); ?></p>
 		<p class="bpjm-stat__trend"><?php esc_html_e( 'Adds resume management inside profiles', 'bp-job-manager' ); ?></p>
 	</div>
 	<div class="bpjm-stat">
-		<p class="bpjm-stat__label"><?php esc_html_e( 'Applications', 'bp-job-manager' ); ?></p>
+		<p class="bpjm-stat__label"><?php echo 'Applications'; ?></p>
 		<p class="bpjm-stat__value"><?php echo $bpjm_apps_on ? esc_html__( 'On', 'bp-job-manager' ) : esc_html__( 'Off', 'bp-job-manager' ); ?></p>
 		<p class="bpjm-stat__trend"><?php esc_html_e( 'Lets members apply to jobs from their profile', 'bp-job-manager' ); ?></p>
 	</div>
@@ -106,7 +107,12 @@ $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 			</td>
 		</tr>
 		<tr>
-			<th scope="row"><?php esc_html_e( 'Resume Manager add-on', 'bp-job-manager' ); ?></th>
+			<th scope="row">
+				<?php
+				/* translators: %s: name of a WP Job Manager add-on, e.g. "Resume Manager". Product name — do not translate the placeholder value. */
+				printf( esc_html__( '%s add-on', 'bp-job-manager' ), 'Resume Manager' );
+				?>
+			</th>
 			<td>
 				<?php if ( $bpjm_resumes_on ) : ?>
 					<span class="bpjm-status bpjm-status--ok"><?php esc_html_e( 'Active', 'bp-job-manager' ); ?></span>
@@ -116,7 +122,12 @@ $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 			</td>
 		</tr>
 		<tr>
-			<th scope="row"><?php esc_html_e( 'Applications add-on', 'bp-job-manager' ); ?></th>
+			<th scope="row">
+				<?php
+				/* translators: %s: name of a WP Job Manager add-on, e.g. "Applications". Product name — do not translate the placeholder value. */
+				printf( esc_html__( '%s add-on', 'bp-job-manager' ), 'Applications' );
+				?>
+			</th>
 			<td>
 				<?php if ( $bpjm_apps_on ) : ?>
 					<span class="bpjm-status bpjm-status--ok"><?php esc_html_e( 'Active', 'bp-job-manager' ); ?></span>

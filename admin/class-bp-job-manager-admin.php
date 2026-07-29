@@ -327,7 +327,11 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		/**
 		 * Sanitize settings for register_setting()
 		 *
-		 * @param array $input Input settings array.
+		 * WordPress calls this with whatever was submitted, which is not
+		 * guaranteed to be an array (an emptied option arrives as null), so the
+		 * parameter is deliberately typed loose and guarded below.
+		 *
+		 * @param mixed $input Input settings, normally an array.
 		 * @return array Sanitized settings array.
 		 */
 		public function bpjm_sanitize_settings( $input ) {

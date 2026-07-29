@@ -49,7 +49,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 		 *
 		 * @since    1.0.0
 		 * @access   public
-		 * @var      string    $post_job_user_roles
+		 * @var      string[]  $post_job_user_roles
 		 */
 		public $post_job_user_roles;
 
@@ -58,7 +58,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 		 *
 		 * @since    1.0.0
 		 * @access   public
-		 * @var      string    $apply_job_user_roles
+		 * @var      string[]  $apply_job_user_roles
 		 */
 		public $apply_job_user_roles;
 

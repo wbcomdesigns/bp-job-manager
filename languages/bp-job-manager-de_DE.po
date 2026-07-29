@@ -4,31 +4,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wbcom Designs - BuddyPress Job Manager 2.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-job-manager\n"
-"POT-Creation-Date: 2026-07-17T10:19:02+00:00\n"
+"POT-Creation-Date: 2026-07-29T09:05:18+00:00\n"
 "PO-Revision-Date: 2026-07-16T11:32:19+00:00\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
-"Language: de\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bp-job-manager\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: bp-job-manager.php
 #. Plugin Name of the plugin
+#: bp-job-manager.php
 msgid "Wbcom Designs - BuddyPress Job Manager"
 msgstr "Wbcom Designs - BuddyPress Job Manager"
 
-#: bp-job-manager.php
 #. Plugin URI of the plugin
 #. Author URI of the plugin
+#: bp-job-manager.php
 msgid "https://wbcomdesigns.com/"
 msgstr "https://wbcomdesigns.com/"
 
-#: bp-job-manager.php
 #. Description of the plugin
+#: bp-job-manager.php
 msgid ""
 "This plugin integrates WordPress Job Manager with BuddyPress. Allows the "
 "members to post jobs, and others to apply for those posted jobs."
@@ -37,98 +37,102 @@ msgstr ""
 "den Mitgliedern, Stellen auszuschreiben, und anderen, sich auf diese "
 "ausgeschriebenen Stellen zu bewerben."
 
-#: bp-job-manager.php
 #. Author of the plugin
+#: bp-job-manager.php
 msgid "Wbcom Designs"
 msgstr "Wbcom Designs"
 
-#: admin/class-bp-job-manager-admin-feedback.php:91
 #. translators: Number of years
+#: admin/class-bp-job-manager-admin-feedback.php:97
 #, php-format
 msgid "%s years"
 msgstr "%s Jahre"
 
-#: admin/class-bp-job-manager-admin-feedback.php:93
+#: admin/class-bp-job-manager-admin-feedback.php:99
 msgid "a year"
 msgstr "ein Jahr"
 
-#: admin/class-bp-job-manager-admin-feedback.php:100
 #. translators: Number of weeks
+#: admin/class-bp-job-manager-admin-feedback.php:106
 #, php-format
 msgid "%s weeks"
 msgstr "%s Wochen"
 
-#: admin/class-bp-job-manager-admin-feedback.php:102
+#: admin/class-bp-job-manager-admin-feedback.php:108
 msgid "a week"
 msgstr "eine Woche"
 
-#: admin/class-bp-job-manager-admin-feedback.php:109
 #. translators: Number of days
+#: admin/class-bp-job-manager-admin-feedback.php:115
 #, php-format
 msgid "%s days"
 msgstr "%s Tage"
 
-#: admin/class-bp-job-manager-admin-feedback.php:111
+#: admin/class-bp-job-manager-admin-feedback.php:117
 msgid "a day"
 msgstr "ein Tag"
 
-#: admin/class-bp-job-manager-admin-feedback.php:118
 #. translators: Number of hours
+#: admin/class-bp-job-manager-admin-feedback.php:124
 #, php-format
 msgid "%s hours"
 msgstr "%s Stunden"
 
-#: admin/class-bp-job-manager-admin-feedback.php:120
+#: admin/class-bp-job-manager-admin-feedback.php:126
 msgid "an hour"
 msgstr "eine Stunde"
 
-#: admin/class-bp-job-manager-admin-feedback.php:127
 #. translators: Number of minutes
+#: admin/class-bp-job-manager-admin-feedback.php:133
 #, php-format
 msgid "%s minutes"
 msgstr "%s Minuten"
 
-#: admin/class-bp-job-manager-admin-feedback.php:129
+#: admin/class-bp-job-manager-admin-feedback.php:135
 msgid "a minute"
 msgstr "eine Minute"
 
-#: admin/class-bp-job-manager-admin-feedback.php:136
 #. translators: Number of seconds
+#: admin/class-bp-job-manager-admin-feedback.php:142
 #, php-format
 msgid "%s seconds"
 msgstr "%s Sekunden"
 
-#: admin/class-bp-job-manager-admin-feedback.php:138
+#: admin/class-bp-job-manager-admin-feedback.php:144
 msgid "a second"
 msgstr "eine Sekunde"
 
-#: admin/class-bp-job-manager-admin-feedback.php:278
+#: admin/class-bp-job-manager-admin-feedback.php:150
+msgid "less than a second"
+msgstr "weniger als eine Sekunde"
+
+#: admin/class-bp-job-manager-admin-feedback.php:290
 msgid "Are you enjoying BuddyPress Job Manager?"
 msgstr "Gefällt dir BuddyPress Job Manager?"
 
-#: admin/class-bp-job-manager-admin-feedback.php:281 bp-job-manager.php:129
+#: admin/class-bp-job-manager-admin-feedback.php:293 bp-job-manager.php:129
 #: includes/admin/class-bp-job-manager-admin-panel.php:112
 #: includes/admin/views/shell.php:31
 msgid "BuddyPress Job Manager"
 msgstr "BuddyPress Job Manager"
 
-#: admin/class-bp-job-manager-admin-feedback.php:285
 #. translators: 1. Name
+#: admin/class-bp-job-manager-admin-feedback.php:297
 #, php-format
 msgid ""
-"We hope you're enjoying %1$s! Could you please do us a BIG favor and give "
-"it a 5-star rating on WordPress to help us spread the word and boost our "
+"We hope you're enjoying %1$s! Could you please do us a BIG favor and give it "
+"a 5-star rating on WordPress to help us spread the word and boost our "
 "motivation?"
 msgstr ""
 "Wir hoffen, dir gefällt %1$s! Könntest du uns einen großen Gefallen tun und "
 "eine 5-Sterne-Bewertung auf WordPress geben, um uns zu helfen, das Wort zu "
 "verbreiten und unsere Motivation zu stärken?"
 
-#: admin/class-bp-job-manager-admin-feedback.php:290
+#: admin/class-bp-job-manager-admin-feedback.php:302
 msgid "Leave a Review"
 msgstr "Eine Bewertung hinterlassen"
 
-#: admin/class-bp-job-manager-admin-feedback.php:291
+#: admin/class-bp-job-manager-admin-feedback.php:303
 msgid "No thanks / I already have"
 msgstr "Nein danke / Das habe ich bereits getan"
 
@@ -137,58 +141,58 @@ msgid "Resumes"
 msgstr "Lebensläufe"
 
 #: admin/class-bp-job-manager-admin.php:135
-#: public/class-bp-job-manager-public.php:946
-#: public/class-bp-job-manager-public.php:1065
+#: public/class-bp-job-manager-public.php:969
+#: public/class-bp-job-manager-public.php:1088
 msgid "My Resumes"
 msgstr "Meine Lebensläufe"
 
 #: admin/class-bp-job-manager-admin.php:144
-#: public/class-bp-job-manager-public.php:995
-#: public/class-bp-job-manager-public.php:1155
+#: public/class-bp-job-manager-public.php:1018
+#: public/class-bp-job-manager-public.php:1178
 msgid "Applied Jobs"
 msgstr "Beworbene Stellen"
 
 #: admin/class-bp-job-manager-admin.php:153
-#: public/class-bp-job-manager-public.php:980
-#: public/class-bp-job-manager-public.php:1029
-#: public/templates/bpjm-resume-listing.php:18
+#: public/class-bp-job-manager-public.php:1003
+#: public/class-bp-job-manager-public.php:1052
+#: public/templates/bpjm-resume-listing.php:26
 msgid "Add Resume"
 msgstr "Lebenslauf hinzufügen"
 
 #: admin/class-bp-job-manager-admin.php:167
-#: public/class-bp-job-manager-public.php:434
-#: public/class-bp-job-manager-public.php:623
+#: public/class-bp-job-manager-public.php:455
+#: public/class-bp-job-manager-public.php:644
 msgid "Jobs"
 msgstr "Stellen"
 
-#: admin/class-bp-job-manager-admin.php:190
-#: public/class-bp-job-manager-public.php:412
-#: public/class-bp-job-manager-public.php:616
 #. translators: %s: User's display name
+#: admin/class-bp-job-manager-admin.php:190
+#: public/class-bp-job-manager-public.php:433
+#: public/class-bp-job-manager-public.php:637
 msgid "My Jobs"
 msgstr "Meine Stellen"
 
 #: admin/class-bp-job-manager-admin.php:199
-#: public/class-bp-job-manager-public.php:476
-#: public/class-bp-job-manager-public.php:517
-#: public/class-bp-job-manager-public.php:579
+#: public/class-bp-job-manager-public.php:497
+#: public/class-bp-job-manager-public.php:538
+#: public/class-bp-job-manager-public.php:600
 msgid "Post Job"
 msgstr "Stelle ausschreiben"
 
-#: admin/class-bp-job-manager-admin.php:233
 #. translators: %1$s: BP user link ; %2$s: Job link
+#: admin/class-bp-job-manager-admin.php:233
 #, php-format
 msgid "%1$s posted a new job %2$s"
 msgstr "%1$s hat eine neue Stelle ausgeschrieben %2$s"
 
-#: admin/class-bp-job-manager-admin.php:258
 #. translators: %1$s: Resume user link ; %2$s: Resume link
+#: admin/class-bp-job-manager-admin.php:258
 #, php-format
 msgid "%1$s posted resume %2$s"
 msgstr "%1$s hat den Lebenslauf %2$s veröffentlicht"
 
-#: bp-job-manager.php:135
 #. translators: %1$s: BuddyPress Job Manager ;  %2$s: BuddyPress ; %3$s: WP Job Manager
+#: bp-job-manager.php:135
 #, php-format
 msgid ""
 "%1$s is ineffective now as it requires %2$s and %3$s to be installed and "
@@ -197,11 +201,11 @@ msgstr ""
 "%1$s funktioniert jetzt nicht, da %2$s und %3$s installiert und aktiviert "
 "sein müssen."
 
-#: bp-job-manager.php:167 includes/admin/views/shell.php:68
+#: bp-job-manager.php:168 includes/admin/views/shell.php:68
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: bp-job-manager.php:168
+#: bp-job-manager.php:169
 msgid "Support"
 msgstr "Unterstützung"
 
@@ -265,8 +269,8 @@ msgid ""
 "The social network layer for WordPress, with feeds, member spaces, and "
 "messaging."
 msgstr ""
-"Die soziale Netzwerkschicht für WordPress mit Feeds, Mitgliederbereichen "
-"und Messaging."
+"Die soziale Netzwerkschicht für WordPress mit Feeds, Mitgliederbereichen und "
+"Messaging."
 
 #: includes/admin/views/discover.php:40
 msgid "Self-moderating forums and Q&A boards that scale to huge topic counts."
@@ -282,12 +286,12 @@ msgstr ""
 
 #: includes/admin/views/discover.php:53
 msgid "Run community events with RSVPs, calendars, and front-end submissions."
-msgstr "Verwalte Community-Events mit Zusagen, Kalendern und Frontend-Einreichungen."
+msgstr ""
+"Verwalte Community-Events mit Zusagen, Kalendern und Frontend-Einreichungen."
 
 #: includes/admin/views/discover.php:60
 msgid ""
-"Reward members with points, badges, and leaderboards to keep engagement "
-"high."
+"Reward members with points, badges, and leaderboards to keep engagement high."
 msgstr ""
 "Belohne Mitglieder mit Punkten, Abzeichen und Bestenlisten, um die "
 "Beteiligung hoch zu halten."
@@ -300,14 +304,14 @@ msgstr ""
 
 #: includes/admin/views/discover.php:73
 msgid ""
-"Add a job board with front-end listings, applications, and employer "
-"profiles."
+"Add a job board with front-end listings, applications, and employer profiles."
 msgstr ""
 "Füge ein Jobportal mit Frontend-Listings, Bewerbungen und "
 "Arbeitgeberprofilen hinzu."
 
 #: includes/admin/views/discover.php:79
-msgid "Sell online courses with quizzes, payments, and completion certificates."
+msgid ""
+"Sell online courses with quizzes, payments, and completion certificates."
 msgstr "Verkaufe Online-Kurse mit Quiz, Zahlungen und Abschlusszertifikaten."
 
 #: includes/admin/views/discover.php:86
@@ -315,8 +319,8 @@ msgid ""
 "A free service marketplace with vendor dashboards, an 11-status order flow, "
 "and Stripe or PayPal built in."
 msgstr ""
-"Ein kostenloses Service-Marktplatz mit Verkäufer-Dashboards, einem "
-"11-Status-Bestellablauf und integriertem Stripe oder PayPal."
+"Ein kostenloses Service-Marktplatz mit Verkäufer-Dashboards, einem 11-Status-"
+"Bestellablauf und integriertem Stripe oder PayPal."
 
 #: includes/admin/views/discover.php:94
 msgid "More Free Tools from Wbcom Designs"
@@ -338,14 +342,14 @@ msgstr ""
 msgid "Get it free"
 msgstr "Kostenlos erhalten"
 
-#: includes/admin/views/discover.php:112
 #. translators: %s: product name.
+#: includes/admin/views/discover.php:112
 #, php-format
 msgid "%s (opens in a new tab)"
 msgstr "%s (öffnet sich in einem neuen Tab)"
 
-#: includes/admin/views/hub.php:69
 #. translators: %d: active Wbcom plugin count
+#: includes/admin/views/hub.php:69
 #, php-format
 msgid "%d Wbcom plugin active on this site."
 msgid_plural "%d Wbcom plugins active on this site."
@@ -357,7 +361,8 @@ msgid "No Wbcom plugins attached to this hub yet"
 msgstr "Noch keine Wbcom Plugins an diesem Hub angehängt"
 
 #: includes/admin/views/hub.php:91
-msgid "Activate one or more Wbcom plugins and they will appear here automatically."
+msgid ""
+"Activate one or more Wbcom plugins and they will appear here automatically."
 msgstr ""
 "Aktiviere ein oder mehrere Wbcom Plugins und sie werden hier automatisch "
 "angezeigt."
@@ -384,53 +389,48 @@ msgstr ""
 msgid "Visit wbcomdesigns.com for more plugins and themes →"
 msgstr "Besuche wbcomdesigns.com für weitere Plugins und Designs →"
 
-#: includes/admin/views/overview.php:51
+#: includes/admin/views/overview.php:52
 msgid "Roles That Can Post Jobs"
 msgstr "Rollen, die Stellen ausschreiben können"
 
-#: includes/admin/views/overview.php:53
+#: includes/admin/views/overview.php:54
 msgid "Members in these roles get the Jobs profile tab"
-msgstr "Mitglieder in diesen Rollen erhalten die Registerkarte Stellen im Profil"
+msgstr ""
+"Mitglieder in diesen Rollen erhalten die Registerkarte Stellen im Profil"
 
-#: includes/admin/views/overview.php:56
+#: includes/admin/views/overview.php:57
 msgid "Roles That Can Apply"
 msgstr "Rollen, die sich bewerben können"
 
-#: includes/admin/views/overview.php:58
+#: includes/admin/views/overview.php:59
 msgid "Members in these roles get the Resumes profile tab"
-msgstr "Mitglieder in diesen Rollen erhalten die Registerkarte Lebensläufe im Profil"
+msgstr ""
+"Mitglieder in diesen Rollen erhalten die Registerkarte Lebensläufe im Profil"
 
-#: includes/admin/views/overview.php:61
-msgid "Resume Manager"
-msgstr "Resume Manager"
-
-#: includes/admin/views/overview.php:62 includes/admin/views/overview.php:67
+#: includes/admin/views/overview.php:63 includes/admin/views/overview.php:68
 msgid "On"
 msgstr "An"
 
-#: includes/admin/views/overview.php:62 includes/admin/views/overview.php:67
-#: includes/admin/views/overview.php:143 includes/admin/views/overview.php:155
-#: includes/admin/views/overview.php:166 includes/admin/views/overview.php:179
+#: includes/admin/views/overview.php:63 includes/admin/views/overview.php:68
+#: includes/admin/views/overview.php:154 includes/admin/views/overview.php:166
+#: includes/admin/views/overview.php:177 includes/admin/views/overview.php:190
 msgid "Off"
 msgstr "Aus"
 
-#: includes/admin/views/overview.php:63
+#: includes/admin/views/overview.php:64
 msgid "Adds resume management inside profiles"
 msgstr "Ermöglicht die Verwaltung von Lebensläufen in Profilen"
 
-#: includes/admin/views/overview.php:66
-msgid "Applications"
-msgstr "Bewerbungen"
-
-#: includes/admin/views/overview.php:68
+#: includes/admin/views/overview.php:69
 msgid "Lets members apply to jobs from their profile"
-msgstr "Ermöglicht Mitgliedern, sich von ihrem Profil aus auf Stellen zu bewerben"
+msgstr ""
+"Ermöglicht Mitgliedern, sich von ihrem Profil aus auf Stellen zu bewerben"
 
-#: includes/admin/views/overview.php:76
+#: includes/admin/views/overview.php:77
 msgid "Required plugins missing."
 msgstr "Erforderliche Plugins fehlen."
 
-#: includes/admin/views/overview.php:77
+#: includes/admin/views/overview.php:78
 msgid ""
 "BuddyPress Job Manager needs both BuddyPress and WP Job Manager to be "
 "active. Activate them to use the profile job and resume features."
@@ -439,11 +439,11 @@ msgstr ""
 "um aktiv zu sein. Aktiviere beide, um die Profil-Stellen- und "
 "Lebenslauffunktionen zu nutzen."
 
-#: includes/admin/views/overview.php:84
+#: includes/admin/views/overview.php:85
 msgid "Required Integrations"
 msgstr "Erforderliche Integrationen"
 
-#: includes/admin/views/overview.php:85
+#: includes/admin/views/overview.php:86
 msgid ""
 "What this plugin connects to. Resume and application features need the "
 "matching WP Job Manager add-ons."
@@ -451,32 +451,31 @@ msgstr ""
 "Worauf dieses Plugin sich verbindet. Lebensläufe und Bewerbungsfunktionen "
 "benötigen die entsprechenden WP Job Manager Add-ons."
 
-#: includes/admin/views/overview.php:92 includes/admin/views/overview.php:102
-#: includes/admin/views/overview.php:112 includes/admin/views/overview.php:122
+#: includes/admin/views/overview.php:93 includes/admin/views/overview.php:103
+#: includes/admin/views/overview.php:118 includes/admin/views/overview.php:133
 msgid "Active"
 msgstr "Aktiv"
 
-#: includes/admin/views/overview.php:94 includes/admin/views/overview.php:104
+#: includes/admin/views/overview.php:95 includes/admin/views/overview.php:105
 msgid "Not active"
 msgstr "Nicht aktiv"
 
-#: includes/admin/views/overview.php:109
-msgid "Resume Manager add-on"
-msgstr "Resume Manager Add-on"
+#. translators: %s: name of a WP Job Manager add-on, e.g. "Resume Manager". Product name — do not translate the placeholder value.
+#. translators: %s: name of a WP Job Manager add-on, e.g. "Applications". Product name — do not translate the placeholder value.
+#: includes/admin/views/overview.php:113 includes/admin/views/overview.php:128
+#, php-format
+msgid "%s add-on"
+msgstr "%s Add-on"
 
-#: includes/admin/views/overview.php:114 includes/admin/views/overview.php:124
+#: includes/admin/views/overview.php:120 includes/admin/views/overview.php:135
 msgid "Optional — not active"
 msgstr "Optional — nicht aktiv"
 
-#: includes/admin/views/overview.php:119
-msgid "Applications add-on"
-msgstr "Bewerbungen Add-on"
-
-#: includes/admin/views/overview.php:133
+#: includes/admin/views/overview.php:144
 msgid "Current Configuration"
 msgstr "Aktuelle Konfiguration"
 
-#: includes/admin/views/overview.php:134
+#: includes/admin/views/overview.php:145
 msgid ""
 "What happens right now when members post jobs, publish resumes, or apply. "
 "Change any of these on the General tab."
@@ -485,64 +484,64 @@ msgstr ""
 "veröffentlichen oder sich bewerben. Ändere diese auf der Registerkarte "
 "Allgemein."
 
-#: includes/admin/views/overview.php:138
+#: includes/admin/views/overview.php:149
 msgid "Activity for job posts"
 msgstr "Aktivität für Stellenausschreibungen"
 
-#: includes/admin/views/overview.php:141
+#: includes/admin/views/overview.php:152
 msgid "On: a new job creates a BuddyPress activity update"
-msgstr "An: Eine neue Stelle erstellt ein BuddyPress Aktivitätsupdate"
+msgstr "An: Eine neue Stelle erstellt ein BuddyPress-Aktivitätsupdate"
 
-#: includes/admin/views/overview.php:144 includes/admin/views/overview.php:156
-#: includes/admin/views/overview.php:167 includes/admin/views/overview.php:180
+#: includes/admin/views/overview.php:155 includes/admin/views/overview.php:167
+#: includes/admin/views/overview.php:178 includes/admin/views/overview.php:191
 msgid "Turn on"
 msgstr "Aktivieren"
 
-#: includes/admin/views/overview.php:150
+#: includes/admin/views/overview.php:161
 msgid "Activity for resumes"
 msgstr "Aktivität für Lebensläufe"
 
-#: includes/admin/views/overview.php:153
+#: includes/admin/views/overview.php:164
 msgid "On: a new resume creates a BuddyPress activity update"
-msgstr "An: Ein neuer Lebenslauf erstellt ein BuddyPress Aktivitätsupdate"
+msgstr "An: Ein neuer Lebenslauf erstellt ein BuddyPress-Aktivitätsupdate"
 
-#: includes/admin/views/overview.php:161
-#: includes/admin/views/settings-general.php:156
+#: includes/admin/views/overview.php:172
+#: includes/admin/views/settings-general.php:158
 msgid "Resume on profile"
 msgstr "Lebenslauf im Profil"
 
-#: includes/admin/views/overview.php:164
+#: includes/admin/views/overview.php:175
 msgid "On: members see the latest resume on profiles"
 msgstr "An: Mitglieder sehen den neuesten Lebenslauf in Profilen"
 
-#: includes/admin/views/overview.php:174
-#: includes/admin/views/settings-general.php:167
+#: includes/admin/views/overview.php:185
+#: includes/admin/views/settings-general.php:169
 msgid "Application notifications"
 msgstr "Bewerbungsbenachrichtigungen"
 
-#: includes/admin/views/overview.php:177
+#: includes/admin/views/overview.php:188
 msgid "On: job authors get a BuddyPress notification for each application"
 msgstr ""
-"An: Stellenautor erhalten eine BuddyPress Benachrichtigung für jede "
+"An: Stellenautoren erhalten eine BuddyPress-Benachrichtigung für jede "
 "Bewerbung"
 
-#: includes/admin/views/overview.php:190
+#: includes/admin/views/overview.php:201
 msgid "Quick Actions"
 msgstr "Schnellaktionen"
 
-#: includes/admin/views/overview.php:196
+#: includes/admin/views/overview.php:207
 msgid "Configure Settings"
 msgstr "Einstellungen konfigurieren"
 
-#: includes/admin/views/overview.php:200 includes/admin/views/welcome.php:41
+#: includes/admin/views/overview.php:211 includes/admin/views/welcome.php:41
 msgid "Read Documentation"
 msgstr "Dokumentation lesen"
 
-#: includes/admin/views/settings-general.php:83
+#: includes/admin/views/settings-general.php:85
 msgid "Who Can Post & Apply"
 msgstr "Wer kann ausschreiben und sich bewerben"
 
-#: includes/admin/views/settings-general.php:84
+#: includes/admin/views/settings-general.php:86
 msgid ""
 "Pick the member roles that get each profile tab. Hold Ctrl (Windows) or Cmd "
 "(Mac) to select more than one. Add \"Guest\" to let people who are not "
@@ -552,16 +551,16 @@ msgstr ""
 "(Windows) oder Cmd (Mac) gedrückt, um mehr als einen auszuwählen. Füge "
 "\"Gast\" hinzu, um Personen, die nicht angemeldet sind, einzubeziehen."
 
-#: includes/admin/views/settings-general.php:89
+#: includes/admin/views/settings-general.php:91
 msgid "Roles allowed to post jobs"
 msgstr "Rollen, die Stellen ausschreiben dürfen"
 
-#: includes/admin/views/settings-general.php:100
-#: includes/admin/views/settings-general.php:120
+#: includes/admin/views/settings-general.php:102
+#: includes/admin/views/settings-general.php:122
 msgid "Guest (not logged in)"
 msgstr "Gast (nicht angemeldet)"
 
-#: includes/admin/views/settings-general.php:104
+#: includes/admin/views/settings-general.php:106
 msgid ""
 "Members in these roles get the Jobs tab on their profile, where they can "
 "post and manage job listings."
@@ -569,11 +568,11 @@ msgstr ""
 "Mitglieder in diesen Rollen erhalten die Registerkarte Stellen in ihrem "
 "Profil, wo sie Stellenausschreibungen posten und verwalten können."
 
-#: includes/admin/views/settings-general.php:109
+#: includes/admin/views/settings-general.php:111
 msgid "Roles allowed to apply for jobs"
 msgstr "Rollen, die sich auf Stellen bewerben dürfen"
 
-#: includes/admin/views/settings-general.php:124
+#: includes/admin/views/settings-general.php:126
 msgid ""
 "Members in these roles get the Resumes tab on their profile, where they can "
 "manage resumes and apply for jobs."
@@ -581,60 +580,61 @@ msgstr ""
 "Mitglieder in diesen Rollen erhalten die Registerkarte Lebensläufe in ihrem "
 "Profil, wo sie Lebensläufe verwalten und sich auf Stellen bewerben können."
 
-#: includes/admin/views/settings-general.php:132
+#: includes/admin/views/settings-general.php:134
 msgid "Activity & Notifications"
 msgstr "Aktivität & Benachrichtigungen"
 
-#: includes/admin/views/settings-general.php:133
+#: includes/admin/views/settings-general.php:135
 msgid ""
-"Decide what shows up in the BuddyPress activity feed and which "
-"notifications members receive."
+"Decide what shows up in the BuddyPress activity feed and which notifications "
+"members receive."
 msgstr ""
 "Entscheide, was im BuddyPress Aktivitätsfeed angezeigt wird und welche "
 "Benachrichtigungen Mitglieder erhalten."
 
-#: includes/admin/views/settings-general.php:137
+#: includes/admin/views/settings-general.php:139
 msgid "Post job activity"
 msgstr "Stellenausschreibungsaktivität posten"
 
-#: includes/admin/views/settings-general.php:141
+#: includes/admin/views/settings-general.php:143
 msgid "Add a BuddyPress activity update when a member posts a job"
 msgstr ""
-"Füge ein BuddyPress Aktivitätsupdate hinzu, wenn ein Mitglied eine Stelle "
-"ausschreibt"
+"Füge ein BuddyPress-Aktivitätsupdate hinzu, wenn ein Mitglied eine Stelle "
+"veröffentlicht"
 
-#: includes/admin/views/settings-general.php:147
+#: includes/admin/views/settings-general.php:149
 msgid "Post resume activity"
 msgstr "Lebenslauffeed posten"
 
-#: includes/admin/views/settings-general.php:151
+#: includes/admin/views/settings-general.php:153
 msgid "Add a BuddyPress activity update when a member publishes a resume"
 msgstr ""
-"Füge ein BuddyPress Aktivitätsupdate hinzu, wenn ein Mitglied einen "
+"Füge ein BuddyPress-Aktivitätsupdate hinzu, wenn ein Mitglied einen "
 "Lebenslauf veröffentlicht"
 
-#: includes/admin/views/settings-general.php:160
+#: includes/admin/views/settings-general.php:162
 msgid "Show the latest resume on the member's BuddyPress profile"
-msgstr "Zeige den neuesten Lebenslauf im BuddyPress Profil des Mitglieds"
+msgstr "Zeige den neuesten Lebenslauf im BuddyPress-Profil des Mitglieds"
 
-#: includes/admin/views/settings-general.php:171
+#: includes/admin/views/settings-general.php:173
 msgid "Send the job author a BuddyPress notification when someone applies"
 msgstr ""
-"Sende dem Stellenautor eine BuddyPress Benachrichtigung, wenn sich jemand "
+"Sende dem Stellenautor eine BuddyPress-Benachrichtigung, wenn sich jemand "
 "bewirbt"
 
-#: includes/admin/views/settings-general.php:183
+#: includes/admin/views/settings-general.php:185
 msgid "More options unlock with the WP Job Manager add-ons."
 msgstr "Weitere Optionen werden mit den WP Job Manager Add-ons freigegeben."
 
-#: includes/admin/views/settings-general.php:184
+#. translators: 1: "Resume Manager" add-on name, 2: "Applications" add-on name. Both are WP Job Manager product names — do not translate the placeholder values.
+#: includes/admin/views/settings-general.php:188
+#, php-format
 msgid ""
-"Install the Resume Manager and Applications add-ons to manage resumes on "
-"profiles and notify job authors about new applications."
+"Install the %1$s and %2$s add-ons to manage resumes on profiles and notify "
+"job authors about new applications."
 msgstr ""
-"Installiere die Resume Manager und Applications Add-ons, um Lebensläufe in "
-"Profilen zu verwalten und Stellenautoren über neue Bewerbungen zu "
-"benachrichtigen."
+"Installiere die Add-ons %1$s und %2$s, um Lebensläufe in Profilen zu "
+"verwalten und Stellenautoren über neue Bewerbungen zu benachrichtigen."
 
 #: includes/admin/views/shell.php:32
 msgid ""
@@ -697,8 +697,8 @@ msgid ""
 "and to control activity-feed updates and application notifications."
 msgstr ""
 "Verwende die Registerkarte Allgemein, um zu wählen, welche Mitgliederrollen "
-"Stellen ausschreiben und sich bewerben können, und um "
-"Aktivitätsfeed-Updates und Benachrichtigungen über Bewerbungen zu steuern."
+"Stellen ausschreiben und sich bewerben können, und um Aktivitätsfeed-Updates "
+"und Benachrichtigungen über Bewerbungen zu steuern."
 
 #: includes/admin/views/welcome.php:32
 msgid "Help & Support Resources"
@@ -730,8 +730,8 @@ msgid ""
 "Our support center provides top-notch assistance. Reach out any time you "
 "need a hand."
 msgstr ""
-"Unser Support Center bietet erstklassige Unterstützung. Melde dich "
-"jederzeit an, wenn du Hilfe brauchst."
+"Unser Support Center bietet erstklassige Unterstützung. Melde dich jederzeit "
+"an, wenn du Hilfe brauchst."
 
 #: includes/admin/views/welcome.php:47
 msgid "Get Support"
@@ -753,235 +753,235 @@ msgstr ""
 msgid "Send Feedback"
 msgstr "Feedback senden"
 
-#: public/class-bp-job-manager-public.php:179
+#: public/class-bp-job-manager-public.php:217
 msgid "Loading..."
 msgstr "Wird geladen..."
 
-#: public/class-bp-job-manager-public.php:237
+#: public/class-bp-job-manager-public.php:256
 msgid "Invalid member profile."
 msgstr "Ungültiges Mitgliederprofil."
 
-#: public/class-bp-job-manager-public.php:246
-#: public/class-bp-job-manager-public.php:1112
+#: public/class-bp-job-manager-public.php:265
+#: public/class-bp-job-manager-public.php:1135
 #: public/templates/bpjm-job-listing.php:13
 msgid "Title"
 msgstr "Titel"
 
-#: public/class-bp-job-manager-public.php:247
+#: public/class-bp-job-manager-public.php:266
 #: public/templates/bpjm-job-listing.php:14
 msgid "Filled?"
 msgstr "Besetzt?"
 
-#: public/class-bp-job-manager-public.php:248
-#: public/class-bp-job-manager-public.php:1115
+#: public/class-bp-job-manager-public.php:267
+#: public/class-bp-job-manager-public.php:1138
 #: public/templates/bpjm-job-listing.php:15
 msgid "Date Posted"
 msgstr "Datum der Veröffentlichung"
 
-#: public/class-bp-job-manager-public.php:249
+#: public/class-bp-job-manager-public.php:268
 #: public/templates/bpjm-job-listing.php:16
 msgid "Listing Expires"
 msgstr "Angebot läuft ab"
 
-#: public/class-bp-job-manager-public.php:250
-#: public/class-bp-job-manager-public.php:858
+#: public/class-bp-job-manager-public.php:269
+#: public/class-bp-job-manager-public.php:880
 #: public/templates/bpjm-job-listing.php:17
 msgid "Actions"
 msgstr "Aktionen"
 
-#: public/class-bp-job-manager-public.php:275
+#: public/class-bp-job-manager-public.php:294
 #: public/templates/bpjm-job-listing.php:46
 msgid "Featured Job"
 msgstr "Empfohlene Stelle"
 
-#: public/class-bp-job-manager-public.php:285
-#: public/class-bp-job-manager-public.php:318
-#: public/templates/bpjm-resume-listing.php:59
-#: public/templates/bpjm-resume-listing.php:71
-#: public/templates/bpjm-resume-listing.php:84
+#: public/class-bp-job-manager-public.php:304
+#: public/class-bp-job-manager-public.php:337
+#: public/templates/bpjm-resume-listing.php:67
+#: public/templates/bpjm-resume-listing.php:79
+#: public/templates/bpjm-resume-listing.php:92
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: public/class-bp-job-manager-public.php:291
+#: public/class-bp-job-manager-public.php:310
 msgid "Mark not filled"
 msgstr "Als nicht besetzt markieren"
 
-#: public/class-bp-job-manager-public.php:296
+#: public/class-bp-job-manager-public.php:315
 msgid "Mark filled"
 msgstr "Als besetzt markieren"
 
-#: public/class-bp-job-manager-public.php:302
+#: public/class-bp-job-manager-public.php:321
 msgid "Duplicate"
 msgstr "Duplizieren"
 
-#: public/class-bp-job-manager-public.php:309
-#: public/templates/bpjm-resume-listing.php:92
+#: public/class-bp-job-manager-public.php:328
+#: public/templates/bpjm-resume-listing.php:100
 msgid "Relist"
 msgstr "Erneut auflisten"
 
-#: public/class-bp-job-manager-public.php:326
+#: public/class-bp-job-manager-public.php:345
 msgid "Continue Submission"
 msgstr "Einreichung fortsetzen"
 
-#: public/class-bp-job-manager-public.php:333
-#: public/templates/bpjm-resume-listing.php:100
+#: public/class-bp-job-manager-public.php:352
+#: public/templates/bpjm-resume-listing.php:108
 msgid "Delete"
 msgstr "Löschen"
 
-#: public/class-bp-job-manager-public.php:412
 #. translators: %s: User's display name
+#: public/class-bp-job-manager-public.php:433
 #, php-format
 msgid "%s's Jobs"
 msgstr "%s's Stellen"
 
-#: public/class-bp-job-manager-public.php:414
 #. translators: %s: Job count
+#: public/class-bp-job-manager-public.php:435
 #, php-format
 msgid "Jobs %s"
 msgstr "Stellen %s"
 
-#: public/class-bp-job-manager-public.php:449
-#: public/class-bp-job-manager-public.php:713
+#: public/class-bp-job-manager-public.php:470
+#: public/class-bp-job-manager-public.php:734
 msgid "My Bookmarks"
 msgstr "Meine Lesezeichen"
 
-#: public/class-bp-job-manager-public.php:463
-#: public/class-bp-job-manager-public.php:748
+#: public/class-bp-job-manager-public.php:484
+#: public/class-bp-job-manager-public.php:769
 msgid "Job Alerts"
 msgstr "Stellenbenachrichtigungen"
 
-#: public/class-bp-job-manager-public.php:620
 #. Translators: %s is the name of the user.
+#: public/class-bp-job-manager-public.php:641
 #, php-format
 msgid "%s Jobs"
 msgstr "%s Stellen"
 
-#: public/class-bp-job-manager-public.php:895
+#: public/class-bp-job-manager-public.php:918
 msgid "Submit Application"
 msgstr "Bewerbung einreichen"
 
-#: public/class-bp-job-manager-public.php:901
+#: public/class-bp-job-manager-public.php:924
 msgid "This job position is no longer available."
 msgstr "Diese Stelle ist nicht mehr verfügbar."
 
-#: public/class-bp-job-manager-public.php:904
+#: public/class-bp-job-manager-public.php:927
 msgid "You do not meet the requirements to apply for this job."
-msgstr "Du erfüllst nicht die Anforderungen, um dich auf diese Stelle zu bewerben."
+msgstr ""
+"Du erfüllst nicht die Anforderungen, um dich auf diese Stelle zu bewerben."
 
-#: public/class-bp-job-manager-public.php:946
-#: public/class-bp-job-manager-public.php:1069
 #. translators: %s: bp_core_get_user_displayname
 #. translators: %s: Author Name
+#: public/class-bp-job-manager-public.php:969
+#: public/class-bp-job-manager-public.php:1092
 #, php-format
 msgid "%s's Resumes"
 msgstr "%s's Lebensläufe"
 
-#: public/class-bp-job-manager-public.php:948
 #. translators: %s: bp_core_number_format
+#: public/class-bp-job-manager-public.php:971
 #, php-format
 msgid "Resumes %s"
 msgstr "Lebensläufe %s"
 
-#: public/class-bp-job-manager-public.php:1085
+#: public/class-bp-job-manager-public.php:1108
 msgid "You need to be signed in to manage your resumes."
 msgstr "Du musst angemeldet sein, um deine Lebensläufe zu verwalten."
 
-#: public/class-bp-job-manager-public.php:1090
+#: public/class-bp-job-manager-public.php:1113
 msgid "Sign in"
 msgstr "Anmelden"
 
-#: public/class-bp-job-manager-public.php:1111
+#: public/class-bp-job-manager-public.php:1134
 msgid "Name"
 msgstr "Name"
 
-#: public/class-bp-job-manager-public.php:1113
+#: public/class-bp-job-manager-public.php:1136
 #: public/templates/profile-content-single-resume.php:67
 msgid "Location"
 msgstr "Ort"
 
-#: public/class-bp-job-manager-public.php:1114
+#: public/class-bp-job-manager-public.php:1137
 msgid "Category"
 msgstr "Kategorie"
 
-#: public/class-bp-job-manager-public.php:1254
+#: public/class-bp-job-manager-public.php:1277
 msgid "Resume Fields"
-msgstr "Lebenslaufffelder"
+msgstr "Lebenslauffelder"
 
-#: public/class-bp-job-manager-public.php:1318
+#: public/class-bp-job-manager-public.php:1342
 msgid "Resume"
 msgstr "Lebenslauf"
 
-#: public/class-bp-job-manager-public.php:1319
+#: public/class-bp-job-manager-public.php:1343
 msgid "Visibility"
 msgstr "Sichtbarkeit"
 
-#: public/class-bp-job-manager-public.php:1324
+#: public/class-bp-job-manager-public.php:1348
 msgid "Show resume on the profile page"
 msgstr "Zeige den Lebenslauf auf der Profilseite"
 
-#: public/class-bp-job-manager-public.php:1336
+#: public/class-bp-job-manager-public.php:1360
 msgid "Select resume to display at profile"
 msgstr "Wähle einen Lebenslauf für die Anzeige im Profil"
 
-#: public/class-bp-job-manager-public.php:1348
+#: public/class-bp-job-manager-public.php:1372
 msgid "Show email field"
 msgstr "E-Mail-Feld anzeigen"
 
-#: public/class-bp-job-manager-public.php:1360
+#: public/class-bp-job-manager-public.php:1384
 msgid "Display professional title"
 msgstr "Berufliche Bezeichnung anzeigen"
 
-#: public/class-bp-job-manager-public.php:1372
+#: public/class-bp-job-manager-public.php:1396
 msgid "Display location"
 msgstr "Ort anzeigen"
 
-#: public/class-bp-job-manager-public.php:1384
+#: public/class-bp-job-manager-public.php:1408
 msgid "Display video link"
 msgstr "Video-Link anzeigen"
 
-#: public/class-bp-job-manager-public.php:1396
+#: public/class-bp-job-manager-public.php:1420
 msgid "Display resume contents(description)"
 msgstr "Inhalt des Lebenslaufs anzeigen (Beschreibung)"
 
-#: public/class-bp-job-manager-public.php:1408
+#: public/class-bp-job-manager-public.php:1432
 msgid "Display URL(s)"
 msgstr "URL(s) anzeigen"
 
-#: public/class-bp-job-manager-public.php:1420
+#: public/class-bp-job-manager-public.php:1444
 msgid "Display education"
 msgstr "Ausbildung anzeigen"
 
-#: public/class-bp-job-manager-public.php:1432
+#: public/class-bp-job-manager-public.php:1456
 msgid "Display experience"
 msgstr "Erfahrung anzeigen"
 
-#: public/class-bp-job-manager-public.php:1449
+#: public/class-bp-job-manager-public.php:1473
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
-#: public/class-bp-job-manager-public.php:1462
+#: public/class-bp-job-manager-public.php:1486
 msgid ""
-"No resume fields available. Please create a resume to enable display "
-"options."
+"No resume fields available. Please create a resume to enable display options."
 msgstr ""
-"Keine Lebenslaufffelder verfügbar. Bitte erstelle einen Lebenslauf, um "
+"Keine Lebenslauffelder verfügbar. Bitte erstelle einen Lebenslauf, um "
 "Anzeigeoptionen zu aktivieren."
 
-#: public/class-bp-job-manager-public.php:1610
+#: public/class-bp-job-manager-public.php:1634
 msgid "Private Message"
 msgstr "Private Nachricht"
 
-#: public/class-bp-job-manager-public.php:1610
+#: public/class-bp-job-manager-public.php:1634
 msgid "Send Private Message"
 msgstr "Private Nachricht senden"
 
-#: public/class-bp-job-manager-public.php:1693
 #. translators: %1$s: Applicant Name
+#: public/class-bp-job-manager-public.php:1721
 #, php-format
 msgid "%s submitted an application for your job posting."
 msgstr "%s hat eine Bewerbung für deine Stellenausschreibung eingereicht."
 
-#: public/class-bp-job-manager-public.php:1759
+#: public/class-bp-job-manager-public.php:1787
 msgid ""
 "You are not authorized to post a job. Please reach out to the administrator "
 "for further assistance."
@@ -997,14 +997,16 @@ msgstr "Kein Inhalt verfügbar."
 msgid "No jobs found."
 msgstr "Keine Stellen gefunden."
 
-#: public/templates/bpjm-my-applied-jobs.php:51
 #. translators: %s: total number of job applications.
+#: public/templates/bpjm-my-applied-jobs.php:51
 #, php-format
-msgid "You have applied to %s job. Your applications are shown in the table below."
-msgid_plural "You have applied to %s jobs. Your applications are shown in the table below."
+msgid ""
+"You have applied to %s job. Your applications are shown in the table below."
+msgid_plural ""
+"You have applied to %s jobs. Your applications are shown in the table below."
 msgstr[0] ""
-"Du hast dich auf %s Stelle beworben. Deine Bewerbungen werden in der "
-"Tabelle unten angezeigt."
+"Du hast dich auf %s Stelle beworben. Deine Bewerbungen werden in der Tabelle "
+"unten angezeigt."
 msgstr[1] ""
 "Du hast dich auf %s Stellen beworben. Deine Bewerbungen werden in der "
 "Tabelle unten angezeigt."
@@ -1041,20 +1043,20 @@ msgstr "Keine Anlage"
 msgid "Applied jobs pagination"
 msgstr "Paginierung der Stellen, auf die du dich beworben hast"
 
-#: public/templates/bpjm-resume-listing.php:37
+#: public/templates/bpjm-resume-listing.php:45
 msgid "You do not have any active resume listings."
 msgstr "Du hast keine aktiven Lebensläufe."
 
-#: public/templates/bpjm-resume-listing.php:64
+#: public/templates/bpjm-resume-listing.php:72
 msgid "Hide"
 msgstr "Ausblenden"
 
-#: public/templates/bpjm-resume-listing.php:76
+#: public/templates/bpjm-resume-listing.php:84
 msgid "Publish"
 msgstr "Veröffentlichen"
 
-#: public/templates/bpjm-resume-listing.php:169
 #. translators: %s: Expire Date
+#: public/templates/bpjm-resume-listing.php:177
 #, php-format
 msgid "Expires %s"
 msgstr "Läuft ab %s"
@@ -1117,48 +1119,3 @@ msgstr "Arbeitgeber"
 #: public/templates/profile-content-single-resume.php:183
 msgid "Job Title"
 msgstr "Berufsbezeichnung"
-
-#~ msgid "BuddyPress"
-#~ msgstr "BuddyPress"
-
-#~ msgid "WP Job Manager"
-#~ msgstr "WP Job Manager"
-
-#~ msgid "BuddyX"
-#~ msgstr "BuddyX"
-
-#~ msgid "BuddyNext"
-#~ msgstr "BuddyNext"
-
-#~ msgid "Jetonomy"
-#~ msgstr "Jetonomy"
-
-#~ msgid "Mediaverse"
-#~ msgstr "Mediaverse"
-
-#~ msgid "Eventonomy"
-#~ msgstr "Eventonomy"
-
-#~ msgid "WB Gamification"
-#~ msgstr "WB Gamification"
-
-#~ msgid "Listora"
-#~ msgstr "Listora"
-
-#~ msgid "WP Career Board"
-#~ msgstr "WP Career Board"
-
-#~ msgid "Learnomy"
-#~ msgstr "Learnomy"
-
-#~ msgid "WP Sell Services"
-#~ msgstr "WP Sell Services"
-
-#~ msgid ""
-#~ "Job Manager brings hiring into member profiles. These free Wbcom Designs "
-#~ "plugins build out the rest of the community around those careers — the "
-#~ "network itself, forums, media, directories, and courses."
-#~ msgstr ""
-#~ "Job Manager bringt Einstellung in Mitgliederprofile. Diese kostenlosen "
-#~ "Wbcom Designs Plugins erweitern den Rest der Community um diese Karrieren "
-#~ "herum — das Netzwerk selbst, Foren, Medien, Verzeichnisse und Kurse."

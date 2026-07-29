@@ -35,9 +35,9 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 		private $name;
 
 		/**
-		 * Time limit.
+		 * Time limit in seconds before the review notice appears.
 		 *
-		 * @var string $time_limit
+		 * @var int $time_limit
 		 */
 		private $time_limit;
 
@@ -58,7 +58,12 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 		/**
 		 * Class constructor.
 		 *
-		 * @param string $args Arguments.
+		 * @param array $args {
+		 *     Feedback notice configuration.
+		 *
+		 *     @type string $slug       Option-name prefix.
+		 *     @type int    $time_limit Seconds to wait before showing the notice.
+		 * }
 		 */
 		public function __construct( $args ) {
 			$this->slug = $args['slug'];
@@ -80,7 +85,8 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 		/**
 		 * Seconds to words.
 		 *
-		 * @param string $seconds Seconds in time.
+		 * @param int $seconds Seconds in time.
+		 * @return string Humanised duration.
 		 */
 		public function seconds_to_words( $seconds ) {
 
@@ -137,6 +143,11 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 			} elseif ( $seconds > 0 ) {
 				return __( 'a second', 'bp-job-manager' );
 			}
+
+			// Every branch above needs a non-zero remainder, so a duration that
+			// lands exactly on zero would otherwise fall through and return null
+			// into the notice text.
+			return __( 'less than a second', 'bp-job-manager' );
 		}
 
 
@@ -144,7 +155,8 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 		 * Check date on admin initiation and add to admin notice if it was more than the time limit.
 		 */
 		public function check_installation_date() {
-			if ( ! get_site_option( $this->nobug_option ) || false === get_site_option( $this->nobug_option ) ) {
+			// get_site_option() returns false when unset, so one check covers both.
+			if ( ! get_site_option( $this->nobug_option ) ) {
 				add_site_option( $this->date_option, time() );
 
 				// Retrieve the activation date.

@@ -304,7 +304,10 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 		 */
 		public function define_globals() {
 			global $bpjm_bp_job_manager;
-			$bpjm_bp_job_manager = new Bp_Job_Manager_Globals( $this->get_plugin_name(), $this->get_version() );
+			// Bp_Job_Manager_Globals::__construct() takes no arguments — it derives
+			// the plugin name and reads BPJM_PLUGIN_VERSION itself, so passing them
+			// here was silently discarded.
+			$bpjm_bp_job_manager = new Bp_Job_Manager_Globals();
 		}
 
 		/**

@@ -36,6 +36,8 @@ WordPress-Plugin-Boilerplate layout (Bootstrap -> Loader -> Globals -> Admin/Pub
 - **No own tables / CPTs** — operates entirely on WPJM `job_listing` / `resume` posts and BP `bp_activity`.
 - **Role-based front-end gating**, capability-based admin gating. Front-end tab access is driven by `post_job_user_roles` / `apply_job_user_roles` arrays, NOT WP caps.
 - **`bpjm_load_more_jobs` is intentionally public** (priv + nopriv), nonce-only — do not add a capability check; it would break the public infinite-scroll feed. It IS author-scoped: the request must carry the displayed profile's `user_id` (localized as `displayed_user_id`), resolves to `wp_send_json_error()` when the author is 0, and non-owners only ever get `publish` rows.
+- **One canonical list of owned profile screens.** `Bp_Job_Manager_Public::bpjm_get_owned_actions()` (filter `bpjm_owned_profile_actions`) is the single source of truth for which `bp_current_action()` values are job/resume screens; `bpjm_is_owned_action()` is the predicate. `enqueue_styles()`, `enqueue_scripts()` and the `has_wpjm_shortcode` filter all read it. This list used to be duplicated four ways and had drifted, dropping assets on `jobs` (fixed 2026-07-10) and on `job-alerts` / `my-bookmarks`. **Never re-inline the array** — add to the method or use the filter.
+- The bare `jobs` action is the no-post-role fallback screen (no `my-jobs` subnav), so it must stay in that list.
 - Release via `grunt dist` (-> `dist/bp-job-manager.zip`).
 - Source literal hook `bpjm_profile_peronal_inf_txt` is misspelled ("peronal") — do not "fix" it; it is a public contract.
 
@@ -47,6 +49,18 @@ WordPress-Plugin-Boilerplate layout (Bootstrap -> Loader -> Globals -> Admin/Pub
 ## wppqa baseline (2026-06-05)
 plugin-dev-rules: 5 high `nonce-no-cap` findings — **all pre-triaged false positives** (nopriv public AJAX, activation-hook redirect, and self-meta xProfile saves). See the baseline SUMMARY for per-finding justification. rest-js-contract and wiring-completeness: skipped (no REST, no template-layer settings reads). Net real high-severity bugs from wppqa: 0.
 
+## Quality gates (run before every commit)
+`composer install` first — dev deps are required for both gates.
+- **PHPStan**: `composer phpstan` (config `phpstan.neon`, level 5, WordPress stubs via `szepeviktor/phpstan-wordpress`). **Baseline is zero errors — keep it there.** BuddyPress / WP Job Manager / Resume Manager / Applications symbols are unresolvable (they are not on the analysis path) and are ignored by explicit name in `phpstan.neon`; the list is deliberately explicit rather than a blanket `.*not found` so our own typos still surface. `phpstan-bootstrap.php` declares the four `BPJM_*` runtime constants.
+- **WPCS**: `composer phpcs` (config `phpcs.xml.dist`). Current baseline is **57 errors / 9 warnings**, all pre-existing and nearly all `PrefixAllGlobals.NonPrefixedHooknameFound` for third-party WPJM/BP/Resume-Manager hooks this plugin must call by their real names, plus `NonPrefixedVariableFound` for template variables injected by `get_job_manager_template()`'s `extract()`. Neither class is fixable without breaking a third-party contract. **Do not let the count rise** — diff before/after with `--report=csv` rather than reading the total.
+- Generated `languages/*.l10n.php` and `phpstan-bootstrap.php` are excluded from WPCS; do not lint or hand-edit them.
+
+## i18n workflow
+`composer i18n` runs the whole chain (`make-pot` -> `make-mo` -> `make-php`). **Both** `make-mo` and `make-php` are mandatory: WP 6.5+ prefers `.l10n.php`, but Loco/WPML and `load_textdomain()` still read `.mo`, and shipping only one lets the two disagree silently.
+- After changing any source string: `composer make-pot`, then `msgmerge --no-fuzzy-matching --backup=none --update <po> languages/bp-job-manager.pot`, then `msgattrib --clear-fuzzy --no-obsolete`. **Use `--clear-fuzzy`, never `--no-fuzzy`** — the latter deletes the whole entry instead of dropping the flag.
+- Product names stay untranslated: `BuddyPress`, `WP Job Manager`, and the add-on names `Resume Manager` / `Applications`. The two add-on labels are rendered through `printf( esc_html__( '%s add-on', … ), 'Resume Manager' )` so the product name can never enter a PO file. `.wbcom-i18n.json` carries the `protect` list and each locale's declared register (all five are informal — fr_FR is deliberately *tu*, which diverges from the w.org fr_FR house style; that is an owner decision, do not "fix" it).
+- Verify with `msgfmt -c` plus a check that `.po`, `.mo` and `.l10n.php` hold the same number of entries.
+
 ## Onboarding follow-ups (out of scope of this onboarding run)
 Not yet present; route to the owning skills when ready:
 - CI/journey scaffold (`bin/local-ci.sh`, journeys, scale benchmark) -> `/wp-plugin-ci-setup` + `/wp-plugin-development`
@@ -54,7 +68,9 @@ Not yet present; route to the owning skills when ready:
 - QA model (`docs/qa/qa-config.json`) -> `/wp-plugin-release-qa` (then `/wp-plugin-smoke`)
 - ~~Admin-wrapper migration OLD -> NEW card pattern~~ — **DONE in 2.8.5**
 - ~~Remove orphaned dead code `Bp_Job_Manager_Public::bpjm_jobs_listing_show_screen()`~~ — **DONE (post-2.8.5, unreleased)**
-- Pre-existing WPCS gate failure (NOT introduced by the post-2.8.5 fixes; identical on the 2.8.5 tag): the whole `bpjm_load_more_jobs()` body in `public/class-bp-job-manager-public.php` is indented 4 tabs where the method scope wants 3, so WPCS reports 2 `Generic.WhiteSpace.ScopeIndent` errors (reported at the `if`/`}` scope boundaries, ~:236/:238) and blocks the commit gate. Fix = re-indent the method body by one tab; deliberately left out of the bug-fix diff to keep it reviewable.
+- ~~Pre-existing WPCS `Generic.WhiteSpace.ScopeIndent` gate failure in `bpjm_load_more_jobs()`~~ — **STALE NOTE, no longer reproduces.** Measured 0 `ScopeIndent` findings on `master` before any post-2.8.5 change; it was fixed at some earlier point and this entry was never retired.
+- ~~No `phpstan.neon` / `phpcs.xml.dist` / `composer.json`~~ — **DONE (post-2.8.5, unreleased)**. The repo previously carried an orphaned `composer.lock` with no `composer.json`, so no dev tooling could be installed.
+- `.gitignore` still has a blanket `*.json` with only `audit/` un-ignored. `composer.json`, `package.json` and `package-lock.json` are tracked because they predate the rule, but **any new JSON needs `git add -f`** — this is the failure mode that silently kills JS translation files, so revisit the rule before adding `wp_set_script_translations()`.
 
 ## Recent changes
 | Date | Type | Description | Files |

@@ -1,0 +1,53 @@
+{
+  "domain": "bp-job-manager",
+  "potFile": "languages/bp-job-manager.pot",
+  "languagesDir": "languages",
+  "engine": "claude",
+  "model": "haiku",
+  "batch": 400,
+  "makeJson": true,
+  "protect": [
+    "Wbcom",
+    "BuddyPress",
+    "BuddyBoss",
+    "WordPress",
+    "Pro",
+    "REST",
+    "API",
+    "URL",
+    "HTML",
+    "CSV",
+    "AI",
+    "ID",
+    "WP Job Manager",
+    "Resume Manager",
+    "Youzify"
+  ],
+  "locales": [
+    {
+      "locale": "de_DE",
+      "name": "German",
+      "register": "informal (du)"
+    },
+    {
+      "locale": "fr_FR",
+      "name": "French",
+      "register": "informal (tu)"
+    },
+    {
+      "locale": "es_ES",
+      "name": "Spanish",
+      "register": "informal (tú)"
+    },
+    {
+      "locale": "pt_BR",
+      "name": "Portuguese (Brazil)",
+      "register": "informal (você)"
+    },
+    {
+      "locale": "it_IT",
+      "name": "Italian",
+      "register": "informal (tu)"
+    }
+  ]
+}

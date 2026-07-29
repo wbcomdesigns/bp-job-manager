@@ -220,6 +220,27 @@ We regularly update the plugin to ensure compatibility with the latest versions 
 
 == Changelog ==
 
+= 2.8.6 - July 2026 =
+
+Translation corrections across all five locales, plus asset-loading and static-analysis fixes.
+
+* Fix      - Plugin styles and scripts did not load on the Job Alerts and My Bookmarks profile tabs, and scripts also missed Job Alerts. The four separate lists of owned profile screens are now one list, so every tab loads the same assets.
+* Fix      - The has_wpjm_shortcode filter discarded the incoming value, which could suppress WP Job Manager's own frontend stylesheet on pages outside a member profile.
+* Fix      - German: corrected the typo "Lebenslaufffelder" to "Lebenslauffelder" on the resume field options.
+* Fix      - German: corrected "Stellenautor erhalten" to "Stellenautoren erhalten" in the application notification description.
+* Fix      - German: added the missing hyphen in nine proper-noun compounds, such as "BuddyPress-Benachrichtigung".
+* Fix      - Spanish, French, Italian and Portuguese (Brazil): the Discover tab description was flagged fuzzy, so it was missing from the compiled .mo file while present in the .l10n.php file. Both compiled files now agree.
+* Fix      - The WP Job Manager add-on names "Resume Manager" and "Applications" were translated in some locales, so site owners were told to install add-ons under names that do not exist. They are now treated as product names, matching how BuddyPress and WP Job Manager are already handled.
+* Fix      - French: one string used vouvoiement while the rest of the file uses the informal register declared for this locale.
+* Fix      - seconds_to_words() returned null instead of a string when a duration landed exactly on zero.
+* Fix      - get_posts_by_author_sql() received an empty string where a boolean was expected.
+* Fix      - remove_filter() was called with a fourth argument it does not accept.
+* Fix      - Bp_Job_Manager_Globals was constructed with two arguments its constructor does not accept; both were silently discarded.
+* Fix      - The settings and overview views could pass null to array_key_exists() if included outside the admin page renderer.
+* Improve  - Removed 147 obsolete entries from the French translation and 13 from each other locale, and corrected the Language header in four locale files.
+* Dev      - Added phpstan.neon, phpcs.xml.dist and composer.json. PHPStan level 5 now reports zero errors; it previously reported 27 and could not run reproducibly without a config.
+* Dev      - New filter bpjm_owned_profile_actions to adjust which profile screens load this plugin's assets.
+
 = 2.8.5 - July 2026 =
 
 * New      - Added German, Spanish, French, Italian and Portuguese (Brazil) translations.

@@ -24,13 +24,15 @@
 
 defined( 'ABSPATH' ) || exit;
 
-/**
- * Parent view provides $settings.
- *
- * @var array $settings bpjm_general_settings option.
- */
-
 global $wp_roles, $bpjm_bp_job_manager;
+
+/*
+ * $settings is the bpjm_general_settings option, injected by
+ * Bp_Job_Manager_Admin_Panel::render_page() through include scope. Normalise it
+ * here so this view is safe if it is ever included directly, and so the
+ * array_key_exists() calls below cannot receive null (a TypeError on PHP 8).
+ */
+$settings = ( isset( $settings ) && is_array( $settings ) ) ? $settings : array(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Injected by Bp_Job_Manager_Admin_Panel::render_page() through include scope, not a global.
 
 $all_roles = isset( $wp_roles ) ? $wp_roles->get_names() : array();
 
@@ -181,7 +183,10 @@ foreach ( $array_rendered_keys as $array_rendered_key ) :
 		<span class="dashicons dashicons-info" aria-hidden="true"></span>
 		<div>
 			<strong><?php esc_html_e( 'More options unlock with the WP Job Manager add-ons.', 'bp-job-manager' ); ?></strong>
-			<?php esc_html_e( 'Install the Resume Manager and Applications add-ons to manage resumes on profiles and notify job authors about new applications.', 'bp-job-manager' ); ?>
+			<?php
+			/* translators: 1: "Resume Manager" add-on name, 2: "Applications" add-on name. Both are WP Job Manager product names — do not translate the placeholder values. */
+			printf( esc_html__( 'Install the %1$s and %2$s add-ons to manage resumes on profiles and notify job authors about new applications.', 'bp-job-manager' ), 'Resume Manager', 'Applications' );
+			?>
 		</div>
 	</div>
 <?php endif; ?>

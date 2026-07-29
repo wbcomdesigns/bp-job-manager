@@ -46,13 +46,13 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		private $version;
 
 		/**
-		 * The version of this plugin.
+		 * Total pages in the profile job listing, set by get_jobs_max_num_pages().
 		 *
 		 * @since    1.0.0
-		 * @access   private
-		 * @var      string    $max_num_pages    Maximum pages.
+		 * @access   public
+		 * @var      int    $max_num_pages    Maximum pages.
 		 */
-		public $max_num_pages = '';
+		public $max_num_pages = 0;
 
 		/**
 		 * Initialize the class and set its properties.
@@ -71,6 +71,47 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			add_action( 'wp_ajax_nopriv_bpjm_load_more_jobs', array( $this, 'bpjm_load_more_jobs' ) );
 			add_action( 'transition_post_status', array( $this, 'flush_job_listings_transient_on_update' ), 10, 3 );
 			add_action( 'deleted_post', array( $this, 'flush_job_listings_transient_on_delete' ), 10, 2 );
+		}
+
+		/**
+		 * The BuddyPress profile actions this plugin owns.
+		 *
+		 * Every screen listed here renders a WP Job Manager (or Resume Manager)
+		 * surface inside a member profile, so all of them need this plugin's
+		 * CSS/JS *and* need to answer true to WPJM core's `has_wpjm_shortcode`
+		 * gate. This list is the single source of truth for that set — it used
+		 * to be duplicated in four places and had already drifted apart, which
+		 * silently dropped the stylesheet on `jobs` (fixed 2026-07-10) and both
+		 * assets on `job-alerts` / `my-bookmarks`.
+		 *
+		 * The bare `jobs` action is the no-post-role fallback screen registered
+		 * by bpjm_member_profile_jobs_tab(); it has no `my-jobs` subnav, so
+		 * bp_current_action() resolves to `jobs` there and it must be included.
+		 *
+		 * @since 2.8.6
+		 * @return string[] BuddyPress action slugs owned by this plugin.
+		 */
+		public function bpjm_get_owned_actions() {
+			/**
+			 * Filters the profile actions treated as job/resume screens.
+			 *
+			 * @since 2.8.6
+			 * @param string[] $actions BuddyPress action slugs.
+			 */
+			return apply_filters(
+				'bpjm_owned_profile_actions',
+				array( 'jobs', 'my-jobs', 'applied-jobs', 'post-job', 'my-resumes', 'add-resume', 'job-alerts', 'my-bookmarks' )
+			);
+		}
+
+		/**
+		 * Whether the current BuddyPress action is a screen this plugin owns.
+		 *
+		 * @since 2.8.6
+		 * @return bool True when the current action renders a job/resume screen.
+		 */
+		public function bpjm_is_owned_action() {
+			return in_array( bp_current_action(), $this->bpjm_get_owned_actions(), true );
 		}
 
 		/**
@@ -120,9 +161,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			 * class.
 			 */
 
-			$job_related_actions = array( 'jobs', 'my-jobs', 'applied-jobs', 'post-job', 'my-resumes', 'add-resume', 'job-alerts' );
-
-			if ( in_array( bp_current_action(), $job_related_actions, true ) ) {
+			if ( $this->bpjm_is_owned_action() ) {
 				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-public.css', array(), $this->version, 'all' );
 			}
 
@@ -151,8 +190,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			 */
 			// Global $wp_query.
 			$get_dashboard_page_id = (int) get_option( 'job_manager_job_dashboard_page_id' );
-			$job_related_actions   = array( 'jobs', 'my-jobs', 'applied-jobs', 'post-job', 'my-resumes', 'add-resume' );
-			if ( in_array( bp_current_action(), $job_related_actions, true ) || get_the_ID() === $get_dashboard_page_id ) {
+			if ( $this->bpjm_is_owned_action() || get_the_ID() === $get_dashboard_page_id ) {
 				$this->get_jobs_max_num_pages();
 
 				/*
@@ -185,37 +223,18 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		}
 
 		/**
-		 * Load default js and css for submit job shortcode.
+		 * Tell WP Job Manager core that our profile screens are WPJM screens.
 		 *
-		 * @return boolean
+		 * Filters `has_wpjm_shortcode`, which drives WPJM's own
+		 * `job_manager_enqueue_frontend_style` gate. Returning the incoming
+		 * value untouched off our screens keeps other filters intact.
+		 *
+		 * @since 1.0.0
+		 * @param bool $has_shortcode Whether WPJM already detected a shortcode.
+		 * @return bool True on a screen this plugin owns, otherwise unchanged.
 		 */
-		public function bpjm_has_wpjm_shortcode() {
-			$action = bp_current_action();
-
-			if ( 'jobs' === $action ) {
-				return true;
-			}
-			if ( 'my-jobs' === $action ) {
-				return true;
-			}
-			if ( 'applied-jobs' === $action ) {
-				return true;
-			}
-			if ( 'post-job' === $action ) {
-				return true;
-			}
-			if ( 'my-resumes' === $action ) {
-				return true;
-			}
-			if ( 'add-resume' === $action ) {
-				return true;
-			}
-			if ( 'job-alerts' === $action ) {
-				return true;
-			}
-			if ( 'my-bookmarks' === $action ) {
-				return true;
-			}
+		public function bpjm_has_wpjm_shortcode( $has_shortcode = false ) {
+			return $this->bpjm_is_owned_action() ? true : (bool) $has_shortcode;
 		}
 
 		/**
@@ -398,8 +417,10 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$displayed_user = get_userdata( $displayed_uid );
 			$curr_user      = wp_get_current_user();
 
-			// Ensure $displayed_user and $curr_user are valid WP_User objects.
-			if ( ! ( $displayed_user instanceof WP_User ) || ! ( $curr_user instanceof WP_User ) ) {
+			// get_userdata() returns false for an unknown ID; wp_get_current_user()
+			// always returns a WP_User (ID 0 when logged out), so only the displayed
+			// user needs validating here.
+			if ( ! ( $displayed_user instanceof WP_User ) ) {
 				return;
 			}
 
@@ -672,9 +693,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		/**
 		 * Hide job actions from display member profile.
 		 *
-		 * @param  string $job_actions Job actions.
-		 * @param object $job Job object.
-		 * @return mixed
+		 * @param  array        $job_actions Job actions keyed by action slug.
+		 * @param  WP_Post|null $job         Job listing post.
+		 * @return array Filtered job actions.
 		 */
 		public function bpjm_hide_job_actions( $job_actions, $job ) {
 			if ( ( bp_loggedin_user_id() !== bp_displayed_user_id() ) && ! bp_is_user_profile() ) {
@@ -781,8 +802,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @since    1.0.0
 		 * @author   wbcomdesigns
 		 * @access   public
-		 * @param    string $job_dashboard_job_listing_args job listing arguments.
-		 * @return   string $job_dashboard_job_listing_args return job listing arguments.
+		 * @param    array $job_dashboard_job_listing_args job listing arguments.
+		 * @return   array $job_dashboard_job_listing_args return job listing arguments.
 		 */
 		public function bpjm_job_dashboard_user_id( $job_dashboard_job_listing_args ) {
 			$displayed_uid  = bp_displayed_user_id();
@@ -802,8 +823,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @since    1.0.0
 		 * @author   wbcomdesigns
 		 * @access   public
-		 * @param    string $allowed members pending job post.
-		 * @return   string $allowed return true or false for members pending job post.
+		 * @param    bool $allowed members pending job post.
+		 * @return   bool Always true — profile owners may edit their pending jobs.
 		 */
 		public function bpjm_allow_user_to_edit_pending_jobs( $allowed ) {
 			$allowed = true;
@@ -816,7 +837,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @since    1.0.0
 		 * @author   wbcomdesigns
 		 * @access   public
-		 * @param    string $allowed members pending job post.
+		 * @param    bool $allowed members pending job post.
+		 * @return   bool Always true — profile owners may edit published submissions.
 		 */
 		public function bpjm_filter_wpjm_user_can_edit_published_submissions( $allowed ) {
 			$allowed = true;
@@ -830,9 +852,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @since    1.0.0
 		 * @author   wbcomdesigns
 		 * @access   public
-		 * @param    string $actions contain job action.
-		 * @param    string $job contain job data.
-		 * @return   string $actions contain job action.
+		 * @param    array   $actions contain job action.
+		 * @param    WP_Post $job contain job data.
+		 * @return   array   $actions contain job action.
 		 */
 		public function bpjm_job_dashboard_job_actions( $actions, $job ) {
 			if ( bp_is_user_profile() ) {
@@ -845,8 +867,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		/**
 		 * Action performed to add a column in job dashboard table.
 		 *
-		 * @param string $job_dashboard_cols contain dashboard column data.
-		 * @return array|string
+		 * @param array $job_dashboard_cols contain dashboard column data.
+		 * @return array
 		 * @since    1.0.0
 		 * @author   wbcomdesigns
 		 * @access   public
@@ -870,7 +892,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @since    1.0.0
 		 * @author   wbcomdesigns
 		 * @access   public
-		 * @param    string $job contain job data.
+		 * @param    WP_Post $job contain job data.
 		 */
 		public function bpjm_job_dashboard_actions_col_content( $job ) {
 			global $bpjm_bp_job_manager;
@@ -885,7 +907,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 					if ( ! empty( $match_apply_job_roles_curr_usr ) ) {
 						if ( ! is_position_filled( $job ) ) {
-							if ( is_user_logged_in() && class_exists( 'WP_Job_Manager_Applications' ) ) {
+							// The enclosing branch already established is_user_logged_in().
+							if ( class_exists( 'WP_Job_Manager_Applications' ) ) {
 
 								if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
 									get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
@@ -1231,7 +1254,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					bpjm_show_resume_at_profile( $resume_id );
 				}
 			} else {
-				$where = get_posts_by_author_sql( 'resume', true, $user_id, '' );
+				$where = get_posts_by_author_sql( 'resume', true, $user_id, false );
 				// Concatenate the WHERE clause directly.
 				$post = $wpdb->get_row( "SELECT ID FROM {$wpdb->posts} {$where} ORDER BY post_modified DESC" );		// phpcs:ignore.
 
@@ -1307,7 +1330,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				$display_class  = ( 'yes' === $display_resume ) ? 'display-true' : 'display-false';
 
 				global $bpjm_bp_job_manager;
-				if ( $user_posts && isset( $bpjm_bp_job_manager->bpjm_resume_at_profile ) && 'yes' === $bpjm_bp_job_manager->bpjm_resume_at_profile ) {
+				// $user_posts is already known non-empty from the enclosing branch.
+				if ( isset( $bpjm_bp_job_manager->bpjm_resume_at_profile ) && 'yes' === $bpjm_bp_job_manager->bpjm_resume_at_profile ) {
 					if ( class_exists( 'Youzify' ) ) {
 						?>
 						<form method="post">
@@ -1644,7 +1668,11 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 *
 		 * @since 2.1.0
 		 *
-		 * @param array $component_names WP Job Manager Component.
+		 * BuddyPress passes whatever earlier filters returned, so the parameter is
+		 * typed loose and normalised below.
+		 *
+		 * @param mixed $component_names WP Job Manager Component.
+		 * @return array Component names with this plugin's component appended.
 		 */
 		public function bpjm_comment_get_registered_components( $component_names = array() ) {
 			// Force $component_names to be an array.
@@ -1674,8 +1702,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			if ( 'applied_job' === $component_action_name ) {
 
 				$applicant_info = get_userdata( $secondary_item_id );
-				// Check if $applicant_info is not null and is an object.
-				if ( $applicant_info && is_object( $applicant_info ) ) {
+				// get_userdata() returns false when the user no longer exists.
+				if ( $applicant_info ) {
 					$applicant_name = property_exists( $applicant_info->data, 'user_login' ) ? $applicant_info->user_login : '';
 				} else {
 					// Handle the case where the user data could not be retrieved.
@@ -1811,7 +1839,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 						continue;
 					}
 
-					remove_filter( 'bp_get_displayed_user_nav_' . $user_nav_item->css_id, 'BP\Rewrites\bp_get_displayed_user_nav', 1, 2 );
+					// remove_filter() takes ( $hook, $callback, $priority ) only —
+					// the accepted-args count is not part of its signature.
+					remove_filter( 'bp_get_displayed_user_nav_' . $user_nav_item->css_id, 'BP\Rewrites\bp_get_displayed_user_nav', 1 );
 				}
 			}
 		}
@@ -1853,8 +1883,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 *
 		 * @since    2.8.5
 		 * @access   public
-		 * @param int     $post_id Deleted post ID.
-		 * @param WP_Post $post    Deleted post object.
+		 * @param int          $post_id Deleted post ID.
+		 * @param WP_Post|null $post    Deleted post object, null if a caller fired
+		 *                              the action without it.
 		 */
 		public function flush_job_listings_transient_on_delete( $post_id, $post ) {
 			if ( $post instanceof WP_Post ) {

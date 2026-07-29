@@ -11,6 +11,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $bpjm_submission_limit           = get_option( 'resume_manager_submission_limit' );
 $bpjm_submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_form_page_id' );
+
+/*
+ * $resumes and $candidate_dashboard_columns are passed in by
+ * get_job_manager_template() via extract(). Normalise them so the template
+ * degrades to an empty table instead of erroring when a caller omits them.
+ */
+$resumes                     = isset( $resumes ) && is_array( $resumes ) ? $resumes : array(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Passed in by get_job_manager_template(), not a global.
+$candidate_dashboard_columns = isset( $candidate_dashboard_columns ) && is_array( $candidate_dashboard_columns ) ? $candidate_dashboard_columns : array(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Passed in by get_job_manager_template(), not a global.
 ?>
 <?php if ( is_user_logged_in() && ( bp_loggedin_user_id() === bp_displayed_user_id() ) ) : ?>
 	<?php if ( $bpjm_submit_resume_form_page_id && ( resume_manager_count_user_resumes() < $bpjm_submission_limit || ! $bpjm_submission_limit ) ) : ?>
@@ -34,7 +42,7 @@ $bpjm_submit_resume_form_page_id = get_option( 'resume_manager_submit_resume_for
 		<tbody>
 			<?php if ( ! $resumes ) : ?>
 				<tr>
-					<td colspan="<?php echo esc_attr( count( $candidate_dashboard_columns ) ); ?>"><?php esc_html_e( 'You do not have any active resume listings.', 'bp-job-manager' ); ?></td>
+					<td colspan="<?php echo esc_attr( (string) count( $candidate_dashboard_columns ) ); ?>"><?php esc_html_e( 'You do not have any active resume listings.', 'bp-job-manager' ); ?></td>
 				</tr>
 			<?php else : ?>
 				<?php foreach ( $resumes as $bpjm_resume ) : ?>

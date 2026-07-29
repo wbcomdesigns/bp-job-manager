@@ -160,7 +160,8 @@ function bpjm_existing_checkin_plugin() {
  *
  * @author  wbcomdesigns
  * @since   1.0.0
- * @param  string $links contains plugin's setting links.
+ * @param  array $links contains plugin's setting links.
+ * @return array The action links with this plugin's entries appended.
  */
 function bpjm_plugin_links( $links ) {
 	$bpjm_links = array(

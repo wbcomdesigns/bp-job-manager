@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$bpjm_job_id = filter_input( INPUT_GET, 'args', FILTER_SANITIZE_NUMBER_INT ) ? filter_input( INPUT_GET, 'args', FILTER_SANITIZE_NUMBER_INT ) : '';
+$bpjm_job_id = (int) filter_input( INPUT_GET, 'args', FILTER_SANITIZE_NUMBER_INT );
 
 get_header();
 if ( ! isset( $post ) ) {
