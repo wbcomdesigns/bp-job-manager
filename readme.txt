@@ -222,8 +222,12 @@ We regularly update the plugin to ensure compatibility with the latest versions 
 
 = 2.8.6 - July 2026 =
 
-Translation corrections across all five locales, plus asset-loading and static-analysis fixes.
+Translation corrections across all five locales, a safer default for who can post jobs, plus asset-loading and static-analysis fixes.
 
+* New      - The two role fields on the General tab are now searchable and show each selected role as a removable chip, with a clear-all control. With JavaScript disabled the original multi-select still works.
+* Fix      - Logged-out visitors on the job submission page were shown a "not authorized" notice with no sign-in or registration box, leaving no way to continue. The sign-in box is no longer suppressed.
+* Fix      - The Roles allowed to apply for jobs field offered a Guest option that the plugin never acted on, so it appeared to enable something that did nothing. The option has been removed from that field; it remains available for posting jobs.
+* Fix      - Removed the Send Feedback link on the Help & Support tab, which pointed at a page that no longer exists.
 * Fix      - Plugin styles and scripts did not load on the Job Alerts and My Bookmarks profile tabs, and scripts also missed Job Alerts. The four separate lists of owned profile screens are now one list, so every tab loads the same assets.
 * Fix      - The has_wpjm_shortcode filter discarded the incoming value, which could suppress WP Job Manager's own frontend stylesheet on pages outside a member profile.
 * Fix      - German: corrected the typo "Lebenslaufffelder" to "Lebenslauffelder" on the resume field options.
@@ -237,6 +241,7 @@ Translation corrections across all five locales, plus asset-loading and static-a
 * Fix      - remove_filter() was called with a fourth argument it does not accept.
 * Fix      - Bp_Job_Manager_Globals was constructed with two arguments its constructor does not accept; both were silently discarded.
 * Fix      - The settings and overview views could pass null to array_key_exists() if included outside the admin page renderer.
+* Security - New installs no longer allow logged-out visitors to post job listings. The Guest pseudo-role was included in the default posting roles, which opened anonymous job submission on a fresh install. Existing sites keep whatever they have saved.
 * Improve  - Removed 147 obsolete entries from the French translation and 13 from each other locale, and corrected the Language header in four locale files.
 * Dev      - Added phpstan.neon, phpcs.xml.dist and composer.json. PHPStan level 5 now reports zero errors; it previously reported 27 and could not run reproducibly without a config.
 * Dev      - New filter bpjm_owned_profile_actions to adjust which profile screens load this plugin's assets.

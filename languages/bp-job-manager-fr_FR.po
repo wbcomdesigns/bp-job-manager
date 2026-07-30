@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BuddyPress Job Manager\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-job-manager\n"
-"POT-Creation-Date: 2026-07-29T09:05:18+00:00\n"
+"POT-Creation-Date: 2026-07-30T09:25:23+00:00\n"
 "PO-Revision-Date: 2019-01-07 02:24+0530\n"
 "Last-Translator: Varun Dubey <varun@wbcomdesigns.com>\n"
 "Language-Team: jean-pierre michaud <translation@wpenhancer.agency>\n"
@@ -261,6 +261,28 @@ msgstr "Continuer"
 msgid "Cancel"
 msgstr "Annuler"
 
+#: includes/admin/class-bp-job-manager-admin-panel.php:299
+msgid "Search roles…"
+msgstr "Rechercher des rôles…"
+
+#: includes/admin/class-bp-job-manager-admin-panel.php:300
+msgid "Clear all"
+msgstr "Tout effacer"
+
+#. translators: %s: user role name, e.g. "Administrator".
+#: includes/admin/class-bp-job-manager-admin-panel.php:302
+#, php-format
+msgid "Remove %s"
+msgstr "Retirer %s"
+
+#: includes/admin/class-bp-job-manager-admin-panel.php:303
+msgid "No roles match your search."
+msgstr "Aucun rôle ne correspond à ta recherche."
+
+#: includes/admin/class-bp-job-manager-admin-panel.php:304
+msgid "Select at least one role."
+msgstr "Sélectionne au moins un rôle."
+
 #: includes/admin/views/discover.php:28
 msgid ""
 "A free, fast community theme for BuddyPress, BuddyBoss and PeepSo with a "
@@ -514,7 +536,7 @@ msgid "On: a new resume creates a BuddyPress activity update"
 msgstr "Activé : un nouveau CV crée une mise à jour d'activité BuddyPress"
 
 #: includes/admin/views/overview.php:172
-#: includes/admin/views/settings-general.php:158
+#: includes/admin/views/settings-general.php:166
 msgid "Resume on profile"
 msgstr "CV sur le profil"
 
@@ -523,7 +545,7 @@ msgid "On: members see the latest resume on profiles"
 msgstr "Activé : les membres voient le dernier CV sur les profils"
 
 #: includes/admin/views/overview.php:185
-#: includes/admin/views/settings-general.php:169
+#: includes/admin/views/settings-general.php:177
 msgid "Application notifications"
 msgstr "Notifications de candidature"
 
@@ -551,21 +573,20 @@ msgstr "Qui peut publier et postuler"
 
 #: includes/admin/views/settings-general.php:86
 msgid ""
-"Pick the member roles that get each profile tab. Hold Ctrl (Windows) or Cmd "
-"(Mac) to select more than one. Add \"Guest\" to let people who are not "
-"logged in take part."
+"Pick the member roles that get each profile tab. Search for a role and "
+"select as many as you need. Only job posting can be opened to logged-out "
+"visitors, with the Guest option."
 msgstr ""
 "Choisis les rôles de membre qui obtiennent chaque onglet de profil. "
-"Maintiens Ctrl (Windows) ou Cmd (Mac) enfoncé pour en sélectionner plus "
-"d'un. Ajoute « Invité » pour permettre aux personnes non connectées de "
-"participer."
+"Recherche un rôle et sélectionnes-en autant que tu veux. Seule la "
+"publication d'offres d'emploi peut être ouverte aux visiteurs non connectés, "
+"avec l'option « Invité »."
 
 #: includes/admin/views/settings-general.php:91
 msgid "Roles allowed to post jobs"
 msgstr "Rôles autorisés à publier des offres d'emploi"
 
 #: includes/admin/views/settings-general.php:102
-#: includes/admin/views/settings-general.php:122
 msgid "Guest (not logged in)"
 msgstr "Invité (non connecté)"
 
@@ -581,7 +602,7 @@ msgstr ""
 msgid "Roles allowed to apply for jobs"
 msgstr "Rôles autorisés à postuler aux offres d'emploi"
 
-#: includes/admin/views/settings-general.php:126
+#: includes/admin/views/settings-general.php:134
 msgid ""
 "Members in these roles get the Resumes tab on their profile, where they can "
 "manage resumes and apply for jobs."
@@ -589,11 +610,11 @@ msgstr ""
 "Les membres dans ces rôles obtiennent l'onglet CV sur leur profil, où ils "
 "peuvent gérer leurs CV et postuler aux offres d'emploi."
 
-#: includes/admin/views/settings-general.php:134
+#: includes/admin/views/settings-general.php:142
 msgid "Activity & Notifications"
 msgstr "Activité et notifications"
 
-#: includes/admin/views/settings-general.php:135
+#: includes/admin/views/settings-general.php:143
 msgid ""
 "Decide what shows up in the BuddyPress activity feed and which notifications "
 "members receive."
@@ -601,41 +622,41 @@ msgstr ""
 "Décide ce qui apparaît dans le fil d'activité BuddyPress et quelles "
 "notifications les membres reçoivent."
 
-#: includes/admin/views/settings-general.php:139
+#: includes/admin/views/settings-general.php:147
 msgid "Post job activity"
 msgstr "Activité de publication d'offre d'emploi"
 
-#: includes/admin/views/settings-general.php:143
+#: includes/admin/views/settings-general.php:151
 msgid "Add a BuddyPress activity update when a member posts a job"
 msgstr ""
 "Ajoute une mise à jour d'activité BuddyPress quand un membre publie une "
 "offre d'emploi"
 
-#: includes/admin/views/settings-general.php:149
+#: includes/admin/views/settings-general.php:157
 msgid "Post resume activity"
 msgstr "Activité de publication de CV"
 
-#: includes/admin/views/settings-general.php:153
+#: includes/admin/views/settings-general.php:161
 msgid "Add a BuddyPress activity update when a member publishes a resume"
 msgstr ""
 "Ajoute une mise à jour d'activité BuddyPress quand un membre publie un CV"
 
-#: includes/admin/views/settings-general.php:162
+#: includes/admin/views/settings-general.php:170
 msgid "Show the latest resume on the member's BuddyPress profile"
 msgstr "Affiche le dernier CV sur le profil BuddyPress du membre"
 
-#: includes/admin/views/settings-general.php:173
+#: includes/admin/views/settings-general.php:181
 msgid "Send the job author a BuddyPress notification when someone applies"
 msgstr ""
 "Envoie une notification BuddyPress à l'auteur de l'offre quand quelqu'un "
 "postule"
 
-#: includes/admin/views/settings-general.php:185
+#: includes/admin/views/settings-general.php:193
 msgid "More options unlock with the WP Job Manager add-ons."
 msgstr "Plus d'options se déverrouillent avec les extensions WP Job Manager."
 
 #. translators: 1: "Resume Manager" add-on name, 2: "Applications" add-on name. Both are WP Job Manager product names — do not translate the placeholder values.
-#: includes/admin/views/settings-general.php:188
+#: includes/admin/views/settings-general.php:196
 #, php-format
 msgid ""
 "Install the %1$s and %2$s add-ons to manage resumes on profiles and notify "
@@ -744,22 +765,6 @@ msgstr ""
 #: includes/admin/views/welcome.php:47
 msgid "Get Support"
 msgstr "Obtenir du support"
-
-#: includes/admin/views/welcome.php:51
-msgid "Share Your Feedback"
-msgstr "Partage tes commentaires"
-
-#: includes/admin/views/welcome.php:52
-msgid ""
-"We would love to hear about your experience and welcome suggestions for "
-"future updates."
-msgstr ""
-"Nous aimerions entendre parler de ton expérience et accueillir tes "
-"suggestions pour les mises à jour futures."
-
-#: includes/admin/views/welcome.php:53
-msgid "Send Feedback"
-msgstr "Envoyer des commentaires"
 
 #: public/class-bp-job-manager-public.php:217
 msgid "Loading..."

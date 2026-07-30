@@ -83,7 +83,7 @@ foreach ( $array_rendered_keys as $array_rendered_key ) :
 <div class="bpjm-card">
 	<div class="bpjm-card__head">
 		<p class="bpjm-card__title"><?php esc_html_e( 'Who Can Post & Apply', 'bp-job-manager' ); ?></p>
-		<p class="bpjm-card__desc"><?php esc_html_e( 'Pick the member roles that get each profile tab. Hold Ctrl (Windows) or Cmd (Mac) to select more than one. Add "Guest" to let people who are not logged in take part.', 'bp-job-manager' ); ?></p>
+		<p class="bpjm-card__desc"><?php esc_html_e( 'Pick the member roles that get each profile tab. Search for a role and select as many as you need. Only job posting can be opened to logged-out visitors, with the Guest option.', 'bp-job-manager' ); ?></p>
 	</div>
 	<table class="form-table">
 		<tr>
@@ -92,7 +92,7 @@ foreach ( $array_rendered_keys as $array_rendered_key ) :
 			</th>
 			<td>
 				<?php if ( ! empty( $all_roles ) ) : ?>
-					<select multiple required id="bpjm-post-roles" name="bpjm_general_settings[post_job_user_roles][]" class="bpjm-role-select" size="6">
+					<select multiple required id="bpjm-post-roles" name="bpjm_general_settings[post_job_user_roles][]" class="bpjm-role-select" size="6" data-bpjm-role-picker="1">
 						<?php foreach ( $all_roles as $role_slug => $role_label ) : ?>
 							<option value="<?php echo esc_attr( $role_slug ); ?>" <?php selected( in_array( $role_slug, $post_selected, true ) ); ?>>
 								<?php echo esc_html( translate_user_role( $role_label ) ); ?>
@@ -112,15 +112,23 @@ foreach ( $array_rendered_keys as $array_rendered_key ) :
 			</th>
 			<td>
 				<?php if ( ! empty( $all_roles ) ) : ?>
-					<select multiple required id="bpjm-apply-roles" name="bpjm_general_settings[apply_job_user_roles][]" class="bpjm-role-select" size="6">
+					<?php
+					/*
+					 * No "Guest" option here. Applying is gated by
+					 * Bp_Job_Manager_Public at :902-906, which only ever
+					 * intersects the saved list against a logged-in
+					 * $user->roles — there is no logged-out branch, so a
+					 * saved "guest" value was silently inert. Offering it
+					 * told the site owner they had enabled something the
+					 * plugin never implemented.
+					 */
+					?>
+					<select multiple required id="bpjm-apply-roles" name="bpjm_general_settings[apply_job_user_roles][]" class="bpjm-role-select" size="6" data-bpjm-role-picker="1">
 						<?php foreach ( $all_roles as $role_slug => $role_label ) : ?>
 							<option value="<?php echo esc_attr( $role_slug ); ?>" <?php selected( in_array( $role_slug, $apply_selected, true ) ); ?>>
 								<?php echo esc_html( translate_user_role( $role_label ) ); ?>
 							</option>
 						<?php endforeach; ?>
-						<option value="guest" <?php selected( in_array( 'guest', $apply_selected, true ) ); ?>>
-							<?php esc_html_e( 'Guest (not logged in)', 'bp-job-manager' ); ?>
-						</option>
 					</select>
 				<?php endif; ?>
 				<p class="description"><?php esc_html_e( 'Members in these roles get the Resumes tab on their profile, where they can manage resumes and apply for jobs.', 'bp-job-manager' ); ?></p>

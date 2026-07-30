@@ -283,7 +283,19 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 
 			$this->loader->add_filter( 'bp_notifications_get_notifications_for_user', $plugin_public, 'bpjm_job_application_notifications', 11, 7 );
 			$this->loader->add_filter( 'job_manager_user_can_post_job', $plugin_public, 'bpjm_restrict_user_post_job' );
-			$this->loader->add_filter( 'submit_job_form_show_signin', $plugin_public, 'bpjm_restrict_user_post_job' );
+
+			/*
+			 * `submit_job_form_show_signin` is deliberately NOT filtered.
+			 *
+			 * It controls whether WP Job Manager renders account-signin.php —
+			 * the only sign-in / registration box on the submit page — and its
+			 * native default (true) is correct in every case. This used to be
+			 * filtered through bpjm_restrict_user_post_job(), which answers a
+			 * different question ("may this role post?"). The result was that a
+			 * logged-out visitor who was not allowed to post as a guest had the
+			 * form hidden AND the sign-in box hidden, leaving nothing but the
+			 * "not authorized" notice and no way to log in. Leave this to WPJM.
+			 */
 			// `submit_job_form_disabled` expects the callback to echo. The
 			// bare bpjm_restrict_user_post_job_message() only RETURNS the
 			// string (bp_core_add_message() needs the value), so this action

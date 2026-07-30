@@ -46,12 +46,6 @@ defined( 'ABSPATH' ) || exit;
 				<p class="bpjm-resource__desc"><?php esc_html_e( 'Our support center provides top-notch assistance. Reach out any time you need a hand.', 'bp-job-manager' ); ?></p>
 				<a href="https://wbcomdesigns.com/support/" class="bpjm-btn bpjm-btn-secondary" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Get Support', 'bp-job-manager' ); ?></a>
 			</div>
-			<div class="bpjm-resource">
-				<span class="bpjm-resource__icon" aria-hidden="true"><span class="dashicons dashicons-admin-comments"></span></span>
-				<h3 class="bpjm-resource__title"><?php esc_html_e( 'Share Your Feedback', 'bp-job-manager' ); ?></h3>
-				<p class="bpjm-resource__desc"><?php esc_html_e( 'We would love to hear about your experience and welcome suggestions for future updates.', 'bp-job-manager' ); ?></p>
-				<a href="https://wbcomdesigns.com/submit-review/" class="bpjm-btn bpjm-btn-secondary" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Send Feedback', 'bp-job-manager' ); ?></a>
-			</div>
 		</div>
 	</div>
 </div>

@@ -133,8 +133,17 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 			$settings = get_option( 'bpjm_general_settings' );
 
 			if ( empty( $settings ) ) {
-				$this->apply_job_user_roles   = array( 'administrator', 'candidate', 'subscriber' );
-				$this->post_job_user_roles    = array( 'administrator', 'employer', 'guest' ); // Add "Guest" role here.
+				$this->apply_job_user_roles = array( 'administrator', 'candidate', 'subscriber' );
+
+				/*
+				 * "guest" is deliberately NOT seeded here. It is the pseudo-role
+				 * that lets logged-out visitors submit a job (see
+				 * Bp_Job_Manager_Public::bpjm_restrict_user_post_job()), so
+				 * shipping it as a default opened anonymous job posting on every
+				 * fresh install. Site owners who want it can still add it on the
+				 * General tab.
+				 */
+				$this->post_job_user_roles    = array( 'administrator', 'employer' );
 				$this->bpjm_resume_at_profile = 'yes';
 			} else {
 				if ( ! empty( $settings['apply_job_user_roles'] ) ) {
