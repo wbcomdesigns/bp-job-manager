@@ -551,11 +551,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			/* translators: %s: Job count */
 			$job_tab = sprintf( __( 'Jobs %s', 'bp-job-manager' ), '<span class="count">' . bp_core_number_format( $job_count ) . '</span>' );
 
-			// Check if the user has roles to see the Jobs tab.
-			$post_job_roles_curr_user = array_intersect( $bpjm_bp_job_manager->post_job_user_roles, $curr_user->roles );
-			$post_job_roles_disp_user = array_intersect( $bpjm_bp_job_manager->post_job_user_roles, $displayed_user->roles );
-
-			if ( ! empty( $post_job_roles_curr_user ) || ! empty( $post_job_roles_disp_user ) ) {
+			// One accessor, not a local intersection - see bpjm_user_can_post_job().
+			if ( bpjm_user_can_post_job( $curr_user ) || bpjm_user_can_post_job( $displayed_user ) ) {
 				bp_core_new_nav_item(
 					array(
 						'name'                    => $job_tab,
@@ -1016,14 +1013,11 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			global $bpjm_bp_job_manager;
 			if ( is_user_logged_in() ) {
 				if ( bp_is_user() && ( bp_loggedin_user_id() !== bp_displayed_user_id() ) ) {
-					$user_id                        = bp_loggedin_user_id();
-					$apply_job_user_roles           = ! empty( $bpjm_bp_job_manager->apply_job_user_roles ) ? $bpjm_bp_job_manager->apply_job_user_roles : array();
-					$job_application_page           = get_permalink( $bpjm_bp_job_manager->job_application_pgid );
-					$job_application_page          .= '?args=' . $job->ID;
-					$user                           = get_userdata( $user_id );
-					$match_apply_job_roles_curr_usr = array_intersect( $apply_job_user_roles, $user->roles );
+					$user_id              = bp_loggedin_user_id();
+					$job_application_page = get_permalink( $bpjm_bp_job_manager->job_application_pgid );
+					$job_application_page .= '?args=' . $job->ID;
 
-					if ( ! empty( $match_apply_job_roles_curr_usr ) ) {
+					if ( bpjm_user_can_apply_job( $user_id ) ) {
 						if ( ! is_position_filled( $job ) ) {
 							// The enclosing branch already established is_user_logged_in().
 							if ( class_exists( 'WP_Job_Manager_Applications' ) ) {
@@ -1890,18 +1884,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		public function bpjm_restrict_user_post_job( $can_post ) {
 			global $bpjm_bp_job_manager;
 
-			if ( ! is_user_logged_in() ) {
-				// Allow posting if "Guest" role is in the allowed posting roles.
-				return in_array( 'guest', $bpjm_bp_job_manager->post_job_user_roles, true );
-			}
-
-			// Proceed with checking roles if the user is logged in.
-			$user_id = bp_loggedin_user_id();
-			$user    = get_userdata( $user_id );
-
-			$match_post_job_roles_curr_user = ( ! empty( $bpjm_bp_job_manager ) && ! empty( $user ) ) ? array_intersect( $bpjm_bp_job_manager->post_job_user_roles, $user->roles ) : array();
-
-			return ! empty( $match_post_job_roles_curr_user );
+			return bpjm_user_can_post_job( is_user_logged_in() ? bp_loggedin_user_id() : null );
 		}
 
 		/**

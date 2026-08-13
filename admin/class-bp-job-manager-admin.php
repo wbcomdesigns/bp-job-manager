@@ -103,9 +103,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					/**
 					 * Resumes menu - for the roles allowed for job posting.
 					 */
-					$apply_job_roles       = isset( $bpjm_bp_job_manager->apply_job_user_roles ) ? $bpjm_bp_job_manager->apply_job_user_roles : array();
-					$match_apply_job_roles = array_intersect( $apply_job_roles, $curr_user->roles );
-					if ( ! empty( $match_apply_job_roles ) ) {
+					if ( bpjm_user_can_apply_job( $curr_user ) ) {
 						// Resumes menu.
 						$profile_menu_slug  = 'resumes';
 						$profile_menu_title = esc_html__( 'Resumes', 'bp-job-manager' );
@@ -159,9 +157,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					/**
 					 * Jobs menu - for the roles allowed for job posting.
 					 */
-					$job_posting_roles       = isset( $bpjm_bp_job_manager->post_job_user_roles ) ? $bpjm_bp_job_manager->post_job_user_roles : array();
-					$match_job_posting_roles = array_intersect( $job_posting_roles, $curr_user->roles );
-					if ( ! empty( $match_job_posting_roles ) ) {
+					if ( bpjm_user_can_post_job( $curr_user ) ) {
 						// Jobs menu.
 						$jobs_menu_slug  = 'jobs';
 						$jobs_menu_title = esc_html__( 'Jobs', 'bp-job-manager' );
