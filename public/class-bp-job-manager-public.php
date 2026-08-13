@@ -306,17 +306,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		}
 
 		/**
-		 * Tell WP Job Manager core that our profile screens are WPJM screens.
-		 *
-		 * Filters `has_wpjm_shortcode`, which drives WPJM's own
-		 * `job_manager_enqueue_frontend_style` gate. Returning the incoming
-		 * value untouched off our screens keeps other filters intact.
-		 *
-		 * @since 1.0.0
-		 * @param bool $has_shortcode Whether WPJM already detected a shortcode.
-		 * @return bool True on a screen this plugin owns, otherwise unchanged.
-		 */
-		/**
 		 * Hide WP Job Manager's account block on a member's own profile.
 		 *
 		 * WP Job Manager prints "You are currently signed in as {username}" with a
@@ -345,6 +334,17 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			return ( bp_loggedin_user_id() === bp_displayed_user_id() ) ? false : $show_signin;
 		}
 
+		/**
+		 * Tell WP Job Manager core that our profile screens are WPJM screens.
+		 *
+		 * Filters `has_wpjm_shortcode`, which drives WPJM's own
+		 * `job_manager_enqueue_frontend_style` gate. Returning the incoming
+		 * value untouched off our screens keeps other filters intact.
+		 *
+		 * @since 1.0.0
+		 * @param bool $has_shortcode Whether WPJM already detected a shortcode.
+		 * @return bool True on a screen this plugin owns, otherwise unchanged.
+		 */
 		public function bpjm_has_wpjm_shortcode( $has_shortcode = false ) {
 			/*
 			 * The standalone "Apply To Job" page must count too. It renders
@@ -1532,6 +1532,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 				$applicant_info = get_userdata( $secondary_item_id );
 				// get_userdata() returns false when the user no longer exists.
+
 				/*
 				 * Display name, not user_login. The notice used to print the raw
 				 * username, which is an internal identifier the member never chose

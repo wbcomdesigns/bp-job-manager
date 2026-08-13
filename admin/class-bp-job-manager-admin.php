@@ -225,9 +225,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 				return;
 			}
 
-			/* translators: %1$s: BP user link ; %2$s: Job link */
-			$this->bpjm_add_publish_activity( $post, 'bpjm_job_post', /* translators: 1: member link, 2: job title link. */
-				__( '%1$s posted a job: %2$s', 'bp-job-manager' ) );
+			/* translators: 1: member profile link, 2: job title link. */
+			$this->bpjm_add_publish_activity( $post, 'bpjm_job_post', __( '%1$s posted a job: %2$s', 'bp-job-manager' ) );
 		}
 
 		/**
@@ -251,9 +250,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 				return;
 			}
 
-			/* translators: %1$s: Resume user link ; %2$s: Resume link */
-			$this->bpjm_add_publish_activity( $post, 'bpjm_resume_publish', /* translators: 1: member link, 2: resume title link. */
-				__( '%1$s published a resume: %2$s', 'bp-job-manager' ) );
+			/* translators: 1: member profile link, 2: resume title link. */
+			$this->bpjm_add_publish_activity( $post, 'bpjm_resume_publish', __( '%1$s published a resume: %2$s', 'bp-job-manager' ) );
 		}
 
 		/**
