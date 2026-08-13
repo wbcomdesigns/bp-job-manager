@@ -1212,52 +1212,30 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				<div id="resume-manager-candidate-dashboard">
 					<p class="account-sign-in">
 						<?php esc_html_e( 'You need to be signed in to manage your resumes.', 'bp-job-manager' ); ?>
-						<a class="button" href="
-						<?php
-						echo apply_filters( 'resume_manager_candidate_dashboard_login_url', wp_login_url( get_permalink() ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
-						?>
-												"><?php esc_html_e( 'Sign in', 'bp-job-manager' ); ?></a>
+						<a class="button" href="<?php echo esc_url( apply_filters( 'resume_manager_candidate_dashboard_login_url', wp_login_url( get_permalink() ) ) ); ?>"><?php esc_html_e( 'Sign in', 'bp-job-manager' ); ?></a>
 					</p>
 				</div>
 				<?php
-			}
-			$args    = apply_filters(
-				'bp_job_manager_get_dashboard_resumes_args',
-				array(
-					'post_type'           => 'resume',
-					'post_status'         => array( 'publish', 'expired', 'pending', 'hidden' ),
-					'ignore_sticky_posts' => 1,
-					'posts_per_page'      => 10,
-					'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * 10,
-					'orderby'             => 'date',
-					'order'               => 'desc',
-					'author'              => bp_displayed_user_id(),
-				)
-			);
-			$resumes = new WP_Query();
-
-			$candidate_dashboard_columns = array(
-				'resume-title'       => __( 'Name', 'bp-job-manager' ),
-				'candidate-title'    => __( 'Title', 'bp-job-manager' ),
-				'candidate-location' => __( 'Location', 'bp-job-manager' ),
-				'resume-category'    => __( 'Category', 'bp-job-manager' ),
-				'date'               => __( 'Date Posted', 'bp-job-manager' ),
-			);
-
-			if ( ! get_option( 'resume_manager_enable_categories' ) ) {
-				unset( $candidate_dashboard_columns['resume-category'] );
+				return;
 			}
 
-			get_job_manager_template(
-				'bpjm-resume-listing.php',
-				array(
-					'resumes'                     => $resumes->query( $args ),
-					'max_num_pages'               => $resumes->max_num_pages,
-					'candidate_dashboard_columns' => $candidate_dashboard_columns,
-				),
-				'bp-job-manager',
-				BPJM_PLUGIN_PATH . '/public/templates/'
-			);
+			/*
+			 * Resume Manager renders this screen - we do not.
+			 *
+			 * This used to be our own 193-line template plus a hand-built query and
+			 * column list. It drifted from the dashboard it was copied from - it
+			 * never gained the status column Resume Manager shows - and it
+			 * re-declared labels (Name, Title, Location, Category, Date Posted,
+			 * Edit, Delete) that already exist in the Resume Manager catalogue with
+			 * community translations from wordpress.org. So a translated site got
+			 * Resume Manager's own screens in its language and this one in English.
+			 *
+			 * [candidate_dashboard] is scoped to the displayed member by our
+			 * existing `resume_manager_get_dashboard_resumes_args` filter
+			 * (bpjm_resume_dashboard_user_id), so it shows the right person's
+			 * resumes inside a BuddyPress profile.
+			 */
+			echo do_shortcode( '[candidate_dashboard]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output from Resume Manager, escaped by that plugin's own templates.
 		}
 
 		/**
@@ -1292,10 +1270,22 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_applied_jobs_tab_function_to_show_content() {
-			$file = BPJM_PLUGIN_PATH . 'public/templates/bpjm-my-applied-jobs.php';
-			if ( file_exists( $file ) ) {
-				include $file;
-			}
+			/*
+			 * WP Job Manager Applications renders this screen - we do not.
+			 *
+			 * This used to be our own 121-line template running its own query. It
+			 * could not show an application's status (the single thing a candidate
+			 * opens this screen to find out) even though Applications tracks it,
+			 * and it re-declared labels - Applied For, Attachment - that already
+			 * exist in the Applications catalogue with community translations from
+			 * wordpress.org. So a translated site got Applications' own screens in
+			 * its language and this one in English.
+			 *
+			 * [past_applications] queries every application status and is scoped to
+			 * the current user, which is correct here because this screen is
+			 * owner-only. Filter `job_manager_job_applications_past_args` to adjust.
+			 */
+			echo do_shortcode( '[past_applications]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output from WP Job Manager Applications, escaped by that plugin's own templates.
 		}
 
 		/**
