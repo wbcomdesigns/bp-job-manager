@@ -30,6 +30,13 @@ Branch `3.0.0` (renamed from `2.8.6`), version `3.0.0`. Nothing is tagged yet.
 | `e3b071c` | Name the applicant and job in notifications and activity |
 | `f3f26a4` | Fix coding-standards regressions from `e3b071c` |
 | `97a4f07` | Regenerate WP.org screenshots; drop an empty media block |
+| `7f57aab` | Dashicons to inline Lucide icons |
+| `791179e` | Scaffold docs/website; sync the manifest |
+| `1461c34` | Drop Youzify; breakpoints to 640/1024/1025 |
+| `d3fb6a5` | Submit Application led nowhere on new installs |
+| `d4ac174` | Prefix the count transients; no count for user 0 |
+| `32b97e1` | Broken admin menu icon; CSS the Lucide swap orphaned |
+| `ebef697` | Stop shipping 19MB of dev tooling; clean up on uninstall |
 
 **Gates: PHPStan 0 errors. PHPCS 38 errors / 8 warnings** (was 57/9). Block-severity
 UX violations: **0**. All five locales: 150 strings, 0 untranslated, 0 fuzzy, `.mo` parity.
@@ -51,7 +58,11 @@ Everything in the spec except the two advisory items below.
 - Notification names the applicant (display name) and the job.
 - Every screen walked, including the first anonymous and RTL passes.
 - Screenshots regenerated against clean seed data.
-- Dashicons replaced with inline Lucide icons (22 sites, 12 icons, `bpjm_icon()`).
+- Dashicons replaced with inline Lucide icons (22 sites, 12 icons, `bpjm_icon()`), except
+  the `add_menu_page()` icon argument, which is a URL and must stay `dashicons-*`.
+- Apply from a profile leads to the job listing, not to a page the plugin no longer creates.
+- The release zip is 78 files / 933K, not 2699 files / 19MB, and was installed and walked.
+- Uninstall removes every row the plugin wrote and nothing that belongs to WP Job Manager.
 - Youzify support dropped; the plugin targets plain BuddyPress. That removed ~139 lines of
   theme-specific CSS and let the breakpoints consolidate to 640 / 1024 / 1025.
 - `docs/website/` scaffolded (getting-started, settings, developer-guide) and the manifest
@@ -61,18 +72,20 @@ Everything in the spec except the two advisory items below.
 
 ## Open
 
-### Release
+Nothing blocking. To finish the release: merge to `master`, tag `v3.0.0`, attach
+`dist/bp-job-manager-3.0.0.zip`, and write the release body from the readme's 3.0.0 entry.
 
-- Branch renamed to `3.0.0`. Still to do: merge to `master`, tag `v3.0.0`, build the dist
-  zip, and cut the GitHub release.
+Known and accepted:
+
 - The build gate expects `docs/qa/.last-smoke-pass.json`; this plugin has no `docs/qa/`
-  scaffold. Either scaffold it (`/wp-plugin-release-qa`) or record the exception.
-- No pristine-install test has been run against a built zip. `/wp-plugin-release` does this
-  in Docker and catches packaging bugs that a dev tree hides.
-
-Everything else in the plan is done. Advisory count is 2, both pre-existing false positives
-(`outline: none` on `:focus:not(:focus-visible)`, which is the correct modern pattern -
-the audit script's five-line lookahead cannot see the matching `:focus-visible` rule).
+  scaffold. Recorded as an exception rather than scaffolded - `/wp-plugin-release-qa` is a
+  larger piece of work than this release warrants, and the surfaces were walked by hand.
+- The audit's one `use-lucide` advisory is the `add_menu_page()` icon, which must stay
+  `dashicons-*`. The two `outline-none` advisories are `:focus:not(:focus-visible)`, the
+  correct modern pattern that the script's five-line lookahead cannot see.
+- Saved settings on existing sites still contain the retired `post_job_user_roles`,
+  `apply_job_user_roles` and `bpjm_resume_at_profile` keys. Nothing reads them and
+  uninstall removes the whole option; there is deliberately no migration.
 
 ---
 
