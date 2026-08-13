@@ -54,16 +54,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 		public $job_application_pgid;
 
 		/**
-		 * Bpjm_resume_at_profile
-		 *
-		 * @since    1.0.0
-		 * @access   public
-		 *
-		 * @var mixed  $bpjm_resume_at_profile
-		 */
-		public $bpjm_resume_at_profile;
-
-		/**
 		 * Bpjm_resume_activity
 		 *
 		 * @since    1.0.0
@@ -114,15 +104,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 		public function setup_plugin_global() {
 			$settings = get_option( 'bpjm_general_settings' );
 
-			if ( empty( $settings ) ) {
-				$this->bpjm_resume_at_profile = 'yes';
-			} else {
-				if ( array_key_exists( 'bpjm_resume_at_profile', $settings ) ) {
-					$this->bpjm_resume_at_profile = 'yes';
-				} else {
-					$this->bpjm_resume_at_profile = 'no';
-				}
-
+			if ( ! empty( $settings ) ) {
 				if ( array_key_exists( 'bpjm_resume_activity', $settings ) ) {
 					$this->bpjm_resume_activity = 'yes';
 				} else {

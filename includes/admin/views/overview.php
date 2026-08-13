@@ -34,7 +34,6 @@ $bpjm_apps_on     = bpjm_is_plugin_active( 'wp-job-manager-applications/wp-job-m
 // (presence of the key means "on").
 $job_activity_on    = array_key_exists( 'bpjm_job_post_activity', $settings );
 $resume_activity_on = array_key_exists( 'bpjm_resume_activity', $settings );
-$resume_profile_on  = empty( $settings ) ? true : array_key_exists( 'bpjm_resume_at_profile', $settings );
 $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 ?>
 
@@ -143,17 +142,6 @@ $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 				<td>
 					<?php if ( $resume_activity_on ) : ?>
 						<span class="bpjm-status bpjm-status--ok"><?php esc_html_e( 'On: a new resume creates a BuddyPress activity update', 'bp-job-manager' ); ?></span>
-					<?php else : ?>
-						<span class="bpjm-status bpjm-status--muted"><?php esc_html_e( 'Off', 'bp-job-manager' ); ?></span>
-						<a href="<?php echo esc_url( $general_url ); ?>" class="bpjm-inline-hint"><?php esc_html_e( 'Turn on', 'bp-job-manager' ); ?></a>
-					<?php endif; ?>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Resume on profile', 'bp-job-manager' ); ?></th>
-				<td>
-					<?php if ( $resume_profile_on ) : ?>
-						<span class="bpjm-status bpjm-status--ok"><?php esc_html_e( 'On: members see the latest resume on profiles', 'bp-job-manager' ); ?></span>
 					<?php else : ?>
 						<span class="bpjm-status bpjm-status--muted"><?php esc_html_e( 'Off', 'bp-job-manager' ); ?></span>
 						<a href="<?php echo esc_url( $general_url ); ?>" class="bpjm-inline-hint"><?php esc_html_e( 'Turn on', 'bp-job-manager' ); ?></a>

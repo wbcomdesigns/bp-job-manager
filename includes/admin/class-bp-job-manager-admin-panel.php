@@ -182,7 +182,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin_Panel' ) ) :
 
 			// Boolean (checkbox) keys: present => 'yes', rendered-but-absent => removed.
 			$bool_keys = array(
-				'bpjm_resume_at_profile',
 				'bpjm_resume_activity',
 				'bpjm_job_post_activity',
 				'bpjm_app_notify',

@@ -149,11 +149,6 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			 */
 			require_once plugin_dir_path( __DIR__ ) . 'public/class-bp-job-manager-public.php';
 
-			/**
-			 * The class responsible for defining all actions that occur in the public-facing
-			 * side of the site.
-			 */
-			require_once plugin_dir_path( __DIR__ ) . '/public/templates/profile-content-single-resume.php';
 
 			$this->loader = new Bp_Job_Manager_Loader();
 		}
@@ -224,31 +219,24 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			/* Check if Resume Manager plugin active to add tab. */
 			$wpjm_resumes_active = bpjm_is_plugin_active( 'wp-job-manager-resumes/wp-job-manager-resumes.php' );
 			if ( $wpjm_resumes_active ) {
-				global $bpjm_bp_job_manager;
-
-				// The Resumes nav (My Resumes / Add Resume / Applied Jobs) is a
-				// management surface. Its only real dependency is Resume Manager
-				// being active — NOT the `bpjm_resume_at_profile` display option,
-				// which is scoped to showing a resume ON the profile and is
-				// enforced independently inside bpjm_bp_profile_field_item() and
-				// bpjm_resume_settings_before_submit(). Gating registration on the
-				// display option silently removed all three subnavs, which is not
-				// what its label ("Show the latest resume on the member's
-				// BuddyPress profile") promises.
+				/*
+				 * The Resumes nav is the whole resume surface now.
+				 *
+				 * A second copy of the member's resume used to be printed onto the
+				 * profile screen itself via bp_after_profile_loop_content, with its
+				 * own admin setting, its own nine-checkbox per-member meta, its own
+				 * settings form, a Youzify-only variant of that form, and a save
+				 * handler on bp_init. All of it to show, on one screen, what the
+				 * Resumes tab already shows on the next.
+				 *
+				 * It is gone in 3.0.0. The duplication was the source of its own
+				 * bugs: the renderer and its settings form defaulted differently,
+				 * so a member's resume could be visible while the form said it was
+				 * hidden, and saving that form for an unrelated reason silently
+				 * removed the resume. Deleting the second copy removes the whole
+				 * class of bug rather than patching it.
+				 */
 				$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_resumes_tab' );
-
-				/*Action to render resume content at buddypress profile page*/
-				$this->loader->add_action( 'bp_after_profile_loop_content', $plugin_public, 'bpjm_bp_profile_field_item' );
-				if ( class_exists( 'Youzify' ) ) {
-					global $bpjm_bp_job_manager;
-					if ( isset( $bpjm_bp_job_manager->bpjm_resume_at_profile ) && 'yes' === $bpjm_bp_job_manager->bpjm_resume_at_profile ) {
-						$this->loader->add_action( 'wp', $plugin_public, 'bpjm_add_resume_fields_visibility_menu' );
-					}
-				} else {
-					$this->loader->add_action( 'bp_core_xprofile_settings_before_submit', $plugin_public, 'bpjm_resume_settings_before_submit' );
-				}
-
-				$this->loader->add_action( 'bp_init', $plugin_public, 'custom_bp_init' );
 			}
 
 			$this->loader->add_filter( 'page_template', $plugin_public, 'bpjm_job_application_page' );

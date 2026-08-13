@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wbcom Designs - BuddyPress Job Manager 2.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-job-manager\n"
-"POT-Creation-Date: 2026-08-13T10:55:07+00:00\n"
+"POT-Creation-Date: 2026-08-13T11:09:27+00:00\n"
 "PO-Revision-Date: 2026-07-16T11:32:19+00:00\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -227,15 +227,15 @@ msgstr "WB Plugins"
 msgid "Job Manager"
 msgstr "Job Manager"
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:275
+#: includes/admin/class-bp-job-manager-admin-panel.php:274
 msgid "Are you sure? This cannot be undone."
 msgstr "Bist du sicher? Dies kann nicht rückgängig gemacht werden."
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:276
+#: includes/admin/class-bp-job-manager-admin-panel.php:275
 msgid "Continue"
 msgstr "Fortfahren"
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:277
+#: includes/admin/class-bp-job-manager-admin-panel.php:276
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -372,30 +372,30 @@ msgstr ""
 msgid "Visit wbcomdesigns.com for more plugins and themes →"
 msgstr "Besuche wbcomdesigns.com für weitere Plugins und Designs →"
 
-#: includes/admin/views/overview.php:44 includes/admin/views/overview.php:49
+#: includes/admin/views/overview.php:43 includes/admin/views/overview.php:48
 msgid "On"
 msgstr "An"
 
-#: includes/admin/views/overview.php:44 includes/admin/views/overview.php:49
-#: includes/admin/views/overview.php:135 includes/admin/views/overview.php:147
-#: includes/admin/views/overview.php:158 includes/admin/views/overview.php:171
+#: includes/admin/views/overview.php:43 includes/admin/views/overview.php:48
+#: includes/admin/views/overview.php:134 includes/admin/views/overview.php:146
+#: includes/admin/views/overview.php:159
 msgid "Off"
 msgstr "Aus"
 
-#: includes/admin/views/overview.php:45
+#: includes/admin/views/overview.php:44
 msgid "Adds resume management inside profiles"
 msgstr "Ermöglicht die Verwaltung von Lebensläufen in Profilen"
 
-#: includes/admin/views/overview.php:50
+#: includes/admin/views/overview.php:49
 msgid "Lets members apply to jobs from their profile"
 msgstr ""
 "Ermöglicht Mitgliedern, sich von ihrem Profil aus auf Stellen zu bewerben"
 
-#: includes/admin/views/overview.php:58
+#: includes/admin/views/overview.php:57
 msgid "Required plugins missing."
 msgstr "Erforderliche Plugins fehlen."
 
-#: includes/admin/views/overview.php:59
+#: includes/admin/views/overview.php:58
 msgid ""
 "BuddyPress Job Manager needs both BuddyPress and WP Job Manager to be "
 "active. Activate them to use the profile job and resume features."
@@ -404,11 +404,11 @@ msgstr ""
 "um aktiv zu sein. Aktiviere beide, um die Profil-Stellen- und "
 "Lebenslauffunktionen zu nutzen."
 
-#: includes/admin/views/overview.php:66
+#: includes/admin/views/overview.php:65
 msgid "Required Integrations"
 msgstr "Erforderliche Integrationen"
 
-#: includes/admin/views/overview.php:67
+#: includes/admin/views/overview.php:66
 msgid ""
 "What this plugin connects to. Resume and application features need the "
 "matching WP Job Manager add-ons."
@@ -416,30 +416,30 @@ msgstr ""
 "Worauf dieses Plugin sich verbindet. Lebensläufe und Bewerbungsfunktionen "
 "benötigen die entsprechenden WP Job Manager Add-ons."
 
-#: includes/admin/views/overview.php:74 includes/admin/views/overview.php:84
-#: includes/admin/views/overview.php:99 includes/admin/views/overview.php:114
+#: includes/admin/views/overview.php:73 includes/admin/views/overview.php:83
+#: includes/admin/views/overview.php:98 includes/admin/views/overview.php:113
 msgid "Active"
 msgstr "Aktiv"
 
-#: includes/admin/views/overview.php:76 includes/admin/views/overview.php:86
+#: includes/admin/views/overview.php:75 includes/admin/views/overview.php:85
 msgid "Not active"
 msgstr "Nicht aktiv"
 
 #. translators: %s: name of a WP Job Manager add-on, e.g. "Resume Manager" or "Applications". Product name - do not translate the placeholder value.
-#: includes/admin/views/overview.php:94 includes/admin/views/overview.php:109
+#: includes/admin/views/overview.php:93 includes/admin/views/overview.php:108
 #, php-format
 msgid "%s add-on"
 msgstr "%s Add-on"
 
-#: includes/admin/views/overview.php:101 includes/admin/views/overview.php:116
+#: includes/admin/views/overview.php:100 includes/admin/views/overview.php:115
 msgid "Optional — not active"
 msgstr "Optional — nicht aktiv"
 
-#: includes/admin/views/overview.php:125
+#: includes/admin/views/overview.php:124
 msgid "Current Configuration"
 msgstr "Aktuelle Konfiguration"
 
-#: includes/admin/views/overview.php:126
+#: includes/admin/views/overview.php:125
 msgid ""
 "What happens right now when members post jobs, publish resumes, or apply. "
 "Change any of these on the General tab."
@@ -448,64 +448,55 @@ msgstr ""
 "veröffentlichen oder sich bewerben. Ändere diese auf der Registerkarte "
 "Allgemein."
 
-#: includes/admin/views/overview.php:130
+#: includes/admin/views/overview.php:129
 msgid "Activity for job posts"
 msgstr "Aktivität für Stellenausschreibungen"
 
-#: includes/admin/views/overview.php:133
+#: includes/admin/views/overview.php:132
 msgid "On: a new job creates a BuddyPress activity update"
 msgstr "An: Eine neue Stelle erstellt ein BuddyPress-Aktivitätsupdate"
 
-#: includes/admin/views/overview.php:136 includes/admin/views/overview.php:148
-#: includes/admin/views/overview.php:159 includes/admin/views/overview.php:172
+#: includes/admin/views/overview.php:135 includes/admin/views/overview.php:147
+#: includes/admin/views/overview.php:160
 msgid "Turn on"
 msgstr "Aktivieren"
 
-#: includes/admin/views/overview.php:142
+#: includes/admin/views/overview.php:141
 msgid "Activity for resumes"
 msgstr "Aktivität für Lebensläufe"
 
-#: includes/admin/views/overview.php:145
+#: includes/admin/views/overview.php:144
 msgid "On: a new resume creates a BuddyPress activity update"
 msgstr "An: Ein neuer Lebenslauf erstellt ein BuddyPress-Aktivitätsupdate"
 
-#: includes/admin/views/overview.php:153
-#: includes/admin/views/settings-general.php:94
-msgid "Resume on profile"
-msgstr "Lebenslauf im Profil"
-
-#: includes/admin/views/overview.php:156
-msgid "On: members see the latest resume on profiles"
-msgstr "An: Mitglieder sehen den neuesten Lebenslauf in Profilen"
-
-#: includes/admin/views/overview.php:166
-#: includes/admin/views/settings-general.php:105
+#: includes/admin/views/overview.php:154
+#: includes/admin/views/settings-general.php:93
 msgid "Application notifications"
 msgstr "Bewerbungsbenachrichtigungen"
 
-#: includes/admin/views/overview.php:169
+#: includes/admin/views/overview.php:157
 msgid "On: job authors get a BuddyPress notification for each application"
 msgstr ""
 "An: Stellenautoren erhalten eine BuddyPress-Benachrichtigung für jede "
 "Bewerbung"
 
-#: includes/admin/views/overview.php:182
+#: includes/admin/views/overview.php:170
 msgid "Quick Actions"
 msgstr "Schnellaktionen"
 
-#: includes/admin/views/overview.php:188
+#: includes/admin/views/overview.php:176
 msgid "Configure Settings"
 msgstr "Einstellungen konfigurieren"
 
-#: includes/admin/views/overview.php:192 includes/admin/views/welcome.php:41
+#: includes/admin/views/overview.php:180 includes/admin/views/welcome.php:41
 msgid "Read Documentation"
 msgstr "Dokumentation lesen"
 
-#: includes/admin/views/settings-general.php:70
+#: includes/admin/views/settings-general.php:67
 msgid "Activity & Notifications"
 msgstr "Aktivität & Benachrichtigungen"
 
-#: includes/admin/views/settings-general.php:71
+#: includes/admin/views/settings-general.php:68
 msgid ""
 "Decide what shows up in the BuddyPress activity feed and which notifications "
 "members receive."
@@ -513,42 +504,38 @@ msgstr ""
 "Entscheide, was im BuddyPress Aktivitätsfeed angezeigt wird und welche "
 "Benachrichtigungen Mitglieder erhalten."
 
-#: includes/admin/views/settings-general.php:75
+#: includes/admin/views/settings-general.php:72
 msgid "Post job activity"
 msgstr "Stellenausschreibungsaktivität posten"
 
-#: includes/admin/views/settings-general.php:79
+#: includes/admin/views/settings-general.php:76
 msgid "Add a BuddyPress activity update when a member posts a job"
 msgstr ""
 "Füge ein BuddyPress-Aktivitätsupdate hinzu, wenn ein Mitglied eine Stelle "
 "veröffentlicht"
 
-#: includes/admin/views/settings-general.php:85
+#: includes/admin/views/settings-general.php:82
 msgid "Post resume activity"
 msgstr "Lebenslauffeed posten"
 
-#: includes/admin/views/settings-general.php:89
+#: includes/admin/views/settings-general.php:86
 msgid "Add a BuddyPress activity update when a member publishes a resume"
 msgstr ""
 "Füge ein BuddyPress-Aktivitätsupdate hinzu, wenn ein Mitglied einen "
 "Lebenslauf veröffentlicht"
 
-#: includes/admin/views/settings-general.php:98
-msgid "Show the latest resume on the member's BuddyPress profile"
-msgstr "Zeige den neuesten Lebenslauf im BuddyPress-Profil des Mitglieds"
-
-#: includes/admin/views/settings-general.php:109
+#: includes/admin/views/settings-general.php:97
 msgid "Send the job author a BuddyPress notification when someone applies"
 msgstr ""
 "Sende dem Stellenautor eine BuddyPress-Benachrichtigung, wenn sich jemand "
 "bewirbt"
 
-#: includes/admin/views/settings-general.php:121
+#: includes/admin/views/settings-general.php:109
 msgid "More options unlock with the WP Job Manager add-ons."
 msgstr "Weitere Optionen werden mit den WP Job Manager Add-ons freigegeben."
 
 #. translators: 1: "Resume Manager" add-on name, 2: "Applications" add-on name. Both are WP Job Manager product names — do not translate the placeholder values.
-#: includes/admin/views/settings-general.php:124
+#: includes/admin/views/settings-general.php:112
 #, php-format
 msgid ""
 "Install the %1$s and %2$s add-ons to manage resumes on profiles and notify "
@@ -613,8 +600,17 @@ msgstr ""
 "können."
 
 #: includes/admin/views/welcome.php:25
-msgid "There is nothing to configure to get started. A member who posts a job gets a Jobs tab, a member who publishes a resume gets a Resumes tab, and their resume appears on their profile. Use the General tab only to control activity-feed updates and application notifications."
-msgstr "Zum Loslegen musst du nichts konfigurieren. Ein Mitglied, das eine Stelle veröffentlicht, erhält einen Stellen-Tab, ein Mitglied, das einen Lebenslauf veröffentlicht, erhält einen Lebenslauf-Tab, und sein Lebenslauf erscheint in seinem Profil. Nutze den Tab Allgemein nur, um Aktivitäts-Updates und Bewerbungsbenachrichtigungen zu steuern."
+msgid ""
+"There is nothing to configure to get started. A member who posts a job gets "
+"a Jobs tab, a member who publishes a resume gets a Resumes tab, and their "
+"resume appears on their profile. Use the General tab only to control "
+"activity-feed updates and application notifications."
+msgstr ""
+"Zum Loslegen musst du nichts konfigurieren. Ein Mitglied, das eine Stelle "
+"veröffentlicht, erhält einen Stellen-Tab, ein Mitglied, das einen Lebenslauf "
+"veröffentlicht, erhält einen Lebenslauf-Tab, und sein Lebenslauf erscheint "
+"in seinem Profil. Nutze den Tab Allgemein nur, um Aktivitäts-Updates und "
+"Bewerbungsbenachrichtigungen zu steuern."
 
 #: includes/admin/views/welcome.php:32
 msgid "Help & Support Resources"
@@ -776,85 +772,21 @@ msgstr "Du musst angemeldet sein, um deine Lebensläufe zu verwalten."
 msgid "Sign in"
 msgstr "Anmelden"
 
-#: public/class-bp-job-manager-public.php:1401
-msgid "Resume Fields"
-msgstr "Lebenslauffelder"
-
-#: public/class-bp-job-manager-public.php:1466
-#: public/templates/profile-content-single-resume.php:154
-msgid "Resume"
-msgstr "Lebenslauf"
-
-#: public/class-bp-job-manager-public.php:1467
-msgid "Visibility"
-msgstr "Sichtbarkeit"
-
-#: public/class-bp-job-manager-public.php:1472
-msgid "Show resume on the profile page"
-msgstr "Zeige den Lebenslauf auf der Profilseite"
-
-#: public/class-bp-job-manager-public.php:1484
-msgid "Select resume to display at profile"
-msgstr "Wähle einen Lebenslauf für die Anzeige im Profil"
-
-#: public/class-bp-job-manager-public.php:1496
-msgid "Show email field"
-msgstr "E-Mail-Feld anzeigen"
-
-#: public/class-bp-job-manager-public.php:1508
-msgid "Display professional title"
-msgstr "Berufliche Bezeichnung anzeigen"
-
-#: public/class-bp-job-manager-public.php:1520
-msgid "Display location"
-msgstr "Ort anzeigen"
-
-#: public/class-bp-job-manager-public.php:1532
-msgid "Display video link"
-msgstr "Video-Link anzeigen"
-
-#: public/class-bp-job-manager-public.php:1544
-msgid "Display resume contents(description)"
-msgstr "Inhalt des Lebenslaufs anzeigen (Beschreibung)"
-
-#: public/class-bp-job-manager-public.php:1556
-msgid "Display URL(s)"
-msgstr "URL(s) anzeigen"
-
-#: public/class-bp-job-manager-public.php:1568
-msgid "Display education"
-msgstr "Ausbildung anzeigen"
-
-#: public/class-bp-job-manager-public.php:1580
-msgid "Display experience"
-msgstr "Erfahrung anzeigen"
-
-#: public/class-bp-job-manager-public.php:1597
-msgid "Save Changes"
-msgstr "Änderungen speichern"
-
-#: public/class-bp-job-manager-public.php:1610
-msgid ""
-"No resume fields available. Please create a resume to enable display options."
-msgstr ""
-"Keine Lebenslauffelder verfügbar. Bitte erstelle einen Lebenslauf, um "
-"Anzeigeoptionen zu aktivieren."
-
-#: public/class-bp-job-manager-public.php:1761
+#: public/class-bp-job-manager-public.php:1444
 msgid "Private Message"
 msgstr "Private Nachricht"
 
-#: public/class-bp-job-manager-public.php:1761
+#: public/class-bp-job-manager-public.php:1444
 msgid "Send Private Message"
 msgstr "Private Nachricht senden"
 
 #. translators: %1$s: Applicant Name
-#: public/class-bp-job-manager-public.php:1848
+#: public/class-bp-job-manager-public.php:1531
 #, php-format
 msgid "%s submitted an application for your job posting."
 msgstr "%s hat eine Bewerbung für deine Stellenausschreibung eingereicht."
 
-#: public/class-bp-job-manager-public.php:1903
+#: public/class-bp-job-manager-public.php:1586
 msgid ""
 "You are not authorized to post a job. Please reach out to the administrator "
 "for further assistance."
@@ -869,91 +801,3 @@ msgstr "Kein Inhalt verfügbar."
 #: public/templates/bpjm-job-listing.php:33
 msgid "No jobs found."
 msgstr "Keine Stellen gefunden."
-
-#: public/templates/profile-content-single-resume.php:111
-msgid "E-mail"
-msgstr "E-Mail"
-
-#: public/templates/profile-content-single-resume.php:118
-msgid "Professional Title"
-msgstr "Berufliche Bezeichnung"
-
-#: public/templates/profile-content-single-resume.php:125
-msgid "Location"
-msgstr "Ort"
-
-#: public/templates/profile-content-single-resume.php:132
-msgid "Video"
-msgstr "Video"
-
-#: public/templates/profile-content-single-resume.php:139
-msgid "Description"
-msgstr "Beschreibung"
-
-#: public/templates/profile-content-single-resume.php:186
-msgid "Links"
-msgstr "Links"
-
-#: public/templates/profile-content-single-resume.php:206
-msgid "Education"
-msgstr "Ausbildung"
-
-#: public/templates/profile-content-single-resume.php:219
-msgid "School Name"
-msgstr "Schulname"
-
-#: public/templates/profile-content-single-resume.php:223
-msgid "Qualification"
-msgstr "Qualifikation"
-
-#: public/templates/profile-content-single-resume.php:227
-#: public/templates/profile-content-single-resume.php:279
-msgid "Date"
-msgstr "Datum"
-
-#: public/templates/profile-content-single-resume.php:231
-#: public/templates/profile-content-single-resume.php:283
-msgid "Notes"
-msgstr "Notizen"
-
-#: public/templates/profile-content-single-resume.php:252
-msgid "Experience"
-msgstr "Erfahrung"
-
-#: public/templates/profile-content-single-resume.php:271
-msgid "Employer"
-msgstr "Arbeitgeber"
-
-#: public/templates/profile-content-single-resume.php:275
-msgid "Job Title"
-msgstr "Berufsbezeichnung"
-
-#~ msgid "Settings saved."
-#~ msgstr "Einstellungen gespeichert."
-
-#~ msgid "Could not save. Please try again."
-#~ msgstr "Konnte nicht speichern. Bitte versuche es noch einmal."
-
-#~ msgid "Search roles…"
-#~ msgstr "Rollen suchen…"
-
-#~ msgid "Clear all"
-#~ msgstr "Alle entfernen"
-
-#, php-format
-#~ msgid "Remove %s"
-#~ msgstr "%s entfernen"
-
-#~ msgid "No roles match your search."
-#~ msgstr "Keine Rollen stimmen mit deiner Suche überein."
-
-#~ msgid "Select at least one role."
-#~ msgstr "Wähle mindestens eine Rolle aus."
-
-#~ msgid ""
-#~ "Use the General tab to choose which member roles can post jobs and apply, "
-#~ "and to control activity-feed updates and application notifications."
-#~ msgstr ""
-#~ "Verwende die Registerkarte Allgemein, um zu wählen, welche "
-#~ "Mitgliederrollen Stellen ausschreiben und sich bewerben können, und um "
-#~ "Aktivitätsfeed-Updates und Benachrichtigungen über Bewerbungen zu steuern."

@@ -12,7 +12,6 @@
  *
  *  - bpjm_job_post_activity  (checkbox; present => yes)
  *  - bpjm_resume_activity    (checkbox; present => yes)
- *  - bpjm_resume_at_profile  (checkbox; present => yes)
  *  - bpjm_app_notify         (checkbox; present => yes)
  *
  * Sentinel hidden inputs (bpjm_tab_rendered_keys / bpjm_array_rendered_keys)
@@ -39,7 +38,6 @@ $settings = ( isset( $settings ) && is_array( $settings ) ) ? $settings : array(
 // Checkbox states (presence => on, mirroring Globals).
 $job_activity_on    = array_key_exists( 'bpjm_job_post_activity', $settings );
 $resume_activity_on = array_key_exists( 'bpjm_resume_activity', $settings );
-$resume_profile_on  = empty( $settings ) ? true : array_key_exists( 'bpjm_resume_at_profile', $settings );
 $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 
 // Add-on availability gates the matching fields, same as the legacy form.
@@ -53,7 +51,6 @@ $bpjm_apps_on    = bpjm_is_plugin_active( 'wp-job-manager-applications/wp-job-ma
 $tab_rendered_keys = array( 'bpjm_job_post_activity' );
 if ( $bpjm_resumes_on ) {
 	$tab_rendered_keys[] = 'bpjm_resume_activity';
-	$tab_rendered_keys[] = 'bpjm_resume_at_profile';
 }
 if ( $bpjm_apps_on ) {
 	$tab_rendered_keys[] = 'bpjm_app_notify';
@@ -87,15 +84,6 @@ endforeach;
 					<label class="bpjm-toggle">
 						<input type="checkbox" name="bpjm_general_settings[bpjm_resume_activity]" value="yes" <?php checked( $resume_activity_on ); ?>>
 						<?php esc_html_e( 'Add a BuddyPress activity update when a member publishes a resume', 'bp-job-manager' ); ?>
-					</label>
-				</td>
-			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Resume on profile', 'bp-job-manager' ); ?></th>
-				<td>
-					<label class="bpjm-toggle">
-						<input type="checkbox" name="bpjm_general_settings[bpjm_resume_at_profile]" value="yes" <?php checked( $resume_profile_on ); ?>>
-						<?php esc_html_e( 'Show the latest resume on the member\'s BuddyPress profile', 'bp-job-manager' ); ?>
 					</label>
 				</td>
 			</tr>
