@@ -89,75 +89,111 @@ function bpjm_show_resume_at_profile( $post_id ) {
 		return;
 	}
 
-	if ( isset( $fields_display['email'] ) || isset( $fields_display['prof_title'] ) || isset( $fields_display['location'] ) || isset( $fields_display['video'] ) || isset( $fields_display['description'] ) ) {
-		?>
-		<div class="bp-widget">
-		<?php if ( ! empty( $fields_display['email'] ) || ! empty( $fields_display['prof_title'] ) || ! empty( $fields_display['location'] ) || ! empty( $fields_display['video'] ) || ! empty( $fields_display['description'] ) ) { ?>
-			<h3 class="screen-heading profile-group-title">
-			<?php
-			// Translate first, then filter the translated string, and escape once
-			// at output. The hook name's "peronal" misspelling is a long-standing
-			// public contract - do not correct it.
-			echo esc_html( apply_filters( 'bpjm_profile_peronal_inf_txt', __( 'Personal Information', 'bp-job-manager' ) ) );
-			?>
-			</h3>
-			<?php } ?>
-			<table class="profile-fields">
-				<?php
+	/*
+	 * Rows are built first, then rendered only if any survived.
+	 *
+	 * Every row used to print unconditionally whenever its field was enabled, so
+	 * a resume with no video showed a "Video" label with nothing beside it, and a
+	 * resume with no links still got a whole "URL(s)" section containing one
+	 * empty row. A label with no value is not information - it is a gap the
+	 * member cannot fill from this screen and cannot remove.
+	 *
+	 * Note the getters: the_candidate_title() and friends ECHO and return null,
+	 * so the old `echo esc_html( the_candidate_title() )` escaped nothing and
+	 * printed via the function's own output. get_the_*() returns the value, which
+	 * is what lets us test it for emptiness and escape it once here.
+	 */
+	$bpjm_rows = array();
 
-				if ( ! empty( $fields_display['email'] ) ) {
-
-					$email = get_post_meta( $post_id, '_candidate_email', true );
-					?>
-				<tr>
-					<td class='label'> <?php esc_html_e( 'E-mail', 'bp-job-manager' ); ?></td>
-					<td class='data'> <?php echo esc_html( sanitize_email( $email ) ); ?> </td>
-				</tr>
-				<?php } if ( ! empty( $fields_display['prof_title'] ) ) { ?>
-				<tr>
-					<td class="label"><?php esc_html_e( 'Professional Title', 'bp-job-manager' ); ?></td>
-					<td class="data"><?php echo esc_html( the_candidate_title() ); ?></td>
-				</tr>
-				<?php } if ( ! empty( $fields_display['location'] ) ) { ?>
-				<tr>
-					<td class="label"><?php esc_html_e( 'Location', 'bp-job-manager' ); ?></td>
-					<td class="data"><?php echo esc_html( the_candidate_location() ); ?></td>
-				</tr>
-				<?php } if ( ! empty( $fields_display['video'] ) ) { ?>
-				<tr>
-					<td class="label"><?php esc_html_e( 'Video', 'bp-job-manager' ); ?></td>
-					<td class="data"><?php echo esc_html( the_candidate_video() ); ?></td>
-				</tr>
-				<?php } if ( ! empty( $fields_display['description'] ) ) { ?>
-				<tr>
-					<td class="label"><?php esc_html_e( 'Description', 'bp-job-manager' ); ?></td>
-					<td class="data"><?php echo wp_kses_post( apply_filters( 'the_resume_description', get_the_content() ) ); ?></td>
-				</tr>
-					<?php
-				}
-
-				?>
-			</table>
-		</div>
-				<?php
+	if ( ! empty( $fields_display['email'] ) ) {
+		$bpjm_email = sanitize_email( (string) get_post_meta( $post_id, '_candidate_email', true ) );
+		if ( '' !== $bpjm_email ) {
+			$bpjm_rows[] = array( __( 'E-mail', 'bp-job-manager' ), esc_html( $bpjm_email ) );
+		}
 	}
-	if ( ! empty( $fields_display['url'] ) ) {
+
+	if ( ! empty( $fields_display['prof_title'] ) && function_exists( 'get_the_candidate_title' ) ) {
+		$bpjm_title = trim( (string) get_the_candidate_title() );
+		if ( '' !== $bpjm_title ) {
+			$bpjm_rows[] = array( __( 'Professional Title', 'bp-job-manager' ), esc_html( $bpjm_title ) );
+		}
+	}
+
+	if ( ! empty( $fields_display['location'] ) && function_exists( 'get_the_candidate_location' ) ) {
+		$bpjm_location = trim( wp_strip_all_tags( (string) get_the_candidate_location() ) );
+		if ( '' !== $bpjm_location ) {
+			$bpjm_rows[] = array( __( 'Location', 'bp-job-manager' ), esc_html( $bpjm_location ) );
+		}
+	}
+
+	if ( ! empty( $fields_display['video'] ) && function_exists( 'get_the_candidate_video' ) ) {
+		$bpjm_video = trim( (string) get_the_candidate_video() );
+		if ( '' !== $bpjm_video ) {
+			$bpjm_rows[] = array( __( 'Video', 'bp-job-manager' ), esc_html( $bpjm_video ) );
+		}
+	}
+
+	if ( ! empty( $fields_display['description'] ) ) {
+		$bpjm_description = trim( (string) apply_filters( 'the_resume_description', get_the_content() ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Third-party hook from Resume Manager.
+		if ( '' !== wp_strip_all_tags( $bpjm_description ) ) {
+			$bpjm_rows[] = array( __( 'Description', 'bp-job-manager' ), wp_kses_post( $bpjm_description ) );
+		}
+	}
+
+	if ( ! empty( $bpjm_rows ) ) {
 		?>
-		<div class="bp-widget">
+		<div class="bp-widget bpjm-resume-widget">
 			<h3 class="screen-heading profile-group-title">
 			<?php
-			// Translate first, then filter the translated string, escape once at output.
-			echo esc_html( apply_filters( 'bpjm_profile_urls_txt', __( 'URL(s)', 'bp-job-manager' ) ) );
+			/*
+			 * "Resume", not "Personal Information" - this is the member's resume
+			 * shown on their profile, and calling it something else made it read
+			 * as a second set of profile fields. The hook name's "peronal"
+			 * misspelling is a long-standing public contract - do not correct it.
+			 */
+			echo esc_html( apply_filters( 'bpjm_profile_peronal_inf_txt', __( 'Resume', 'bp-job-manager' ) ) );
 			?>
 			</h3>
 			<table class="profile-fields">
-				<tr>
-					<td class="label"><?php esc_html_e( 'URL(s)', 'bp-job-manager' ); ?></td>
-					<td class="data"><?php the_resume_links(); ?></td>
-				</tr>
+				<?php foreach ( $bpjm_rows as $bpjm_row ) : ?>
+					<tr>
+						<td class="label"><?php echo esc_html( $bpjm_row[0] ); ?></td>
+						<td class="data"><?php echo wp_kses_post( $bpjm_row[1] ); ?></td>
+					</tr>
+				<?php endforeach; ?>
 			</table>
 		</div>
+		<?php
+	}
+
+	if ( ! empty( $fields_display['url'] ) && function_exists( 'the_resume_links' ) ) {
+		/*
+		 * Resume Manager only offers an echoing the_resume_links(), so buffer it
+		 * to find out whether there are any links before committing to a heading.
+		 * This section used to render unconditionally: a "URL(s)" heading over a
+		 * "URL(s)" row with nothing in it, on every resume without links.
+		 */
+		ob_start();
+		the_resume_links();
+		$bpjm_links = trim( (string) ob_get_clean() );
+
+		if ( '' !== wp_strip_all_tags( $bpjm_links ) ) {
+			?>
+			<div class="bp-widget bpjm-resume-widget">
+				<h3 class="screen-heading profile-group-title">
+				<?php
+				// Translate first, then filter the translated string, escape once at output.
+				echo esc_html( apply_filters( 'bpjm_profile_urls_txt', __( 'Links', 'bp-job-manager' ) ) );
+				?>
+				</h3>
+				<table class="profile-fields">
+					<tr>
+						<td class="data" colspan="2"><?php echo wp_kses_post( $bpjm_links ); ?></td>
+					</tr>
+				</table>
+			</div>
 			<?php
+		}
 	}
 	if ( ! empty( $fields_display['education'] ) ) {
 		$items = get_post_meta( $post_id, '_candidate_education', true );

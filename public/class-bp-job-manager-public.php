@@ -316,6 +316,35 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @param bool $has_shortcode Whether WPJM already detected a shortcode.
 		 * @return bool True on a screen this plugin owns, otherwise unchanged.
 		 */
+		/**
+		 * Hide WP Job Manager's account block on a member's own profile.
+		 *
+		 * WP Job Manager prints "You are currently signed in as {username}" with a
+		 * Sign out button above its submit form. On a standalone submit page that
+		 * is useful. Inside the member's OWN BuddyPress profile it is three
+		 * problems at once: they plainly are signed in, it prints the raw
+		 * user_login rather than their display name, and it puts a destructive
+		 * control in the middle of a form they are filling in - one mis-click and
+		 * the draft is gone.
+		 *
+		 * Scoped as narrowly as possible. A logged-out visitor still gets the
+		 * sign-in box: suppressing it for everyone is a bug this plugin already
+		 * shipped once, where a visitor who could not post as a guest got the form
+		 * hidden AND the sign-in box hidden, leaving no way to continue.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param bool $show_signin Whether WP Job Manager should render the block.
+		 * @return bool
+		 */
+		public function bpjm_hide_signin_on_own_profile( $show_signin = true ) {
+			if ( ! is_user_logged_in() || ! bp_is_user() ) {
+				return $show_signin;
+			}
+
+			return ( bp_loggedin_user_id() === bp_displayed_user_id() ) ? false : $show_signin;
+		}
+
 		public function bpjm_has_wpjm_shortcode( $has_shortcode = false ) {
 			/*
 			 * The standalone "Apply To Job" page must count too. It renders
