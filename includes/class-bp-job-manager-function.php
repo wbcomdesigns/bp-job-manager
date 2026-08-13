@@ -143,7 +143,7 @@ function bpjm_wpml_translations_table_exists() {
 /**
  * Get job count of member, with WPML support if available.
  *
- * Cached in the `user_{ID}_job_listings` transient (keyed per WPML language),
+ * Cached in the `bpjm_user_{ID}_job_listings` transient (keyed per WPML language),
  * invalidated on job/resume status changes via
  * Bp_Job_Manager_Public::flush_job_listings_transient_on_update().
  *
@@ -154,12 +154,19 @@ function bpjm_member_profile_jobs_count( $displayed_uid ) {
 
 	$displayed_uid = absint( $displayed_uid );
 
+	// No member, no count. Without this the query runs against post_author 0,
+	// which can never match, and caches the result under a transient per
+	// request that has no displayed user.
+	if ( ! $displayed_uid ) {
+		return 0;
+	}
+
 	// Check if WPML is active and get the current language.
 	$current_language = defined( 'ICL_LANGUAGE_CODE' ) ? apply_filters( 'wpml_current_language', null ) : null;
 	$use_wpml         = $current_language && bpjm_wpml_translations_table_exists();
 	$language_key     = $use_wpml ? $current_language : 'default';
 
-	$transient_key = "user_{$displayed_uid}_job_listings";
+	$transient_key = "bpjm_user_{$displayed_uid}_job_listings";
 	$cached_counts = get_transient( $transient_key );
 
 	if ( is_array( $cached_counts ) && isset( $cached_counts[ $language_key ] ) ) {
@@ -201,7 +208,7 @@ function bpjm_member_profile_jobs_count( $displayed_uid ) {
 /**
  * Get resume count of member, with WPML support if available.
  *
- * Cached in the `user_{ID}_my_resumes_count` transient (keyed per WPML
+ * Cached in the `bpjm_user_{ID}_my_resumes_count` transient (keyed per WPML
  * language), invalidated on job/resume status changes via
  * Bp_Job_Manager_Public::flush_job_listings_transient_on_update().
  *
@@ -212,12 +219,19 @@ function bpjm_member_profile_resumes_count( $displayed_uid ) {
 
 	$displayed_uid = absint( $displayed_uid );
 
+	// No member, no count. Without this the query runs against post_author 0,
+	// which can never match, and caches the result under a transient per
+	// request that has no displayed user.
+	if ( ! $displayed_uid ) {
+		return 0;
+	}
+
 	// Check if WPML is active and get the current language.
 	$current_language = defined( 'ICL_LANGUAGE_CODE' ) ? apply_filters( 'wpml_current_language', null ) : null;
 	$use_wpml         = $current_language && bpjm_wpml_translations_table_exists();
 	$language_key     = $use_wpml ? $current_language : 'default';
 
-	$transient_key = "user_{$displayed_uid}_my_resumes_count";
+	$transient_key = "bpjm_user_{$displayed_uid}_my_resumes_count";
 	$cached_counts = get_transient( $transient_key );
 
 	if ( is_array( $cached_counts ) && isset( $cached_counts[ $language_key ] ) ) {

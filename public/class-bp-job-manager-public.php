@@ -1733,8 +1733,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 */
 		public function flush_job_listings_transient_on_update( $new_status, $old_status, $post ) {
 			if ( in_array( $post->post_type, array( 'job_listing', 'resume' ), true ) ) {
-				delete_transient( "user_{$post->post_author}_job_listings" );
-				delete_transient( "user_{$post->post_author}_my_resumes_count" );
+				delete_transient( "bpjm_user_{$post->post_author}_job_listings" );
+				delete_transient( "bpjm_user_{$post->post_author}_my_resumes_count" );
 			}
 		}
 
