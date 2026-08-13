@@ -82,7 +82,7 @@ WordPress-Plugin-Boilerplate layout (Bootstrap -> Loader -> Globals -> Admin/Pub
 - Tabs rendered from `includes/admin/views/shell.php` (tab list from `Bp_Job_Manager_Admin_Panel::get_tabs()`)
 - Front-end: BP profile nav items `jobs` / `resumes` and their subnav slugs (my-jobs, post-job, my-resumes, applied-jobs, add-resume)
 - **Themes:** plain BuddyPress is the target. BuddyX and Reign are the tested themes; Youzify-specific styling was dropped in 3.0.0. Breakpoints are exactly three: 640 / 1024 / 1025.
-- **Icons:** inline Lucide SVG via `bpjm_icon( $name, $args )` (`includes/admin/class-bp-job-manager-icons.php`). Do not reintroduce Dashicons.
+- **Icons:** inline Lucide SVG via `bpjm_icon( $name, $args )` (`includes/admin/class-bp-job-manager-icons.php`). Do not reintroduce Dashicons in our own markup. **One exception:** the `add_menu_page()` icon argument is an icon *URL*, not one of our names - a bare `'lightbulb'` renders as `<img src="lightbulb">` (a broken image in the admin menu, which is how it shipped between 7f57aab and this note). It stays `dashicons-lightbulb`.
 
 ## wppqa baseline (2026-06-05)
 plugin-dev-rules: 5 high `nonce-no-cap` findings — **all pre-triaged false positives** (nopriv public AJAX, activation-hook redirect, and self-meta xProfile saves). See the baseline SUMMARY for per-finding justification. rest-js-contract and wiring-completeness: skipped (no REST, no template-layer settings reads). Net real high-severity bugs from wppqa: 0.

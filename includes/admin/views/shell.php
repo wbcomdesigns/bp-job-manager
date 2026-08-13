@@ -29,7 +29,7 @@ $bpjm_version = defined( 'BPJM_PLUGIN_VERSION' ) ? BPJM_PLUGIN_VERSION : '';
 			<?php echo bpjm_icon( 'briefcase' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 			<div>
 				<h1><?php esc_html_e( 'BuddyPress Job Manager', 'bp-job-manager' ); ?></h1>
-				<p class="bpjm-page-header__subtitle"><?php esc_html_e( 'Bring WP Job Manager into BuddyPress profiles — members post jobs, manage resumes, and apply, all from their profile.', 'bp-job-manager' ); ?></p>
+				<p class="bpjm-page-header__subtitle"><?php esc_html_e( 'Bring WP Job Manager into BuddyPress profiles. Members post jobs, manage resumes, and apply, all from their profile.', 'bp-job-manager' ); ?></p>
 			</div>
 		</div>
 		<div class="bpjm-page-header__actions">

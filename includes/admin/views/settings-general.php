@@ -108,7 +108,7 @@ endforeach;
 		<div>
 			<strong><?php esc_html_e( 'More options unlock with the WP Job Manager add-ons.', 'bp-job-manager' ); ?></strong>
 			<?php
-			/* translators: 1: "Resume Manager" add-on name, 2: "Applications" add-on name. Both are WP Job Manager product names — do not translate the placeholder values. */
+			/* translators: 1: "Resume Manager" add-on name, 2: "Applications" add-on name. Both are WP Job Manager product names, do not translate the placeholder values. */
 			printf( esc_html__( 'Install the %1$s and %2$s add-ons to manage resumes on profiles and notify job authors about new applications.', 'bp-job-manager' ), 'Resume Manager', 'Applications' );
 			?>
 		</div>

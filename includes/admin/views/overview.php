@@ -97,7 +97,7 @@ $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 				<?php if ( $bpjm_resumes_on ) : ?>
 					<span class="bpjm-status bpjm-status--ok"><?php esc_html_e( 'Active', 'bp-job-manager' ); ?></span>
 				<?php else : ?>
-					<span class="bpjm-status bpjm-status--muted"><?php esc_html_e( 'Optional — not active', 'bp-job-manager' ); ?></span>
+					<span class="bpjm-status bpjm-status--muted"><?php esc_html_e( 'Optional, not active', 'bp-job-manager' ); ?></span>
 				<?php endif; ?>
 			</td>
 		</tr>
@@ -112,7 +112,7 @@ $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 				<?php if ( $bpjm_apps_on ) : ?>
 					<span class="bpjm-status bpjm-status--ok"><?php esc_html_e( 'Active', 'bp-job-manager' ); ?></span>
 				<?php else : ?>
-					<span class="bpjm-status bpjm-status--muted"><?php esc_html_e( 'Optional — not active', 'bp-job-manager' ); ?></span>
+					<span class="bpjm-status bpjm-status--muted"><?php esc_html_e( 'Optional, not active', 'bp-job-manager' ); ?></span>
 				<?php endif; ?>
 			</td>
 		</tr>

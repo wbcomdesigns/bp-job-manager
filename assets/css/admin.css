@@ -101,11 +101,8 @@
 	padding: 0;
 }
 
-.bpjm-page-header__title .dashicons {
+.bpjm-page-header__title .bpjm-icon {
 	color: var(--bpjm-admin-accent);
-	width: 24px;
-	height: 24px;
-	font-size: 24px;
 }
 
 .bpjm-page-header__subtitle {
@@ -174,13 +171,6 @@
 	flex-shrink: 0;
 }
 
-.bpjm-settings-brand-icon .dashicons {
-	color: #fff;
-	width: 18px;
-	height: 18px;
-	font-size: 18px;
-}
-
 .bpjm-settings-brand-text {
 	min-width: 0;
 }
@@ -221,10 +211,7 @@
 	margin-bottom: 1px;
 }
 
-.bpjm-snav-link .dashicons {
-	width: 16px;
-	height: 16px;
-	font-size: 16px;
+.bpjm-snav-link .bpjm-icon {
 	flex-shrink: 0;
 	color: var(--bpjm-admin-text-muted);
 	transition: color 0.12s;
@@ -243,8 +230,8 @@
 	outline: none;
 }
 
-.bpjm-snav-link:hover .dashicons,
-.bpjm-snav-link:focus .dashicons {
+.bpjm-snav-link:hover .bpjm-icon,
+.bpjm-snav-link:focus .bpjm-icon {
 	color: var(--bpjm-admin-text-3);
 }
 
@@ -261,7 +248,7 @@
 	font-weight: 600;
 }
 
-.bpjm-snav-link--active .dashicons {
+.bpjm-snav-link--active .bpjm-icon {
 	color: var(--bpjm-admin-accent);
 }
 
@@ -636,14 +623,6 @@
 	font-size: 32px;
 }
 
-.bpjm-empty-state__icon .dashicons {
-	width: 32px;
-	height: 32px;
-	font-size: 32px;
-	line-height: 1;
-	color: inherit;
-}
-
 .bpjm-empty-state__title {
 	font-size: 16px;
 	font-weight: 700;
@@ -817,12 +796,6 @@
 	margin-top: 4px;
 }
 
-.bpjm-discover-card__cta .dashicons {
-	width: 14px;
-	height: 14px;
-	font-size: 14px;
-}
-
 /* ═══════════════════════════════════════════════════════════
    Responsive — exactly two media blocks per skill Part 7.5
    ═══════════════════════════════════════════════════════════ */
@@ -949,13 +922,6 @@
 	color: var(--bpjm-admin-accent);
 }
 
-.bpjm-hub-card__icon .dashicons {
-	width: 22px;
-	height: 22px;
-	font-size: 22px;
-	color: inherit;
-}
-
 .bpjm-hub-card__title {
 	font-size: 15px;
 	font-weight: 700;
@@ -980,14 +946,11 @@
 	color: var(--bpjm-admin-accent);
 }
 
-.bpjm-hub-card__cta .dashicons {
-	width: 16px;
-	height: 16px;
-	font-size: 16px;
+.bpjm-hub-card__cta .bpjm-icon {
 	transition: transform 0.12s;
 }
 
-.bpjm-hub-card:hover .bpjm-hub-card__cta .dashicons {
+.bpjm-hub-card:hover .bpjm-hub-card__cta .bpjm-icon {
 	transform: translateX(2px);
 }
 
@@ -1112,13 +1075,6 @@
 	border-radius: 10px;
 	background: var(--bpjm-admin-accent-light);
 	color: var(--bpjm-admin-accent);
-}
-
-.bpjm-resource__icon .dashicons {
-	width: 20px;
-	height: 20px;
-	font-size: 20px;
-	color: inherit;
 }
 
 .bpjm-resource__title {

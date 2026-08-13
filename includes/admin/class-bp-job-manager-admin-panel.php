@@ -102,7 +102,11 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin_Panel' ) ) :
 					$cap,
 					'wbcomplugins',
 					array( $this, 'render_hub' ),
-					'lightbulb',
+					// The one place Dashicons is still correct. This argument is an
+					// icon URL, not one of our icon names: a bare string renders as
+					// <img src="lightbulb">, and only a dashicons-* class follows the
+					// admin colour scheme the way every other top-level menu does.
+					'dashicons-lightbulb',
 					59
 				);
 			}

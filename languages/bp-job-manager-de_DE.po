@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wbcom Designs - BuddyPress Job Manager 2.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-job-manager\n"
-"POT-Creation-Date: 2026-08-13T12:05:24+00:00\n"
+"POT-Creation-Date: 2026-08-13T12:13:18+00:00\n"
 "PO-Revision-Date: 2026-07-16T11:32:19+00:00\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -109,7 +109,7 @@ msgid "Are you enjoying BuddyPress Job Manager?"
 msgstr "Gefällt dir BuddyPress Job Manager?"
 
 #: admin/class-bp-job-manager-admin-feedback.php:207 bp-job-manager.php:151
-#: includes/admin/class-bp-job-manager-admin-panel.php:112
+#: includes/admin/class-bp-job-manager-admin-panel.php:116
 #: includes/admin/views/shell.php:31
 msgid "BuddyPress Job Manager"
 msgstr "BuddyPress Job Manager"
@@ -222,20 +222,20 @@ msgstr "Entdecken"
 msgid "WB Plugins"
 msgstr "WB Plugins"
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:113
+#: includes/admin/class-bp-job-manager-admin-panel.php:117
 #: includes/admin/views/shell.php:60
 msgid "Job Manager"
 msgstr "Job Manager"
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:274
+#: includes/admin/class-bp-job-manager-admin-panel.php:278
 msgid "Are you sure? This cannot be undone."
 msgstr "Bist du sicher? Dies kann nicht rückgängig gemacht werden."
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:275
+#: includes/admin/class-bp-job-manager-admin-panel.php:279
 msgid "Continue"
 msgstr "Fortfahren"
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:276
+#: includes/admin/class-bp-job-manager-admin-panel.php:280
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -432,8 +432,8 @@ msgid "%s add-on"
 msgstr "%s Add-on"
 
 #: includes/admin/views/overview.php:100 includes/admin/views/overview.php:115
-msgid "Optional — not active"
-msgstr "Optional — nicht aktiv"
+msgid "Optional, not active"
+msgstr "Optional, nicht aktiv"
 
 #: includes/admin/views/overview.php:124
 msgid "Current Configuration"
@@ -534,7 +534,7 @@ msgstr ""
 msgid "More options unlock with the WP Job Manager add-ons."
 msgstr "Weitere Optionen werden mit den WP Job Manager Add-ons freigegeben."
 
-#. translators: 1: "Resume Manager" add-on name, 2: "Applications" add-on name. Both are WP Job Manager product names — do not translate the placeholder values.
+#. translators: 1: "Resume Manager" add-on name, 2: "Applications" add-on name. Both are WP Job Manager product names, do not translate the placeholder values.
 #: includes/admin/views/settings-general.php:112
 #, php-format
 msgid ""
@@ -546,10 +546,10 @@ msgstr ""
 
 #: includes/admin/views/shell.php:32
 msgid ""
-"Bring WP Job Manager into BuddyPress profiles — members post jobs, manage "
+"Bring WP Job Manager into BuddyPress profiles. Members post jobs, manage "
 "resumes, and apply, all from their profile."
 msgstr ""
-"Bringe WP Job Manager in BuddyPress Profile — Mitglieder schreiben Stellen "
+"Bringe WP Job Manager in BuddyPress Profile. Mitglieder schreiben Stellen "
 "aus, verwalten Lebensläufe und bewerben sich, alles von ihrem Profil aus."
 
 #: includes/admin/views/shell.php:61
@@ -602,15 +602,14 @@ msgstr ""
 #: includes/admin/views/welcome.php:25
 msgid ""
 "There is nothing to configure to get started. A member who posts a job gets "
-"a Jobs tab, a member who publishes a resume gets a Resumes tab, and their "
-"resume appears on their profile. Use the General tab only to control "
-"activity-feed updates and application notifications."
+"a Jobs tab and a member who publishes a resume gets a Resumes tab. Use the "
+"General tab only to control activity-feed updates and application "
+"notifications."
 msgstr ""
 "Zum Loslegen musst du nichts konfigurieren. Ein Mitglied, das eine Stelle "
 "veröffentlicht, erhält einen Stellen-Tab, ein Mitglied, das einen Lebenslauf "
-"veröffentlicht, erhält einen Lebenslauf-Tab, und sein Lebenslauf erscheint "
-"in seinem Profil. Nutze den Tab Allgemein nur, um Aktivitäts-Updates und "
-"Bewerbungsbenachrichtigungen zu steuern."
+"veröffentlicht, erhält einen Lebenslauf-Tab. Nutze den Tab Allgemein nur, um "
+"Aktivitäts-Updates und Bewerbungsbenachrichtigungen zu steuern."
 
 #: includes/admin/views/welcome.php:32
 msgid "Help & Support Resources"

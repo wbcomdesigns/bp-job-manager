@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BuddyPress Job Manager\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-job-manager\n"
-"POT-Creation-Date: 2026-08-13T12:05:24+00:00\n"
+"POT-Creation-Date: 2026-08-13T12:13:18+00:00\n"
 "PO-Revision-Date: 2026-08-13 12:00+0530\n"
 "Last-Translator: Varun Dubey <varun@wbcomdesigns.com>\n"
 "Language-Team: jean-pierre michaud <translation@wpenhancer.agency>\n"
@@ -116,7 +116,7 @@ msgid "Are you enjoying BuddyPress Job Manager?"
 msgstr "Tu aimes BuddyPress Job Manager ?"
 
 #: admin/class-bp-job-manager-admin-feedback.php:207 bp-job-manager.php:151
-#: includes/admin/class-bp-job-manager-admin-panel.php:112
+#: includes/admin/class-bp-job-manager-admin-panel.php:116
 #: includes/admin/views/shell.php:31
 msgid "BuddyPress Job Manager"
 msgstr "BuddyPress Job Manager"
@@ -229,20 +229,20 @@ msgstr "Découvrir"
 msgid "WB Plugins"
 msgstr "Plugins WB"
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:113
+#: includes/admin/class-bp-job-manager-admin-panel.php:117
 #: includes/admin/views/shell.php:60
 msgid "Job Manager"
 msgstr "Job Manager"
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:274
+#: includes/admin/class-bp-job-manager-admin-panel.php:278
 msgid "Are you sure? This cannot be undone."
 msgstr "Tu es sûr ? C'est irréversible."
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:275
+#: includes/admin/class-bp-job-manager-admin-panel.php:279
 msgid "Continue"
 msgstr "Continuer"
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:276
+#: includes/admin/class-bp-job-manager-admin-panel.php:280
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -441,8 +441,8 @@ msgid "%s add-on"
 msgstr "Extension %s"
 
 #: includes/admin/views/overview.php:100 includes/admin/views/overview.php:115
-msgid "Optional — not active"
-msgstr "Optionnel — pas actif"
+msgid "Optional, not active"
+msgstr "Optionnel, pas actif"
 
 #: includes/admin/views/overview.php:124
 msgid "Current Configuration"
@@ -544,7 +544,7 @@ msgstr ""
 msgid "More options unlock with the WP Job Manager add-ons."
 msgstr "Plus d'options se déverrouillent avec les extensions WP Job Manager."
 
-#. translators: 1: "Resume Manager" add-on name, 2: "Applications" add-on name. Both are WP Job Manager product names — do not translate the placeholder values.
+#. translators: 1: "Resume Manager" add-on name, 2: "Applications" add-on name. Both are WP Job Manager product names, do not translate the placeholder values.
 #: includes/admin/views/settings-general.php:112
 #, php-format
 msgid ""
@@ -556,11 +556,11 @@ msgstr ""
 
 #: includes/admin/views/shell.php:32
 msgid ""
-"Bring WP Job Manager into BuddyPress profiles — members post jobs, manage "
+"Bring WP Job Manager into BuddyPress profiles. Members post jobs, manage "
 "resumes, and apply, all from their profile."
 msgstr ""
-"Apporte WP Job Manager dans les profils BuddyPress — les membres publient "
-"des offres, gèrent les CV et postulent, le tout depuis leur profil."
+"Apporte WP Job Manager dans les profils BuddyPress. Les membres publient des "
+"offres, gèrent les CV et postulent, le tout depuis leur profil."
 
 #: includes/admin/views/shell.php:61
 msgid "Plugin"
@@ -612,14 +612,14 @@ msgstr ""
 #: includes/admin/views/welcome.php:25
 msgid ""
 "There is nothing to configure to get started. A member who posts a job gets "
-"a Jobs tab, a member who publishes a resume gets a Resumes tab, and their "
-"resume appears on their profile. Use the General tab only to control "
-"activity-feed updates and application notifications."
+"a Jobs tab and a member who publishes a resume gets a Resumes tab. Use the "
+"General tab only to control activity-feed updates and application "
+"notifications."
 msgstr ""
 "Tu n'as rien à configurer pour commencer. Un membre qui publie une offre "
-"obtient un onglet Emplois, un membre qui publie un CV obtient un onglet CVs, "
-"et son CV apparaît sur son profil. Utilise l'onglet Général uniquement pour "
-"gérer les mises à jour d'activité et les notifications de candidature."
+"obtient un onglet Emplois, un membre qui publie un CV obtient un onglet CVs. "
+"Utilise l'onglet Général uniquement pour gérer les mises à jour d'activité "
+"et les notifications de candidature."
 
 #: includes/admin/views/welcome.php:32
 msgid "Help & Support Resources"

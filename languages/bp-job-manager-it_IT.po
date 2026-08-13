@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wbcom Designs - BuddyPress Job Manager 2.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-job-manager\n"
-"POT-Creation-Date: 2026-08-13T12:05:24+00:00\n"
+"POT-Creation-Date: 2026-08-13T12:13:18+00:00\n"
 "PO-Revision-Date: 2026-07-16T11:32:19+00:00\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -109,7 +109,7 @@ msgid "Are you enjoying BuddyPress Job Manager?"
 msgstr "Ti stai divertendo con BuddyPress Job Manager?"
 
 #: admin/class-bp-job-manager-admin-feedback.php:207 bp-job-manager.php:151
-#: includes/admin/class-bp-job-manager-admin-panel.php:112
+#: includes/admin/class-bp-job-manager-admin-panel.php:116
 #: includes/admin/views/shell.php:31
 msgid "BuddyPress Job Manager"
 msgstr "BuddyPress Job Manager"
@@ -222,20 +222,20 @@ msgstr "Scopri"
 msgid "WB Plugins"
 msgstr "Plugin WB"
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:113
+#: includes/admin/class-bp-job-manager-admin-panel.php:117
 #: includes/admin/views/shell.php:60
 msgid "Job Manager"
 msgstr "Gestione Lavori"
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:274
+#: includes/admin/class-bp-job-manager-admin-panel.php:278
 msgid "Are you sure? This cannot be undone."
 msgstr "Sei sicuro? Questo non può essere annullato."
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:275
+#: includes/admin/class-bp-job-manager-admin-panel.php:279
 msgid "Continue"
 msgstr "Continua"
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:276
+#: includes/admin/class-bp-job-manager-admin-panel.php:280
 msgid "Cancel"
 msgstr "Annulla"
 
@@ -429,8 +429,8 @@ msgid "%s add-on"
 msgstr "Componente aggiuntivo %s"
 
 #: includes/admin/views/overview.php:100 includes/admin/views/overview.php:115
-msgid "Optional — not active"
-msgstr "Opzionale — non attivo"
+msgid "Optional, not active"
+msgstr "Opzionale, non attivo"
 
 #: includes/admin/views/overview.php:124
 msgid "Current Configuration"
@@ -532,7 +532,7 @@ msgid "More options unlock with the WP Job Manager add-ons."
 msgstr ""
 "Altre opzioni si sbloccano con i componenti aggiuntivi di WP Job Manager."
 
-#. translators: 1: "Resume Manager" add-on name, 2: "Applications" add-on name. Both are WP Job Manager product names — do not translate the placeholder values.
+#. translators: 1: "Resume Manager" add-on name, 2: "Applications" add-on name. Both are WP Job Manager product names, do not translate the placeholder values.
 #: includes/admin/views/settings-general.php:112
 #, php-format
 msgid ""
@@ -544,10 +544,10 @@ msgstr ""
 
 #: includes/admin/views/shell.php:32
 msgid ""
-"Bring WP Job Manager into BuddyPress profiles — members post jobs, manage "
+"Bring WP Job Manager into BuddyPress profiles. Members post jobs, manage "
 "resumes, and apply, all from their profile."
 msgstr ""
-"Porta WP Job Manager nei profili di BuddyPress — i membri pubblicano lavori, "
+"Porta WP Job Manager nei profili di BuddyPress. I membri pubblicano lavori, "
 "gestiscono curriculum e si candidano, tutto dal loro profilo."
 
 #: includes/admin/views/shell.php:61
@@ -600,15 +600,14 @@ msgstr ""
 #: includes/admin/views/welcome.php:25
 msgid ""
 "There is nothing to configure to get started. A member who posts a job gets "
-"a Jobs tab, a member who publishes a resume gets a Resumes tab, and their "
-"resume appears on their profile. Use the General tab only to control "
-"activity-feed updates and application notifications."
+"a Jobs tab and a member who publishes a resume gets a Resumes tab. Use the "
+"General tab only to control activity-feed updates and application "
+"notifications."
 msgstr ""
 "Non c'è nulla da configurare per iniziare. Un membro che pubblica un "
 "annuncio ottiene una scheda Annunci, un membro che pubblica un curriculum "
-"ottiene una scheda Curriculum, e il suo curriculum appare sul suo profilo. "
-"Usa la scheda Generale solo per gestire gli aggiornamenti di attività e le "
-"notifiche di candidatura."
+"ottiene una scheda Curriculum. Usa la scheda Generale solo per gestire gli "
+"aggiornamenti di attività e le notifiche di candidatura."
 
 #: includes/admin/views/welcome.php:32
 msgid "Help & Support Resources"
