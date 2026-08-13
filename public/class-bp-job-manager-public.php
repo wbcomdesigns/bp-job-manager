@@ -1449,8 +1449,27 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$selected_post = ! empty( $resume_id ) ? $resume_id : ( ! empty( $user_posts ) ? $user_posts[0]->ID : null );
 
 			if ( ! empty( $selected_post ) && ! empty( $user_posts ) ) {
+				/*
+				 * This form MUST default the same way the renderer does.
+				 *
+				 * Since 3.0.0 an absent `bpjm_display_fields` means SHOW - the
+				 * activation loop that used to seed it is gone, so most members
+				 * legitimately have no meta at all. This form defaulted the other
+				 * way, to 'no', which produced a screen that contradicted the
+				 * profile beside it: the resume was visible while every box here
+				 * read unchecked.
+				 *
+				 * Worse than cosmetic. Saving this screen for any unrelated reason
+				 * posted every box unchecked, wrote the meta, and silently removed
+				 * the member's resume from their own profile.
+				 */
 				$fields_display = get_user_meta( bp_loggedin_user_id(), 'bpjm_display_fields', true );
-				$display_resume = isset( $fields_display['display_resume'] ) ? $fields_display['display_resume'] : 'no';
+
+				if ( ! is_array( $fields_display ) ) {
+					$fields_display = bpjm_resume_profile_default_fields();
+				}
+
+				$display_resume = isset( $fields_display['display_resume'] ) ? $fields_display['display_resume'] : 'yes';
 				$display_class  = ( 'yes' === $display_resume ) ? 'display-true' : 'display-false';
 
 				global $bpjm_bp_job_manager;
