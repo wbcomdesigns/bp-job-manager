@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wbcom Designs - BuddyPress Job Manager 2.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-job-manager\n"
-"POT-Creation-Date: 2026-08-13T10:40:26+00:00\n"
+"POT-Creation-Date: 2026-08-13T10:55:07+00:00\n"
 "PO-Revision-Date: 2026-07-16T11:32:19+00:00\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -104,18 +104,18 @@ msgstr "un secondo"
 msgid "less than a second"
 msgstr "meno di un secondo"
 
-#: admin/class-bp-job-manager-admin-feedback.php:290
+#: admin/class-bp-job-manager-admin-feedback.php:204
 msgid "Are you enjoying BuddyPress Job Manager?"
 msgstr "Ti stai divertendo con BuddyPress Job Manager?"
 
-#: admin/class-bp-job-manager-admin-feedback.php:293 bp-job-manager.php:151
+#: admin/class-bp-job-manager-admin-feedback.php:207 bp-job-manager.php:151
 #: includes/admin/class-bp-job-manager-admin-panel.php:112
 #: includes/admin/views/shell.php:31
 msgid "BuddyPress Job Manager"
 msgstr "BuddyPress Job Manager"
 
 #. translators: 1. Name
-#: admin/class-bp-job-manager-admin-feedback.php:297
+#: admin/class-bp-job-manager-admin-feedback.php:211
 #, php-format
 msgid ""
 "We hope you're enjoying %1$s! Could you please do us a BIG favor and give it "
@@ -126,11 +126,11 @@ msgstr ""
 "dargli una valutazione a 5 stelle su WordPress per aiutarci a diffondere la "
 "voce e aumentare la nostra motivazione?"
 
-#: admin/class-bp-job-manager-admin-feedback.php:302
+#: admin/class-bp-job-manager-admin-feedback.php:216
 msgid "Leave a Review"
 msgstr "Lascia una Recensione"
 
-#: admin/class-bp-job-manager-admin-feedback.php:303
+#: admin/class-bp-job-manager-admin-feedback.php:217
 msgid "No thanks / I already have"
 msgstr "No grazie / L'ho già fatto"
 
@@ -228,46 +228,16 @@ msgid "Job Manager"
 msgstr "Gestione Lavori"
 
 #: includes/admin/class-bp-job-manager-admin-panel.php:275
-msgid "Settings saved."
-msgstr "Impostazioni salvate."
-
-#: includes/admin/class-bp-job-manager-admin-panel.php:276
-msgid "Could not save. Please try again."
-msgstr "Non è stato possibile salvare. Riprova per favore."
-
-#: includes/admin/class-bp-job-manager-admin-panel.php:277
 msgid "Are you sure? This cannot be undone."
 msgstr "Sei sicuro? Questo non può essere annullato."
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:278
+#: includes/admin/class-bp-job-manager-admin-panel.php:276
 msgid "Continue"
 msgstr "Continua"
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:279
+#: includes/admin/class-bp-job-manager-admin-panel.php:277
 msgid "Cancel"
 msgstr "Annulla"
-
-#: includes/admin/class-bp-job-manager-admin-panel.php:280
-msgid "Search roles…"
-msgstr "Cerca ruoli…"
-
-#: includes/admin/class-bp-job-manager-admin-panel.php:281
-msgid "Clear all"
-msgstr "Cancella tutto"
-
-#. translators: %s: user role name, e.g. "Administrator".
-#: includes/admin/class-bp-job-manager-admin-panel.php:283
-#, php-format
-msgid "Remove %s"
-msgstr "Rimuovi %s"
-
-#: includes/admin/class-bp-job-manager-admin-panel.php:284
-msgid "No roles match your search."
-msgstr "Nessun ruolo corrisponde alla tua ricerca."
-
-#: includes/admin/class-bp-job-manager-admin-panel.php:285
-msgid "Select at least one role."
-msgstr "Seleziona almeno un ruolo."
 
 #: includes/admin/views/discover.php:28
 msgid ""
@@ -641,13 +611,8 @@ msgstr ""
 "profilo."
 
 #: includes/admin/views/welcome.php:25
-msgid ""
-"Use the General tab to choose which member roles can post jobs and apply, "
-"and to control activity-feed updates and application notifications."
-msgstr ""
-"Usa la scheda Generale per scegliere quali ruoli dei membri possono "
-"pubblicare annunci e candidarsi, e per controllare gli aggiornamenti del "
-"feed di attività e le notifiche di candidatura."
+msgid "There is nothing to configure to get started. A member who posts a job gets a Jobs tab, a member who publishes a resume gets a Resumes tab, and their resume appears on their profile. Use the General tab only to control activity-feed updates and application notifications."
+msgstr "Non c'è nulla da configurare per iniziare. Un membro che pubblica un annuncio ottiene una scheda Annunci, un membro che pubblica un curriculum ottiene una scheda Curriculum, e il suo curriculum appare sul suo profilo. Usa la scheda Generale solo per gestire gli aggiornamenti di attività e le notifiche di candidatura."
 
 #: includes/admin/views/welcome.php:32
 msgid "Help & Support Resources"
@@ -959,3 +924,33 @@ msgstr "Datore di Lavoro"
 #: public/templates/profile-content-single-resume.php:275
 msgid "Job Title"
 msgstr "Titolo del Lavoro"
+
+#~ msgid "Settings saved."
+#~ msgstr "Impostazioni salvate."
+
+#~ msgid "Could not save. Please try again."
+#~ msgstr "Non è stato possibile salvare. Riprova per favore."
+
+#~ msgid "Search roles…"
+#~ msgstr "Cerca ruoli…"
+
+#~ msgid "Clear all"
+#~ msgstr "Cancella tutto"
+
+#, php-format
+#~ msgid "Remove %s"
+#~ msgstr "Rimuovi %s"
+
+#~ msgid "No roles match your search."
+#~ msgstr "Nessun ruolo corrisponde alla tua ricerca."
+
+#~ msgid "Select at least one role."
+#~ msgstr "Seleziona almeno un ruolo."
+
+#~ msgid ""
+#~ "Use the General tab to choose which member roles can post jobs and apply, "
+#~ "and to control activity-feed updates and application notifications."
+#~ msgstr ""
+#~ "Usa la scheda Generale per scegliere quali ruoli dei membri possono "
+#~ "pubblicare annunci e candidarsi, e per controllare gli aggiornamenti del "
+#~ "feed di attività e le notifiche di candidatura."

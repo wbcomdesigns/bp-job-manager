@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wbcom Designs - BuddyPress Job Manager 2.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-job-manager\n"
-"POT-Creation-Date: 2026-08-13T10:40:26+00:00\n"
+"POT-Creation-Date: 2026-08-13T10:55:07+00:00\n"
 "PO-Revision-Date: 2026-08-13 12:00+0530\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -103,18 +103,18 @@ msgstr "um segundo"
 msgid "less than a second"
 msgstr "menos de um segundo"
 
-#: admin/class-bp-job-manager-admin-feedback.php:290
+#: admin/class-bp-job-manager-admin-feedback.php:204
 msgid "Are you enjoying BuddyPress Job Manager?"
 msgstr "Você está gostando do BuddyPress Job Manager?"
 
-#: admin/class-bp-job-manager-admin-feedback.php:293 bp-job-manager.php:151
+#: admin/class-bp-job-manager-admin-feedback.php:207 bp-job-manager.php:151
 #: includes/admin/class-bp-job-manager-admin-panel.php:112
 #: includes/admin/views/shell.php:31
 msgid "BuddyPress Job Manager"
 msgstr "BuddyPress Job Manager"
 
 #. translators: 1. Name
-#: admin/class-bp-job-manager-admin-feedback.php:297
+#: admin/class-bp-job-manager-admin-feedback.php:211
 #, php-format
 msgid ""
 "We hope you're enjoying %1$s! Could you please do us a BIG favor and give it "
@@ -125,11 +125,11 @@ msgstr ""
 "favor e dar uma classificação de 5 estrelas no WordPress para nos ajudar a "
 "divulgar e aumentar nossa motivação?"
 
-#: admin/class-bp-job-manager-admin-feedback.php:302
+#: admin/class-bp-job-manager-admin-feedback.php:216
 msgid "Leave a Review"
 msgstr "Deixe uma Avaliação"
 
-#: admin/class-bp-job-manager-admin-feedback.php:303
+#: admin/class-bp-job-manager-admin-feedback.php:217
 msgid "No thanks / I already have"
 msgstr "Não, obrigado / Já fiz"
 
@@ -227,46 +227,16 @@ msgid "Job Manager"
 msgstr "Job Manager"
 
 #: includes/admin/class-bp-job-manager-admin-panel.php:275
-msgid "Settings saved."
-msgstr "Configurações salvas."
-
-#: includes/admin/class-bp-job-manager-admin-panel.php:276
-msgid "Could not save. Please try again."
-msgstr "Não foi possível salvar. Tente novamente."
-
-#: includes/admin/class-bp-job-manager-admin-panel.php:277
 msgid "Are you sure? This cannot be undone."
 msgstr "Você tem certeza? Isto não pode ser desfeito."
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:278
+#: includes/admin/class-bp-job-manager-admin-panel.php:276
 msgid "Continue"
 msgstr "Continuar"
 
-#: includes/admin/class-bp-job-manager-admin-panel.php:279
+#: includes/admin/class-bp-job-manager-admin-panel.php:277
 msgid "Cancel"
 msgstr "Cancelar"
-
-#: includes/admin/class-bp-job-manager-admin-panel.php:280
-msgid "Search roles…"
-msgstr "Pesquisar funções…"
-
-#: includes/admin/class-bp-job-manager-admin-panel.php:281
-msgid "Clear all"
-msgstr "Limpar tudo"
-
-#. translators: %s: user role name, e.g. "Administrator".
-#: includes/admin/class-bp-job-manager-admin-panel.php:283
-#, php-format
-msgid "Remove %s"
-msgstr "Remover %s"
-
-#: includes/admin/class-bp-job-manager-admin-panel.php:284
-msgid "No roles match your search."
-msgstr "Nenhuma função corresponde à sua pesquisa."
-
-#: includes/admin/class-bp-job-manager-admin-panel.php:285
-msgid "Select at least one role."
-msgstr "Selecione pelo menos uma função."
 
 #: includes/admin/views/discover.php:28
 msgid ""
@@ -639,13 +609,8 @@ msgstr ""
 "perfil."
 
 #: includes/admin/views/welcome.php:25
-msgid ""
-"Use the General tab to choose which member roles can post jobs and apply, "
-"and to control activity-feed updates and application notifications."
-msgstr ""
-"Use a aba Geral para escolher quais funções de membro podem postar empregos "
-"e se candidatar, e para controlar atualizações de feed de atividade e "
-"notificações de candidatura."
+msgid "There is nothing to configure to get started. A member who posts a job gets a Jobs tab, a member who publishes a resume gets a Resumes tab, and their resume appears on their profile. Use the General tab only to control activity-feed updates and application notifications."
+msgstr "Não há nada para configurar para começar. Um membro que publica uma vaga recebe uma aba Empregos, um membro que publica um currículo recebe uma aba Currículos, e o currículo dele aparece no perfil. Use a aba Geral apenas para controlar as atualizações de atividade e as notificações de candidatura."
 
 #: includes/admin/views/welcome.php:32
 msgid "Help & Support Resources"
@@ -957,3 +922,33 @@ msgstr "Empregador"
 #: public/templates/profile-content-single-resume.php:275
 msgid "Job Title"
 msgstr "Título da Vaga"
+
+#~ msgid "Settings saved."
+#~ msgstr "Configurações salvas."
+
+#~ msgid "Could not save. Please try again."
+#~ msgstr "Não foi possível salvar. Tente novamente."
+
+#~ msgid "Search roles…"
+#~ msgstr "Pesquisar funções…"
+
+#~ msgid "Clear all"
+#~ msgstr "Limpar tudo"
+
+#, php-format
+#~ msgid "Remove %s"
+#~ msgstr "Remover %s"
+
+#~ msgid "No roles match your search."
+#~ msgstr "Nenhuma função corresponde à sua pesquisa."
+
+#~ msgid "Select at least one role."
+#~ msgstr "Selecione pelo menos uma função."
+
+#~ msgid ""
+#~ "Use the General tab to choose which member roles can post jobs and apply, "
+#~ "and to control activity-feed updates and application notifications."
+#~ msgstr ""
+#~ "Use a aba Geral para escolher quais funções de membro podem postar "
+#~ "empregos e se candidatar, e para controlar atualizações de feed de "
+#~ "atividade e notificações de candidatura."
