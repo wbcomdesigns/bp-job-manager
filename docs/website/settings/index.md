@@ -11,7 +11,7 @@ order: 2
 
 ## General
 
-Four toggles, all on by default. Nothing here is required for the plugin to work.
+Three toggles, all on by default. Nothing here is required for the plugin to work.
 
 | Setting | What it does |
 |---|---|
@@ -51,12 +51,17 @@ Apart from its settings, nothing.
 
 | Stored | Where | Why |
 |---|---|---|
-| `bpjm_general_settings` | option | The four toggles above |
-| Job and resume counts | transients | A cache for the profile nav badges, regenerated on demand |
+| `bpjm_general_settings` | option | The three toggles above |
+| `bp-job-manager_activation_date`, `bp-job-manager_no_bug` | options | When the plugin was installed, and whether the review notice was dismissed |
+| `bpjm_user_{ID}_job_listings`, `bpjm_user_{ID}_my_resumes_count` | transients | A cache for the profile nav counts, cleared whenever a job or resume changes status |
 
-It creates no pages, writes no per-member data, and owns no tables or post types. Jobs,
-resumes and applications all belong to WP Job Manager and its add-ons; uninstalling this
-plugin does not touch them.
+That is the whole list. It creates no pages, writes no per-member data, and owns no tables
+or post types.
+
+Uninstalling removes every row above. It does not touch jobs, resumes or applications:
+those belong to WP Job Manager and its add-ons and stay exactly as they are. If your site
+still has the "Apply To Job" page that versions before 3.0.0 created, that page is yours
+now and is left in place; only the plugin's pointer to it is removed.
 
 ## Related
 

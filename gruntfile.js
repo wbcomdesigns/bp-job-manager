@@ -80,15 +80,27 @@ module.exports = function ( grunt ) {
 							'!.github/**',
 							'!.gitignore',
 							'!.gitattributes',
+							// Dev tooling. `vendor/` is Composer's DEV tree - PHPStan and
+							// PHPCS - and nothing in it is loaded at runtime. Without
+							// this line the zip ships 2699 files and 19MB of it.
+							'!vendor/**',
+							'!composer.json',
 							'!composer.lock',
 							'!package-lock.json',
 							'!package.json',
 							'!gruntfile.js',
+							'!Gruntfile.js',
 							'!phpcs.xml',
+							'!phpcs.xml.dist',
+							'!phpstan.neon',
+							'!phpstan-bootstrap.php',
 							'!phpunit.xml',
 							'!tests/**',
 							'!*.md',
 							'!audit/**',
+							// Docs live in the repo for contributors, not in the zip.
+							'!docs/**',
+							'!.wbcom-i18n.json',
 							'!*.zip'
 						],
 						dest: 'dist/bp-job-manager/'

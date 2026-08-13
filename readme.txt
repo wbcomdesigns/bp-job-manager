@@ -262,6 +262,8 @@ front-end crash and completes translation readiness. Please read the upgrade not
 * Dev      - Application notifications now always bind to job_manager_applications_new_job_application. The deprecated new_job_application hook is no longer used; anything that removed our callback from it must target the current hook.
 * Dev      - Removed the hooks bpjm_profile_peronal_inf_txt, bpjm_profile_urls_txt, bpjm_profile_education_txt, bpjm_profile_experience_txt, bpjm_resume_fields_custom_text, bpjm_resume_fields_custom_slug and bpjm_applied_jobs_per_page along with the screens that fired them.
 * Dev      - The strings "%s Jobs" and "%s's Jobs" and "%s's Resumes" were replaced by "Jobs by %s" and "Resumes by %s" so translators can place their own preposition. Update any custom translation that overrode them.
+* Improve  - Uninstalling now removes everything the plugin stored: its settings, the review-notice flags and the profile-nav caches. Jobs, resumes and applications are untouched, and an "Apply To Job" page from an older version is left in place as your own content.
+* Dev      - The two profile-nav count caches are now stored as bpjm_user_{ID}_job_listings and bpjm_user_{ID}_my_resumes_count. The old unprefixed keys expire on their own and the counts regenerate.
 * Dev      - Dropped Youzify-specific styling and code paths. The plugin targets plain BuddyPress; BuddyX and Reign remain the tested themes.
 * Dev      - The POT build now runs WP-CLI's i18n audit instead of skipping it, so unwrapped strings and inconsistent translator comments fail the build.
 
