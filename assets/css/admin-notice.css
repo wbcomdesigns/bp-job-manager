@@ -1,0 +1,110 @@
+/**
+ * Review-request notice shown on the WordPress Plugins screen.
+ *
+ * A dedicated file rather than part of admin.css, because admin.css is the
+ * plugin's whole card-panel stylesheet and this notice renders on the Plugins
+ * screen - loading ~1,000 lines of panel CSS there to style one notice would be
+ * worse than the inline <style> block this replaces.
+ *
+ * Enqueued only when the notice actually renders. See
+ * Bp_Job_Manager_Admin_Feedback::display_admin_notice().
+ */
+.notice.bp-job-manager-notice {
+	border-left-color: #008ec2 !important;
+	padding: 20px;
+}
+
+.rtl .notice.bp-job-manager-notice {
+	border-right-color: #008ec2 !important;
+}
+
+.notice.notice.bp-job-manager-notice .bp-job-manager-notice-inner {
+	display: table;
+	width: 100%;
+}
+
+.notice.bp-job-manager-notice .bp-job-manager-notice-inner .bp-job-manager-notice-icon,
+.notice.bp-job-manager-notice .bp-job-manager-notice-inner .bp-job-manager-notice-content,
+.notice.bp-job-manager-notice .bp-job-manager-notice-inner .bp-job-manager-install-now {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.notice.bp-job-manager-notice .bp-job-manager-notice-icon {
+	color: #509ed2;
+	font-size: 50px;
+	width: 60px;
+}
+
+.notice.bp-job-manager-notice .bp-job-manager-notice-icon img {
+	width: 64px;
+}
+
+.notice.bp-job-manager-notice .bp-job-manager-notice-content {
+	padding: 0 40px 0 20px;
+}
+
+.notice.bp-job-manager-notice p {
+	padding: 0;
+	margin: 0;
+}
+
+.notice.bp-job-manager-notice h3 {
+	margin: 0 0 5px;
+}
+
+.notice.bp-job-manager-notice .bp-job-manager-install-now {
+	text-align: center;
+}
+
+.notice.bp-job-manager-notice .bp-job-manager-install-now .bp-job-manager-install-button {
+	padding: 6px 50px;
+	height: auto;
+	line-height: 20px;
+}
+
+.notice.bp-job-manager-notice a.no-thanks {
+	display: block;
+	margin-top: 10px;
+	color: #72777c;
+	text-decoration: none;
+}
+
+.notice.bp-job-manager-notice a.no-thanks:hover {
+	color: #444;
+}
+
+@media (max-width: 767px) {
+
+	.notice.notice.bp-job-manager-notice .bp-job-manager-notice-inner {
+		display: block;
+	}
+
+	.notice.bp-job-manager-notice {
+		padding: 20px !important;
+	}
+
+	.notice.bp-job-manager-noticee .bp-job-manager-notice-inner {
+		display: block;
+	}
+
+	.notice.bp-job-manager-notice .bp-job-manager-notice-inner .bp-job-manager-notice-content {
+		display: block;
+		padding: 0;
+	}
+
+	.notice.bp-job-manager-notice .bp-job-manager-notice-inner .bp-job-manager-notice-icon {
+		display: none;
+	}
+
+	.notice.bp-job-manager-notice .bp-job-manager-notice-inner .bp-job-manager-install-now {
+		margin-top: 20px;
+		display: block;
+		text-align: left;
+	}
+
+	.notice.bp-job-manager-notice .bp-job-manager-notice-inner .no-thanks {
+		display: inline-block;
+		margin-inline-start: 15px;
+	}
+}

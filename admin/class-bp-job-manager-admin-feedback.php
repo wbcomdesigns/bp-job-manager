@@ -178,109 +178,23 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 			if ( isset( $screen->base ) && 'plugins' === $screen->base ) {
 				$no_bug_url = wp_nonce_url( admin_url( '?' . $this->nobug_option . '=true' ), 'bp-job-manager-feedback-nounce' );
 				$time       = $this->seconds_to_words( time() - get_site_option( $this->date_option ) );
+
+				/*
+				 * Styles for this notice used to be an inline <style> block right
+				 * here, which shipped on every Plugins page load and could not be
+				 * cached or overridden by a site. They now live in their own small
+				 * stylesheet, enqueued only when the notice actually renders - the
+				 * plugin's main admin.css is ~1,000 lines of card-panel CSS and has
+				 * no business loading on the Plugins screen.
+				 */
+				wp_enqueue_style(
+					'bpjm-admin-notice',
+					BPJM_PLUGIN_URL . 'assets/css/admin-notice.css',
+					array(),
+					defined( 'BPJM_PLUGIN_VERSION' ) ? BPJM_PLUGIN_VERSION : '1.0.0'
+				);
 				?>
 
-<style>
-.notice.bp-job-manager-notice {
-	border-left-color: #008ec2 !important;
-	padding: 20px;
-}
-
-.rtl .notice.bp-job-manager-notice {
-	border-right-color: #008ec2 !important;
-}
-
-.notice.notice.bp-job-manager-notice .bp-job-manager-notice-inner {
-	display: table;
-	width: 100%;
-}
-
-.notice.bp-job-manager-notice .bp-job-manager-notice-inner .bp-job-manager-notice-icon,
-.notice.bp-job-manager-notice .bp-job-manager-notice-inner .bp-job-manager-notice-content,
-.notice.bp-job-manager-notice .bp-job-manager-notice-inner .bp-job-manager-install-now {
-	display: table-cell;
-	vertical-align: middle;
-}
-
-.notice.bp-job-manager-notice .bp-job-manager-notice-icon {
-	color: #509ed2;
-	font-size: 50px;
-	width: 60px;
-}
-
-.notice.bp-job-manager-notice .bp-job-manager-notice-icon img {
-	width: 64px;
-}
-
-.notice.bp-job-manager-notice .bp-job-manager-notice-content {
-	padding: 0 40px 0 20px;
-}
-
-.notice.bp-job-manager-notice p {
-	padding: 0;
-	margin: 0;
-}
-
-.notice.bp-job-manager-notice h3 {
-	margin: 0 0 5px;
-}
-
-.notice.bp-job-manager-notice .bp-job-manager-install-now {
-	text-align: center;
-}
-
-.notice.bp-job-manager-notice .bp-job-manager-install-now .bp-job-manager-install-button {
-	padding: 6px 50px;
-	height: auto;
-	line-height: 20px;
-}
-
-.notice.bp-job-manager-notice a.no-thanks {
-	display: block;
-	margin-top: 10px;
-	color: #72777c;
-	text-decoration: none;
-}
-
-.notice.bp-job-manager-notice a.no-thanks:hover {
-	color: #444;
-}
-
-@media (max-width: 767px) {
-
-	.notice.notice.bp-job-manager-notice .bp-job-manager-notice-inner {
-		display: block;
-	}
-
-	.notice.bp-job-manager-notice {
-		padding: 20px !important;
-	}
-
-	.notice.bp-job-manager-noticee .bp-job-manager-notice-inner {
-		display: block;
-	}
-
-	.notice.bp-job-manager-notice .bp-job-manager-notice-inner .bp-job-manager-notice-content {
-		display: block;
-		padding: 0;
-	}
-
-	.notice.bp-job-manager-notice .bp-job-manager-notice-inner .bp-job-manager-notice-icon {
-		display: none;
-	}
-
-	.notice.bp-job-manager-notice .bp-job-manager-notice-inner .bp-job-manager-install-now {
-		margin-top: 20px;
-		display: block;
-		text-align: left;
-	}
-
-	.notice.bp-job-manager-notice .bp-job-manager-notice-inner .no-thanks {
-		display: inline-block;
-		margin-left: 15px;
-	}
-}
-</style>
 			<div class="notice updated bp-job-manager-notice">
 				<div class="bp-job-manager-notice-inner">
 					<div class="bp-job-manager-notice-icon">

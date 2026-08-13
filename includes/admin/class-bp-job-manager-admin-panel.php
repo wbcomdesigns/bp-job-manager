@@ -272,17 +272,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin_Panel' ) ) :
 				array(
 					'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 					'i18n'    => array(
-						'saved'           => __( 'Settings saved.', 'bp-job-manager' ),
-						'saveFailed'      => __( 'Could not save. Please try again.', 'bp-job-manager' ),
 						'confirmDanger'   => __( 'Are you sure? This cannot be undone.', 'bp-job-manager' ),
 						'confirmContinue' => __( 'Continue', 'bp-job-manager' ),
 						'confirmCancel'   => __( 'Cancel', 'bp-job-manager' ),
-						'roleSearch'      => __( 'Search roles…', 'bp-job-manager' ),
-						'roleClearAll'    => __( 'Clear all', 'bp-job-manager' ),
-						/* translators: %s: user role name, e.g. "Administrator". */
-						'roleRemove'      => __( 'Remove %s', 'bp-job-manager' ),
-						'roleNoMatches'   => __( 'No roles match your search.', 'bp-job-manager' ),
-						'rolePickOne'     => __( 'Select at least one role.', 'bp-job-manager' ),
 					),
 				)
 			);

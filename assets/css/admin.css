@@ -283,7 +283,7 @@
 .bpjm-settings-main {
 	flex: 1;
 	min-width: 0;
-	margin-left: var(--bpjm-admin-gap-lg);
+	margin-inline-start: var(--bpjm-admin-gap-lg);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -445,7 +445,7 @@
 
 .bpjm-inline-hint {
 	display: inline-block;
-	margin-left: 8px;
+	margin-inline-start: 8px;
 	color: var(--bpjm-admin-text-3);
 	font-size: 12px;
 	font-weight: 400;
@@ -855,14 +855,14 @@
 	}
 
 	.bpjm-settings-main {
-		margin-left: 0;
+		margin-inline-start: 0;
 		margin-top: var(--bpjm-admin-gap-md);
 	}
 }
 
 @media (max-width: 640px) {
 	.bpjm-admin {
-		margin-right: 0;
+		margin-inline-end: 0;
 	}
 
 	.bpjm-page-header {
@@ -1024,7 +1024,7 @@
 
 /* Restore the dismiss button into the new padding rhythm. */
 .bpjm-admin .notice.is-dismissible {
-	padding-right: 38px;
+	padding-inline-end: 38px;
 }
 
 .bpjm-admin .notice .notice-dismiss {
@@ -1083,195 +1083,8 @@
 	margin: 0;
 	flex-shrink: 0;
 	accent-color: var(--bpjm-admin-accent);
-}
-
-/* Role multi-select. */
-.bpjm-role-select {
-	width: 100%;
-	max-width: 360px;
-	padding: 8px 10px;
-	border: 1px solid var(--bpjm-admin-border-strong);
-	border-radius: var(--bpjm-admin-radius-sm);
-	font-size: 13px;
-	line-height: 1.5;
-	background: var(--bpjm-admin-white);
-	color: var(--bpjm-admin-text);
-}
-
-.bpjm-role-select:focus {
-	border-color: var(--bpjm-admin-accent);
-	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-	outline: none;
-}
-
-.bpjm-role-select option {
-	padding: 4px 6px;
-}
-
-/* Role picker — searchable chips built over .bpjm-role-select by admin.js.
-   The select itself is [hidden] once enhanced; with JS off none of this
-   renders and the plain multi-select above is what the user gets. */
-.bpjm-rolepick {
-	width: 100%;
-	max-width: 360px;
-}
-
-.bpjm-rolepick__control {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	gap: 6px;
-	padding: 6px 8px;
-	border: 1px solid var(--bpjm-admin-border-strong);
-	border-radius: var(--bpjm-admin-radius-sm);
-	background: var(--bpjm-admin-white);
-}
-
-.bpjm-rolepick__control:focus-within {
-	border-color: var(--bpjm-admin-accent);
-	box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-}
-
-.bpjm-rolepick__chips {
-	display: contents;
-}
-
-.bpjm-rolepick__chip {
-	display: inline-flex;
-	align-items: center;
-	gap: 4px;
-	padding-block: 2px;
-	padding-inline: 8px 4px;
-	border-radius: 999px;
-	background: var(--bpjm-admin-accent-light);
-	color: var(--bpjm-admin-accent);
-	font-size: 12px;
-	line-height: 1.7;
-	white-space: nowrap;
-}
-
-/* A class that sets `display` outranks the UA [hidden] rule, so every
-   element this component toggles via .hidden needs it restated. Without
-   this the search filter and the clear button both render permanently. */
-.bpjm-rolepick [hidden] {
-	display: none !important;
-}
-
-/* Same collision, different source: WP core forms.css declares
-   `.form-table td select { display: block }` inside
-   `@media screen and (max-width: 782px)`, which outranks [hidden] and
-   made the raw multi-select reappear under the chips on mobile. The
-   enhanced select is a value carrier only — never render it. */
-.bpjm-role-select--enhanced {
-	display: none !important;
-}
-
-.bpjm-rolepick__chip-remove,
-.bpjm-rolepick__clear {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	min-width: 20px;
-	min-height: 20px;
-	padding: 0;
-	border: 0;
-	border-radius: 50%;
-	background: transparent;
-	color: inherit;
-	font-size: 15px;
-	line-height: 1;
-	cursor: pointer;
-}
-
-.bpjm-rolepick__chip-remove:hover,
-.bpjm-rolepick__clear:hover {
-	background: rgba(37, 99, 235, 0.16);
-}
-
-.bpjm-rolepick__chip-remove:focus-visible,
-.bpjm-rolepick__clear:focus-visible,
-.bpjm-rolepick__option:focus-within {
-	outline: 2px solid var(--bpjm-admin-accent);
-	outline-offset: 1px;
-}
-
-.bpjm-rolepick__clear {
-	margin-inline-start: auto;
-	color: var(--bpjm-admin-text-3);
-}
-
-/* Basis of "the whole row minus the clear button" so the search always
-   drops onto its own line under the chips and takes the clear button with
-   it, instead of squeezing in beside a chip and stranding the clear on a
-   third line. */
-.bpjm-rolepick__search {
-	flex: 1 1 calc(100% - 40px);
-	min-width: 90px;
-	padding: 2px 0;
-	border: 0;
-	background: none;
-	color: var(--bpjm-admin-text);
-	font-size: 13px;
-	line-height: 1.7;
-}
-
-.bpjm-rolepick__search:focus {
-	outline: none;
-	box-shadow: none;
-	border: 0;
-}
-
-.bpjm-rolepick__list {
-	margin-top: 6px;
-	max-height: 180px;
-	overflow-y: auto;
-	border: 1px solid var(--bpjm-admin-border);
-	border-radius: var(--bpjm-admin-radius-sm);
-	background: var(--bpjm-admin-white);
-}
-
-.bpjm-rolepick__option {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	min-height: 32px;
-	padding: 4px 10px;
-	font-size: 13px;
-	color: var(--bpjm-admin-text);
-	cursor: pointer;
-}
-
-.bpjm-rolepick__option:hover {
-	background: var(--bpjm-admin-surface-2);
-}
-
-.bpjm-rolepick__option input[type="checkbox"] {
-	margin: 0;
-	flex: none;
-}
-
-.bpjm-rolepick__empty {
-	margin: 6px 0 0;
-	font-size: 12px;
-	color: var(--bpjm-admin-text-3);
-}
-
-/* Touch targets need the full 40px; pointer input can stay compact. */
-@media (max-width: 640px) {
-	.bpjm-rolepick {
-		max-width: none;
-	}
-
-	.bpjm-rolepick__option {
-		min-height: 40px;
-	}
-
-	.bpjm-rolepick__chip-remove,
-	.bpjm-rolepick__clear {
-		min-width: 28px;
-		min-height: 28px;
-	}
-}
+}/* Touch targets need the full 40px; pointer input can stay compact. */
+@media (max-width: 640px) {}
 
 /* Help & Support resource grid. */
 .bpjm-resource-grid {
