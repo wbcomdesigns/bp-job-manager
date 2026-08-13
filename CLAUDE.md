@@ -39,7 +39,7 @@ plugin has cost as much as it has. Current plan, with locked wording per screen:
 
 ## Quick reference
 - **Main file**: `bp-job-manager.php`
-- **Version**: `3.0.0` (branch `2.8.6`, rename at release)
+- **Version**: `3.0.0` (branch `3.0.0`)
 - **Namespace**: none — class-prefix convention `Bp_Job_Manager_*`
 - **Text domain**: `bp-job-manager`
 - **Extends**: null (standalone; not a Free/Pro pair)
@@ -68,7 +68,7 @@ WordPress-Plugin-Boilerplate layout (Bootstrap -> Loader -> Globals -> Admin/Pub
 
 ## Important patterns
 - **No own tables / CPTs** — operates entirely on WPJM `job_listing` / `resume` posts and BP `bp_activity`.
-- **Role-based front-end gating**, capability-based admin gating. Front-end tab access is driven by `post_job_user_roles` / `apply_job_user_roles` arrays, NOT WP caps.
+- **No role gating.** A tab appears because the member has jobs or resumes, or because it is their own profile. Posting defers to WP Job Manager's `job_manager_user_can_post_job` through `bpjm_user_can_post_job()`. The `post_job_user_roles` / `apply_job_user_roles` arrays were removed in 3.0.0 — do not reintroduce a second permission system. Never hook `bpjm_user_can_post_job()` back onto `job_manager_user_can_post_job`: it asks WPJM through that same filter and would recurse until memory is exhausted.
 - **`bpjm_load_more_jobs` is intentionally public** (priv + nopriv), nonce-only — do not add a capability check; it would break the public infinite-scroll feed. It IS author-scoped: the request must carry the displayed profile's `user_id` (localized as `displayed_user_id`), resolves to `wp_send_json_error()` when the author is 0, and non-owners only ever get `publish` rows.
 - **One canonical list of owned profile screens.** `Bp_Job_Manager_Public::bpjm_get_owned_actions()` (filter `bpjm_owned_profile_actions`) is the single source of truth for which `bp_current_action()` values are job/resume screens; `bpjm_is_owned_action()` is the predicate. `enqueue_styles()`, `enqueue_scripts()` and the `has_wpjm_shortcode` filter all read it. This list used to be duplicated four ways and had drifted, dropping assets on `jobs` (fixed 2026-07-10) and on `job-alerts` / `my-bookmarks`. **Never re-inline the array** — add to the method or use the filter.
 - The bare `jobs` action is the no-post-role fallback screen (no `my-jobs` subnav), so it must stay in that list.
@@ -81,6 +81,8 @@ WordPress-Plugin-Boilerplate layout (Bootstrap -> Loader -> Globals -> Admin/Pub
 - Admin: card-panel classes from `assets/css/admin.css` (`.bpjm-btn`, `.bpjm-resource__title`, …) — the legacy `.wbcom-wrap` / `.wbcom-admin-settings-page` / `#wb_admin_plugin_name` selectors are GONE as of 2.8.5.
 - Tabs rendered from `includes/admin/views/shell.php` (tab list from `Bp_Job_Manager_Admin_Panel::get_tabs()`)
 - Front-end: BP profile nav items `jobs` / `resumes` and their subnav slugs (my-jobs, post-job, my-resumes, applied-jobs, add-resume)
+- **Themes:** plain BuddyPress is the target. BuddyX and Reign are the tested themes; Youzify-specific styling was dropped in 3.0.0. Breakpoints are exactly three: 640 / 1024 / 1025.
+- **Icons:** inline Lucide SVG via `bpjm_icon( $name, $args )` (`includes/admin/class-bp-job-manager-icons.php`). Do not reintroduce Dashicons.
 
 ## wppqa baseline (2026-06-05)
 plugin-dev-rules: 5 high `nonce-no-cap` findings — **all pre-triaged false positives** (nopriv public AJAX, activation-hook redirect, and self-meta xProfile saves). See the baseline SUMMARY for per-finding justification. rest-js-contract and wiring-completeness: skipped (no REST, no template-layer settings reads). Net real high-severity bugs from wppqa: 0.
@@ -88,7 +90,7 @@ plugin-dev-rules: 5 high `nonce-no-cap` findings — **all pre-triaged false pos
 ## Quality gates (run before every commit)
 `composer install` first — dev deps are required for both gates.
 - **PHPStan**: `composer phpstan` (config `phpstan.neon`, level 5, WordPress stubs via `szepeviktor/phpstan-wordpress`). **Baseline is zero errors — keep it there.** BuddyPress / WP Job Manager / Resume Manager / Applications symbols are unresolvable (they are not on the analysis path) and are ignored by explicit name in `phpstan.neon`; the list is deliberately explicit rather than a blanket `.*not found` so our own typos still surface. `phpstan-bootstrap.php` declares the four `BPJM_*` runtime constants.
-- **WPCS**: `composer phpcs` (config `phpcs.xml.dist`). Current baseline is **57 errors / 9 warnings**, all pre-existing and nearly all `PrefixAllGlobals.NonPrefixedHooknameFound` for third-party WPJM/BP/Resume-Manager hooks this plugin must call by their real names, plus `NonPrefixedVariableFound` for template variables injected by `get_job_manager_template()`'s `extract()`. Neither class is fixable without breaking a third-party contract. **Do not let the count rise** — diff before/after with `--report=csv` rather than reading the total.
+- **WPCS**: `composer phpcs` (config `phpcs.xml.dist`). Current baseline is **38 errors / 8 warnings**, all pre-existing and nearly all `PrefixAllGlobals.NonPrefixedHooknameFound` for third-party WPJM/BP/Resume-Manager hooks this plugin must call by their real names, plus `NonPrefixedVariableFound` for template variables injected by `get_job_manager_template()`'s `extract()`. Neither class is fixable without breaking a third-party contract. **Do not let the count rise** — diff before/after with `--report=csv` rather than reading the total.
 - Generated `languages/*.l10n.php` and `phpstan-bootstrap.php` are excluded from WPCS; do not lint or hand-edit them.
 
 ## i18n workflow

@@ -83,7 +83,7 @@ Our dedicated support team is ready to help you get the most out of this plugin.
 * WP Job Manager - required
 * WP Job Manager add-ons (Resume Manager, Applications, Bookmarks, Job Alerts) - all optional, each unlocks its own tab
 * Works with BP Rewrites
-* Tested with popular themes including BuddyX, Reign and Youzify
+* Tested with popular themes including BuddyX and Reign
 
 = What's New in 2.8.5 =
 
@@ -191,7 +191,7 @@ Yes. When the BuddyPress Messages component is active, candidate contact details
 
 = Will this work with my theme? =
 
-The plugin has been tested with popular BuddyPress themes including BuddyX, Reign, and Youzify, and it follows BuddyPress template standards, so it should work with any properly coded BuddyPress-compatible theme. WP Job Manager surfaces are styled for dark mode in BuddyX, BuddyX Pro and Reign. BP Rewrites is supported.
+The plugin targets plain BuddyPress and follows BuddyPress template standards, so it should work with any properly coded BuddyPress-compatible theme. It is tested with BuddyX and Reign. WP Job Manager surfaces are styled for dark mode in BuddyX, BuddyX Pro and Reign. BP Rewrites is supported.
 
 = Is the plugin translation ready? =
 
@@ -263,6 +263,7 @@ Fixes a front-end crash on sites missing a required plugin, corrects add-on dete
 * Dev      - Application notifications now always bind to job_manager_applications_new_job_application. The deprecated new_job_application hook is no longer used; anything that removed our callback from it must target the current hook.
 * Dev      - New helper bpjm_is_plugin_active() replaces direct active_plugins lookups so add-on detection also covers network activation.
 * Dev      - The strings "%s Jobs" and "%s's Jobs" and "%s's Resumes" were replaced by "Jobs by %s" and "Resumes by %s" so translators can place their own preposition. Update any custom translation that overrode them.
+* Dev      - Dropped Youzify-specific styling and code paths. The plugin targets plain BuddyPress; BuddyX and Reign remain the tested themes.
 * Dev      - The POT build now runs WP-CLI's i18n audit instead of skipping it, so unwrapped strings and inconsistent translator comments fail the build.
 
 = 2.8.5 - July 2026 =

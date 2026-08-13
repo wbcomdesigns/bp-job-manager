@@ -10,7 +10,7 @@ Board: Basecamp "BuddyPress Job Manager" → **Scope** (open) / **Ready for Test
 
 ## State
 
-Branch `2.8.6`, version `3.0.0`. **Rename the branch at release.** Nothing is tagged.
+Branch `3.0.0` (renamed from `2.8.6`), version `3.0.0`. Nothing is tagged yet.
 2.8.6 was never released; its ten bug fixes ship inside 3.0.0.
 
 | Commit | What |
@@ -51,33 +51,28 @@ Everything in the spec except the two advisory items below.
 - Notification names the applicant (display name) and the job.
 - Every screen walked, including the first anonymous and RTL passes.
 - Screenshots regenerated against clean seed data.
+- Dashicons replaced with inline Lucide icons (22 sites, 12 icons, `bpjm_icon()`).
+- Youzify support dropped; the plugin targets plain BuddyPress. That removed ~139 lines of
+  theme-specific CSS and let the breakpoints consolidate to 640 / 1024 / 1025.
+- `docs/website/` scaffolded (getting-started, settings, developer-guide) and the manifest
+  synced: hooks re-derived from source, `user_meta` now empty, storage policy recorded.
 
 ---
 
 ## Open
 
-### 1. Dashicons → Lucide (advisory, 10 sites)
+### Release
 
-`includes/admin/class-bp-job-manager-admin-panel.php` (5 tab icons), `hub.php` (4),
-`discover.php` (1). Needs an icon helper plus inline SVGs (no CDN) and a visual pass over
-every admin screen. Not started.
-
-### 2. Front-end breakpoints (advisory)
-
-`public/css/bp-job-manager-public.css` uses 540, 670, 768 and 769 where the standard is
-three values. **Do not force the count.** Collapsing them changes layout at those widths,
-and the 670 rule targets `.youzify-content` — Youzify is not installed on this stack, so
-that one cannot be verified here at all. It needs either a Youzify install or a decision
-to drop that rule.
-
-`assets/css/admin.css` is already compliant (1024 / 640).
-
-### 3. Release
-
-- Rename branch `2.8.6` → `3.0.0`.
-- Tag and build. **Not authorised yet** — confirm with the owner first.
+- Branch renamed to `3.0.0`. Still to do: merge to `master`, tag `v3.0.0`, build the dist
+  zip, and cut the GitHub release.
 - The build gate expects `docs/qa/.last-smoke-pass.json`; this plugin has no `docs/qa/`
-  scaffold. Either scaffold it (`/wp-plugin-release-qa`) or note the exception.
+  scaffold. Either scaffold it (`/wp-plugin-release-qa`) or record the exception.
+- No pristine-install test has been run against a built zip. `/wp-plugin-release` does this
+  in Docker and catches packaging bugs that a dev tree hides.
+
+Everything else in the plan is done. Advisory count is 2, both pre-existing false positives
+(`outline: none` on `:focus:not(:focus-visible)`, which is the correct modern pattern -
+the audit script's five-line lookahead cannot see the matching `:focus-visible` rule).
 
 ---
 

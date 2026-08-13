@@ -74,7 +74,7 @@
 	color: #444;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 640px) {
 
 	.notice.notice.bp-job-manager-notice .bp-job-manager-notice-inner {
 		display: block;
