@@ -112,7 +112,12 @@ echo bpjm_icon( 'briefcase', array( 'size' => 20, 'class' => 'my-class' ) );
 ```
 
 Inline Lucide SVG, 24×24 stroke geometry, `currentColor`. Twelve icons are registered in
-`includes/admin/class-bp-job-manager-icons.php`. Do not reintroduce Dashicons.
+`includes/admin/class-bp-job-manager-icons.php`.
+
+The split is by owner, not by preference: **WordPress chrome uses Dashicons, anything we
+render uses Lucide.** So the top-level admin menu icon stays `dashicons-lightbulb` - that
+argument is an icon URL, and a Dashicons class is what follows the admin colour scheme
+alongside every other menu. Inside our own cards, tabs and panels, use `bpjm_icon()`.
 
 ## Hooks removed in 3.0.0
 
