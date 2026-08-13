@@ -10,6 +10,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * What a member's profile shows when they have expressed no preference.
+ *
+ * Everything, which is what "Show the latest resume on the member's profile"
+ * has always claimed to do. Filterable so a site can narrow it globally without
+ * every member having to touch their own settings.
+ *
+ * @since 3.0.0
+ *
+ * @return array<string,string>
+ */
+function bpjm_resume_profile_default_fields() {
+	return apply_filters(
+		'bpjm_resume_profile_default_fields',
+		array(
+			'display_resume' => 'yes',
+			'email'          => 'yes',
+			'prof_title'     => 'yes',
+			'location'       => 'yes',
+			'video'          => 'yes',
+			'description'    => 'yes',
+			'url'            => 'yes',
+			'education'      => 'yes',
+			'experience'     => 'yes',
+		)
+	);
+}
+
+/**
  * Display single resume.
  *
  * @param  int $post_id Post ID.
@@ -17,19 +45,47 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function bpjm_show_resume_at_profile( $post_id ) {
 	global $post;
-	$fields_display = get_user_meta( bp_displayed_user_id(), 'bpjm_display_fields', true );
-	if ( ! is_array( $fields_display ) ) {
-		return;
-	}
-	$display_resume = ( isset( $fields_display['display_resume'] ) ) ? $fields_display['display_resume'] : 'no';
 
-	if ( 'yes' !== $display_resume ) {
-		return;
-	}
 	$post = get_post( $post_id, OBJECT ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Required for setup_postdata() in template.
-	setup_postdata( $post );
 
 	if ( empty( $post ) ) {
+		return;
+	}
+
+	/*
+	 * Resume Manager owns whether a resume is visible - that is what publishing
+	 * and hiding a resume mean. Anything not published never reaches a profile.
+	 */
+	if ( 'publish' !== $post->post_status ) {
+		return;
+	}
+
+	setup_postdata( $post );
+
+	/*
+	 * Absence of a preference means SHOW.
+	 *
+	 * This function used to return early unless the member had a
+	 * `bpjm_display_fields` meta with `display_resume => yes`. That meta was
+	 * written in exactly one place: an activation hook that looped every user on
+	 * the site and stamped it on each. So the feature worked for members who
+	 * existed when the plugin was activated and silently did nothing for
+	 * everyone who registered afterwards - on a growing community, most members,
+	 * while the admin Overview reported the feature as on.
+	 *
+	 * The activation loop is gone - the activator class was removed - so there is
+	 * no seeded meta to depend on. A member who has explicitly chosen to hide
+	 * fields still has that meta and it is still honoured; everyone else - which
+	 * is now everyone new - gets the resume shown, which is what the setting
+	 * always promised.
+	 */
+	$fields_display = get_user_meta( bp_displayed_user_id(), 'bpjm_display_fields', true );
+
+	if ( ! is_array( $fields_display ) ) {
+		$fields_display = bpjm_resume_profile_default_fields();
+	}
+
+	if ( isset( $fields_display['display_resume'] ) && 'yes' !== $fields_display['display_resume'] ) {
 		return;
 	}
 

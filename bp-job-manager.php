@@ -10,7 +10,7 @@
  * Plugin Name:       Wbcom Designs - BuddyPress Job Manager
  * Plugin URI:        https://wbcomdesigns.com/
  * Description:       This plugin integrates WordPress Job Manager with BuddyPress. Allows the members to post jobs, and others to apply for those posted jobs.
- * Version:           2.8.6
+ * Version:           3.0.0
  * Author:            Wbcom Designs
  * Author URI:        https://wbcomdesigns.com/
  * License:           GPL-2.0+
@@ -36,39 +36,35 @@ if ( ! defined( 'BPJM_PLUGIN_URL' ) ) {
 }
 
 if ( ! defined( 'BPJM_PLUGIN_VERSION' ) ) {
-	define( 'BPJM_PLUGIN_VERSION', '2.8.6' );
+	define( 'BPJM_PLUGIN_VERSION', '3.0.0' );
 }
 
 
 /**
- * The code that runs during plugin activation. This action is documented in includes/class-bp-job-manager-activator.php
+ * Runs on activation.
+ *
+ * Sets one 30-second transient and nothing else. This plugin is a bridge: it
+ * stores no jobs and no resumes, owns no tables and no post types, and since
+ * 3.0.0 writes nothing but its settings option.
+ *
+ * Before 3.0.0 this delegated to Bpjm_Job_Manager_Activator, which created an
+ * "Apply To Job" page in the customer's site and looped every user to stamp a
+ * meta on each. Both are gone - the page because a bridge should not author
+ * content, the loop because per-user state written at activation only ever
+ * covers users who existed at that moment and silently misses everyone who
+ * registers later. The activator and the empty deactivator class went with
+ * them.
  *
  * @author  wbcomdesigns
  * @since   1.0.0
  */
 function bpjm_activate_bp_job_manager() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bp-job-manager-activator.php';
-	Bpjm_Job_Manager_Activator::activate();
-
 	// Flag a fresh activation so the next admin page load can redirect to the
 	// settings screen (handled by bpjm_do_activation_redirect on admin_init).
 	set_transient( '_bpjm_is_new_install', true, 30 );
 }
 
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-bp-job-manager-deactivator.php
- *
- * @author  wbcomdesigns
- * @since   1.0.0
- */
-function bpjm_deactivate_bp_job_manager() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-bp-job-manager-deactivator.php';
-	Bpjm_Job_Manager_Deactivator::deactivate();
-}
-
 register_activation_hook( __FILE__, 'bpjm_activate_bp_job_manager' );
-register_deactivation_hook( __FILE__, 'bpjm_deactivate_bp_job_manager' );
 
 /**
  * The core plugin class that is used to define internationalization,

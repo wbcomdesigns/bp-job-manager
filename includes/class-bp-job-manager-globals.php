@@ -41,7 +41,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 		 * as a default opened anonymous job posting on every fresh install.
 		 * Site owners who want it can still add it on the General tab.
 		 *
-		 * @since 2.8.6
+		 * @since 3.0.0
 		 * @var string[]
 		 */
 		const DEFAULT_POST_JOB_ROLES = array( 'administrator', 'employer' );
@@ -49,7 +49,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 		/**
 		 * Roles allowed to apply for jobs on a site that has never saved settings.
 		 *
-		 * @since 2.8.6
+		 * @since 3.0.0
 		 * @var string[]
 		 */
 		const DEFAULT_APPLY_JOB_ROLES = array( 'administrator', 'candidate', 'subscriber' );

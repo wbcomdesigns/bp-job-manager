@@ -88,14 +88,14 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * by bpjm_member_profile_jobs_tab(); it has no `my-jobs` subnav, so
 		 * bp_current_action() resolves to `jobs` there and it must be included.
 		 *
-		 * @since 2.8.6
+		 * @since 3.0.0
 		 * @return string[] BuddyPress action slugs owned by this plugin.
 		 */
 		public function bpjm_get_owned_actions() {
 			/**
 			 * Filters the profile actions treated as job/resume screens.
 			 *
-			 * @since 2.8.6
+			 * @since 3.0.0
 			 * @param string[] $actions BuddyPress action slugs.
 			 */
 			return apply_filters(
@@ -107,7 +107,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		/**
 		 * Whether the current BuddyPress action is a screen this plugin owns.
 		 *
-		 * @since 2.8.6
+		 * @since 3.0.0
 		 * @return bool True when the current action renders a job/resume screen.
 		 */
 		public function bpjm_is_owned_action() {
@@ -132,7 +132,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * the plugin overriding the member, and it is meaningless for scripts
 		 * with no letter case.
 		 *
-		 * @since 2.8.6
+		 * @since 3.0.0
 		 *
 		 * @param string $screen  Either 'jobs' or 'resumes'.
 		 * @param int    $user_id Displayed member ID.
@@ -230,7 +230,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * how the stylesheet previously came to be registered twice for the same
 		 * handle on dashboard pages.
 		 *
-		 * @since 2.8.6
+		 * @since 3.0.0
 		 *
 		 * @return bool
 		 */
@@ -338,7 +338,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		/**
 		 * Whether the current request is the standalone Apply To Job page.
 		 *
-		 * @since 2.8.6
+		 * @since 3.0.0
 		 *
 		 * @return bool
 		 */
@@ -1356,24 +1356,40 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_bp_profile_field_item() {
-			global $bpjm_bp_job_manager, $wpdb;
+			global $bpjm_bp_job_manager;
 
-			$user_id   = bp_displayed_user_id();
-			$resume_id = get_user_meta( $user_id, 'bpjm_profile_resume_show_id', true );
-
-			if ( ! empty( $resume_id ) ) {
-				if ( isset( $bpjm_bp_job_manager->bpjm_resume_at_profile ) && 'yes' === $bpjm_bp_job_manager->bpjm_resume_at_profile ) {
-					bpjm_show_resume_at_profile( $resume_id );
-				}
-			} else {
-				$where = get_posts_by_author_sql( 'resume', true, $user_id, false );
-				// Concatenate the WHERE clause directly.
-				$post = $wpdb->get_row( "SELECT ID FROM {$wpdb->posts} {$where} ORDER BY post_modified DESC" );		// phpcs:ignore.
-
-				if ( $post && isset( $bpjm_bp_job_manager->bpjm_resume_at_profile ) && 'yes' === $bpjm_bp_job_manager->bpjm_resume_at_profile ) {
-					bpjm_show_resume_at_profile( $post->ID );
-				}
+			if ( ! isset( $bpjm_bp_job_manager->bpjm_resume_at_profile ) || 'yes' !== $bpjm_bp_job_manager->bpjm_resume_at_profile ) {
+				return;
 			}
+
+			/*
+			 * Which resume to show is derived, never stored.
+			 *
+			 * There used to be a `bpjm_profile_resume_show_id` meta pointing at a
+			 * chosen resume, with a raw $wpdb fallback query when it was empty -
+			 * two code paths answering one question, and a stored pointer that
+			 * could outlive the resume it named. The member's most recent
+			 * published resume is the answer in both cases, and get_posts() gets
+			 * it with the caching and filtering a hand-built query skips.
+			 */
+			$bpjm_resumes = get_posts(
+				array(
+					'post_type'        => 'resume',
+					'post_status'      => 'publish',
+					'author'           => bp_displayed_user_id(),
+					'numberposts'      => 1,
+					'orderby'          => 'modified',
+					'order'            => 'DESC',
+					'fields'           => 'ids',
+					'suppress_filters' => false,
+				)
+			);
+
+			if ( empty( $bpjm_resumes ) ) {
+				return;
+			}
+
+			bpjm_show_resume_at_profile( (int) $bpjm_resumes[0] );
 		}
 
 		/**
@@ -1620,11 +1636,14 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					check_admin_referer( 'bp_xprofile_settings' );
 				}
 
-				// Update resume ID if set.
-				if ( isset( $_POST['bpjm_prof_resume_show_postid'] ) ) {
-					$resume_id = sanitize_text_field( wp_unslash( $_POST['bpjm_prof_resume_show_postid'] ) );
-					update_user_meta( bp_loggedin_user_id(), 'bpjm_profile_resume_show_id', $resume_id );
-				}
+				/*
+				 * `bpjm_profile_resume_show_id` is no longer written.
+				 *
+				 * It stored which resume to show on the profile. Since 3.0.0 that
+				 * is derived - the member's most recent published resume - so the
+				 * meta had no reader left and writing it only created a pointer
+				 * that could outlive the resume it named.
+				 */
 
 				// Handle display fields update.
 				if ( isset( $_POST['bpjm_display'] ) ) {

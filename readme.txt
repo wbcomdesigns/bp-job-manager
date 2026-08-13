@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com/donate/
 Tags: buddypress, wp-job-manager, job-manager, resume-manager, jobs
 Requires at least: 6.5
 Tested up to: 7.0
-Stable tag: 2.8.6
+Stable tag: 3.0.0
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -220,7 +220,14 @@ We regularly update the plugin to ensure compatibility with the latest versions 
 
 == Changelog ==
 
-= 2.8.6 - August 2026 =
+= 3.0.0 - August 2026 =
+
+A major simplification. This release removes settings and stored data rather than adding
+features: the plugin now defers to WP Job Manager for permissions, renders its add-ons'
+own screens instead of copies, and stores nothing but its settings. It also fixes a
+front-end crash and completes translation readiness.
+
+Please read the upgrade notice below before updating.
 
 Fixes a front-end crash on sites missing a required plugin, corrects add-on detection on multisite, and makes the Jobs and Resumes tabs consistent. Translation corrections across all five locales.
 
@@ -431,6 +438,9 @@ Fixes a front-end crash on sites missing a required plugin, corrects add-on dete
 * first version.
 
 == Upgrade Notice ==
+
+= 3.0.0 =
+Major release. Your jobs, resumes and applications are untouched - this plugin has never stored any of them. What changes is configuration. The "Roles allowed to post jobs" and "Roles allowed to apply for jobs" settings are retired in favour of WP Job Manager's own permission, and existing values are honoured automatically. Members no longer need to opt in to show a resume on their profile; a published resume now appears there by default. My Resumes and Applied Jobs are rendered by Resume Manager and Applications directly, so they gain application status and every translation those plugins ship - if you styled either table with custom CSS, check it after updating.
 
 = 2.8.5 =
 Modernized admin settings screen, real pagination on Applied Jobs, cached profile nav counts, automatic activity cleanup for deleted jobs and resumes, and dark mode fixes for WP Job Manager surfaces. Settings and data are unchanged.

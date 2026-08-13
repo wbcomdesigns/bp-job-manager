@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * The option is read through a static cache because several of these checks
  * fire per profile-nav render.
  *
- * @since 2.8.6
+ * @since 3.0.0
  *
  * @param string $basename Plugin basename, e.g. 'wp-job-manager-resumes/wp-job-manager-resumes.php'.
  * @return bool True when the plugin is active on this site or network-wide.

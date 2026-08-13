@@ -3,7 +3,7 @@
   "plugin": {
     "slug": "bp-job-manager",
     "name": "Wbcom Designs - BuddyPress Job Manager",
-    "version": "2.8.6",
+    "version": "3.0.0",
     "namespace": "Bp_Job_Manager (class-prefix convention, no PHP namespace)",
     "main_file": "bp-job-manager.php",
     "text_domain": "bp-job-manager",

@@ -1,12 +1,40 @@
 # Plugin: BuddyPress Job Manager
 
+## Direction — read before proposing anything
+
+**This is a bridge, not a job board.** It renders WP Job Manager and its add-ons inside
+BuddyPress profiles. It owns no tables, no post types, and stores nothing but its settings.
+
+**Why it exists:** the profile is already the member's professional identity. You open
+someone's profile to find out who they are — if they are job-hunting their resume belongs
+there, if they are hiring their jobs belong there. The community's social graph becomes the
+hiring graph, and nobody leaves their profile to manage either side.
+
+**The whole product is two journeys.** Hiring: post a job → see it on your profile → be told
+who applied. Looking for work: add a resume → it shows on your profile → apply from a job
+listing → see where each application stands. *If a screen, setting, or stored value does not
+sit on one of those two lines, it is junk.*
+
+Three rules that follow, and that most of this plugin's historical bugs came from breaking:
+
+1. **Never rebuild what the host plugin already renders.** Use its shortcode. A re-render
+   drifts from the original, and it duplicates strings into our text domain that the host
+   already has community translations for — so a translated site shows our tab in English.
+2. **Never store what can be derived at render time.** Per-user state written at activation
+   only ever covers users who existed then; everyone who registers later silently misses it.
+3. **Never add a permission system beside WP Job Manager's.** Defer to its capability.
+
+The plugin drifted from this over time, and that drift is the reason maintenance on a free
+plugin has cost as much as it has. Current plan, with locked wording per screen:
+[Job Manager Screen Spec](https://claude.ai/code/artifact/bf9da7b4-c305-4cc9-81d1-49abad7cc0c7).
+
 > **READ FIRST:** [`audit/manifest.json`](audit/manifest.json) is the canonical inventory — 0 REST endpoints, 1 AJAX action (`bpjm_load_more_jobs`), 2 admin pages (the shared `wbcomplugins` hub + this plugin's single 4-tab page), 1 settings option (`bpjm_general_settings`), 0 shortcodes, 0 blocks, 0 tables, 0 cron, 0 CPTs. Use it before grepping. See also [`audit/FEATURE_AUDIT.md`](audit/FEATURE_AUDIT.md), [`audit/CODE_FLOWS.md`](audit/CODE_FLOWS.md), [`audit/ROLE_MATRIX.md`](audit/ROLE_MATRIX.md), and the wppqa baseline at [`audit/wppqa-baseline-2026-06-05/SUMMARY.md`](audit/wppqa-baseline-2026-06-05/SUMMARY.md). Refresh via `/wp-plugin-onboard --refresh` after non-trivial changes.
 
 > **Development conventions:** follow the [`wp-plugin-development`](https://example/skills/wp-plugin-development) skill for ALL code work (architecture, hooks ownership, REST patterns, escaping, security, admin UI, release packaging). This plugin predates the modern conventions; align new code to the skill, do not copy the legacy patterns below.
 
 ## Quick reference
 - **Main file**: `bp-job-manager.php`
-- **Version**: `2.8.6` (branch `2.8.6`)
+- **Version**: `3.0.0` (branch `2.8.6`, rename at release)
 - **Namespace**: none — class-prefix convention `Bp_Job_Manager_*`
 - **Text domain**: `bp-job-manager`
 - **Extends**: null (standalone; not a Free/Pro pair)
