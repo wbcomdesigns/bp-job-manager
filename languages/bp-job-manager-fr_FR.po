@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BuddyPress Job Manager\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-job-manager\n"
-"POT-Creation-Date: 2026-08-13T11:09:27+00:00\n"
+"POT-Creation-Date: 2026-08-13T11:16:39+00:00\n"
 "PO-Revision-Date: 2026-08-13 12:00+0530\n"
 "Last-Translator: Varun Dubey <varun@wbcomdesigns.com>\n"
 "Language-Team: jean-pierre michaud <translation@wpenhancer.agency>\n"
@@ -177,17 +177,17 @@ msgstr "Mes emplois"
 msgid "Post Job"
 msgstr "Publier une offre d'emploi"
 
-#. translators: %1$s: BP user link ; %2$s: Job link
-#: admin/class-bp-job-manager-admin.php:229
+#. translators: 1: member link, 2: job title link.
+#: admin/class-bp-job-manager-admin.php:230
 #, php-format
-msgid "%1$s posted a new job %2$s"
-msgstr "%1$s a publié une nouvelle offre d'emploi %2$s"
+msgid "%1$s posted a job: %2$s"
+msgstr "%1$s a publié une offre : %2$s"
 
-#. translators: %1$s: Resume user link ; %2$s: Resume link
-#: admin/class-bp-job-manager-admin.php:254
+#. translators: 1: member link, 2: resume title link.
+#: admin/class-bp-job-manager-admin.php:256
 #, php-format
-msgid "%1$s posted resume %2$s"
-msgstr "%1$s a publié le CV %2$s"
+msgid "%1$s published a resume: %2$s"
+msgstr "%1$s a publié un CV : %2$s"
 
 #. translators: %1$s: BuddyPress Job Manager ;  %2$s: BuddyPress ; %3$s: WP Job Manager
 #: bp-job-manager.php:157
@@ -788,13 +788,19 @@ msgstr "Message privé"
 msgid "Send Private Message"
 msgstr "Envoyer un message privé"
 
-#. translators: %1$s: Applicant Name
-#: public/class-bp-job-manager-public.php:1531
+#. translators: 1: applicant display name, 2: job title.
+#: public/class-bp-job-manager-public.php:1558
 #, php-format
-msgid "%s submitted an application for your job posting."
-msgstr "%s a soumis une candidature pour ton offre d'emploi."
+msgid "%1$s applied for %2$s."
+msgstr "%1$s a postulé à %2$s."
 
-#: public/class-bp-job-manager-public.php:1586
+#. translators: %s: applicant display name.
+#: public/class-bp-job-manager-public.php:1561
+#, php-format
+msgid "%s applied for one of your jobs."
+msgstr "%s a postulé à une de tes offres."
+
+#: public/class-bp-job-manager-public.php:1628
 msgid ""
 "You are not authorized to post a job. Please reach out to the administrator "
 "for further assistance."
