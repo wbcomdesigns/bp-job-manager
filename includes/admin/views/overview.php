@@ -52,7 +52,7 @@ $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 
 <?php if ( ! $bpjm_bp_active || ! $bpjm_wpjm_active ) : ?>
 	<div class="bpjm-notice bpjm-notice--warn">
-		<span class="dashicons dashicons-warning" aria-hidden="true"></span>
+		<?php echo bpjm_icon( 'alert' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 		<div>
 			<strong><?php esc_html_e( 'Required plugins missing.', 'bp-job-manager' ); ?></strong>
 			<?php esc_html_e( 'BuddyPress Job Manager needs both BuddyPress and WP Job Manager to be active. Activate them to use the profile job and resume features.', 'bp-job-manager' ); ?>
@@ -172,11 +172,11 @@ $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 	<div class="bpjm-card__body">
 		<div class="bpjm-save-bar bpjm-save-bar--wrap">
 			<a href="<?php echo esc_url( $general_url ); ?>" class="bpjm-btn bpjm-btn-secondary">
-				<span class="dashicons dashicons-admin-settings" aria-hidden="true"></span>
+				<?php echo bpjm_icon( 'settings' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 				<?php esc_html_e( 'Configure Settings', 'bp-job-manager' ); ?>
 			</a>
 			<a href="https://docs.wbcomdesigns.com/doc_category/buddypress-job-manager/" target="_blank" rel="noopener noreferrer" class="bpjm-btn bpjm-btn-secondary">
-				<span class="dashicons dashicons-book" aria-hidden="true"></span>
+				<?php echo bpjm_icon( 'book' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 				<?php esc_html_e( 'Read Documentation', 'bp-job-manager' ); ?>
 			</a>
 		</div>

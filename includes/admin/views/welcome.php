@@ -35,13 +35,13 @@ defined( 'ABSPATH' ) || exit;
 	<div class="bpjm-card__body">
 		<div class="bpjm-resource-grid">
 			<div class="bpjm-resource">
-				<span class="bpjm-resource__icon" aria-hidden="true"><span class="dashicons dashicons-book"></span></span>
+				<span class="bpjm-resource__icon" aria-hidden="true"><?php echo bpjm_icon( 'book' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?></span>
 				<h3 class="bpjm-resource__title"><?php esc_html_e( 'Documentation', 'bp-job-manager' ); ?></h3>
 				<p class="bpjm-resource__desc"><?php esc_html_e( 'Our comprehensive guide covers every aspect of the plugin. You will find most of your answers here.', 'bp-job-manager' ); ?></p>
 				<a href="https://docs.wbcomdesigns.com/doc_category/buddypress-job-manager/" class="bpjm-btn bpjm-btn-secondary" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Read Documentation', 'bp-job-manager' ); ?></a>
 			</div>
 			<div class="bpjm-resource">
-				<span class="bpjm-resource__icon" aria-hidden="true"><span class="dashicons dashicons-sos"></span></span>
+				<span class="bpjm-resource__icon" aria-hidden="true"><?php echo bpjm_icon( 'life-buoy' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?></span>
 				<h3 class="bpjm-resource__title"><?php esc_html_e( 'Support Center', 'bp-job-manager' ); ?></h3>
 				<p class="bpjm-resource__desc"><?php esc_html_e( 'Our support center provides top-notch assistance. Reach out any time you need a hand.', 'bp-job-manager' ); ?></p>
 				<a href="https://wbcomdesigns.com/support/" class="bpjm-btn bpjm-btn-secondary" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Get Support', 'bp-job-manager' ); ?></a>

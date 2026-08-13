@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-13T11:16:39+00:00\n"
+"POT-Creation-Date: 2026-08-13T11:39:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bp-job-manager\n"
@@ -160,14 +160,14 @@ msgstr ""
 msgid "Post Job"
 msgstr ""
 
-#. translators: 1: member link, 2: job title link.
-#: admin/class-bp-job-manager-admin.php:230
+#. translators: 1: member profile link, 2: job title link.
+#: admin/class-bp-job-manager-admin.php:229
 #, php-format
 msgid "%1$s posted a job: %2$s"
 msgstr ""
 
-#. translators: 1: member link, 2: resume title link.
-#: admin/class-bp-job-manager-admin.php:256
+#. translators: 1: member profile link, 2: resume title link.
+#: admin/class-bp-job-manager-admin.php:254
 #, php-format
 msgid "%1$s published a resume: %2$s"
 msgstr ""
@@ -671,18 +671,18 @@ msgid "Send Private Message"
 msgstr ""
 
 #. translators: 1: applicant display name, 2: job title.
-#: public/class-bp-job-manager-public.php:1558
+#: public/class-bp-job-manager-public.php:1559
 #, php-format
 msgid "%1$s applied for %2$s."
 msgstr ""
 
 #. translators: %s: applicant display name.
-#: public/class-bp-job-manager-public.php:1561
+#: public/class-bp-job-manager-public.php:1562
 #, php-format
 msgid "%s applied for one of your jobs."
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1628
+#: public/class-bp-job-manager-public.php:1629
 msgid "You are not authorized to post a job. Please reach out to the administrator for further assistance."
 msgstr ""
 

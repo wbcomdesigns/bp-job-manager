@@ -198,7 +198,7 @@ if ( ! class_exists( 'BP_Job_Manager_Feedback' ) ) :
 			<div class="notice updated bp-job-manager-notice">
 				<div class="bp-job-manager-notice-inner">
 					<div class="bp-job-manager-notice-icon">
-						<span class="dashicons dashicons-businessman" aria-hidden="true"></span>
+						<?php echo bpjm_icon( 'briefcase' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 					</div>
 					<div class="bp-job-manager-notice-content">
 						<h3><?php echo esc_html__( 'Are you enjoying BuddyPress Job Manager?', 'bp-job-manager' ); ?></h3>

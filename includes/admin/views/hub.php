@@ -58,7 +58,7 @@ $plugin_count = count( $bpjm_plugins );
 <div class="wrap bpjm-admin">
 	<header class="bpjm-page-header">
 		<div class="bpjm-page-header__title">
-			<span class="dashicons dashicons-lightbulb" aria-hidden="true"></span>
+			<?php echo bpjm_icon( 'lightbulb' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 			<div>
 				<h1><?php esc_html_e( 'WB Plugins', 'bp-job-manager' ); ?></h1>
 				<p class="bpjm-page-header__subtitle">
@@ -84,7 +84,7 @@ $plugin_count = count( $bpjm_plugins );
 	<?php if ( 0 === $plugin_count ) : ?>
 		<div class="bpjm-empty-state">
 			<span class="bpjm-empty-state__icon" aria-hidden="true">
-				<span class="dashicons dashicons-lightbulb"></span>
+				<?php echo bpjm_icon( 'lightbulb' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 			</span>
 			<p class="bpjm-empty-state__title"><?php esc_html_e( 'No Wbcom plugins attached to this hub yet', 'bp-job-manager' ); ?></p>
 			<p class="bpjm-empty-state__desc">
@@ -96,7 +96,7 @@ $plugin_count = count( $bpjm_plugins );
 			<?php foreach ( $bpjm_plugins as $bpjm_plugin ) : ?>
 				<a href="<?php echo esc_url( $bpjm_plugin['url'] ); ?>" class="bpjm-hub-card">
 					<span class="bpjm-hub-card__icon" aria-hidden="true">
-						<span class="dashicons dashicons-admin-plugins"></span>
+						<?php echo bpjm_icon( 'plug' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 					</span>
 					<span class="bpjm-hub-card__title"><?php echo esc_html( $bpjm_plugin['menu_title'] ); ?></span>
 					<?php if ( ! empty( $bpjm_plugin['page_title'] ) && $bpjm_plugin['page_title'] !== $bpjm_plugin['menu_title'] ) : ?>
@@ -104,7 +104,7 @@ $plugin_count = count( $bpjm_plugins );
 					<?php endif; ?>
 					<span class="bpjm-hub-card__cta">
 						<?php esc_html_e( 'Open settings', 'bp-job-manager' ); ?>
-						<span class="dashicons dashicons-arrow-right-alt" aria-hidden="true"></span>
+						<?php echo bpjm_icon( 'arrow-right' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 					</span>
 				</a>
 			<?php endforeach; ?>

@@ -50,23 +50,23 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin_Panel' ) ) :
 			$tabs = array(
 				'overview' => array(
 					'label' => __( 'Overview', 'bp-job-manager' ),
-					'icon'  => 'dashicons-chart-bar',
+					'icon'  => 'bar-chart',
 					'group' => 'main',
 				),
 				'general'  => array(
 					'label' => __( 'General', 'bp-job-manager' ),
-					'icon'  => 'dashicons-admin-settings',
+					'icon'  => 'settings',
 					'group' => 'settings',
 				),
 				'welcome'  => array(
 					'label' => __( 'Help & Support', 'bp-job-manager' ),
-					'icon'  => 'dashicons-sos',
+					'icon'  => 'life-buoy',
 					'group' => 'account',
 				),
 				// Discover — ecosystem cross-promotion (read-only display view).
 				'discover' => array(
 					'label' => __( 'Discover', 'bp-job-manager' ),
-					'icon'  => 'dashicons-products',
+					'icon'  => 'package',
 					'group' => 'discover',
 				),
 			);
@@ -102,7 +102,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin_Panel' ) ) :
 					$cap,
 					'wbcomplugins',
 					array( $this, 'render_hub' ),
-					'dashicons-lightbulb',
+					'lightbulb',
 					59
 				);
 			}

@@ -104,7 +104,7 @@ endforeach;
 
 <?php if ( ! $bpjm_resumes_on || ! $bpjm_apps_on ) : ?>
 	<div class="bpjm-notice bpjm-notice--info">
-		<span class="dashicons dashicons-info" aria-hidden="true"></span>
+		<?php echo bpjm_icon( 'info' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 		<div>
 			<strong><?php esc_html_e( 'More options unlock with the WP Job Manager add-ons.', 'bp-job-manager' ); ?></strong>
 			<?php

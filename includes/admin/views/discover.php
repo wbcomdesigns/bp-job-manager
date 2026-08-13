@@ -105,7 +105,7 @@ $bpjm_ecosystem = array(
 					<p class="bpjm-discover-card__desc"><?php echo esc_html( $bpjm_product['desc'] ); ?></p>
 					<a class="bpjm-btn bpjm-btn-secondary bpjm-discover-card__cta" href="<?php echo esc_url( $bpjm_product['url'] ); ?>" target="_blank" rel="noopener">
 						<?php esc_html_e( 'Get it free', 'bp-job-manager' ); ?>
-						<span class="dashicons dashicons-external" aria-hidden="true"></span>
+						<?php echo bpjm_icon( 'external' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 						<span class="screen-reader-text">
 							<?php
 							/* translators: %s: product name. */

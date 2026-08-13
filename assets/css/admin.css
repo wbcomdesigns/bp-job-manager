@@ -1139,3 +1139,39 @@
 .bpjm-resource .bpjm-btn {
 	margin-top: 4px;
 }
+
+/* ---------------------------------------------------------------------------
+ * Lucide icons.
+ *
+ * Replaced Dashicons in 3.0.0. Dashicons sized itself through font-size, so the
+ * places that used to set that now need a real box: these rules give every icon
+ * a consistent optical size and align it with the text it sits beside.
+ * `currentColor` means an icon inherits its context - sidebar link, button,
+ * notice - without a per-context rule.
+ * ------------------------------------------------------------------------ */
+.bpjm-icon {
+	display: inline-block;
+	vertical-align: -0.2em;
+	flex: 0 0 auto;
+	color: currentColor;
+}
+
+.bpjm-snav-link .bpjm-icon {
+	margin-inline-end: 8px;
+	opacity: 0.75;
+}
+
+.bpjm-snav-link[aria-current="page"] .bpjm-icon,
+.bpjm-snav-link.is-active .bpjm-icon {
+	opacity: 1;
+}
+
+.bpjm-notice .bpjm-icon {
+	margin-inline-end: 10px;
+	margin-block-start: 2px;
+}
+
+.bpjm-resource__icon .bpjm-icon {
+	width: 24px;
+	height: 24px;
+}

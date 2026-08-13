@@ -26,7 +26,7 @@ $bpjm_version = defined( 'BPJM_PLUGIN_VERSION' ) ? BPJM_PLUGIN_VERSION : '';
 
 	<header class="bpjm-page-header">
 		<div class="bpjm-page-header__title">
-			<span class="dashicons dashicons-businessman" aria-hidden="true"></span>
+			<?php echo bpjm_icon( 'briefcase' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 			<div>
 				<h1><?php esc_html_e( 'BuddyPress Job Manager', 'bp-job-manager' ); ?></h1>
 				<p class="bpjm-page-header__subtitle"><?php esc_html_e( 'Bring WP Job Manager into BuddyPress profiles — members post jobs, manage resumes, and apply, all from their profile.', 'bp-job-manager' ); ?></p>
@@ -54,7 +54,7 @@ $bpjm_version = defined( 'BPJM_PLUGIN_VERSION' ) ? BPJM_PLUGIN_VERSION : '';
 		<aside class="bpjm-settings-sidebar">
 			<div class="bpjm-settings-sidebar-brand">
 				<span class="bpjm-settings-brand-icon" aria-hidden="true">
-					<span class="dashicons dashicons-businessman"></span>
+					<?php echo bpjm_icon( 'briefcase' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 				</span>
 				<div class="bpjm-settings-brand-text">
 					<p class="bpjm-settings-brand-name"><?php esc_html_e( 'Job Manager', 'bp-job-manager' ); ?></p>
@@ -81,7 +81,7 @@ $bpjm_version = defined( 'BPJM_PLUGIN_VERSION' ) ? BPJM_PLUGIN_VERSION : '';
 					$classes  = 'bpjm-snav-link';
 					$classes .= $active === $bpjm_slug ? ' bpjm-snav-link--active' : '';
 					echo '<a href="' . esc_url( $page_url . '&tab=' . $bpjm_slug ) . '" class="' . esc_attr( $classes ) . '">';
-					echo '<span class="dashicons ' . esc_attr( $bpjm_tab['icon'] ) . '" aria-hidden="true"></span>';
+					echo bpjm_icon( $bpjm_tab['icon'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon().
 					echo esc_html( $bpjm_tab['label'] );
 					echo '</a>';
 				}
@@ -90,9 +90,9 @@ $bpjm_version = defined( 'BPJM_PLUGIN_VERSION' ) ? BPJM_PLUGIN_VERSION : '';
 				<div class="bpjm-snav-divider" role="separator"></div>
 				<p class="bpjm-snav-section-label"><?php esc_html_e( 'Help', 'bp-job-manager' ); ?></p>
 				<a href="https://docs.wbcomdesigns.com/doc_category/buddypress-job-manager/" class="bpjm-snav-link" target="_blank" rel="noopener noreferrer">
-					<span class="dashicons dashicons-book" aria-hidden="true"></span>
+					<?php echo bpjm_icon( 'book' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 					<?php esc_html_e( 'Documentation', 'bp-job-manager' ); ?>
-					<span class="dashicons dashicons-external bpjm-snav-link__ext" aria-hidden="true"></span>
+					<?php echo bpjm_icon( 'external', array( 'class' => 'bpjm-snav-link__ext' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Escaped in bpjm_icon(). ?>
 					<span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'bp-job-manager' ); ?></span>
 				</a>
 			</nav>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wbcom Designs - BuddyPress Job Manager 2.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-job-manager\n"
-"POT-Creation-Date: 2026-08-13T11:16:39+00:00\n"
+"POT-Creation-Date: 2026-08-13T11:39:14+00:00\n"
 "PO-Revision-Date: 2026-07-16T11:32:19+00:00\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -170,14 +170,14 @@ msgstr "Meine Stellen"
 msgid "Post Job"
 msgstr "Stelle ausschreiben"
 
-#. translators: 1: member link, 2: job title link.
-#: admin/class-bp-job-manager-admin.php:230
+#. translators: 1: member profile link, 2: job title link.
+#: admin/class-bp-job-manager-admin.php:229
 #, php-format
 msgid "%1$s posted a job: %2$s"
 msgstr "%1$s hat eine Stelle veröffentlicht: %2$s"
 
-#. translators: 1: member link, 2: resume title link.
-#: admin/class-bp-job-manager-admin.php:256
+#. translators: 1: member profile link, 2: resume title link.
+#: admin/class-bp-job-manager-admin.php:254
 #, php-format
 msgid "%1$s published a resume: %2$s"
 msgstr "%1$s hat einen Lebenslauf veröffentlicht: %2$s"
@@ -781,18 +781,18 @@ msgid "Send Private Message"
 msgstr "Private Nachricht senden"
 
 #. translators: 1: applicant display name, 2: job title.
-#: public/class-bp-job-manager-public.php:1558
+#: public/class-bp-job-manager-public.php:1559
 #, php-format
 msgid "%1$s applied for %2$s."
 msgstr "%1$s hat sich auf %2$s beworben."
 
 #. translators: %s: applicant display name.
-#: public/class-bp-job-manager-public.php:1561
+#: public/class-bp-job-manager-public.php:1562
 #, php-format
 msgid "%s applied for one of your jobs."
 msgstr "%s hat sich auf eine deiner Stellen beworben."
 
-#: public/class-bp-job-manager-public.php:1628
+#: public/class-bp-job-manager-public.php:1629
 msgid ""
 "You are not authorized to post a job. Please reach out to the administrator "
 "for further assistance."

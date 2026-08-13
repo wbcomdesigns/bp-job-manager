@@ -131,6 +131,7 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			 * old admin/wbcom/ shared wrapper has been removed as of 2.8.5.
 			 */
 			require_once plugin_dir_path( __DIR__ ) . 'admin/class-bp-job-manager-admin.php';
+			require_once plugin_dir_path( __DIR__ ) . 'includes/admin/class-bp-job-manager-icons.php';
 			require_once plugin_dir_path( __DIR__ ) . 'includes/admin/class-bp-job-manager-admin-panel.php';
 
 			/**
