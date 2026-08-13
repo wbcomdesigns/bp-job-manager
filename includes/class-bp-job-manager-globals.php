@@ -27,34 +27,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 	class Bp_Job_Manager_Globals {
 
 		/**
-		 * Roles allowed to post jobs on a site that has never saved settings.
-		 *
-		 * THE canonical default. The Overview tab used to keep its own copy of
-		 * this list for its "Roles That Can Post Jobs" stat; when 'guest' was
-		 * dropped here the copy was missed, so a fresh install reported three
-		 * roles while the plugin actually granted two. Read this constant -
-		 * never restate the list.
-		 *
-		 * "guest" is deliberately absent: it is the pseudo-role that lets
-		 * logged-out visitors submit a job (see
-		 * Bp_Job_Manager_Public::bpjm_restrict_user_post_job()), so shipping it
-		 * as a default opened anonymous job posting on every fresh install.
-		 * Site owners who want it can still add it on the General tab.
-		 *
-		 * @since 3.0.0
-		 * @var string[]
-		 */
-		const DEFAULT_POST_JOB_ROLES = array( 'administrator', 'employer' );
-
-		/**
-		 * Roles allowed to apply for jobs on a site that has never saved settings.
-		 *
-		 * @since 3.0.0
-		 * @var string[]
-		 */
-		const DEFAULT_APPLY_JOB_ROLES = array( 'administrator', 'candidate', 'subscriber' );
-
-		/**
 		 * The unique identifier of this plugin.
 		 *
 		 * @since    1.0.0
@@ -71,24 +43,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 		 * @var      string    $version    The current version of the plugin.
 		 */
 		protected $version;
-
-		/**
-		 * The user roles allowed to post jobs.
-		 *
-		 * @since    1.0.0
-		 * @access   public
-		 * @var      string[]  $post_job_user_roles
-		 */
-		public $post_job_user_roles;
-
-		/**
-		 * The user roles allowed to apply for jobs.
-		 *
-		 * @since    1.0.0
-		 * @access   public
-		 * @var      string[]  $apply_job_user_roles
-		 */
-		public $apply_job_user_roles;
 
 		/**
 		 * This is the page id of the job application page
@@ -161,17 +115,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 			$settings = get_option( 'bpjm_general_settings' );
 
 			if ( empty( $settings ) ) {
-				$this->apply_job_user_roles   = self::DEFAULT_APPLY_JOB_ROLES;
-				$this->post_job_user_roles    = self::DEFAULT_POST_JOB_ROLES;
 				$this->bpjm_resume_at_profile = 'yes';
 			} else {
-				if ( ! empty( $settings['apply_job_user_roles'] ) ) {
-					$this->apply_job_user_roles = $settings['apply_job_user_roles'];
-				}
-				if ( ! empty( $settings['post_job_user_roles'] ) ) {
-					$this->post_job_user_roles = $settings['post_job_user_roles'];
-				}
-
 				if ( array_key_exists( 'bpjm_resume_at_profile', $settings ) ) {
 					$this->bpjm_resume_at_profile = 'yes';
 				} else {

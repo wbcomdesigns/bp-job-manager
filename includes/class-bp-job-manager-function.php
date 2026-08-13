@@ -59,19 +59,19 @@ function bpjm_is_plugin_active( $basename ) {
 /**
  * Whether a member may post jobs.
  *
- * THE accessor. Whether someone can post was previously decided by five separate
- * array_intersect() calls scattered across nav registration, the screen guard,
- * the admin-bar links and the WP Job Manager filter - each free to drift from
- * the others, which is how a member could be shown a Jobs tab whose screen then
- * refused them.
+ * Defers to WP Job Manager. This plugin does not define roles and does not gate
+ * on them - it surfaces what WP Job Manager and Resume Manager already allow,
+ * inside a BuddyPress profile.
  *
- * Note on the underlying model: WP Job Manager itself has no role-based posting
- * capability - its `job_manager_user_can_post_job` defaults to true for anyone
- * logged in. The role list is therefore this plugin's own restriction layered on
- * top. Retiring it entirely means every member may post, which is WP Job
- * Manager's native behaviour but a change of product behaviour on every existing
- * site, so it is deliberately NOT done here. This accessor exists so that when
- * the decision is made it is one edit, not five.
+ * Until 3.0.0 there was a `post_job_user_roles` setting: a second permission
+ * system layered over WP Job Manager's, which a site owner had to configure
+ * before the plugin did anything useful. It was the direct cause of members
+ * being shown an employer dashboard they were then refused, of the Overview
+ * screen having a role count to get wrong, and of a whole fallback screen that
+ * existed only to serve the gating. WP Job Manager allows any logged-in member
+ * to submit a job; a site that wants to narrow that filters
+ * `job_manager_user_can_post_job`, which is WP Job Manager's own contract and
+ * applies everywhere, not just on our tabs.
  *
  * @since 3.0.0
  *
@@ -79,43 +79,6 @@ function bpjm_is_plugin_active( $basename ) {
  * @return bool
  */
 function bpjm_user_can_post_job( $user = null ) {
-	global $bpjm_bp_job_manager;
-
-	$roles = isset( $bpjm_bp_job_manager->post_job_user_roles )
-		? (array) $bpjm_bp_job_manager->post_job_user_roles
-		: array();
-
-	if ( null === $user ) {
-		$user = wp_get_current_user();
-	} elseif ( ! $user instanceof WP_User ) {
-		$user = get_userdata( (int) $user );
-	}
-
-	if ( ! ( $user instanceof WP_User ) || ! $user->ID ) {
-		// "guest" is the pseudo-role that permits logged-out submission.
-		return in_array( 'guest', $roles, true );
-	}
-
-	return (bool) array_intersect( $roles, (array) $user->roles );
-}
-
-/**
- * Whether a member may apply for jobs.
- *
- * Companion to bpjm_user_can_post_job(); same reasoning, same single source.
- *
- * @since 3.0.0
- *
- * @param int|WP_User|null $user User, ID, or null for the current user.
- * @return bool
- */
-function bpjm_user_can_apply_job( $user = null ) {
-	global $bpjm_bp_job_manager;
-
-	$roles = isset( $bpjm_bp_job_manager->apply_job_user_roles )
-		? (array) $bpjm_bp_job_manager->apply_job_user_roles
-		: array();
-
 	if ( null === $user ) {
 		$user = wp_get_current_user();
 	} elseif ( ! $user instanceof WP_User ) {
@@ -126,7 +89,30 @@ function bpjm_user_can_apply_job( $user = null ) {
 		return false;
 	}
 
-	return (bool) array_intersect( $roles, (array) $user->roles );
+	// WP Job Manager's own gate. We no longer filter it, so this is its answer
+	// plus whatever the site has chosen, not ours.
+	return (bool) apply_filters( 'job_manager_user_can_post_job', true ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Third-party hook from WP Job Manager.
+}
+
+/**
+ * Whether a member may apply for jobs.
+ *
+ * Any logged-in member, which is WP Job Manager Applications' own model - it has
+ * no role gate of its own. Companion to bpjm_user_can_post_job(); same reasoning.
+ *
+ * @since 3.0.0
+ *
+ * @param int|WP_User|null $user User, ID, or null for the current user.
+ * @return bool
+ */
+function bpjm_user_can_apply_job( $user = null ) {
+	if ( null === $user ) {
+		$user = wp_get_current_user();
+	} elseif ( ! $user instanceof WP_User ) {
+		$user = get_userdata( (int) $user );
+	}
+
+	return ( $user instanceof WP_User && $user->ID );
 }
 
 /**

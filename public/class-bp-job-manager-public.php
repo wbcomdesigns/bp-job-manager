@@ -525,11 +525,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			}
 			global $bpjm_bp_job_manager;
 
-			// Ensure $bpjm_bp_job_manager exists and post_job_user_roles is defined.
-			if ( ! isset( $bpjm_bp_job_manager ) || ! isset( $bpjm_bp_job_manager->post_job_user_roles ) ) {
-				return;
-			}
-
 			$displayed_uid  = bp_displayed_user_id();
 			$displayed_user = get_userdata( $displayed_uid );
 			$curr_user      = wp_get_current_user();
@@ -551,8 +546,24 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			/* translators: %s: Job count */
 			$job_tab = sprintf( __( 'Jobs %s', 'bp-job-manager' ), '<span class="count">' . bp_core_number_format( $job_count ) . '</span>' );
 
-			// One accessor, not a local intersection - see bpjm_user_can_post_job().
-			if ( bpjm_user_can_post_job( $curr_user ) || bpjm_user_can_post_job( $displayed_user ) ) {
+			/*
+			 * A tab exists because the member HAS something, or because it is
+			 * their own profile and they can start.
+			 *
+			 * Until 3.0.0 this asked whether either party's role appeared in a
+			 * configured `post_job_user_roles` list. That is why a member whose
+			 * role was not listed got an employer dashboard they could never use,
+			 * and why a site owner had to configure two role arrays before the
+			 * plugin was useful. We do not define roles and we do not gate on
+			 * them - we surface what someone has done.
+			 *
+			 * Own profile: show the tab, because they can post (WP Job Manager
+			 * decides that, and its answer is yes for any logged-in member).
+			 * Someone else's profile: show it only if they actually have jobs -
+			 * an empty employer dashboard on a stranger's profile tells a visitor
+			 * nothing.
+			 */
+			if ( $is_current_user || $job_count > 0 ) {
 				bp_core_new_nav_item(
 					array(
 						'name'                    => $job_tab,
@@ -628,62 +639,24 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 						)
 					);
 				}
-			} else {
-				bp_core_new_nav_item(
-					array(
-						'name'                    => $job_tab,
-						'slug'                    => 'jobs',
-						'screen_function'         => array( $this, 'bpjm_jobs_tab_show_screen' ),
-						'position'                => 75,
-						'default_subnav_slug'     => 'jobs',
-						'show_for_displayed_user' => true,
-					)
-				);
-
-				/*
-				 * The profile owner has no post_job_user_roles role, so the "Add
-				 * Job" button is HIDDEN - bpjm_my_jobs_tab_function_to_show_content()
-				 * renders the read-only listing instead of WP Job Manager's
-				 * [job_dashboard] (card 9006458893).
-				 *
-				 * But a bare jobs tab with no post-job subnav means a direct hit on
-				 * jobs/post-job/ (a bookmark, a typed URL, or WPJM JS that still
-				 * points there) 404s (card 10079130206 - the recurring one). We
-				 * register post-job with `user_has_access => false` for the owner:
-				 * BP keeps the tab HIDDEN from the nav AND routes the URL through
-				 * its own no-access handling instead of a hard 404. Belt-and-braces,
-				 * the screen function itself redirects a non-poster to the jobs
-				 * listing with the "not authorized" message. This resolves BOTH
-				 * cards at once without ever showing the button or the tab.
-				 */
-				if ( $is_current_user ) {
-					bp_core_new_subnav_item(
-						array(
-							'name'            => __( 'Post Job', 'bp-job-manager' ),
-							'slug'            => 'post-job',
-							'parent_url'      => $jobs_tab_link . 'post-job',
-							'parent_slug'     => 'jobs',
-							'screen_function' => array( $this, 'bpjm_post_job_show_screen' ),
-							'position'        => 200,
-							'link'            => $jobs_tab_link . 'post-job',
-							'user_has_access' => false,
-						)
-					);
-				}
 			}
-		}
 
-		/**
-		 * Screen function for job tab.
-		 *
-		 * @since    2.3.1
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function bpjm_jobs_tab_show_screen() {
-			add_action( 'bp_template_title', array( $this, 'bpjm_my_jobs_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_my_jobs_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			/*
+			 * There is deliberately no `else`.
+			 *
+			 * A bare "jobs" fallback tab used to be registered here for members
+			 * whose role was not in the configured posting list: an employer's
+			 * empty dashboard - Title / Filled? / Date posted / Listing expires /
+			 * Actions and "No jobs found." - with no subnav, shown to the majority
+			 * role on a job site. It existed only to serve the role gating, and it
+			 * took the post-job subnav with `user_has_access => false` along with
+			 * it to stop direct URLs 404ing.
+			 *
+			 * With the gating gone the whole branch has nothing to do: a member on
+			 * their own profile gets the real Jobs tab and can post, and a visitor
+			 * looking at someone with no jobs simply sees no Jobs tab rather than
+			 * an empty one.
+			 */
 		}
 
 		/**

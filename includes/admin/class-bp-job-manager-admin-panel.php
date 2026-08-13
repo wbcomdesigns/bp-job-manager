@@ -207,31 +207,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin_Panel' ) ) :
 			}
 			unset( $input['bpjm_tab_rendered_keys'] );
 
-			// Array (multi-select role) keys: present => sanitized list,
-			// rendered-but-absent => empty list.
-			$array_keys        = array( 'post_job_user_roles', 'apply_job_user_roles' );
-			$posted_array_keys = array();
-			foreach ( $array_keys as $key ) {
-				if ( isset( $input[ $key ] ) && is_array( $input[ $key ] ) ) {
-					$posted_array_keys[] = $key;
-					$output[ $key ]      = array_values(
-						array_filter(
-							array_map( 'sanitize_text_field', wp_unslash( $input[ $key ] ) ),
-							static function ( $v ) {
-								return '' !== $v;
-							}
-						)
-					);
-				}
-			}
-			if ( isset( $input['bpjm_array_rendered_keys'] ) && is_array( $input['bpjm_array_rendered_keys'] ) ) {
-				foreach ( $input['bpjm_array_rendered_keys'] as $rendered ) {
-					$rendered = sanitize_key( $rendered );
-					if ( in_array( $rendered, $array_keys, true ) && ! in_array( $rendered, $posted_array_keys, true ) ) {
-						$output[ $rendered ] = array();
-					}
-				}
-			}
+			/*
+			 * No array settings remain. The multi-select role lists this branch
+			 * existed for were removed in 3.0.0 - the plugin does not define or
+			 * gate on roles. The bpjm_array_rendered_keys sentinel is still
+			 * discarded below in case an old form is posted from a cached page.
+			 */
 			unset( $input['bpjm_array_rendered_keys'] );
 
 			// Any other scalar keys (defensive): route through the legacy
@@ -240,7 +221,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin_Panel' ) ) :
 				$legacy    = new Bp_Job_Manager_Admin( 'bp-job-manager', defined( 'BPJM_PLUGIN_VERSION' ) ? BPJM_PLUGIN_VERSION : '1.0.0' );
 				$leftovers = array();
 				foreach ( $input as $key => $value ) {
-					if ( in_array( $key, $bool_keys, true ) || in_array( $key, $array_keys, true ) ) {
+					if ( in_array( $key, $bool_keys, true ) ) {
 						continue;
 					}
 					$leftovers[ $key ] = $value;

@@ -30,17 +30,6 @@ $bpjm_wpjm_active = class_exists( 'WP_Job_Manager' );
 $bpjm_resumes_on  = bpjm_is_plugin_active( 'wp-job-manager-resumes/wp-job-manager-resumes.php' );
 $bpjm_apps_on     = bpjm_is_plugin_active( 'wp-job-manager-applications/wp-job-manager-applications.php' );
 
-// Role configuration counts. The fallbacks MUST come from Bp_Job_Manager_Globals
-// rather than be restated here - this view used to carry its own copy that still
-// included 'guest' after Globals dropped it, so a fresh install reported three
-// post-job roles when the plugin granted two.
-$post_roles  = ! empty( $settings['post_job_user_roles'] ) && is_array( $settings['post_job_user_roles'] )
-	? $settings['post_job_user_roles']
-	: Bp_Job_Manager_Globals::DEFAULT_POST_JOB_ROLES;
-$apply_roles = ! empty( $settings['apply_job_user_roles'] ) && is_array( $settings['apply_job_user_roles'] )
-	? $settings['apply_job_user_roles']
-	: Bp_Job_Manager_Globals::DEFAULT_APPLY_JOB_ROLES;
-
 // Feature toggles — read the same way Bp_Job_Manager_Globals does
 // (presence of the key means "on").
 $job_activity_on    = array_key_exists( 'bpjm_job_post_activity', $settings );
@@ -50,16 +39,6 @@ $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 ?>
 
 <div class="bpjm-stats-grid">
-	<div class="bpjm-stat">
-		<p class="bpjm-stat__label"><?php esc_html_e( 'Roles That Can Post Jobs', 'bp-job-manager' ); ?></p>
-		<p class="bpjm-stat__value"><?php echo esc_html( number_format_i18n( count( $post_roles ) ) ); ?></p>
-		<p class="bpjm-stat__trend"><?php esc_html_e( 'Members in these roles get the Jobs profile tab', 'bp-job-manager' ); ?></p>
-	</div>
-	<div class="bpjm-stat">
-		<p class="bpjm-stat__label"><?php esc_html_e( 'Roles That Can Apply', 'bp-job-manager' ); ?></p>
-		<p class="bpjm-stat__value"><?php echo esc_html( number_format_i18n( count( $apply_roles ) ) ); ?></p>
-		<p class="bpjm-stat__trend"><?php esc_html_e( 'Members in these roles get the Resumes profile tab', 'bp-job-manager' ); ?></p>
-	</div>
 	<div class="bpjm-stat">
 		<p class="bpjm-stat__label"><?php echo 'Resume Manager'; ?></p>
 		<p class="bpjm-stat__value"><?php echo $bpjm_resumes_on ? esc_html__( 'On', 'bp-job-manager' ) : esc_html__( 'Off', 'bp-job-manager' ); ?></p>

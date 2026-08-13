@@ -1,13 +1,15 @@
 <?php
 /**
- * Settings tab: General (roles + activity + notification toggles).
+ * Settings tab: General (activity + notification toggles).
+ *
+ * There are no role settings. This plugin does not define roles and does not
+ * gate on them - posting defers to WP Job Manager, and a profile tab appears
+ * because the member has jobs or resumes, not because a list was configured.
  *
  * Posts the bpjm_general_settings option. Field names are byte-identical
  * to the legacy form so the saved option shape and the runtime config
  * read by Bp_Job_Manager_Globals are unchanged:
  *
- *  - post_job_user_roles[]   (multi-select role list)
- *  - apply_job_user_roles[]  (multi-select role list)
  *  - bpjm_job_post_activity  (checkbox; present => yes)
  *  - bpjm_resume_activity    (checkbox; present => yes)
  *  - bpjm_resume_at_profile  (checkbox; present => yes)
@@ -24,7 +26,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-global $wp_roles, $bpjm_bp_job_manager;
+global $bpjm_bp_job_manager;
 
 /*
  * $settings is the bpjm_general_settings option, injected by
@@ -33,17 +35,6 @@ global $wp_roles, $bpjm_bp_job_manager;
  * array_key_exists() calls below cannot receive null (a TypeError on PHP 8).
  */
 $settings = ( isset( $settings ) && is_array( $settings ) ) ? $settings : array(); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Injected by Bp_Job_Manager_Admin_Panel::render_page() through include scope, not a global.
-
-$all_roles = isset( $wp_roles ) ? $wp_roles->get_names() : array();
-
-// Selected role lists — prefer the stored option, fall back to the
-// same defaults Bp_Job_Manager_Globals seeds for a fresh install.
-$post_selected  = ! empty( $settings['post_job_user_roles'] ) && is_array( $settings['post_job_user_roles'] )
-	? $settings['post_job_user_roles']
-	: ( isset( $bpjm_bp_job_manager->post_job_user_roles ) ? (array) $bpjm_bp_job_manager->post_job_user_roles : array() );
-$apply_selected = ! empty( $settings['apply_job_user_roles'] ) && is_array( $settings['apply_job_user_roles'] )
-	? $settings['apply_job_user_roles']
-	: ( isset( $bpjm_bp_job_manager->apply_job_user_roles ) ? (array) $bpjm_bp_job_manager->apply_job_user_roles : array() );
 
 // Checkbox states (presence => on, mirroring Globals).
 $job_activity_on    = array_key_exists( 'bpjm_job_post_activity', $settings );
@@ -72,71 +63,7 @@ foreach ( $tab_rendered_keys as $tab_rendered_key ) :
 	<input type="hidden" name="bpjm_general_settings[bpjm_tab_rendered_keys][]" value="<?php echo esc_attr( $tab_rendered_key ); ?>">
 	<?php
 endforeach;
-
-// Sentinels: which multi-select role arrays this tab renders. Lets the
-// sanitizer treat a cleared list (absent from $_POST) as an empty list.
-$array_rendered_keys = array( 'post_job_user_roles', 'apply_job_user_roles' );
-foreach ( $array_rendered_keys as $array_rendered_key ) :
-	?>
-	<input type="hidden" name="bpjm_general_settings[bpjm_array_rendered_keys][]" value="<?php echo esc_attr( $array_rendered_key ); ?>">
-<?php endforeach; ?>
-
-<div class="bpjm-card">
-	<div class="bpjm-card__head">
-		<p class="bpjm-card__title"><?php esc_html_e( 'Who Can Post & Apply', 'bp-job-manager' ); ?></p>
-		<p class="bpjm-card__desc"><?php esc_html_e( 'Pick the member roles that get each profile tab. Search for a role and select as many as you need. Only job posting can be opened to logged-out visitors, with the Guest option.', 'bp-job-manager' ); ?></p>
-	</div>
-	<table class="form-table">
-		<tr>
-			<th scope="row">
-				<label for="bpjm-post-roles"><?php esc_html_e( 'Roles allowed to post jobs', 'bp-job-manager' ); ?></label>
-			</th>
-			<td>
-				<?php if ( ! empty( $all_roles ) ) : ?>
-					<select multiple required id="bpjm-post-roles" name="bpjm_general_settings[post_job_user_roles][]" class="bpjm-role-select" size="6" data-bpjm-role-picker="1">
-						<?php foreach ( $all_roles as $role_slug => $role_label ) : ?>
-							<option value="<?php echo esc_attr( $role_slug ); ?>" <?php selected( in_array( $role_slug, $post_selected, true ) ); ?>>
-								<?php echo esc_html( translate_user_role( $role_label ) ); ?>
-							</option>
-						<?php endforeach; ?>
-						<option value="guest" <?php selected( in_array( 'guest', $post_selected, true ) ); ?>>
-							<?php esc_html_e( 'Guest (not logged in)', 'bp-job-manager' ); ?>
-						</option>
-					</select>
-				<?php endif; ?>
-				<p class="description"><?php esc_html_e( 'Members in these roles get the Jobs tab on their profile, where they can post and manage job listings.', 'bp-job-manager' ); ?></p>
-			</td>
-		</tr>
-		<tr>
-			<th scope="row">
-				<label for="bpjm-apply-roles"><?php esc_html_e( 'Roles allowed to apply for jobs', 'bp-job-manager' ); ?></label>
-			</th>
-			<td>
-				<?php if ( ! empty( $all_roles ) ) : ?>
-					<?php
-					/*
-					 * No "Guest" option here. Applying is gated by
-					 * Bp_Job_Manager_Public at :902-906, which only ever
-					 * intersects the saved list against a logged-in
-					 * $user->roles — there is no logged-out branch, so a
-					 * saved "guest" value was silently inert. Offering it
-					 * told the site owner they had enabled something the
-					 * plugin never implemented.
-					 */
-					?>
-					<select multiple required id="bpjm-apply-roles" name="bpjm_general_settings[apply_job_user_roles][]" class="bpjm-role-select" size="6" data-bpjm-role-picker="1">
-						<?php foreach ( $all_roles as $role_slug => $role_label ) : ?>
-							<option value="<?php echo esc_attr( $role_slug ); ?>" <?php selected( in_array( $role_slug, $apply_selected, true ) ); ?>>
-								<?php echo esc_html( translate_user_role( $role_label ) ); ?>
-							</option>
-						<?php endforeach; ?>
-					</select>
-				<?php endif; ?>
-				<p class="description"><?php esc_html_e( 'Members in these roles get the Resumes tab on their profile, where they can manage resumes and apply for jobs.', 'bp-job-manager' ); ?></p>
-			</td>
-		</tr>
-	</table>
-</div>
+?>
 
 <div class="bpjm-card">
 	<div class="bpjm-card__head">
