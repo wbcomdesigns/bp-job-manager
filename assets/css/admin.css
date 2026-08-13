@@ -1083,8 +1083,7 @@
 	margin: 0;
 	flex-shrink: 0;
 	accent-color: var(--bpjm-admin-accent);
-}/* Touch targets need the full 40px; pointer input can stay compact. */
-@media (max-width: 640px) {}
+}
 
 /* Help & Support resource grid. */
 .bpjm-resource-grid {
