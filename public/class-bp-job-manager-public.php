@@ -1013,8 +1013,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			global $bpjm_bp_job_manager;
 			if ( is_user_logged_in() ) {
 				if ( bp_is_user() && ( bp_loggedin_user_id() !== bp_displayed_user_id() ) ) {
-					$user_id              = bp_loggedin_user_id();
-					$job_application_page = get_permalink( $bpjm_bp_job_manager->job_application_pgid );
+					$user_id               = bp_loggedin_user_id();
+					$job_application_page  = get_permalink( $bpjm_bp_job_manager->job_application_pgid );
 					$job_application_page .= '?args=' . $job->ID;
 
 					if ( bpjm_user_can_apply_job( $user_id ) ) {
