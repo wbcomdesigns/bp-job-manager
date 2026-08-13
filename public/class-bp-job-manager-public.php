@@ -367,6 +367,15 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		/**
 		 * Whether the current request is the standalone Apply To Job page.
 		 *
+		 * LEGACY. Before 3.0.0 the plugin created an "Apply To Job" page at
+		 * activation and stored its id in `bpjm_job_application_pgid`. It no
+		 * longer creates one, and nothing in the plugin links to it - members
+		 * apply on the job listing, where WP Job Manager and Applications put
+		 * the form. The page is still rendered for sites that already have it,
+		 * because the page it created has no post content of its own: dropping
+		 * support would turn a live URL into a blank page. New installs never
+		 * have the option, so this returns false and the whole path is inert.
+		 *
 		 * @since 3.0.0
 		 *
 		 * @return bool
@@ -1013,36 +1022,44 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @param    WP_Post $job contain job data.
 		 */
 		public function bpjm_job_dashboard_actions_col_content( $job ) {
-			global $bpjm_bp_job_manager;
-			if ( is_user_logged_in() ) {
-				if ( bp_is_user() && ( bp_loggedin_user_id() !== bp_displayed_user_id() ) ) {
-					$user_id               = bp_loggedin_user_id();
-					$job_application_page  = get_permalink( $bpjm_bp_job_manager->job_application_pgid );
-					$job_application_page .= '?args=' . $job->ID;
-
-					if ( bpjm_user_can_apply_job( $user_id ) ) {
-						if ( ! is_position_filled( $job ) ) {
-							// The enclosing branch already established is_user_logged_in().
-							if ( class_exists( 'WP_Job_Manager_Applications' ) ) {
-
-								if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
-									get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
-								} else {
-									?>
-									<div class="generic-button bpjm-job-application-btn-action" id="bpjm-job-application-btn">
-										<a href="javascript:void(0);" data-url="<?php echo esc_attr( $job_application_page ); ?>"><?php esc_html_e( 'Submit Application', 'bp-job-manager' ); ?></a>
-									</div>
-									<?php
-								}
-							}
-						} else {
-							echo '<li class="position-filled">' . esc_html__( 'This job position is no longer available.', 'bp-job-manager' ) . '</li>';
-						}
-					} else {
-						echo '<div class="position-filled">' . esc_html__( 'You do not meet the requirements to apply for this job.', 'bp-job-manager' ) . '</div>';
-					}
-				}
+			if ( ! is_user_logged_in() || ! bp_is_user() || bp_loggedin_user_id() === bp_displayed_user_id() ) {
+				return;
 			}
+
+			// Applications owns the apply form; without it there is nothing to send.
+			if ( ! class_exists( 'WP_Job_Manager_Applications' ) ) {
+				return;
+			}
+
+			if ( is_position_filled( $job ) ) {
+				echo '<span class="position-filled">' . esc_html__( 'This job position is no longer available.', 'bp-job-manager' ) . '</span>';
+				return;
+			}
+
+			$user_id = bp_loggedin_user_id();
+
+			if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
+				get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
+				return;
+			}
+
+			/*
+			 * Send the member to the job listing, which is where WP Job Manager and
+			 * Applications render the apply form.
+			 *
+			 * Until 3.0.0 this pointed at an "Apply To Job" page the plugin created
+			 * for itself at activation, carrying the job id in a query argument.
+			 * 3.0.0 stopped creating that page - a bridge should not author content
+			 * in the customer's site - so on every new install the option behind it
+			 * was empty, get_permalink() returned false, and the button's URL
+			 * collapsed to "?args=<id>": a relative link that reloaded the profile.
+			 * The job listing needs no stored page id and is the same form.
+			 */
+			?>
+			<div class="generic-button bpjm-job-application-btn-action">
+				<a href="<?php echo esc_url( get_permalink( $job->ID ) ); ?>"><?php esc_html_e( 'Submit Application', 'bp-job-manager' ); ?></a>
+			</div>
+			<?php
 		}
 
 		/**
@@ -1055,6 +1072,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_job_application_page( $template ) {
+			// LEGACY - see bpjm_is_apply_page(). Only sites that had the page
+			// created for them before 3.0.0 ever reach this.
 			global $bpjm_bp_job_manager, $post;
 			if ( ! empty( $post ) && (int) $bpjm_bp_job_manager->job_application_pgid === $post->ID ) {
 				$file = BPJM_PLUGIN_PATH . 'public/templates/bpjm-job-application.php';

@@ -167,20 +167,20 @@
     flex: 1 1 50%;
 }
 
-#job-manager-job-dashboard li.position-filled {
-    list-style: none;
+#job-manager-job-dashboard .position-filled {
     font-size: 85%;
-    color: red;
+    color: var(--jm-ui-danger-color, #b32d2e);
 }
 
-.jm-dashboard-job div#bpjm-job-application-btn a {
+.jm-dashboard-job .bpjm-job-application-btn-action a,
+.bpjm-job-application-btn-action a {
     border: 1px solid;
     padding: var(--jm-ui-space-xs) var(--jm-ui-space-s);
     line-height: 1;
     border-radius: 4px;
 }
 
-body.wb-reign-theme.my-jobs .job-manager-jobs div#bpjm-job-application-btn a {
+body.wb-reign-theme.my-jobs .job-manager-jobs .bpjm-job-application-btn-action a {
     background-color: var(--reign-site-button-bg-color);
     color: var(--reign-site-button-text-color) !important;
     padding: 5px 15px;

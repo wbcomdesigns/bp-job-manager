@@ -10,28 +10,6 @@ jQuery( document ).ready(
 			$( '.jm-dashboard__actions a.jm-ui-button' ).attr( 'href', bpjm_load_jobs_object.post_job_url );
 		}
 
-		// Open the job application url.
-		$(document).on('click', '.bpjm-job-application-btn-action a', function() {
-			var url = $(this).data('url');
-			if (url) {
-				window.open(url, '_blank');
-			} else {
-				console.error('No URL found in data-url attribute.');
-			}
-		});
-
-		$( document ).on(
-			'click',
-			'.bpjm-display-resume-checkbox',
-			function() {
-				$( ".resume-fields-row" ).animate(
-					{
-						height: 'toggle'
-					}
-				);
-			}
-		);
-
 		// Assign class to each header
 		$( '#job-manager-job-dashboard table th' ).each(
 			function() {

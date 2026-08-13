@@ -44,7 +44,7 @@ It needs two plugins: BuddyPress and WP Job Manager. That is the whole hard requ
 * Publish new jobs and new resumes to the BuddyPress activity stream, each with its own admin toggle.
 * Activity is removed automatically when a job or resume is trashed or deleted, so the stream never keeps dead links.
 
-**Quick access and guests**
+**Quick access**
 * Jobs and Resumes menus in the WordPress admin bar with live counts and submenus for My Jobs, Post Job, My Resumes, Applied Jobs, and Add Resume.
 
 = Perfect For =
@@ -85,9 +85,9 @@ Our dedicated support team is ready to help you get the most out of this plugin.
 * Works with BP Rewrites
 * Tested with popular themes including BuddyX and Reign
 
-= What's New in 2.8.5 =
+= What's New in 3.0.0 =
 
-The admin settings screen is rebuilt on the modern Wbcom card-panel layout with sidebar navigation, and your saved settings are unchanged. The Applied Jobs tab now uses real pagination, profile nav counts are cached, and the Add Job button reliably opens the in-profile Post Job tab. Job and resume activity is now cleaned up automatically when the listing is trashed or deleted, so the stream never keeps dead links. Dark mode rendering for WP Job Manager surfaces is fixed across BuddyX, BuddyX Pro and Reign.
+A major simplification. The two role settings are retired: who may post a job is WP Job Manager's decision, and any logged-in member can apply. A Jobs or Resumes tab now appears because the member has jobs or resumes, or because it is their own profile, so there is nothing to grant and no empty tab on a stranger's profile. My Resumes and Applied Jobs are rendered by Resume Manager and Applications themselves, so they gain application status and those plugins' translations. The plugin now stores nothing but its settings: no activation writes, no per-member data, and no page created in your site. Read the upgrade notice before updating.
 
 == More Free Tools from Wbcom Designs ==
 
@@ -125,11 +125,10 @@ BuddyPress Job Manager turns member profiles into a hiring hub for jobs, resumes
 
 After activating the plugin, we recommend:
 
-1. Visit **WB Plugins > BuddyPress Job Manager > General** and pick the roles allowed to post jobs and to apply for jobs
-2. Decide whether new jobs and new resumes should publish to the BuddyPress activity stream
-3. Install any WP Job Manager add-ons you want (Resume Manager, Applications, Bookmarks, Job Alerts) to unlock their profile tabs
-4. Visit a member profile and confirm the Jobs tab appears for a member in an allowed role
-5. See the [documentation](https://docs.wbcomdesigns.com/) for detailed instructions
+1. Install any WP Job Manager add-ons you want (Resume Manager, Applications, Bookmarks, Job Alerts) to unlock their profile tabs
+2. Decide whether new jobs and new resumes should publish to the BuddyPress activity stream, under **WB Plugins > BuddyPress Job Manager > General**
+3. Visit your own member profile and confirm the Jobs tab is there
+4. See the [documentation](https://docs.wbcomdesigns.com/) for detailed instructions
 
 = Requirements =
 
@@ -154,28 +153,22 @@ If either is missing, the plugin shows an admin notice and stays inactive.
 
 None of them. Every add-on is optional, and each one unlocks an extra part of the plugin when you install it:
 
-* [Resume Manager](https://wpjobmanager.com/add-ons/resume-manager/) - unlocks the Resumes tab (My Resumes and Add Resume), resume display on the profile, and the resume field visibility controls.
+* [Resume Manager](https://wpjobmanager.com/add-ons/resume-manager/) - unlocks the Resumes tab: My Resumes, Add Resume and Applied Jobs.
 * [Applications](https://wpjobmanager.com/add-ons/applications/) - unlocks the Applied Jobs tab and the BuddyPress notification to the job author when someone applies.
 * [Bookmarks](https://wpjobmanager.com/add-ons/bookmarks/) - unlocks the My Bookmarks tab on the profile.
 * [Job Alerts](https://wpjobmanager.com/add-ons/job-alerts/) - unlocks the Job Alerts tab on the profile.
 
-Without any add-ons, the plugin still gives you the Jobs tab, the My Jobs dashboard, in-profile job posting, role controls, admin bar menus, and job activity in the stream. The settings screen tells you which options are still locked and which add-on unlocks them.
+Without any add-ons, the plugin still gives you the Jobs tab, the My Jobs dashboard, in-profile job posting, admin bar menus, and job activity in the stream. The settings screen tells you which options are still locked and which add-on unlocks them.
 
-= What does the "Resume on profile" setting actually control? =
+= Where does a member's resume appear? =
 
-Exactly what its label says. When you turn off "Show the latest resume on the member's BuddyPress profile", the resume is no longer displayed on the profile - and nothing else changes. The Resumes tab and its **My Resumes**, **Add Resume** and **Applied Jobs** subnavs stay available, so members can still manage their resumes and see their applications. Those subnavs depend only on the Resume Manager add-on being active.
+On their Resumes tab, which is where Resume Manager's own dashboard renders it. Until 3.0.0 the plugin also printed a copy of the resume on the profile screen itself, with a setting and nine per-member visibility checkboxes controlling it. That duplicate is gone; no resume is affected.
 
-= Which resume shows on a member's profile? =
+= How do I control who can post jobs? =
 
-The member chooses. On their profile settings they get a "Select resume to display at profile" dropdown listing their resumes, and whichever they pick is the one shown. If a member never picks one, the plugin falls back to their most recently updated resume.
+Through WP Job Manager, which already decides this for the whole site. This plugin does not keep a second list of roles and does not create roles of its own. To narrow posting, filter `job_manager_user_can_post_job`.
 
-= How do I control who can post jobs and who can apply? =
-
-Go to WB Plugins > BuddyPress Job Manager > General. Both are role pickers, so you select any roles that exist on your site. There is also a "Guest (not logged in)" option in each picker if you want people who are not logged in to be able to post or apply.
-
-= Do I need "employer" and "candidate" roles? =
-
-No. The plugin ships `employer` and `candidate` as default selections because WP Job Manager and Resume Manager can create roles with those names, but this plugin never creates them itself. On a stock site those roles may not exist at all, in which case they simply match nobody. Pick whichever roles your site actually uses, for example Subscriber, and the gating follows your choice.
+Any logged-in member can apply for a job. That is WP Job Manager's behaviour on the job listing, and the profile now matches it.
 
 = Does the job author get notified when someone applies? =
 
@@ -219,27 +212,31 @@ We regularly update the plugin to ensure compatibility with the latest versions 
 
 = 3.0.0 - August 2026 =
 
-A major simplification. This release removes settings and stored data rather than adding
-features: the plugin now defers to WP Job Manager for permissions, renders its add-ons'
-own screens instead of copies, and stores nothing but its settings. It also fixes a
-front-end crash and completes translation readiness.
+A major simplification. This release removes settings, screens and stored data rather than
+adding features: the plugin defers to WP Job Manager for permissions, renders its add-ons'
+own dashboards instead of copies, and now stores nothing but its settings. It also fixes a
+front-end crash and completes translation readiness. Please read the upgrade notice below.
 
-Please read the upgrade notice below before updating.
-
-Fixes a front-end crash on sites missing a required plugin, corrects add-on detection on multisite, and makes the Jobs and Resumes tabs consistent. Translation corrections across all five locales.
-
-* Improve  - The member's resume is no longer duplicated onto their profile screen. The Resumes tab already shows it, and the second copy carried its own admin setting, its own nine per-member visibility checkboxes and its own settings form. Members with a resume still have it on their Resumes tab; nothing they created is affected.
-* New      - The two role fields on the General tab are now searchable and show each selected role as a removable chip, with a clear-all control. With JavaScript disabled the original multi-select still works.
+* New      - The Applied Jobs list shows the status of each application, which the plugin's own version of that table never had.
+* Improve  - The two role settings are gone. Who may post a job is WP Job Manager's decision, and the plugin now asks it instead of keeping a second list of roles alongside. A member whose role was not on that list used to be given an employer dashboard and then refused when they used it.
+* Improve  - A Jobs or Resumes tab now appears because the member has jobs or resumes, or because it is their own profile. On a stranger's profile an empty tab is no longer shown.
+* Improve  - My Resumes and Applied Jobs are rendered by Resume Manager and Applications directly rather than re-implemented, so they match those plugins everywhere else on the site and pick up their translations.
+* Improve  - The member's resume is no longer duplicated onto their profile screen. The Resumes tab already shows it, and the second copy carried its own admin setting, its own nine per-member visibility checkboxes and its own settings form. No resume is affected.
+* Improve  - The plugin no longer writes anything at activation. It used to loop every member on the site and stamp a setting on each, which meant the feature it enabled worked only for members who already existed and silently did nothing for everyone who registered later. It also created an "Apply To Job" page in the site's pages.
 * Improve  - The Jobs and Resumes profile tabs now use the same wording and the same layout. Each shows a count on the tab and the owner's name on the screen below it, where the Jobs tab previously showed only a generic label.
+* Improve  - Application notifications and activity updates now name the applicant and the job rather than reading as a generic line.
+* Improve  - Headings on the profile screens now match the level BuddyPress uses for its own tabs, so themes style them consistently.
+* Improve  - Admin screens use inline icons instead of the Dashicons font, so nothing depends on a font file that block themes no longer load.
 * Fix      - Every visitor except administrators got a blank page on the whole front end when BuddyPress or WP Job Manager was removed from the site's files while this plugin stayed active, for example after a failed update or an interrupted upload. The plugin now stays dormant instead of loading without what it needs.
 * Fix      - On multisite, the Resume Manager, Applications, Bookmarks and Alerts add-ons were always reported as inactive on subsites when they had been activated for the whole network, which hid the resume and application features.
-* Fix      - The Overview tab reported three roles allowed to post jobs on a new install when only two were actually allowed.
+* Fix      - The Submit Application button on a member's Jobs tab led nowhere on any site installing 3.0.0 fresh, because it was built from the page the plugin no longer creates. It now links to the job listing, where WP Job Manager and Applications show the application form.
+* Fix      - Which resume to show is now worked out from the member's published resumes instead of a stored pointer that could outlive the resume it named.
 * Fix      - Application notifications attached themselves to a retired WP Job Manager hook whenever another plugin happened to use it, which could stop job authors being notified.
 * Fix      - Logged-out visitors on the job submission page were shown a "not authorized" notice with no sign-in or registration box, leaving no way to continue. The sign-in box is no longer suppressed.
-* Fix      - The Roles allowed to apply for jobs field offered a Guest option that the plugin never acted on, so it appeared to enable something that did nothing. The option has been removed from that field; it remains available for posting jobs.
 * Fix      - Removed the Send Feedback link on the Help & Support tab, which pointed at a page that no longer exists.
 * Fix      - Plugin styles and scripts did not load on the Job Alerts and My Bookmarks profile tabs, and scripts also missed Job Alerts. The four separate lists of owned profile screens are now one list, so every tab loads the same assets.
 * Fix      - The has_wpjm_shortcode filter discarded the incoming value, which could suppress WP Job Manager's own frontend stylesheet on pages outside a member profile.
+* Fix      - Empty rows and placeholder dashes no longer appear on the profile screens when a member has nothing in that section.
 * Fix      - German: corrected the typo "Lebenslaufffelder" to "Lebenslauffelder" on the resume field options.
 * Fix      - German: corrected "Stellenautor erhalten" to "Stellenautoren erhalten" in the application notification description.
 * Fix      - German: added the missing hyphen in nine proper-noun compounds, such as "BuddyPress-Benachrichtigung".
@@ -255,13 +252,15 @@ Fixes a front-end crash on sites missing a required plugin, corrects add-on dete
 * Fix      - remove_filter() was called with a fourth argument it does not accept.
 * Fix      - Bp_Job_Manager_Globals was constructed with two arguments its constructor does not accept; both were silently discarded.
 * Fix      - The settings and overview views could pass null to array_key_exists() if included outside the admin page renderer.
-* Security - New installs no longer allow logged-out visitors to post job listings. The Guest pseudo-role was included in the default posting roles, which opened anonymous job submission on a fresh install. Existing sites keep whatever they have saved.
+* Security - Logged-out visitors can no longer post job listings on a new install. The Guest pseudo-role was included in the default posting roles, which opened anonymous job submission on a fresh install; posting is now WP Job Manager's decision for every site.
 * Improve  - Removed 147 obsolete entries from the French translation and 13 from each other locale, and corrected the Language header in four locale files.
 * Dev      - Added phpstan.neon, phpcs.xml.dist and composer.json. PHPStan level 5 now reports zero errors; it previously reported 27 and could not run reproducibly without a config.
 * Dev      - New filter bpjm_owned_profile_actions to adjust which profile screens load this plugin's assets.
 * Dev      - New filter bpjm_jobs_tab_name for the Jobs subnav label, matching the existing bpjm_resume_tab_name.
-* Dev      - Application notifications now always bind to job_manager_applications_new_job_application. The deprecated new_job_application hook is no longer used; anything that removed our callback from it must target the current hook.
 * Dev      - New helper bpjm_is_plugin_active() replaces direct active_plugins lookups so add-on detection also covers network activation.
+* Dev      - New accessors bpjm_user_can_post_job() and bpjm_user_can_apply_job() replace five scattered role checks. To restrict posting, filter WP Job Manager's job_manager_user_can_post_job.
+* Dev      - Application notifications now always bind to job_manager_applications_new_job_application. The deprecated new_job_application hook is no longer used; anything that removed our callback from it must target the current hook.
+* Dev      - Removed the hooks bpjm_profile_peronal_inf_txt, bpjm_profile_urls_txt, bpjm_profile_education_txt, bpjm_profile_experience_txt, bpjm_resume_fields_custom_text, bpjm_resume_fields_custom_slug and bpjm_applied_jobs_per_page along with the screens that fired them.
 * Dev      - The strings "%s Jobs" and "%s's Jobs" and "%s's Resumes" were replaced by "Jobs by %s" and "Resumes by %s" so translators can place their own preposition. Update any custom translation that overrode them.
 * Dev      - Dropped Youzify-specific styling and code paths. The plugin targets plain BuddyPress; BuddyX and Reign remain the tested themes.
 * Dev      - The POT build now runs WP-CLI's i18n audit instead of skipping it, so unwrapped strings and inconsistent translator comments fail the build.
@@ -439,7 +438,17 @@ Fixes a front-end crash on sites missing a required plugin, corrects add-on dete
 == Upgrade Notice ==
 
 = 3.0.0 =
-Major release. Your jobs, resumes and applications are untouched - this plugin has never stored any of them. What changes is configuration. The "Roles allowed to post jobs" and "Roles allowed to apply for jobs" settings are retired in favour of WP Job Manager's own permission, and existing values are honoured automatically. Members no longer need to opt in to show a resume on their profile; a published resume now appears there by default. My Resumes and Applied Jobs are rendered by Resume Manager and Applications directly, so they gain application status and every translation those plugins ship - if you styled either table with custom CSS, check it after updating. The resume that used to appear on a member's profile screen now lives only on their Resumes tab - no resumes are deleted, and the "Resume on profile" setting and its per-member visibility checkboxes are retired with it. If you filtered bpjm_profile_peronal_inf_txt, bpjm_profile_urls_txt, bpjm_profile_education_txt, bpjm_profile_experience_txt, bpjm_resume_fields_custom_text or bpjm_resume_fields_custom_slug, those hooks no longer fire.
+Major release. Your jobs, resumes and applications are untouched - this plugin has never stored any of them. What changes is configuration and a few screens.
+
+The "Roles allowed to post jobs" and "Roles allowed to apply for jobs" settings are retired. Who may post a job is now WP Job Manager's decision on every site; if you had narrowed posting by role, set the same restriction with the job_manager_user_can_post_job filter, because your saved values are no longer read.
+
+A Jobs or Resumes tab now appears when the member has jobs or resumes, or when they are viewing their own profile, so members no longer need to be granted anything and empty tabs no longer show on other people's profiles.
+
+My Resumes and Applied Jobs are rendered by Resume Manager and Applications directly, so they gain application status and every translation those plugins ship - if you styled either table with custom CSS, check it after updating.
+
+The resume that used to appear on a member's profile screen now lives only on their Resumes tab. No resumes are deleted, and the "Resume on profile" setting and its per-member visibility checkboxes are retired with it. If you filtered bpjm_profile_peronal_inf_txt, bpjm_profile_urls_txt, bpjm_profile_education_txt, bpjm_profile_experience_txt, bpjm_resume_fields_custom_text, bpjm_resume_fields_custom_slug or bpjm_applied_jobs_per_page, those hooks no longer fire.
+
+The plugin no longer creates an "Apply To Job" page, and members now apply on the job listing itself. If your site already has that page it keeps working and is safe to leave in place; you can delete it once nothing links to it.
 
 = 2.8.5 =
 Modernized admin settings screen, real pagination on Applied Jobs, cached profile nav counts, automatic activity cleanup for deleted jobs and resumes, and dark mode fixes for WP Job Manager surfaces. Settings and data are unchanged.
