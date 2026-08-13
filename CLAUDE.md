@@ -31,6 +31,10 @@ plugin has cost as much as it has. Current plan, with locked wording per screen:
 
 > **READ FIRST:** [`audit/manifest.json`](audit/manifest.json) is the canonical inventory — 0 REST endpoints, 1 AJAX action (`bpjm_load_more_jobs`), 2 admin pages (the shared `wbcomplugins` hub + this plugin's single 4-tab page), 1 settings option (`bpjm_general_settings`), 0 shortcodes, 0 blocks, 0 tables, 0 cron, 0 CPTs. Use it before grepping. See also [`audit/FEATURE_AUDIT.md`](audit/FEATURE_AUDIT.md), [`audit/CODE_FLOWS.md`](audit/CODE_FLOWS.md), [`audit/ROLE_MATRIX.md`](audit/ROLE_MATRIX.md), and the wppqa baseline at [`audit/wppqa-baseline-2026-06-05/SUMMARY.md`](audit/wppqa-baseline-2026-06-05/SUMMARY.md). Refresh via `/wp-plugin-onboard --refresh` after non-trivial changes.
 
+> **Customer + developer docs:** [`docs/website/`](docs/website/) - getting-started,
+> settings, developer-guide. GitHub-only; never published, synced or uploaded.
+> The developer guide carries the verified hook list and the three architecture rules.
+
 > **Development conventions:** follow the [`wp-plugin-development`](https://example/skills/wp-plugin-development) skill for ALL code work (architecture, hooks ownership, REST patterns, escaping, security, admin UI, release packaging). This plugin predates the modern conventions; align new code to the skill, do not copy the legacy patterns below.
 
 ## Quick reference

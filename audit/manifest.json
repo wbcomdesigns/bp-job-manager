@@ -84,28 +84,13 @@
       "key": "bpjm_general_settings",
       "group": "bpjm_general_settings",
       "type": "array (serialized option)",
-      "default": "empty -> fallback apply_job_user_roles=[administrator,candidate,subscriber], post_job_user_roles=[administrator,employer,guest], bpjm_resume_at_profile=yes",
-      "registered_at": "includes/admin/class-bp-job-manager-admin-panel.php:139-147 (register_setting, sanitize_callback Bp_Job_Manager_Admin_Panel::sanitize_settings @ :171-257)",
-      "read_at": "includes/class-bp-job-manager-globals.php:133, :140-169",
-      "sub_keys": [
-        "apply_job_user_roles[] — roles allowed to apply for jobs / get Resumes tab",
-        "post_job_user_roles[] — roles allowed to post jobs / get Jobs tab (includes the 'guest' pseudo-role)",
-        "bpjm_resume_at_profile — show resume on BP profile (checkbox)",
-        "bpjm_resume_activity — post BP activity on new resume (checkbox)",
-        "bpjm_job_post_activity — post BP activity on new job (checkbox)",
-        "bpjm_app_notify — send BP notification on new application (checkbox)"
+      "keys": [
+        "bpjm_job_post_activity",
+        "bpjm_resume_activity",
+        "bpjm_app_notify"
       ],
-      "save_contract": "Sentinel-guarded merge. The view emits hidden bpjm_tab_rendered_keys[] / bpjm_array_rendered_keys[] listing every bool/array key it renders, so an unchecked checkbox (absent from $_POST) is an explicit 'off' (key unset) rather than 'untouched'. Preserves the legacy 'key present => yes, absent => off' contract that Bp_Job_Manager_Globals reads via array_key_exists(). Leftover scalar keys route through the legacy Bp_Job_Manager_Admin::bpjm_sanitize_settings() (admin/class-bp-job-manager-admin.php:327) so the text-field contract has one home.",
-      "controls": "General tab view (includes/admin/views/settings-general.php)"
-    },
-    {
-      "key": "bpjm_job_application_pgid",
-      "group": "(standalone option, not in a settings group)",
-      "type": "int (page ID)",
-      "default": "none",
-      "written_at": "includes/class-bp-job-manager-activator.php:52 (update_option on activation — ID of the auto-generated Job Application page)",
-      "read_at": "includes/class-bp-job-manager-globals.php:172 (job_application_pgid)",
-      "controls": "Internal; backs the Job Application virtual page template (page_template filter -> bpjm_job_application_page)."
+      "default": "empty; all three toggles behave as ON when the option is absent",
+      "note": "The ONLY thing this plugin stores. Role arrays and bpjm_resume_at_profile were removed in 3.0.0; legacy values may remain in the option on upgraded sites and are ignored."
     }
   ],
   "transients": [
@@ -130,20 +115,7 @@
       "purpose": "Caches the profile-nav resume count."
     }
   ],
-  "user_meta": [
-    {
-      "key": "bpjm_display_fields",
-      "written_at": "includes/class-bp-job-manager-activator.php:78, public/class-bp-job-manager-public.php:1526",
-      "read_at": "public/class-bp-job-manager-public.php:1319, public/templates/profile-content-single-resume.php:20",
-      "purpose": "Per-user visibility map for resume fields rendered on the BP profile."
-    },
-    {
-      "key": "bpjm_profile_resume_show_id",
-      "written_at": "public/class-bp-job-manager-public.php:1504",
-      "read_at": "public/class-bp-job-manager-public.php:955, :1241, :1303",
-      "purpose": "Which resume post the member has chosen to surface on their BP profile."
-    }
-  ],
+  "user_meta": [],
   "external_options_read": [
     "active_plugins + active_sitewide_plugins (dependency + add-on detection, via bpjm_is_plugin_active())",
     "date_format",
@@ -327,76 +299,6 @@
       "consumed_by": []
     },
     {
-      "name": "bpjm_resume_fields_custom_text",
-      "type": "filter",
-      "args_count": 1,
-      "args_signature": [
-        "string $text"
-      ],
-      "where": "public/class-bp-job-manager-public.php:1268",
-      "consumed_by": []
-    },
-    {
-      "name": "bpjm_resume_fields_custom_slug",
-      "type": "filter",
-      "args_count": 1,
-      "args_signature": [
-        "string $slug"
-      ],
-      "where": "public/class-bp-job-manager-public.php:1269",
-      "consumed_by": []
-    },
-    {
-      "name": "bpjm_applied_jobs_per_page",
-      "type": "filter",
-      "args_count": 1,
-      "args_signature": [
-        "int $per_page"
-      ],
-      "where": "public/templates/bpjm-my-applied-jobs.php:14 (default 20)",
-      "consumed_by": []
-    },
-    {
-      "name": "bpjm_profile_peronal_inf_txt",
-      "type": "filter",
-      "args_count": 1,
-      "args_signature": [
-        "string $label"
-      ],
-      "where": "public/templates/profile-content-single-resume.php:40 (NOTE: the misspelled 'peronal' is the literal in source and is a public contract — do not 'fix' it)",
-      "consumed_by": []
-    },
-    {
-      "name": "bpjm_profile_urls_txt",
-      "type": "filter",
-      "args_count": 1,
-      "args_signature": [
-        "string $label"
-      ],
-      "where": "public/templates/profile-content-single-resume.php:84",
-      "consumed_by": []
-    },
-    {
-      "name": "bpjm_profile_education_txt",
-      "type": "filter",
-      "args_count": 1,
-      "args_signature": [
-        "string $label"
-      ],
-      "where": "public/templates/profile-content-single-resume.php:99",
-      "consumed_by": []
-    },
-    {
-      "name": "bpjm_profile_experience_txt",
-      "type": "filter",
-      "args_count": 1,
-      "args_signature": [
-        "string $label"
-      ],
-      "where": "public/templates/profile-content-single-resume.php:144",
-      "consumed_by": []
-    },
-    {
       "name": "_bprwg_notification_text",
       "type": "filter",
       "args_count": 1,
@@ -420,30 +322,6 @@
       ]
     },
     {
-      "name": "resume_manager_candidate_dashboard_column_<key>",
-      "type": "action",
-      "args_count": 1,
-      "args_signature": [
-        "WP_Post $resume"
-      ],
-      "where": "public/templates/bpjm-resume-listing.php:175 — dynamic dashboard-column RE-EMIT of a Resume Manager hook",
-      "consumed_by": [
-        "WP Job Manager - Resume Manager (third party)"
-      ]
-    },
-    {
-      "name": "resume_manager_candidate_dashboard_actions",
-      "type": "action",
-      "args_count": 1,
-      "args_signature": [
-        "array $resumes"
-      ],
-      "where": "public/templates/bpjm-resume-listing.php:185 — RE-EMIT of a Resume Manager hook",
-      "consumed_by": [
-        "WP Job Manager - Resume Manager (third party)"
-      ]
-    },
-    {
       "name": "resume_manager_my_resume_actions",
       "type": "filter",
       "args_count": 2,
@@ -464,18 +342,6 @@
         "string $url"
       ],
       "where": "public/class-bp-job-manager-public.php:1102 — RE-EMIT of a Resume Manager hook",
-      "consumed_by": [
-        "WP Job Manager - Resume Manager (third party)"
-      ]
-    },
-    {
-      "name": "the_resume_description",
-      "type": "filter",
-      "args_count": 1,
-      "args_signature": [
-        "string $content"
-      ],
-      "where": "public/templates/profile-content-single-resume.php:71 — RE-EMIT of a Resume Manager hook",
       "consumed_by": [
         "WP Job Manager - Resume Manager (third party)"
       ]
@@ -799,13 +665,14 @@
     ]
   },
   "generated": {
-    "at": "2026-07-16T10:31:21+00:00",
-    "from": "structural manual re-scan (grep/glob against shipped code)",
-    "branch": "2.8.5",
-    "scan_scope": "full_rescan",
+    "at": "2026-08-13T11:45:00+00:00",
+    "from": "manual sync after the 3.0.0 simplification",
+    "branch": "2.8.6 (version 3.0.0, branch renames at release)",
+    "scan_scope": "targeted delta: hooks, storage, templates, settings",
     "scan_path": ".",
-    "php_file_count": 28,
+    "php_file_count": 30,
     "size_class": "small",
     "schema_version": "v2.2"
-  }
+  },
+  "storage_policy": "Apart from bpjm_general_settings and two regenerable count transients, this plugin writes nothing. No tables, no post types, no user meta, no auto-created pages. Activation writes only a 30-second redirect flag."
 }

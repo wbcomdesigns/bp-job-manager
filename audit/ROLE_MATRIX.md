@@ -1,30 +1,22 @@
-# Role Matrix — BuddyPress Job Manager 2.8.5
+# Role Matrix — BuddyPress Job Manager
 
-> Two distinct access models: WP **capabilities** for admin pages, and **configured role lists** for member-facing tabs.
+> **Obsolete as of 3.0.0.** This plugin no longer defines or gates on roles.
+>
+> It had two role arrays - `post_job_user_roles` and `apply_job_user_roles` - which were a
+> second permission system running alongside WP Job Manager's. They were the direct cause
+> of members being shown an employer dashboard they were then refused, and of a whole
+> fallback screen that existed only to serve the gating. All of it was removed in 3.0.0.
 
-## Admin pages (capability-gated)
+## What decides access now
 
-| Page | Admin | Editor | Author | Subscriber |
-|---|---|---|---|---|
-| WB Plugins / Job Manager settings | R/U | - | - | - |
-| Our Plugins / Themes / Support | R | - | - | - |
+| Question | Answered by |
+|---|---|
+| May this member post a job? | WP Job Manager, via `job_manager_user_can_post_job` |
+| May this member apply? | Any logged-in member (WP Job Manager Applications' own model) |
+| Does this member get a Jobs tab? | They have jobs, or it is their own profile |
+| Does this member get a Resumes tab? | They have resumes, or it is their own profile |
+| Is a resume visible? | Resume Manager's own published / hidden state |
 
-Cap = `manage_options` (filterable via `bpjm_menu_page_capability`). Default: administrator only.
-
-## Member-facing tabs (configured-role-gated, not capability-gated)
-
-Access depends on whether the user's role is in `post_job_user_roles` /
-`apply_job_user_roles` (option `bpjm_general_settings`). Defaults shown below
-(`administrator,employer,guest` for posting; `administrator,candidate,subscriber`
-for applying) — site owner can change these.
-
-| Feature | post_job role | apply_job role | Other |
-|---|---|---|---|
-| Jobs tab (Post/My/Listings/Bookmarks/Alerts) | R/CRUD (own) | - | - |
-| Resumes tab (Add/My/Applied) | - | R/CRUD (own) | requires `bpjm_resume_at_profile=yes` |
-| Apply to a job | - | C | - |
-| Infinite-scroll job feed (AJAX) | public (R) | public (R) | nopriv allowed |
-
-Legend: C=Create, R=Read, U=Update, D=Delete, -=No access. "own" = limited to the member's own posts/resumes via WPJM dashboard scoping.
-
-No custom capabilities are registered by this plugin.
+Accessors: `bpjm_user_can_post_job()` / `bpjm_user_can_apply_job()` in
+`includes/class-bp-job-manager-function.php`. See
+[`docs/website/developer-guide`](../docs/website/developer-guide/index.md).

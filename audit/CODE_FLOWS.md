@@ -1,5 +1,10 @@
 # Code Flows — BuddyPress Job Manager 2.8.5
 
+> **Written against 2.8.5.** Structure changed substantially in 3.0.0: the role arrays, the
+> resume-on-profile flow and two re-rendered dashboards were removed, and the activator and
+> deactivator classes were deleted. Treat this as history and verify against the code.
+> Current state: [`HANDOFF-3.0.0.md`](HANDOFF-3.0.0.md).
+
 > Derived from [`manifest.json`](manifest.json). Generated 2026-06-05 by wp-plugin-onboard.
 
 ## Bootstrap
