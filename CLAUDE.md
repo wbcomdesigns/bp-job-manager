@@ -27,6 +27,7 @@ Three rules that follow, and that most of this plugin's historical bugs came fro
 The plugin drifted from this over time, and that drift is the reason maintenance on a free
 plugin has cost as much as it has. Current plan, with locked wording per screen:
 [Job Manager Screen Spec](https://claude.ai/code/artifact/bf9da7b4-c305-4cc9-81d1-49abad7cc0c7).
+**Work in progress — read [`audit/HANDOFF-3.0.0.md`](audit/HANDOFF-3.0.0.md) before starting.**
 
 > **READ FIRST:** [`audit/manifest.json`](audit/manifest.json) is the canonical inventory — 0 REST endpoints, 1 AJAX action (`bpjm_load_more_jobs`), 2 admin pages (the shared `wbcomplugins` hub + this plugin's single 4-tab page), 1 settings option (`bpjm_general_settings`), 0 shortcodes, 0 blocks, 0 tables, 0 cron, 0 CPTs. Use it before grepping. See also [`audit/FEATURE_AUDIT.md`](audit/FEATURE_AUDIT.md), [`audit/CODE_FLOWS.md`](audit/CODE_FLOWS.md), [`audit/ROLE_MATRIX.md`](audit/ROLE_MATRIX.md), and the wppqa baseline at [`audit/wppqa-baseline-2026-06-05/SUMMARY.md`](audit/wppqa-baseline-2026-06-05/SUMMARY.md). Refresh via `/wp-plugin-onboard --refresh` after non-trivial changes.
 
