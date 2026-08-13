@@ -93,14 +93,14 @@ function bpjm_show_resume_at_profile( $post_id ) {
 		?>
 		<div class="bp-widget">
 		<?php if ( ! empty( $fields_display['email'] ) || ! empty( $fields_display['prof_title'] ) || ! empty( $fields_display['location'] ) || ! empty( $fields_display['video'] ) || ! empty( $fields_display['description'] ) ) { ?>
-			<h2>
+			<h3 class="screen-heading profile-group-title">
 			<?php
 			// Translate first, then filter the translated string, and escape once
 			// at output. The hook name's "peronal" misspelling is a long-standing
 			// public contract - do not correct it.
 			echo esc_html( apply_filters( 'bpjm_profile_peronal_inf_txt', __( 'Personal Information', 'bp-job-manager' ) ) );
 			?>
-			</h2>
+			</h3>
 			<?php } ?>
 			<table class="profile-fields">
 				<?php
@@ -144,12 +144,12 @@ function bpjm_show_resume_at_profile( $post_id ) {
 	if ( ! empty( $fields_display['url'] ) ) {
 		?>
 		<div class="bp-widget">
-			<h2>
+			<h3 class="screen-heading profile-group-title">
 			<?php
 			// Translate first, then filter the translated string, escape once at output.
 			echo esc_html( apply_filters( 'bpjm_profile_urls_txt', __( 'URL(s)', 'bp-job-manager' ) ) );
 			?>
-			</h2>
+			</h3>
 			<table class="profile-fields">
 				<tr>
 					<td class="label"><?php esc_html_e( 'URL(s)', 'bp-job-manager' ); ?></td>
@@ -164,12 +164,12 @@ function bpjm_show_resume_at_profile( $post_id ) {
 		if ( $items ) :
 			?>
 			<div class="bp-widget">
-				<h2>
+				<h3 class="screen-heading profile-group-title">
 				<?php
 				// Translate first, then filter the translated string, escape once at output.
 				echo esc_html( apply_filters( 'bpjm_profile_education_txt', __( 'Education', 'bp-job-manager' ) ) );
 				?>
-				</h2>
+				</h3>
 				<table class="profile-fields">
 				<?php
 				$c = 0;
@@ -208,7 +208,7 @@ function bpjm_show_resume_at_profile( $post_id ) {
 		if ( $items ) :
 			?>
 			<div class="bp-widget">
-				<h2>
+				<h3 class="screen-heading profile-group-title">
 				<?php
 				// Translate the string first (unescaped - esc_html() below is the
 				// single escape point; escaping here too would double-encode any
@@ -221,7 +221,7 @@ function bpjm_show_resume_at_profile( $post_id ) {
 				// Escape and echo the filtered text.
 				echo esc_html( $filtered_experience_text );
 				?>
-				</h2>
+				</h3>
 				<table class="profile-fields">
 				<?php
 				$c = 0;

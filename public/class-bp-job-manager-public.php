@@ -577,6 +577,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 				bp_core_new_subnav_item(
 					array(
+
 						/*
 						 * Mirrors the Resumes tab exactly: the parent nav carries the
 						 * count badge ("Jobs 6"), the subnav carries the ownership
@@ -1044,16 +1045,25 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 */
 		public function bpjm_member_profile_resumes_tab() {
 			global $bpjm_bp_job_manager;
-			$my_resumes_count  = 0;
 			$user_id           = bp_displayed_user_id();
-			$resume_id         = get_user_meta( $user_id, 'bpjm_profile_resume_show_id', true );
 			$is_logged_in_user = ( bp_loggedin_user_id() === $user_id );
 			$my_resumes_count  = bpjm_member_profile_resumes_count( $user_id );
-			$resume_tab_name   = apply_filters(
+
+			/*
+			 * Same rule as the Jobs tab: it exists because the member HAS
+			 * something, or because it is their own profile and they can start.
+			 * A "Resumes 0" tab on a stranger's profile tells a visitor nothing,
+			 * and the two tabs disagreeing about when they appear is exactly the
+			 * inconsistency 3.0.0 is removing.
+			 */
+			if ( ! $is_logged_in_user && $my_resumes_count < 1 ) {
+				return;
+			}
+			$resume_tab_name = apply_filters(
 				'bpjm_resume_tab_name',
 				$this->bpjm_get_member_screen_label( 'resumes', $user_id )
 			);
-			$resume_tab        = sprintf( /* translators: %s: bp_core_number_format */ __( 'Resumes %s', 'bp-job-manager' ), '<span class="count">' . bp_core_number_format( $my_resumes_count ) . '</span>' );
+			$resume_tab      = sprintf( /* translators: %s: bp_core_number_format */ __( 'Resumes %s', 'bp-job-manager' ), '<span class="count">' . bp_core_number_format( $my_resumes_count ) . '</span>' );
 
 			$resumes_tab_link = apply_filters( 'bpjm_resumes_tab_link', bp_core_get_userlink( $user_id, false, true ) . 'resumes/' );
 
