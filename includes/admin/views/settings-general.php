@@ -52,9 +52,10 @@ $resume_profile_on  = empty( $settings ) ? true : array_key_exists( 'bpjm_resume
 $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 
 // Add-on availability gates the matching fields, same as the legacy form.
-$active_plugins  = (array) get_option( 'active_plugins', array() );
-$bpjm_resumes_on = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', $active_plugins, true );
-$bpjm_apps_on    = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', $active_plugins, true );
+// bpjm_is_plugin_active() also covers network activation - a bare
+// active_plugins lookup reports every network-activated add-on as off.
+$bpjm_resumes_on = bpjm_is_plugin_active( 'wp-job-manager-resumes/wp-job-manager-resumes.php' );
+$bpjm_apps_on    = bpjm_is_plugin_active( 'wp-job-manager-applications/wp-job-manager-applications.php' );
 
 // Sentinels: which checkbox keys this tab renders. The sanitizer treats
 // any listed key absent from $_POST as an explicit "off".

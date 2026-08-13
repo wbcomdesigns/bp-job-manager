@@ -107,16 +107,35 @@ add_action( 'plugins_loaded', 'bpjm_plugin_init' );
  * @since   1.0.0
  */
 function bpjm_plugin_init() {
-	if ( current_user_can( 'activate_plugins' ) && ( ! class_exists( 'BuddyPress' ) || ! class_exists( 'WP_Job_Manager' ) ) ) {
+	/*
+	 * Whether the dependencies are present is a property of the SITE, never of
+	 * the current user. This condition used to be ANDed with
+	 * current_user_can( 'activate_plugins' ), so for a logged-out visitor the
+	 * whole test collapsed to false and execution fell through to the "run the
+	 * plugin" branch with BuddyPress missing. Every bp_*() call then fataled -
+	 * the first fault being bpjm_allow_continue_submission() calling
+	 * bp_is_my_profile() on WP Job Manager's
+	 * job_manager_should_run_shortcode_action_handler filter, which runs on
+	 * `wp`, i.e. before wp_enqueue_scripts. Result: HTTP 500 on the front end
+	 * for everyone except administrators.
+	 *
+	 * The `Requires Plugins` header (WP 6.5+) does NOT cover this. Core only
+	 * consults it in validate_plugin_requirements() on the activation path, so
+	 * it blocks activation but cannot stop an already-active plugin whose
+	 * dependency was removed from disk - a failed update, an FTP delete or a
+	 * renamed folder. That is precisely the case this guard has to survive.
+	 */
+	if ( ! class_exists( 'BuddyPress' ) || ! class_exists( 'WP_Job_Manager' ) ) {
 		add_action( 'admin_notices', 'bpjm_required_plugin_admin_notice' );
 		add_action( 'admin_init', 'bpjm_existing_checkin_plugin' );
-	} else {
-		if ( ! defined( 'BPJM_PLUGIN_BASENAME' ) ) {
-			define( 'BPJM_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-		}
-		bpjm_run_bp_job_manager();
-		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpjm_plugin_links' );
+		return;
 	}
+
+	if ( ! defined( 'BPJM_PLUGIN_BASENAME' ) ) {
+		define( 'BPJM_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+	}
+	bpjm_run_bp_job_manager();
+	add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpjm_plugin_links' );
 }
 
 /**
@@ -126,6 +145,13 @@ function bpjm_plugin_init() {
  * @since   1.0.0
  */
 function bpjm_required_plugin_admin_notice() {
+	// Only someone who can act on the notice is shown it. This check lives here
+	// rather than at the plugins_loaded gate above so that the dependency test
+	// itself stays user-independent.
+	if ( ! current_user_can( 'activate_plugins' ) ) {
+		return;
+	}
+
 	$bpjm_plugin = esc_html__( 'BuddyPress Job Manager', 'bp-job-manager' );
 	$bp_plugin   = 'BuddyPress';
 	$wpjm_plugin = 'WP Job Manager';
@@ -144,7 +170,21 @@ function bpjm_required_plugin_admin_notice() {
 }
 
 /**
- * Function to remove BP Job Manager plugin if already exist.
+ * Self-deactivate once the dependencies are gone.
+ *
+ * Deliberately stays on `admin_init`, and deliberately does NOT move to `init`
+ * or `plugins_loaded`. Two reasons:
+ *
+ * 1. The front-end exposure this was meant to contain no longer exists. With
+ *    the dependency gate in bpjm_plugin_init() fixed, a site missing
+ *    BuddyPress or WP Job Manager simply does not boot this plugin, so there
+ *    is nothing left to protect visitors from - deactivating sooner buys
+ *    nothing.
+ * 2. deactivate_plugins() and is_plugin_active() live in
+ *    wp-admin/includes/plugin.php, which is not loaded on front-end requests,
+ *    and mutating the active_plugins option from an anonymous request is a
+ *    write that any number of concurrent visitors could race. Core itself only
+ *    ever changes plugin state from the admin.
  *
  * @since 1.0.0
  */

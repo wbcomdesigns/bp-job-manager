@@ -34,7 +34,29 @@ if ( ! isset( $post ) ) {
 			</header><!-- .entry-header -->
 			<div class="entry-content">
 				<?php if ( ! empty( $bpjm_job_id ) ) : ?>
+					<?php
+					/*
+					 * `job_content_start` / `job_content_end` wrap job content
+					 * everywhere WP Job Manager renders it: core fires the pair in
+					 * WP_Job_Manager_Post_Types::job_content(), and theme overrides
+					 * such as Reign's content-single-job_listing.php repeat them.
+					 * This page renders job content too - the [job_apply] form for
+					 * one listing - but fired neither, so anything printing through
+					 * them was silently dropped here.
+					 *
+					 * WP Job Manager Applications registers its validation errors on
+					 * `job_content_start`, so a rejected application had no way to
+					 * report itself on this page; the member saw the form come back
+					 * with no message and reasonably concluded an empty application
+					 * had been accepted.
+					 *
+					 * Third-party hook names, intentionally unprefixed - they belong
+					 * to WP Job Manager's contract, not ours.
+					 */
+					do_action( 'job_content_start' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Third-party hook from WP Job Manager.
+					?>
 					<?php echo do_shortcode( '[job_apply id="' . $bpjm_job_id . '"]' ); ?>
+					<?php do_action( 'job_content_end' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Third-party hook from WP Job Manager. ?>
 				<?php else : ?>
 					<div>
 						<p><?php esc_html_e( 'No content available.', 'bp-job-manager' ); ?></p>

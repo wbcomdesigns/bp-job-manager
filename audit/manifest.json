@@ -3,7 +3,7 @@
   "plugin": {
     "slug": "bp-job-manager",
     "name": "Wbcom Designs - BuddyPress Job Manager",
-    "version": "2.8.5",
+    "version": "2.8.6",
     "namespace": "Bp_Job_Manager (class-prefix convention, no PHP namespace)",
     "main_file": "bp-job-manager.php",
     "text_domain": "bp-job-manager",
@@ -145,7 +145,7 @@
     }
   ],
   "external_options_read": [
-    "active_plugins (dependency + add-on detection)",
+    "active_plugins + active_sitewide_plugins (dependency + add-on detection, via bpjm_is_plugin_active())",
     "date_format",
     "job_manager_per_page (WP Job Manager)",
     "job_manager_job_dashboard_page_id (WP Job Manager)",
@@ -274,6 +274,16 @@
         "array $slugs"
       ],
       "where": "includes/admin/views/hub.php:29 (legacy wrapper helper-page slugs excluded from hub cards)",
+      "consumed_by": []
+    },
+    {
+      "name": "bpjm_jobs_tab_name",
+      "type": "filter",
+      "args_count": 1,
+      "args_signature": [
+        "string $label"
+      ],
+      "where": "public/class-bp-job-manager-public.php (Jobs my-jobs subnav label)",
       "consumed_by": []
     },
     {

@@ -220,11 +220,16 @@ We regularly update the plugin to ensure compatibility with the latest versions 
 
 == Changelog ==
 
-= 2.8.6 - July 2026 =
+= 2.8.6 - August 2026 =
 
-Translation corrections across all five locales, a safer default for who can post jobs, plus asset-loading and static-analysis fixes.
+Fixes a front-end crash on sites missing a required plugin, corrects add-on detection on multisite, and makes the Jobs and Resumes tabs consistent. Translation corrections across all five locales.
 
 * New      - The two role fields on the General tab are now searchable and show each selected role as a removable chip, with a clear-all control. With JavaScript disabled the original multi-select still works.
+* Improve  - The Jobs and Resumes profile tabs now use the same wording and the same layout. Each shows a count on the tab and the owner's name on the screen below it, where the Jobs tab previously showed only a generic label.
+* Fix      - Every visitor except administrators got a blank page on the whole front end when BuddyPress or WP Job Manager was removed from the site's files while this plugin stayed active, for example after a failed update or an interrupted upload. The plugin now stays dormant instead of loading without what it needs.
+* Fix      - On multisite, the Resume Manager, Applications, Bookmarks and Alerts add-ons were always reported as inactive on subsites when they had been activated for the whole network, which hid the resume and application features.
+* Fix      - The Overview tab reported three roles allowed to post jobs on a new install when only two were actually allowed.
+* Fix      - Application notifications attached themselves to a retired WP Job Manager hook whenever another plugin happened to use it, which could stop job authors being notified.
 * Fix      - Logged-out visitors on the job submission page were shown a "not authorized" notice with no sign-in or registration box, leaving no way to continue. The sign-in box is no longer suppressed.
 * Fix      - The Roles allowed to apply for jobs field offered a Guest option that the plugin never acted on, so it appeared to enable something that did nothing. The option has been removed from that field; it remains available for posting jobs.
 * Fix      - Removed the Send Feedback link on the Help & Support tab, which pointed at a page that no longer exists.
@@ -236,6 +241,10 @@ Translation corrections across all five locales, a safer default for who can pos
 * Fix      - Spanish, French, Italian and Portuguese (Brazil): the Discover tab description was flagged fuzzy, so it was missing from the compiled .mo file while present in the .l10n.php file. Both compiled files now agree.
 * Fix      - The WP Job Manager add-on names "Resume Manager" and "Applications" were translated in some locales, so site owners were told to install add-ons under names that do not exist. They are now treated as product names, matching how BuddyPress and WP Job Manager are already handled.
 * Fix      - French: one string used vouvoiement while the rest of the file uses the informal register declared for this locale.
+* Fix      - French: "Display video link" was translated as "Display the video", which told members they were showing the whole video rather than a link to it.
+* Fix      - French: the Jobs and Resumes tab counters used different words for jobs and resumes than the rest of the interface.
+* Fix      - Portuguese (Brazil): the On and Off labels used the wording for a physical switch instead of the wording Brazilian software uses for a setting.
+* Fix      - Spanish: the heading on another member's jobs screen reused the translation of the tab counter, so the two were indistinguishable.
 * Fix      - seconds_to_words() returned null instead of a string when a duration landed exactly on zero.
 * Fix      - get_posts_by_author_sql() received an empty string where a boolean was expected.
 * Fix      - remove_filter() was called with a fourth argument it does not accept.
@@ -245,6 +254,11 @@ Translation corrections across all five locales, a safer default for who can pos
 * Improve  - Removed 147 obsolete entries from the French translation and 13 from each other locale, and corrected the Language header in four locale files.
 * Dev      - Added phpstan.neon, phpcs.xml.dist and composer.json. PHPStan level 5 now reports zero errors; it previously reported 27 and could not run reproducibly without a config.
 * Dev      - New filter bpjm_owned_profile_actions to adjust which profile screens load this plugin's assets.
+* Dev      - New filter bpjm_jobs_tab_name for the Jobs subnav label, matching the existing bpjm_resume_tab_name.
+* Dev      - Application notifications now always bind to job_manager_applications_new_job_application. The deprecated new_job_application hook is no longer used; anything that removed our callback from it must target the current hook.
+* Dev      - New helper bpjm_is_plugin_active() replaces direct active_plugins lookups so add-on detection also covers network activation.
+* Dev      - The strings "%s Jobs" and "%s's Jobs" and "%s's Resumes" were replaced by "Jobs by %s" and "Resumes by %s" so translators can place their own preposition. Update any custom translation that overrode them.
+* Dev      - The POT build now runs WP-CLI's i18n audit instead of skipping it, so unwrapped strings and inconsistent translator comments fail the build.
 
 = 2.8.5 - July 2026 =
 

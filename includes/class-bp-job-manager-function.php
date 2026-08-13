@@ -10,6 +10,53 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Whether a plugin is active on this site, network activation included.
+ *
+ * `get_option( 'active_plugins' )` only ever lists plugins activated on the
+ * CURRENT site. On multisite, a plugin activated network-wide is recorded in
+ * the network option `active_sitewide_plugins` - as an associative array keyed
+ * by basename, not an indexed list - so a bare in_array() against
+ * active_plugins reports every network-activated add-on as inactive on every
+ * subsite. That is why Resume Manager / Applications / Bookmarks / Alerts
+ * detection used to disagree with the activator, which tests class_exists()
+ * and therefore always got it right.
+ *
+ * Core's own is_plugin_active() does exactly this, but it lives in
+ * wp-admin/includes/plugin.php and is not loaded on front-end requests, where
+ * most of these checks run. Hence a local helper.
+ *
+ * The option is read through a static cache because several of these checks
+ * fire per profile-nav render.
+ *
+ * @since 2.8.6
+ *
+ * @param string $basename Plugin basename, e.g. 'wp-job-manager-resumes/wp-job-manager-resumes.php'.
+ * @return bool True when the plugin is active on this site or network-wide.
+ */
+function bpjm_is_plugin_active( $basename ) {
+	static $site_plugins    = null;
+	static $network_plugins = null;
+
+	if ( null === $site_plugins ) {
+		$site_plugins = (array) get_option( 'active_plugins', array() );
+	}
+
+	if ( in_array( $basename, $site_plugins, true ) ) {
+		return true;
+	}
+
+	if ( ! is_multisite() ) {
+		return false;
+	}
+
+	if ( null === $network_plugins ) {
+		$network_plugins = (array) get_site_option( 'active_sitewide_plugins', array() );
+	}
+
+	return isset( $network_plugins[ $basename ] );
+}
+
+/**
  * Check whether the WPML translations table exists.
  *
  * The result cannot change mid-request, so it is memoized in a static var

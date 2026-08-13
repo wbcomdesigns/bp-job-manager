@@ -586,3 +586,24 @@ body.wb-reign-theme.my-jobs .job-manager-jobs div#bpjm-job-application-btn a {
 :is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages ul.resume_packages li {
     border-color: rgba(255, 255, 255, 0.14);
 }
+
+/* ---------------------------------------------------------------------------
+ * Standalone "Apply To Job" page (public/templates/bpjm-job-application.php).
+ *
+ * The real cause of the cramped form was NOT missing rules here - it was that
+ * WP Job Manager's own frontend.css never loaded on this page, because
+ * is_wpjm() returned false for it. That is fixed in
+ * Bp_Job_Manager_Public::bpjm_has_wpjm_shortcode(), so the form now gets WP Job
+ * Manager's real fieldset / label / field spacing, identical to the single job
+ * listing page. Do not re-add a parallel set of spacing rules here.
+ *
+ * This one rule remains because WP Job Manager Applications scopes its own
+ * form padding under `.single_job_listing .application .application_details`,
+ * an ancestor chain this page has no equivalent for. The value is copied
+ * verbatim from Applications' frontend.css. Its sibling rules (.form-content
+ * and friends) were deliberately NOT copied - that markup does not exist in
+ * this form variant, so they would be dead CSS.
+ * ------------------------------------------------------------------------ */
+.job-manager-application-wrapper form.job-manager-application-form {
+    padding: 0.25em 0 0;
+}

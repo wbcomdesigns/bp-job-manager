@@ -115,6 +115,63 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		}
 
 		/**
+		 * The label for a member's Jobs or Resumes screen.
+		 *
+		 * THE single source for these four strings. The profile nav item and the
+		 * screen heading for the same screen are produced from one call, so the
+		 * tab a member clicks and the heading they land on can never disagree.
+		 *
+		 * They used to be four independent literals and had drifted every way
+		 * they could: the Jobs nav said "%s's Jobs" while the Jobs heading said
+		 * "%s Jobs"; the Resumes pair had the same split; the nav labels ran the
+		 * display name through ucfirst() while the headings did not; and the
+		 * headings hid the name from logged-out visitors while the nav showed it.
+		 *
+		 * The name is no longer passed through ucfirst(). A display name is
+		 * whatever the member chose to call themselves - re-capitalising it is
+		 * the plugin overriding the member, and it is meaningless for scripts
+		 * with no letter case.
+		 *
+		 * @since 2.8.6
+		 *
+		 * @param string $screen  Either 'jobs' or 'resumes'.
+		 * @param int    $user_id Displayed member ID.
+		 * @return string Untranslated-safe, ready to escape at the point of output.
+		 */
+		public function bpjm_get_member_screen_label( $screen, $user_id ) {
+			$user_id  = (int) $user_id;
+			$is_owner = ( bp_loggedin_user_id() === $user_id && $user_id );
+
+			if ( 'resumes' === $screen ) {
+				if ( $is_owner ) {
+					return __( 'My Resumes', 'bp-job-manager' );
+				}
+
+				/* translators: %s: display name of the member whose profile is being viewed. */
+				return sprintf( __( 'Resumes by %s', 'bp-job-manager' ), bp_core_get_user_displayname( $user_id ) );
+			}
+
+			if ( $is_owner ) {
+				return __( 'My Jobs', 'bp-job-manager' );
+			}
+
+			/*
+			 * "Jobs by %s", not "%s Jobs" or "%s's Jobs".
+			 *
+			 * Both old forms hard-coded English word order into the string.
+			 * "%s Jobs" rendered "Varun Jobs", which is not English and gives a
+			 * translator nowhere to put their language's preposition - es_ES gave
+			 * up and reused "Empleos %s" for BOTH this and the "Jobs %s" count
+			 * badge, making the two indistinguishable in the catalogue. "%s's
+			 * Jobs" baked in the English possessive, which no other language
+			 * forms that way. "Jobs by %s" carries the relationship in the source
+			 * so each locale supplies its own connector ("de", "von", "di").
+			 */
+			/* translators: %s: display name of the member whose profile is being viewed. */
+			return sprintf( __( 'Jobs by %s', 'bp-job-manager' ), bp_core_get_user_displayname( $user_id ) );
+		}
+
+		/**
 		 * Job Listing Maximum pages.
 		 *
 		 * @return void
@@ -161,14 +218,40 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			 * class.
 			 */
 
-			if ( $this->bpjm_is_owned_action() ) {
+			if ( $this->bpjm_needs_public_assets() ) {
 				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-public.css', array(), $this->version, 'all' );
+			}
+		}
+
+		/**
+		 * Whether the current request renders anything this plugin styles.
+		 *
+		 * One predicate rather than a chain of separate enqueue calls, which is
+		 * how the stylesheet previously came to be registered twice for the same
+		 * handle on dashboard pages.
+		 *
+		 * @since 2.8.6
+		 *
+		 * @return bool
+		 */
+		public function bpjm_needs_public_assets() {
+			if ( $this->bpjm_is_owned_action() ) {
+				return true;
+			}
+
+			/*
+			 * The standalone "Apply To Job" page carries our replacement spacing
+			 * for the parts of the form WP Job Manager Applications scopes to
+			 * `.single_job_listing`, so our stylesheet has to load there. This
+			 * page was in no asset condition at all before.
+			 */
+			if ( $this->bpjm_is_apply_page() ) {
+				return true;
 			}
 
 			global $post;
-			if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'job_dashboard' ) ) {
-				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/bp-job-manager-public.css', array(), $this->version, 'all' );
-			}
+
+			return is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'job_dashboard' );
 		}
 
 		/**
@@ -234,7 +317,41 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @return bool True on a screen this plugin owns, otherwise unchanged.
 		 */
 		public function bpjm_has_wpjm_shortcode( $has_shortcode = false ) {
-			return $this->bpjm_is_owned_action() ? true : (bool) $has_shortcode;
+			/*
+			 * The standalone "Apply To Job" page must count too. It renders
+			 * [job_apply] through our own template, but WP Job Manager decides
+			 * whether to enqueue its frontend stylesheet from is_wpjm(), which
+			 * this filter feeds. Without it the page loaded job-listings.css but
+			 * NOT WP Job Manager's frontend.css - the stylesheet that spaces
+			 * .job-manager-form fieldsets, labels and fields - so the apply form
+			 * rendered with no vertical rhythm at all. Applications' own spacing
+			 * could not fill the gap either: every rule it ships is scoped under
+			 * `.single_job_listing`, which this page has no ancestor for.
+			 */
+			if ( $this->bpjm_is_owned_action() || $this->bpjm_is_apply_page() ) {
+				return true;
+			}
+
+			return (bool) $has_shortcode;
+		}
+
+		/**
+		 * Whether the current request is the standalone Apply To Job page.
+		 *
+		 * @since 2.8.6
+		 *
+		 * @return bool
+		 */
+		public function bpjm_is_apply_page() {
+			global $post, $bpjm_bp_job_manager;
+
+			if ( ! is_a( $post, 'WP_Post' ) || ! isset( $bpjm_bp_job_manager->job_application_pgid ) ) {
+				return false;
+			}
+
+			$bpjm_apply_page_id = (int) $bpjm_bp_job_manager->job_application_pgid;
+
+			return ( $bpjm_apply_page_id && (int) $post->ID === $bpjm_apply_page_id );
 		}
 
 		/**
@@ -430,7 +547,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$job_count       = function_exists( 'bpjm_member_profile_jobs_count' ) ? bpjm_member_profile_jobs_count( $displayed_uid ) : 0;
 
 			/* translators: %s: User's display name */
-			$my_job_tab = $is_current_user ? __( 'My Jobs', 'bp-job-manager' ) : sprintf( __( "%s's Jobs", 'bp-job-manager' ), ucfirst( bp_core_get_user_displayname( $displayed_uid ) ) );
+			$my_job_tab = $this->bpjm_get_member_screen_label( 'jobs', $displayed_uid );
 			/* translators: %s: Job count */
 			$job_tab = sprintf( __( 'Jobs %s', 'bp-job-manager' ), '<span class="count">' . bp_core_number_format( $job_count ) . '</span>' );
 
@@ -452,7 +569,17 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 				bp_core_new_subnav_item(
 					array(
-						'name'            => __( 'Jobs', 'bp-job-manager' ),
+						/*
+						 * Mirrors the Resumes tab exactly: the parent nav carries the
+						 * count badge ("Jobs 6"), the subnav carries the ownership
+						 * label ("My Jobs" / "Jobs by Rita"). $my_job_tab was built
+						 * for this slot years ago and then never passed to it, so the
+						 * variable sat dead, this subnav read a flat "Jobs", and the
+						 * "%s's Jobs" string it produced could never render - while
+						 * the Resumes subnav did show its owner label. Same shape on
+						 * both tabs now.
+						 */
+						'name'            => apply_filters( 'bpjm_jobs_tab_name', $my_job_tab ),
 						'slug'            => 'my-jobs',
 						'parent_url'      => $jobs_tab_link . 'my-jobs',
 						'parent_slug'     => $parent_slug,
@@ -464,7 +591,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 				// Add other submenus for current user.
 				if ( $is_current_user ) {
-					if ( in_array( 'wp-job-manager-bookmarks/wp-job-manager-bookmarks.php', get_option( 'active_plugins', array() ), true ) ) {
+					if ( bpjm_is_plugin_active( 'wp-job-manager-bookmarks/wp-job-manager-bookmarks.php' ) ) {
 						bp_core_new_subnav_item(
 							array(
 								'name'            => __( 'My Bookmarks', 'bp-job-manager' ),
@@ -478,7 +605,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 						);
 					}
 
-					if ( in_array( 'wp-job-manager-alerts/wp-job-manager-alerts.php', get_option( 'active_plugins', array() ), true ) ) {
+					if ( bpjm_is_plugin_active( 'wp-job-manager-alerts/wp-job-manager-alerts.php' ) ) {
 						bp_core_new_subnav_item(
 							array(
 								'name'            => __( 'Job Alerts', 'bp-job-manager' ),
@@ -633,16 +760,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_my_jobs_tab_function_to_show_title() {
-			if ( bp_loggedin_user_id() === bp_displayed_user_id() ) {
-				esc_html_e( 'My Jobs', 'bp-job-manager' );
-			} elseif ( is_user_logged_in() && bp_displayed_user_id() ) {
-				$author_name = bp_core_get_user_displayname( bp_displayed_user_id() );
-				// Translators: %s is the name of the user.
-				$title = sprintf( esc_html__( '%s Jobs', 'bp-job-manager' ), $author_name );
-				echo esc_html( $title );
-			} else {
-				esc_html_e( 'Jobs', 'bp-job-manager' );
-			}
+			echo esc_html( $this->bpjm_get_member_screen_label( 'jobs', bp_displayed_user_id() ) );
 		}
 
 
@@ -966,7 +1084,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$my_resumes_count  = bpjm_member_profile_resumes_count( $user_id );
 			$resume_tab_name   = apply_filters(
 				'bpjm_resume_tab_name',
-				$is_logged_in_user ? __( 'My Resumes', 'bp-job-manager' ) : sprintf( /* translators: %s: bp_core_get_user_displayname */ __( '%s\'s Resumes', 'bp-job-manager' ), ucfirst( bp_core_get_user_displayname( $user_id ) ) )
+				$this->bpjm_get_member_screen_label( 'resumes', $user_id )
 			);
 			$resume_tab        = sprintf( /* translators: %s: bp_core_number_format */ __( 'Resumes %s', 'bp-job-manager' ), '<span class="count">' . bp_core_number_format( $my_resumes_count ) . '</span>' );
 
@@ -1011,7 +1129,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				);
 
 				// Applied Jobs subnav, if applicable.
-				$wpjm_applications_active = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', (array) get_option( 'active_plugins' ), true );
+				$wpjm_applications_active = bpjm_is_plugin_active( 'wp-job-manager-applications/wp-job-manager-applications.php' );
 				if ( $wpjm_applications_active ) {
 					bp_core_new_subnav_item(
 						array(
@@ -1084,13 +1202,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_my_resumes_tab_function_to_show_title() {
-			if ( bp_loggedin_user_id() === bp_displayed_user_id() ) {
-				esc_html_e( 'My Resumes', 'bp-job-manager' );
-			} else {
-				$author_name = bp_core_get_user_displayname( bp_displayed_user_id() );
-				/* translators: %s: Author Name */
-				printf( esc_html__( '%s\'s Resumes', 'bp-job-manager' ), esc_html( ucfirst( $author_name ) ) );
-			}
+			echo esc_html( $this->bpjm_get_member_screen_label( 'resumes', bp_displayed_user_id() ) );
 		}
 
 		/**

@@ -222,7 +222,7 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_member_profile_jobs_tab' );
 
 			/* Check if Resume Manager plugin active to add tab. */
-			$wpjm_resumes_active = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', get_option( 'active_plugins' ), true );
+			$wpjm_resumes_active = bpjm_is_plugin_active( 'wp-job-manager-resumes/wp-job-manager-resumes.php' );
 			if ( $wpjm_resumes_active ) {
 				global $bpjm_bp_job_manager;
 
@@ -270,11 +270,24 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			/* Action to add private message link on candidate contact button */
 			$this->loader->add_action( 'resume_manager_contact_details', $plugin_public, 'bpjm_add_private_message_link' );
 
-			if ( has_action( 'new_job_application' ) ) {
-				$this->loader->add_action( 'new_job_application', $plugin_public, 'bpjm_add_bp_notification_for_job_post', 10, 2 );
-			} else {
-				$this->loader->add_action( 'job_manager_applications_new_job_application', $plugin_public, 'bpjm_add_bp_notification_for_job_post', 10, 2 );
-			}
+			/*
+			 * Always the canonical hook.
+			 *
+			 * This used to branch on has_action( 'new_job_application' ), which
+			 * answers "has anything else hooked the legacy name?" - not "is the
+			 * Applications add-on active?", the question actually being asked.
+			 * At plugins_loaded nothing has hooked it yet, so the test happened
+			 * to fall through to the right branch; the moment any third-party
+			 * plugin registered on the legacy name, this bound to the
+			 * deprecated hook instead.
+			 *
+			 * Applications fires BOTH names back to back with identical args
+			 * (class-wp-job-manager-applications-apply.php), the legacy one via
+			 * do_action_deprecated() since 2.5.3 - so the legacy branch still
+			 * worked, but dragged a _deprecated_hook() notice along with it.
+			 * Binding both would double-post the notification. One hook, always.
+			 */
+			$this->loader->add_action( 'job_manager_applications_new_job_application', $plugin_public, 'bpjm_add_bp_notification_for_job_post', 10, 2 );
 
 			$this->loader->add_filter( 'job_manager_should_run_shortcode_action_handler', $plugin_public, 'bpjm_allow_continue_submission', 5, 1 );
 
@@ -301,7 +314,26 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			// string (bp_core_add_message() needs the value), so this action
 			// goes through the printing wrapper.
 			$this->loader->add_action( 'submit_job_form_disabled', $plugin_public, 'bpjm_print_restrict_user_post_job_message' );
-			if ( in_array( 'bp-rewrites/class-bp-rewrites.php', get_option( 'active_plugins' ), true ) ) {
+			/*
+			 * Standalone BP Rewrites plugin only - deliberately NOT extended to
+			 * BuddyPress 12+, even though 12 merged rewrites into core.
+			 *
+			 * Both callbacks are written against the standalone plugin:
+			 * bpjm_legacy_link_fix() removes a filter in the `BP\Rewrites\`
+			 * namespace, which only that plugin declares, and
+			 * bpjm_nouveau_link_fix() is built on bp_loggedin_user_domain() /
+			 * bp_displayed_user_domain(), both deprecated in 12. Widening the
+			 * gate to version_compare( BP_VERSION, '12.0.0', '>=' ) would run
+			 * pre-12 compatibility shims against core's own rewrites and
+			 * against a namespace that is not there.
+			 *
+			 * This is not dead code: the plugin still supports BP < 12 (see the
+			 * bp_core_get_user_domain() fallback in
+			 * Bp_Job_Manager_Public::bpjm_filter_redirect_duplicate_post_url()),
+			 * and on those installs the standalone plugin is exactly what this
+			 * gate is for.
+			 */
+			if ( bpjm_is_plugin_active( 'bp-rewrites/class-bp-rewrites.php' ) ) {
 				$this->loader->add_filter( 'bp_nouveau_get_nav_link', $plugin_public, 'bpjm_nouveau_link_fix', 10, 2 );
 				$this->loader->add_action( 'bp_setup_nav', $plugin_public, 'bpjm_legacy_link_fix', 9999 );
 			}

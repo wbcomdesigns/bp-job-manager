@@ -23,7 +23,7 @@
 	"scripts": {
 		"phpstan": "phpstan analyse --memory-limit=1G",
 		"phpcs": "phpcs --standard=phpcs.xml.dist",
-		"make-pot": "wp i18n make-pot . languages/bp-job-manager.pot --domain=bp-job-manager --exclude=node_modules,dist,audit --skip-audit",
+		"make-pot": "wp i18n make-pot . languages/bp-job-manager.pot --domain=bp-job-manager --exclude=node_modules,dist,audit",
 		"make-mo": "wp i18n make-mo languages languages",
 		"make-php": "wp i18n make-php languages languages",
 		"i18n": [

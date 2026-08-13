@@ -27,17 +27,19 @@ $general_url = isset( $page_url ) ? $page_url . '&tab=general' : admin_url( 'adm
 // Dependency detection.
 $bpjm_bp_active   = class_exists( 'BuddyPress' );
 $bpjm_wpjm_active = class_exists( 'WP_Job_Manager' );
-$active_plugins   = (array) get_option( 'active_plugins', array() );
-$bpjm_resumes_on  = in_array( 'wp-job-manager-resumes/wp-job-manager-resumes.php', $active_plugins, true );
-$bpjm_apps_on     = in_array( 'wp-job-manager-applications/wp-job-manager-applications.php', $active_plugins, true );
+$bpjm_resumes_on  = bpjm_is_plugin_active( 'wp-job-manager-resumes/wp-job-manager-resumes.php' );
+$bpjm_apps_on     = bpjm_is_plugin_active( 'wp-job-manager-applications/wp-job-manager-applications.php' );
 
-// Role configuration counts (fall back to the same defaults as Globals).
+// Role configuration counts. The fallbacks MUST come from Bp_Job_Manager_Globals
+// rather than be restated here - this view used to carry its own copy that still
+// included 'guest' after Globals dropped it, so a fresh install reported three
+// post-job roles when the plugin granted two.
 $post_roles  = ! empty( $settings['post_job_user_roles'] ) && is_array( $settings['post_job_user_roles'] )
 	? $settings['post_job_user_roles']
-	: array( 'administrator', 'employer', 'guest' );
+	: Bp_Job_Manager_Globals::DEFAULT_POST_JOB_ROLES;
 $apply_roles = ! empty( $settings['apply_job_user_roles'] ) && is_array( $settings['apply_job_user_roles'] )
 	? $settings['apply_job_user_roles']
-	: array( 'administrator', 'candidate', 'subscriber' );
+	: Bp_Job_Manager_Globals::DEFAULT_APPLY_JOB_ROLES;
 
 // Feature toggles — read the same way Bp_Job_Manager_Globals does
 // (presence of the key means "on").
@@ -109,7 +111,7 @@ $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 		<tr>
 			<th scope="row">
 				<?php
-				/* translators: %s: name of a WP Job Manager add-on, e.g. "Resume Manager". Product name — do not translate the placeholder value. */
+				/* translators: %s: name of a WP Job Manager add-on, e.g. "Resume Manager" or "Applications". Product name - do not translate the placeholder value. */
 				printf( esc_html__( '%s add-on', 'bp-job-manager' ), 'Resume Manager' );
 				?>
 			</th>
@@ -124,7 +126,7 @@ $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 		<tr>
 			<th scope="row">
 				<?php
-				/* translators: %s: name of a WP Job Manager add-on, e.g. "Applications". Product name — do not translate the placeholder value. */
+				/* translators: %s: name of a WP Job Manager add-on, e.g. "Resume Manager" or "Applications". Product name - do not translate the placeholder value. */
 				printf( esc_html__( '%s add-on', 'bp-job-manager' ), 'Applications' );
 				?>
 			</th>
