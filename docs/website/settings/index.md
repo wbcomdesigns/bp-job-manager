@@ -1,13 +1,7 @@
----
-title: Settings
-slug: bpjm-settings
-product: bp-job-manager
-order: 2
----
-
 # Settings
 
-**WB Plugins → Job Manager.** Four screens, and only one of them has anything to change.
+Find them at **WB Plugins → Job Manager** in the WordPress admin. Four screens, and only one
+of them has anything to change.
 
 ## General
 
@@ -28,7 +22,7 @@ apply. Those settings are gone as of 3.0.0.
 
 WP Job Manager already decides who may post a job, and this plugin now defers to it rather
 than running a second permission system alongside it. If you want to narrow who can post,
-filter `job_manager_user_can_post_job` — that is WP Job Manager's own contract, and it
+filter `job_manager_user_can_post_job`. That is WP Job Manager's own contract, and it
 applies everywhere on the site rather than only on the profile tabs.
 
 ## Overview
@@ -66,4 +60,8 @@ now and is left in place; only the plugin's pointer to it is removed.
 ## Related
 
 - [Getting started](../getting-started/index.md)
+- [Features](../features/index.md)
+- [Usage](../usage/index.md)
 - [Developer guide](../developer-guide/index.md)
+- [FAQ](../faq/index.md)
+- [Troubleshooting](../troubleshooting/index.md)

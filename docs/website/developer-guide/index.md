@@ -1,10 +1,3 @@
----
-title: Developer Guide
-slug: bpjm-developer-guide
-product: bp-job-manager
-order: 3
----
-
 # Developer Guide
 
 ## Architecture
@@ -100,7 +93,7 @@ cause of members being shown an employer dashboard they were then refused.
 bpjm_is_plugin_active( 'wp-job-manager-resumes/wp-job-manager-resumes.php' );
 ```
 
-Always use this rather than reading `active_plugins` directly — a bare `in_array()` against
+Always use this rather than reading `active_plugins` directly. A bare `in_array()` against
 that option reports every network-activated add-on as inactive on every multisite subsite.
 Core's `is_plugin_active()` does the same job but is admin-only, and most of these checks
 run on the front end.
@@ -134,7 +127,7 @@ These no longer fire. A site filtering any of them needs to know.
 | `bpjm_applied_jobs_per_page` | Applied Jobs is rendered by `[past_applications]`; use `job_manager_job_applications_past_args` |
 
 We also stopped filtering `job_manager_user_can_post_job`. Do not re-add a callback there
-that calls `bpjm_user_can_post_job()` — that function asks WP Job Manager through the same
+that calls `bpjm_user_can_post_job()`, which asks WP Job Manager through the same
 hook, so it would recurse until the request exhausts memory.
 
 ## Quality gates
@@ -165,5 +158,8 @@ never translated.
 ## Related
 
 - [Getting started](../getting-started/index.md)
+- [Features](../features/index.md)
 - [Settings](../settings/index.md)
-- `audit/manifest.json` — machine-readable inventory
+- [FAQ](../faq/index.md)
+- [Troubleshooting](../troubleshooting/index.md)
+- `audit/manifest.json`, machine-readable inventory
