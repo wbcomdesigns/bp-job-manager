@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BuddyPress Job Manager\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-job-manager\n"
-"POT-Creation-Date: 2026-08-13T12:13:18+00:00\n"
+"POT-Creation-Date: 2026-10-08T12:43:25+00:00\n"
 "PO-Revision-Date: 2026-08-13 12:00+0530\n"
 "Last-Translator: Varun Dubey <varun@wbcomdesigns.com>\n"
 "Language-Team: jean-pierre michaud <translation@wpenhancer.agency>\n"
@@ -146,19 +146,19 @@ msgid "Resumes"
 msgstr "CVs"
 
 #: admin/class-bp-job-manager-admin.php:133
-#: public/class-bp-job-manager-public.php:147
+#: public/class-bp-job-manager-public.php:211
 msgid "My Resumes"
 msgstr "Mes CVs"
 
 #: admin/class-bp-job-manager-admin.php:142
-#: public/class-bp-job-manager-public.php:1161
-#: public/class-bp-job-manager-public.php:1293
+#: public/class-bp-job-manager-public.php:976
+#: public/class-bp-job-manager-public.php:1108
 msgid "Applied Jobs"
 msgstr "Offres postulées"
 
 #: admin/class-bp-job-manager-admin.php:151
-#: public/class-bp-job-manager-public.php:1146
-#: public/class-bp-job-manager-public.php:1195
+#: public/class-bp-job-manager-public.php:961
+#: public/class-bp-job-manager-public.php:1010
 msgid "Add Resume"
 msgstr "Ajouter un CV"
 
@@ -167,13 +167,13 @@ msgid "Jobs"
 msgstr "Emplois"
 
 #: admin/class-bp-job-manager-admin.php:186
-#: public/class-bp-job-manager-public.php:155
+#: public/class-bp-job-manager-public.php:219
 msgid "My Jobs"
 msgstr "Mes emplois"
 
 #: admin/class-bp-job-manager-admin.php:195
-#: public/class-bp-job-manager-public.php:671
-#: public/class-bp-job-manager-public.php:736
+#: public/class-bp-job-manager-public.php:524
+#: public/class-bp-job-manager-public.php:589
 msgid "Post Job"
 msgstr "Publier une offre d'emploi"
 
@@ -659,144 +659,68 @@ msgid "Get Support"
 msgstr "Obtenir du support"
 
 #. translators: %s: display name of the member whose profile is being viewed.
-#: public/class-bp-job-manager-public.php:151
+#: public/class-bp-job-manager-public.php:215
 #, php-format
 msgid "Resumes by %s"
 msgstr "CVs de %s"
 
 #. translators: %s: display name of the member whose profile is being viewed.
-#: public/class-bp-job-manager-public.php:171
+#: public/class-bp-job-manager-public.php:235
 #, php-format
 msgid "Jobs by %s"
 msgstr "Emplois de %s"
 
-#: public/class-bp-job-manager-public.php:300
-msgid "Loading..."
-msgstr "Chargement..."
-
-#: public/class-bp-job-manager-public.php:411
-msgid "Invalid member profile."
-msgstr "Profil de membre invalide."
-
-#: public/class-bp-job-manager-public.php:420
-#: public/templates/bpjm-job-listing.php:13
-msgid "Title"
-msgstr "Titre"
-
-#: public/class-bp-job-manager-public.php:421
-#: public/templates/bpjm-job-listing.php:14
-msgid "Filled?"
-msgstr "Pourvu ?"
-
-#: public/class-bp-job-manager-public.php:422
-#: public/templates/bpjm-job-listing.php:15
-msgid "Date Posted"
-msgstr "Date de publication"
-
-#: public/class-bp-job-manager-public.php:423
-#: public/templates/bpjm-job-listing.php:16
-msgid "Listing Expires"
-msgstr "L'offre expire"
-
-#: public/class-bp-job-manager-public.php:424
-#: public/class-bp-job-manager-public.php:1007
-#: public/templates/bpjm-job-listing.php:17
-msgid "Actions"
-msgstr "Actions"
-
-#: public/class-bp-job-manager-public.php:449
-#: public/templates/bpjm-job-listing.php:46
-msgid "Featured Job"
-msgstr "Offre d'emploi mise en avant"
-
-#: public/class-bp-job-manager-public.php:459
-#: public/class-bp-job-manager-public.php:492
-msgid "Edit"
-msgstr "Modifier"
-
-#: public/class-bp-job-manager-public.php:465
-msgid "Mark not filled"
-msgstr "Marquer comme non pourvu"
-
-#: public/class-bp-job-manager-public.php:470
-msgid "Mark filled"
-msgstr "Marquer comme pourvu"
-
-#: public/class-bp-job-manager-public.php:476
-msgid "Duplicate"
-msgstr "Dupliquer"
-
-#: public/class-bp-job-manager-public.php:483
-msgid "Relist"
-msgstr "Republier"
-
-#: public/class-bp-job-manager-public.php:500
-msgid "Continue Submission"
-msgstr "Continuer la soumission"
-
-#: public/class-bp-job-manager-public.php:507
-msgid "Delete"
-msgstr "Supprimer"
-
 #. translators: %s: Job count
-#: public/class-bp-job-manager-public.php:585
+#: public/class-bp-job-manager-public.php:438
 #, php-format
 msgid "Jobs %s"
 msgstr "Emplois %s"
 
-#: public/class-bp-job-manager-public.php:644
-#: public/class-bp-job-manager-public.php:861
+#: public/class-bp-job-manager-public.php:497
+#: public/class-bp-job-manager-public.php:740
 msgid "My Bookmarks"
 msgstr "Mes Favoris"
 
-#: public/class-bp-job-manager-public.php:658
-#: public/class-bp-job-manager-public.php:896
+#: public/class-bp-job-manager-public.php:511
+#: public/class-bp-job-manager-public.php:775
 msgid "Job Alerts"
 msgstr "Alertes emploi"
 
-#: public/class-bp-job-manager-public.php:1035
-msgid "This job position is no longer available."
-msgstr "Ce poste n'est plus disponible."
-
-#: public/class-bp-job-manager-public.php:1060
-msgid "Submit Application"
-msgstr "Soumettre une candidature"
-
 #. translators: %s: bp_core_number_format
-#: public/class-bp-job-manager-public.php:1114
+#: public/class-bp-job-manager-public.php:929
 #, php-format
 msgid "Resumes %s"
 msgstr "CVs %s"
 
-#: public/class-bp-job-manager-public.php:1245
+#: public/class-bp-job-manager-public.php:1060
 msgid "You need to be signed in to manage your resumes."
 msgstr "Tu dois être connecté pour gérer tes CV."
 
-#: public/class-bp-job-manager-public.php:1246
+#: public/class-bp-job-manager-public.php:1061
 msgid "Sign in"
 msgstr "Se connecter"
 
-#: public/class-bp-job-manager-public.php:1463
+#: public/class-bp-job-manager-public.php:1270
 msgid "Private Message"
 msgstr "Message privé"
 
-#: public/class-bp-job-manager-public.php:1463
+#: public/class-bp-job-manager-public.php:1270
 msgid "Send Private Message"
 msgstr "Envoyer un message privé"
 
 #. translators: 1: applicant display name, 2: job title.
-#: public/class-bp-job-manager-public.php:1578
+#: public/class-bp-job-manager-public.php:1385
 #, php-format
 msgid "%1$s applied for %2$s."
 msgstr "%1$s a postulé à %2$s."
 
 #. translators: %s: applicant display name.
-#: public/class-bp-job-manager-public.php:1581
+#: public/class-bp-job-manager-public.php:1388
 #, php-format
 msgid "%s applied for one of your jobs."
 msgstr "%s a postulé à une de tes offres."
 
-#: public/class-bp-job-manager-public.php:1648
+#: public/class-bp-job-manager-public.php:1461
 msgid ""
 "You are not authorized to post a job. Please reach out to the administrator "
 "for further assistance."
@@ -807,7 +731,3 @@ msgstr ""
 #: public/templates/bpjm-job-application.php:62
 msgid "No content available."
 msgstr "Aucun contenu disponible."
-
-#: public/templates/bpjm-job-listing.php:33
-msgid "No jobs found."
-msgstr "Aucune offre d'emploi trouvée."

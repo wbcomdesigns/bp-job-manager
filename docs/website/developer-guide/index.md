@@ -20,8 +20,10 @@ routes**. It operates entirely on WP Job Manager's `job_listing`, `resume` and
 | Class prefix | `Bp_Job_Manager_*` |
 | Text domain | `bp-job-manager` (equals the wordpress.org slug) |
 | Option | `bpjm_general_settings` |
-| AJAX | `bpjm_load_more_jobs` (priv + nopriv) |
-| Templates | `public/templates/bpjm-job-listing.php`, `bpjm-job-application.php` |
+| AJAX | none (the `bpjm_load_more_jobs` infinite scroll was removed in 3.0.1) |
+| Templates | `public/templates/bpjm-job-application.php` (legacy Apply page only) |
+| Pagination | WP Job Manager's pager, pointed at `?bpjm-page=N` (BuddyPress does not route `/page/N/` under a member URL) |
+| Screen wrapper | every Jobs / Resumes screen renders inside `.bpjm-screen`; `public/css/bp-job-manager-public.css` styles the host markup there and nowhere else |
 
 ### Three rules
 

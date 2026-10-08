@@ -33,16 +33,7 @@
     "namespace": null,
     "endpoints": []
   },
-  "ajax": [
-    {
-      "action": "bpjm_load_more_jobs",
-      "handler": "public/class-bp-job-manager-public.php::Bp_Job_Manager_Public::bpjm_load_more_jobs",
-      "nonce": "bpjm_load_jobs_nonce (check_ajax_referer, key 'ajax_nonce' @ public/class-bp-job-manager-public.php:225; nonce minted at public/class-bp-job-manager-public.php:177 via wp_localize_script)",
-      "capability": "none (public; registered as BOTH wp_ajax_ and wp_ajax_nopriv_)",
-      "purpose": "Infinite-scroll pagination of a member's job_listing posts on the BuddyPress profile My Jobs tab. Read-only over published jobs. Author-scoped: the request must carry the displayed profile's user_id, resolves to wp_send_json_error() when the author is 0, and non-owners only ever get 'publish' rows.",
-      "registered_at": "public/class-bp-job-manager-public.php:70-71"
-    }
-  ],
+  "ajax": [],
   "admin_pages": [
     {
       "title": "WB Plugins",
@@ -309,19 +300,6 @@
       "consumed_by": []
     },
     {
-      "name": "job_manager_job_dashboard_column_<key>",
-      "type": "action",
-      "args_count": 2,
-      "args_signature": [
-        "WP_Post $job",
-        "array|string $context"
-      ],
-      "where": "public/class-bp-job-manager-public.php:367 (load-more rows) + public/templates/bpjm-job-listing.php:55 — dynamic dashboard-column RE-EMIT of a WP Job Manager hook",
-      "consumed_by": [
-        "WP Job Manager (third party)"
-      ]
-    },
-    {
       "name": "resume_manager_my_resume_actions",
       "type": "filter",
       "args_count": 2,
@@ -393,7 +371,6 @@
       "wp_enqueue_scripts",
       "wp",
       "page_template",
-      "wp_redirect",
       "transition_post_status",
       "wp_trash_post",
       "before_delete_post",
@@ -402,12 +379,8 @@
       "toplevel_page_wbcomplugins"
     ],
     "buddypress": [
-      "bp_loaded",
       "bp_setup_nav",
       "bp_setup_admin_bar",
-      "bp_after_profile_loop_content",
-      "bp_core_xprofile_settings_before_submit",
-      "bp_init",
       "bp_template_title",
       "bp_template_content",
       "bp_nouveau_get_nav_link",
@@ -418,23 +391,24 @@
       "job_manager_user_can_edit_published_submissions",
       "job_manager_user_can_edit_pending_submissions",
       "job_manager_my_job_actions",
-      "job_manager_job_dashboard_columns",
-      "job_manager_job_dashboard_column_actions",
-      "job_manager_user_can_post_job",
       "submit_job_form_show_signin",
       "submit_job_form_disabled",
       "job_manager_should_run_shortcode_action_handler",
       "job_manager_get_dashboard_jobs_args",
-      "has_wpjm_shortcode"
+      "has_wpjm_shortcode",
+      "job_manager_pagination_args"
     ],
     "wpjm_applications": [
-      "new_job_application",
       "job_manager_applications_new_job_application"
     ],
     "wpjm_resumes": [
       "resume_manager_get_dashboard_resumes_args",
       "resume_manager_my_resume_actions",
-      "resume_manager_contact_details"
+      "resume_manager_contact_details",
+      "submit_resume_form_show_signin"
+    ],
+    "themes": [
+      "reign_load_wp_job_manager_assets"
     ]
   },
   "interactivity": [],
@@ -444,14 +418,7 @@
     "dead_code": [],
     "cap_context_mismatches": [],
     "extensibility_gaps": [],
-    "js_only_activation": [
-      {
-        "selector": "infinite-scroll job list (My Jobs tab)",
-        "default_hidden_by": "public/js/bp-job-manager-public.js",
-        "php_fallback": true,
-        "note": "First page is server-rendered; AJAX only appends additional pages, so JS-off degrades gracefully."
-      }
-    ],
+    "js_only_activation": [],
     "rest_hang_risks": [],
     "visual_required_no_enforcement": [],
     "grid_track_overflow_risks": [],
@@ -533,11 +500,8 @@
     "css": [
       "public/css/bp-job-manager-public.css"
     ],
-    "images": [
-      "public/images/spinner.gif"
-    ],
+    "images": [],
     "templates": [
-      "public/templates/bpjm-job-listing.php",
       "public/templates/bpjm-my-applied-jobs.php",
       "public/templates/bpjm-job-application.php",
       "public/templates/bpjm-resume-listing.php",
@@ -583,7 +547,6 @@
     "always_sign_filter": null,
     "rate_limit_middleware": "n/a",
     "nonces": [
-      "bpjm_load_jobs_nonce — AJAX bpjm_load_more_jobs; minted public/class-bp-job-manager-public.php:177, checked :225 (key 'ajax_nonce')",
       "bpjm_resume_fields_settings_nonce — front-end xProfile resume settings save; emitted public/class-bp-job-manager-public.php:1465, checked :1496",
       "bp_xprofile_settings — BuddyPress core nonce also verified on the same save path, public/class-bp-job-manager-public.php:1498",
       "bp-job-manager-feedback-nounce — review-nag dismissal; minted admin/class-bp-job-manager-admin-feedback.php:167, checked :305 (paired with a current_user_can('manage_options') gate)"
@@ -591,7 +554,7 @@
     "uninstall": "uninstall.php guards WP_UNINSTALL_PLUGIN (no destructive option cleanup performed)",
     "notes": [
       "The 2.8.5 activation redirect is transient-driven (_bpjm_is_new_install), NOT nonce-driven — the old bpjm_activation_nonce and its emitter were removed as dead code.",
-      "bpjm_load_more_jobs is intentionally nonce-only with no capability check (it serves the public infinite-scroll feed) but IS author-scoped — see ajax[0]."
+      "3.0.1: bpjm_handle_submission_actions() (duplicate/continue/relist/renew on the member's own Jobs tab) verifies WP Job Manager's own nonce 'job_manager_my_job_actions' plus job_manager_user_can_edit_job() before acting; the nopriv bpjm_load_more_jobs AJAX endpoint was removed."
     ]
   },
   "ci_guards": {
