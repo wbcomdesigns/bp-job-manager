@@ -193,6 +193,7 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			$this->loader->add_action( 'bp_setup_admin_bar', $plugin_admin, 'bpjm_setup_admin_bar_links', 70 );
 			$this->loader->add_action( 'transition_post_status', $plugin_admin, 'bpjm_publish_job_listing', 10, 3 );
 			$this->loader->add_action( 'transition_post_status', $plugin_admin, 'bpjm_publish_resume', 10, 3 );
+			$this->loader->add_action( 'bp_register_activity_actions', $plugin_admin, 'bpjm_register_activity_actions' );
 
 			// Remove the matching BP activity when a job/resume is trashed or
 			// permanently deleted so the stream never keeps a dead link.

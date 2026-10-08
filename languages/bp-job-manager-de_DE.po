@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wbcom Designs - BuddyPress Job Manager 2.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-job-manager\n"
-"POT-Creation-Date: 2026-10-08T13:14:03+00:00\n"
+"POT-Creation-Date: 2026-10-08T13:37:06+00:00\n"
 "PO-Revision-Date: 2026-07-16T11:32:19+00:00\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -124,6 +124,7 @@ msgid "No thanks / I already have"
 msgstr "Nein danke / Das habe ich bereits getan"
 
 #: admin/class-bp-job-manager-admin.php:109
+#: admin/class-bp-job-manager-admin.php:277
 msgid "Resumes"
 msgstr "Lebensläufe"
 
@@ -133,12 +134,13 @@ msgid "My Resumes"
 msgstr "Meine Lebensläufe"
 
 #: admin/class-bp-job-manager-admin.php:141
-#: public/class-bp-job-manager-public.php:1129
-#: public/class-bp-job-manager-public.php:1163
+#: public/class-bp-job-manager-public.php:1131
+#: public/class-bp-job-manager-public.php:1165
 msgid "Add Resume"
 msgstr "Lebenslauf hinzufügen"
 
 #: admin/class-bp-job-manager-admin.php:153
+#: admin/class-bp-job-manager-admin.php:276
 msgid "Jobs"
 msgstr "Stellen"
 
@@ -148,28 +150,38 @@ msgid "My Jobs"
 msgstr "Meine Stellen"
 
 #: admin/class-bp-job-manager-admin.php:186
-#: public/class-bp-job-manager-public.php:533
-#: public/class-bp-job-manager-public.php:1290
+#: public/class-bp-job-manager-public.php:535
+#: public/class-bp-job-manager-public.php:1292
 msgid "Applied Jobs"
 msgstr "Beworbene Stellen"
 
 #: admin/class-bp-job-manager-admin.php:196
-#: public/class-bp-job-manager-public.php:546
-#: public/class-bp-job-manager-public.php:611
+#: public/class-bp-job-manager-public.php:548
+#: public/class-bp-job-manager-public.php:613
 msgid "Post Job"
 msgstr "Stelle ausschreiben"
 
 #. translators: 1: member profile link, 2: job title link.
 #: admin/class-bp-job-manager-admin.php:232
+#: admin/class-bp-job-manager-admin.php:294
 #, php-format
 msgid "%1$s posted a job: %2$s"
 msgstr "%1$s hat eine Stelle veröffentlicht: %2$s"
 
 #. translators: 1: member profile link, 2: URL of the resume.
 #: admin/class-bp-job-manager-admin.php:258
+#: admin/class-bp-job-manager-admin.php:311
 #, php-format
 msgid "%1$s published a <a href=\"%2$s\">resume</a>"
 msgstr "%1$s hat einen <a href=\"%2$s\">Lebenslauf</a> veröffentlicht"
+
+#: admin/class-bp-job-manager-admin.php:276
+msgid "Posted a job"
+msgstr "Hat eine Stelle veröffentlicht"
+
+#: admin/class-bp-job-manager-admin.php:277
+msgid "Published a resume"
+msgstr "Hat einen Lebenslauf veröffentlicht"
 
 #. translators: %1$s: BuddyPress Job Manager ;  %2$s: BuddyPress ; %3$s: WP Job Manager
 #: bp-job-manager.php:157
@@ -540,80 +552,85 @@ msgid "Jobs by %s"
 msgstr "Stellen von %s"
 
 #. translators: %s: Job count
-#: public/class-bp-job-manager-public.php:440
+#: public/class-bp-job-manager-public.php:442
 #, php-format
 msgid "Jobs %s"
 msgstr "Stellen %s"
 
-#: public/class-bp-job-manager-public.php:499
-#: public/class-bp-job-manager-public.php:908
+#: public/class-bp-job-manager-public.php:501
+#: public/class-bp-job-manager-public.php:910
 msgid "My Bookmarks"
 msgstr "Meine Lesezeichen"
 
-#: public/class-bp-job-manager-public.php:513
-#: public/class-bp-job-manager-public.php:943
+#: public/class-bp-job-manager-public.php:515
+#: public/class-bp-job-manager-public.php:945
 msgid "Job Alerts"
 msgstr "Stellenbenachrichtigungen"
 
 #. translators: %s: job title.
-#: public/class-bp-job-manager-public.php:737
+#: public/class-bp-job-manager-public.php:739
 #, php-format
 msgid "Applications: %s"
 msgstr "Bewerbungen: %s"
 
-#: public/class-bp-job-manager-public.php:739
+#: public/class-bp-job-manager-public.php:741
 msgid "Edit job"
 msgstr "Stelle bearbeiten"
 
-#: public/class-bp-job-manager-public.php:812
+#: public/class-bp-job-manager-public.php:814
 msgid "Go to My Jobs"
 msgstr "Zu meinen Stellen"
 
-#: public/class-bp-job-manager-public.php:827
+#: public/class-bp-job-manager-public.php:829
 msgid "Back to My Jobs"
 msgstr "Zurück zu meinen Stellen"
 
-#: public/class-bp-job-manager-public.php:827
+#: public/class-bp-job-manager-public.php:829
 msgid "Back to My Resumes"
 msgstr "Zurück zu meinen Lebensläufen"
 
+#: public/class-bp-job-manager-public.php:1042
+#: public/class-bp-job-manager-public.php:1366
+msgid "Relist"
+msgstr "Erneut veröffentlichen"
+
 #. translators: %s: bp_core_number_format
-#: public/class-bp-job-manager-public.php:1097
+#: public/class-bp-job-manager-public.php:1099
 #, php-format
 msgid "Resumes %s"
 msgstr "Lebensläufe %s"
 
-#: public/class-bp-job-manager-public.php:1200
+#: public/class-bp-job-manager-public.php:1202
 msgid "Edit resume"
 msgstr "Lebenslauf bearbeiten"
 
-#: public/class-bp-job-manager-public.php:1485
+#: public/class-bp-job-manager-public.php:1487
 msgid "Private Message"
 msgstr "Private Nachricht"
 
-#: public/class-bp-job-manager-public.php:1485
+#: public/class-bp-job-manager-public.php:1487
 msgid "Send Private Message"
 msgstr "Private Nachricht senden"
 
 #. translators: 1: applicant display name, 2: job title.
-#: public/class-bp-job-manager-public.php:1600
+#: public/class-bp-job-manager-public.php:1602
 #, php-format
 msgid "%1$s applied for %2$s."
 msgstr "%1$s hat sich auf %2$s beworben."
 
 #. translators: %s: applicant display name.
-#: public/class-bp-job-manager-public.php:1603
+#: public/class-bp-job-manager-public.php:1605
 #, php-format
 msgid "%s applied for one of your jobs."
 msgstr "%s hat sich auf eine deiner Stellen beworben."
 
 #. translators: 1: job title, 2: application status label such as "Interviewed".
-#: public/class-bp-job-manager-public.php:1656
+#: public/class-bp-job-manager-public.php:1658
 #, php-format
 msgid "Your application for %1$s is now: %2$s."
 msgstr "Deine Bewerbung für %1$s ist jetzt: %2$s."
 
-#: public/class-bp-job-manager-public.php:1694
+#: public/class-bp-job-manager-public.php:1696
 msgid "You are not authorized to post a job. Please reach out to the administrator for further assistance."
 msgstr "Du bist nicht berechtigt, eine Stelle auszuschreiben. Wende dich bitte an den Administrator für weitere Unterstützung."
 

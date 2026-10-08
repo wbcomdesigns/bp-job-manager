@@ -387,7 +387,8 @@
       "bp_template_content",
       "bp_nouveau_get_nav_link",
       "bp_notifications_get_registered_components",
-      "bp_notifications_get_notifications_for_user"
+      "bp_notifications_get_notifications_for_user",
+      "bp_register_activity_actions"
     ],
     "wp_job_manager": [
       "job_manager_user_can_edit_published_submissions",

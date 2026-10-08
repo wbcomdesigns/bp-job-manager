@@ -232,10 +232,12 @@ Fixes for sites where WP Job Manager's and Resume Manager's own pages are not se
 * Fix      - Logged-out visitors were redirected on every BuddyPress page when WP Job Manager Alerts allowed guest alerts.
 * Fix      - Leaving the job description empty and clicking Preview could reveal a second, raw text box under the editor that swallowed what was typed.
 * Fix      - Saving an edited resume no longer leaves the profile when Resume Manager's Candidate Dashboard page is set.
+* Fix      - Job and resume activity entries were frozen in the poster's language; they now display in each reader's language with the job's current title, and appear in the activity filter.
 * Fix      - A corrupted plugin settings row no longer takes the whole site down.
 * Fix      - The plugin's script loaded on unrelated pages such as the activity stream when WP Job Manager's dashboard page was not set; it now loads only on Jobs and Resumes tabs.
 * Dev      - Removed the `bpjm_load_more_jobs` AJAX action, its script and the plugin's own job table template. Lists use WP Job Manager's pagination with a `bpjm-page` query argument.
 * Dev      - WP Job Manager's dashboard action handler now runs only on a member's own Jobs and Resumes tabs instead of on every request.
+* Dev      - Translation ready: every string in the plugin's own text domain, 0 i18n audit warnings, and all five bundled languages complete.
 * Compat   - Tested with Reign 8.0.8, BuddyX 5.1.8, BuddyX Pro 5.1.8 and Twenty Twenty-Five.
 
 = 3.0.0 - August 2026 =

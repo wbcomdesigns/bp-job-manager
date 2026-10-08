@@ -260,6 +260,58 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		}
 
 		/**
+		 * Register the job and resume activity types with BuddyPress.
+		 *
+		 * The format callbacks rebuild each entry's text when it is displayed,
+		 * so every reader sees it in their own language and with the job's
+		 * current title. Stored text alone is frozen in the poster's language.
+		 * Also lists both types in the activity filter.
+		 *
+		 * @since 3.0.1
+		 */
+		public function bpjm_register_activity_actions() {
+			if ( ! function_exists( 'bp_activity_set_action' ) ) {
+				return;
+			}
+			bp_activity_set_action( 'activity', 'bpjm_job_post', __( 'Posted a job', 'bp-job-manager' ), array( $this, 'bpjm_format_job_activity' ), __( 'Jobs', 'bp-job-manager' ), array( 'activity', 'member' ) );
+			bp_activity_set_action( 'activity', 'bpjm_resume_publish', __( 'Published a resume', 'bp-job-manager' ), array( $this, 'bpjm_format_resume_activity' ), __( 'Resumes', 'bp-job-manager' ), array( 'activity', 'member' ) );
+		}
+
+		/**
+		 * Job activity text, in the reader's language.
+		 *
+		 * @since 3.0.1
+		 * @param string $action   Stored action.
+		 * @param object $activity Activity item.
+		 * @return string
+		 */
+		public function bpjm_format_job_activity( $action, $activity ) {
+			$post = get_post( $activity->item_id );
+			if ( ! $post ) {
+				return $action;
+			}
+			/* translators: 1: member profile link, 2: job title link. */
+			return sprintf( __( '%1$s posted a job: %2$s', 'bp-job-manager' ), bp_core_get_userlink( $activity->user_id ), '<a href="' . esc_url( get_permalink( $post ) ) . '">' . esc_html( get_the_title( $post ) ) . '</a>' );
+		}
+
+		/**
+		 * Resume activity text, in the reader's language.
+		 *
+		 * @since 3.0.1
+		 * @param string $action   Stored action.
+		 * @param object $activity Activity item.
+		 * @return string
+		 */
+		public function bpjm_format_resume_activity( $action, $activity ) {
+			$post = get_post( $activity->item_id );
+			if ( ! $post ) {
+				return $action;
+			}
+			/* translators: 1: member profile link, 2: URL of the resume. */
+			return sprintf( __( '%1$s published a <a href="%2$s">resume</a>', 'bp-job-manager' ), bp_core_get_userlink( $activity->user_id ), esc_url( get_permalink( $post ) ) );
+		}
+
+		/**
 		 * Add the job/resume activity, or update the one it already has.
 		 *
 		 * @param object $post          Post object.

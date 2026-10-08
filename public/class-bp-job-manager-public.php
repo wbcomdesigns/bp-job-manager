@@ -1039,7 +1039,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				&& bp_is_user() && bp_is_my_profile() ) {
 				$actions = array(
 					'relist' => array(
-						'label' => __( 'Relist', 'wp-job-manager' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch -- WP Job Manager's own label, so its translations apply.
+						'label' => __( 'Relist', 'bp-job-manager' ),
 						'nonce' => 'job_manager_my_job_actions',
 					),
 				) + $actions;
@@ -1363,7 +1363,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			if ( 'expired' === $job->post_status && ! isset( $actions['relist'] ) && bp_is_user() && bp_is_my_profile() ) {
 				$actions = array(
 					'relist' => array(
-						'label' => __( 'Relist', 'wp-job-manager-resumes' ), // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch -- Resume Manager's own label, so its translations apply.
+						'label' => __( 'Relist', 'bp-job-manager' ),
 						'nonce' => true,
 					),
 				) + $actions;
