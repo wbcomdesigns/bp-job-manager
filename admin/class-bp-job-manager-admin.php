@@ -103,7 +103,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 					/**
 					 * Resumes menu - for the roles allowed for job posting.
 					 */
-					if ( bpjm_user_can_apply_job( $curr_user ) ) {
+					if ( bpjm_user_can_apply_job( $curr_user ) && bpjm_is_plugin_active( 'wp-job-manager-resumes/wp-job-manager-resumes.php' ) ) {
 						// Resumes menu.
 						$profile_menu_slug  = 'resumes';
 						$profile_menu_title = esc_html__( 'Resumes', 'bp-job-manager' );
@@ -112,15 +112,14 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 						$my_resumes_count = bpjm_member_profile_resumes_count( get_current_user_id() );
 
 						$base_url         = bp_loggedin_user_domain() . $profile_menu_slug;
-						$my_resumes_url   = $base_url . '/my-resumes';
-						$applied_jobs_url = $base_url . '/applied-jobs';
-						$add_resume_url   = $base_url . '/add-resume';
+						$my_resumes_url = $base_url . '/my-resumes';
+						$add_resume_url = $base_url . '/add-resume';
 
 						$wp_admin_bar->add_menu(
 							array(
 								'parent' => 'my-account-buddypress',
 								'id'     => 'my-account-' . $profile_menu_slug,
-								'title'  => esc_html( $profile_menu_title ) . ' <span class="count">' . bp_core_number_format( $my_resumes_count ) . '</span>',
+								'title'  => esc_html( $profile_menu_title ) . ( $my_resumes_count ? ' <span class="count">' . bp_core_number_format( $my_resumes_count ) . '</span>' : '' ),
 								'href'   => trailingslashit( $my_resumes_url ),
 							)
 						);
@@ -132,15 +131,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 								'id'     => 'my-account-' . $profile_menu_slug . '-my-resumes',
 								'title'  => esc_html__( 'My Resumes', 'bp-job-manager' ),
 								'href'   => trailingslashit( $my_resumes_url ),
-							)
-						);
-
-						$wp_admin_bar->add_menu(
-							array(
-								'parent' => 'my-account-' . $profile_menu_slug,
-								'id'     => 'my-account-' . $profile_menu_slug . '-applied-jobs',
-								'title'  => esc_html__( 'Applied Jobs', 'bp-job-manager' ),
-								'href'   => trailingslashit( $applied_jobs_url ),
 							)
 						);
 
@@ -173,7 +163,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 							array(
 								'parent' => 'my-account-buddypress',
 								'id'     => 'my-account-' . $jobs_menu_slug,
-								'title'  => esc_html( $jobs_menu_title ) . ' <span class="count">' . bp_core_number_format( $my_jobs_count ) . '</span>',
+								'title'  => esc_html( $jobs_menu_title ) . ( $my_jobs_count ? ' <span class="count">' . bp_core_number_format( $my_jobs_count ) . '</span>' : '' ),
 								'href'   => trailingslashit( $my_jobs_url ),
 							)
 						);
@@ -187,6 +177,17 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 								'href'   => trailingslashit( $my_jobs_url ),
 							)
 						);
+
+						if ( bpjm_is_plugin_active( 'wp-job-manager-applications/wp-job-manager-applications.php' ) ) {
+							$wp_admin_bar->add_menu(
+								array(
+									'parent' => 'my-account-' . $jobs_menu_slug,
+									'id'     => 'my-account-' . $jobs_menu_slug . '-applied-jobs',
+									'title'  => esc_html__( 'Applied Jobs', 'bp-job-manager' ),
+									'href'   => trailingslashit( $jobs_base_url . '/applied-jobs' ),
+								)
+							);
+						}
 
 						$wp_admin_bar->add_menu(
 							array(
@@ -204,11 +205,13 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 
 
 		/**
-		 * Post a BuddyPress activity when a job is published for the first time.
+		 * One BuddyPress activity per job: added when it is first published, kept
+		 * current when it is edited.
 		 *
-		 * Publish and update are different: this fires only on the transition to
-		 * publish (e.g. pending/draft -> publish). Editing or re-saving an
-		 * already published job (publish -> publish) adds nothing.
+		 * Fires on every status transition. A job going back to publish (relist,
+		 * re-publish after hide) reuses the entry it already has instead of adding
+		 * a second one, and an edit to a published job (publish -> publish)
+		 * refreshes the entry's title and text without moving it in the stream.
 		 *
 		 * @param string $new_status New post status.
 		 * @param string $old_status Previous post status.
@@ -216,7 +219,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @return void
 		 */
 		public function bpjm_publish_job_listing( $new_status, $old_status, $post ) {
-			if ( 'publish' !== $new_status || 'publish' === $old_status || 'job_listing' !== $post->post_type ) {
+			if ( 'publish' !== $new_status || 'job_listing' !== $post->post_type ) {
 				return;
 			}
 
@@ -226,14 +229,15 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 			}
 
 			/* translators: 1: member profile link, 2: job title link. */
-			$this->bpjm_add_publish_activity( $post, 'bpjm_job_post', __( '%1$s posted a job: %2$s', 'bp-job-manager' ) );
+			$action = sprintf( __( '%1$s posted a job: %2$s', 'bp-job-manager' ), bp_core_get_userlink( $post->post_author ), '<a href="' . esc_url( get_permalink( $post->ID ) ) . '">' . esc_html( $post->post_title ) . '</a>' );
+			$this->bpjm_save_publish_activity( $post, 'bpjm_job_post', $action, 'publish' === $old_status );
 		}
 
 		/**
-		 * Post a BuddyPress activity when a resume is published for the first time.
+		 * One BuddyPress activity per resume, same rules as bpjm_publish_job_listing().
 		 *
-		 * Same publish-only rule as bpjm_publish_job_listing(): fires on the
-		 * transition to publish, never on later updates.
+		 * A resume's title is the candidate's own name, so the entry reads
+		 * "Fiona published a resume" rather than repeating the name as a link.
 		 *
 		 * @param string $new_status New post status.
 		 * @param string $old_status Previous post status.
@@ -241,7 +245,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 * @return void
 		 */
 		public function bpjm_publish_resume( $new_status, $old_status, $post ) {
-			if ( 'publish' !== $new_status || 'publish' === $old_status || 'resume' !== $post->post_type ) {
+			if ( 'publish' !== $new_status || 'resume' !== $post->post_type ) {
 				return;
 			}
 
@@ -250,35 +254,54 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 				return;
 			}
 
-			/* translators: 1: member profile link, 2: resume title link. */
-			$this->bpjm_add_publish_activity( $post, 'bpjm_resume_publish', __( '%1$s published a resume: %2$s', 'bp-job-manager' ) );
+			/* translators: 1: member profile link, 2: URL of the resume. */
+			$action = sprintf( __( '%1$s published a <a href="%2$s">resume</a>', 'bp-job-manager' ), bp_core_get_userlink( $post->post_author ), esc_url( get_permalink( $post->ID ) ) );
+			$this->bpjm_save_publish_activity( $post, 'bpjm_resume_publish', $action, 'publish' === $old_status );
 		}
 
 		/**
-		 * Add the "posted a new job/resume" BuddyPress activity for a post.
+		 * Add the job/resume activity, or update the one it already has.
 		 *
 		 * @param object $post          Post object.
 		 * @param string $activity_type Activity type (bpjm_job_post|bpjm_resume_publish).
-		 * @param string $action_format Translated sprintf format for the activity action.
+		 * @param string $action        Rendered activity action.
+		 * @param bool   $is_edit       True for an edit to an already published post: update only, never add.
 		 * @return void
 		 */
-		private function bpjm_add_publish_activity( $post, $activity_type, $action_format ) {
+		private function bpjm_save_publish_activity( $post, $activity_type, $action, $is_edit ) {
 			if ( ! function_exists( 'bp_activity_add' ) ) {
 				return;
 			}
 
-			$permalink = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '">' . esc_html( $post->post_title ) . '</a>';
+			$args = array(
+				'type'      => $activity_type,
+				'action'    => $action,
+				'component' => 'activity',
+				'user_id'   => $post->post_author,
+				'item_id'   => $post->ID,
+				'content'   => $post->post_content,
+			);
 
-			bp_activity_add(
+			$existing_id = bp_activity_get_activity_id(
 				array(
-					'type'      => $activity_type,
-					'action'    => sprintf( $action_format, bp_core_get_userlink( $post->post_author ), $permalink ),
 					'component' => 'activity',
-					'user_id'   => $post->post_author,
+					'type'      => $activity_type,
 					'item_id'   => $post->ID,
-					'content'   => $post->post_content,
 				)
 			);
+
+			// An edit refreshes an existing entry; it never announces an old post as new.
+			if ( $is_edit && ! $existing_id ) {
+				return;
+			}
+
+			if ( $existing_id ) {
+				$existing              = new BP_Activity_Activity( $existing_id );
+				$args['id']            = $existing_id;
+				$args['recorded_time'] = $existing->date_recorded; // Keep its place in the stream.
+			}
+
+			bp_activity_add( $args );
 		}
 
 		/**

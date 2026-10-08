@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wbcom Designs - BuddyPress Job Manager 2.8.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bp-job-manager\n"
-"POT-Creation-Date: 2026-10-08T12:43:25+00:00\n"
+"POT-Creation-Date: 2026-10-08T13:14:03+00:00\n"
 "PO-Revision-Date: 2026-07-16T11:32:19+00:00\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -27,13 +27,8 @@ msgstr "https://wbcomdesigns.com/"
 
 #. Description of the plugin
 #: bp-job-manager.php
-msgid ""
-"This plugin integrates WordPress Job Manager with BuddyPress. Allows the "
-"members to post jobs, and others to apply for those posted jobs."
-msgstr ""
-"Questo plugin integra WordPress Job Manager con BuddyPress. Consente ai "
-"membri di pubblicare annunci di lavoro e ad altri di candidarsi per gli "
-"annunci pubblicati."
+msgid "This plugin integrates WordPress Job Manager with BuddyPress. Allows the members to post jobs, and others to apply for those posted jobs."
+msgstr "Questo plugin integra WordPress Job Manager con BuddyPress. Consente ai membri di pubblicare annunci di lavoro e ad altri di candidarsi per gli annunci pubblicati."
 
 #. Author of the plugin
 #: bp-job-manager.php
@@ -117,14 +112,8 @@ msgstr "BuddyPress Job Manager"
 #. translators: 1. Name
 #: admin/class-bp-job-manager-admin-feedback.php:211
 #, php-format
-msgid ""
-"We hope you're enjoying %1$s! Could you please do us a BIG favor and give it "
-"a 5-star rating on WordPress to help us spread the word and boost our "
-"motivation?"
-msgstr ""
-"Speriamo che tu stia apprezzando %1$s! Potresti farci un GRAN favore e "
-"dargli una valutazione a 5 stelle su WordPress per aiutarci a diffondere la "
-"voce e aumentare la nostra motivazione?"
+msgid "We hope you're enjoying %1$s! Could you please do us a BIG favor and give it a 5-star rating on WordPress to help us spread the word and boost our motivation?"
+msgstr "Speriamo che tu stia apprezzando %1$s! Potresti farci un GRAN favore e dargli una valutazione a 5 stelle su WordPress per aiutarci a diffondere la voce e aumentare la nostra motivazione?"
 
 #: admin/class-bp-job-manager-admin-feedback.php:216
 msgid "Leave a Review"
@@ -138,59 +127,55 @@ msgstr "No grazie / L'ho già fatto"
 msgid "Resumes"
 msgstr "Curriculum"
 
-#: admin/class-bp-job-manager-admin.php:133
-#: public/class-bp-job-manager-public.php:211
+#: admin/class-bp-job-manager-admin.php:132
+#: public/class-bp-job-manager-public.php:213
 msgid "My Resumes"
 msgstr "I miei curriculum"
 
-#: admin/class-bp-job-manager-admin.php:142
-#: public/class-bp-job-manager-public.php:976
-#: public/class-bp-job-manager-public.php:1108
-msgid "Applied Jobs"
-msgstr "Annunci a cui mi sono candidato"
-
-#: admin/class-bp-job-manager-admin.php:151
-#: public/class-bp-job-manager-public.php:961
-#: public/class-bp-job-manager-public.php:1010
+#: admin/class-bp-job-manager-admin.php:141
+#: public/class-bp-job-manager-public.php:1129
+#: public/class-bp-job-manager-public.php:1163
 msgid "Add Resume"
 msgstr "Aggiungi Curriculum"
 
-#: admin/class-bp-job-manager-admin.php:163
+#: admin/class-bp-job-manager-admin.php:153
 msgid "Jobs"
 msgstr "Annunci"
 
-#: admin/class-bp-job-manager-admin.php:186
-#: public/class-bp-job-manager-public.php:219
+#: admin/class-bp-job-manager-admin.php:176
+#: public/class-bp-job-manager-public.php:221
 msgid "My Jobs"
 msgstr "I miei annunci"
 
-#: admin/class-bp-job-manager-admin.php:195
-#: public/class-bp-job-manager-public.php:524
-#: public/class-bp-job-manager-public.php:589
+#: admin/class-bp-job-manager-admin.php:186
+#: public/class-bp-job-manager-public.php:533
+#: public/class-bp-job-manager-public.php:1290
+msgid "Applied Jobs"
+msgstr "Annunci a cui mi sono candidato"
+
+#: admin/class-bp-job-manager-admin.php:196
+#: public/class-bp-job-manager-public.php:546
+#: public/class-bp-job-manager-public.php:611
 msgid "Post Job"
 msgstr "Pubblica annuncio"
 
 #. translators: 1: member profile link, 2: job title link.
-#: admin/class-bp-job-manager-admin.php:229
+#: admin/class-bp-job-manager-admin.php:232
 #, php-format
 msgid "%1$s posted a job: %2$s"
 msgstr "%1$s ha pubblicato un annuncio: %2$s"
 
-#. translators: 1: member profile link, 2: resume title link.
-#: admin/class-bp-job-manager-admin.php:254
+#. translators: 1: member profile link, 2: URL of the resume.
+#: admin/class-bp-job-manager-admin.php:258
 #, php-format
-msgid "%1$s published a resume: %2$s"
-msgstr "%1$s ha pubblicato un curriculum: %2$s"
+msgid "%1$s published a <a href=\"%2$s\">resume</a>"
+msgstr "%1$s ha pubblicato un <a href=\"%2$s\">curriculum</a>"
 
 #. translators: %1$s: BuddyPress Job Manager ;  %2$s: BuddyPress ; %3$s: WP Job Manager
 #: bp-job-manager.php:157
 #, php-format
-msgid ""
-"%1$s is ineffective now as it requires %2$s and %3$s to be installed and "
-"active."
-msgstr ""
-"%1$s non è efficace ora poiché richiede che %2$s e %3$s siano installati e "
-"attivi."
+msgid "%1$s is ineffective now as it requires %2$s and %3$s to be installed and active."
+msgstr "%1$s non è efficace ora poiché richiede che %2$s e %3$s siano installati e attivi."
 
 #: bp-job-manager.php:204 includes/admin/views/shell.php:68
 msgid "Settings"
@@ -240,86 +225,52 @@ msgid "Cancel"
 msgstr "Annulla"
 
 #: includes/admin/views/discover.php:28
-msgid ""
-"A free, fast community theme for BuddyPress, BuddyBoss and PeepSo with a "
-"modern layout and dark mode."
-msgstr ""
-"Un tema community gratuito e veloce per BuddyPress, BuddyBoss e PeepSo con "
-"un layout moderno e modalità scura."
+msgid "A free, fast community theme for BuddyPress, BuddyBoss and PeepSo with a modern layout and dark mode."
+msgstr "Un tema community gratuito e veloce per BuddyPress, BuddyBoss e PeepSo con un layout moderno e modalità scura."
 
 #: includes/admin/views/discover.php:34
-msgid ""
-"The social network layer for WordPress, with feeds, member spaces, and "
-"messaging."
-msgstr ""
-"Lo strato di social network per WordPress, con feed, spazi membri e "
-"messaggistica."
+msgid "The social network layer for WordPress, with feeds, member spaces, and messaging."
+msgstr "Lo strato di social network per WordPress, con feed, spazi membri e messaggistica."
 
 #: includes/admin/views/discover.php:40
 msgid "Self-moderating forums and Q&A boards that scale to huge topic counts."
-msgstr ""
-"Forum autogestiti e bacheche di domande e risposte che si adattano a enormi "
-"quantità di argomenti."
+msgstr "Forum autogestiti e bacheche di domande e risposte che si adattano a enormi quantità di argomenti."
 
 #: includes/admin/views/discover.php:46
 msgid "A photo and video community with albums, reactions, following, and DMs."
-msgstr ""
-"Una comunità di foto e video con album, reazioni, follow e messaggi privati."
+msgstr "Una comunità di foto e video con album, reazioni, follow e messaggi privati."
 
 #: includes/admin/views/discover.php:53
 msgid "Run community events with RSVPs, calendars, and front-end submissions."
-msgstr ""
-"Gestisci gli eventi della community con RSVP, calendari e iscrizioni dal "
-"frontend."
+msgstr "Gestisci gli eventi della community con RSVP, calendari e iscrizioni dal frontend."
 
 #: includes/admin/views/discover.php:60
-msgid ""
-"Reward members with points, badges, and leaderboards to keep engagement high."
-msgstr ""
-"Premia i membri con punti, badge e classifiche per mantenere alto "
-"l'engagement."
+msgid "Reward members with points, badges, and leaderboards to keep engagement high."
+msgstr "Premia i membri con punti, badge e classifiche per mantenere alto l'engagement."
 
 #: includes/admin/views/discover.php:66
 msgid "Build directories your members can search, review, map, and submit to."
-msgstr ""
-"Crea directory che i tuoi membri possono cercare, recensire, mappare e "
-"compilare."
+msgstr "Crea directory che i tuoi membri possono cercare, recensire, mappare e compilare."
 
 #: includes/admin/views/discover.php:73
-msgid ""
-"Add a job board with front-end listings, applications, and employer profiles."
-msgstr ""
-"Aggiungi una bacheca lavori con annunci dal frontend, candidature e profili "
-"dei datori di lavoro."
+msgid "Add a job board with front-end listings, applications, and employer profiles."
+msgstr "Aggiungi una bacheca lavori con annunci dal frontend, candidature e profili dei datori di lavoro."
 
 #: includes/admin/views/discover.php:79
-msgid ""
-"Sell online courses with quizzes, payments, and completion certificates."
+msgid "Sell online courses with quizzes, payments, and completion certificates."
 msgstr "Vendi corsi online con quiz, pagamenti e certificati di completamento."
 
 #: includes/admin/views/discover.php:86
-msgid ""
-"A free service marketplace with vendor dashboards, an 11-status order flow, "
-"and Stripe or PayPal built in."
-msgstr ""
-"Un marketplace di servizi gratuito con dashboard per i venditori, un flusso "
-"ordini a 11 stati e Stripe o PayPal integrati."
+msgid "A free service marketplace with vendor dashboards, an 11-status order flow, and Stripe or PayPal built in."
+msgstr "Un marketplace di servizi gratuito con dashboard per i venditori, un flusso ordini a 11 stati e Stripe o PayPal integrati."
 
 #: includes/admin/views/discover.php:94
 msgid "More Free Tools from Wbcom Designs"
 msgstr "Altri strumenti gratuiti da Wbcom Designs"
 
 #: includes/admin/views/discover.php:95
-msgid ""
-"Job Manager brings hiring into member profiles. These free Wbcom Designs "
-"plugins build out the rest of the community around those careers: the theme "
-"and network itself, forums, media, events, gamification, directories, jobs, "
-"courses, and services."
-msgstr ""
-"Job Manager porta il reclutamento nei profili dei membri. Questi plugin "
-"gratuiti Wbcom Designs costruiscono il resto della comunità attorno a quelle "
-"carriere: il tema e la rete stessa, forum, media, eventi, gamification, "
-"directory, lavori, corsi e servizi."
+msgid "Job Manager brings hiring into member profiles. These free Wbcom Designs plugins build out the rest of the community around those careers: the theme and network itself, forums, media, events, gamification, directories, jobs, courses, and services."
+msgstr "Job Manager porta il reclutamento nei profili dei membri. Questi plugin gratuiti Wbcom Designs costruiscono il resto della comunità attorno a quelle carriere: il tema e la rete stessa, forum, media, eventi, gamification, directory, lavori, corsi e servizi."
 
 #: includes/admin/views/discover.php:107
 msgid "Get it free"
@@ -344,8 +295,7 @@ msgid "No Wbcom plugins attached to this hub yet"
 msgstr "Nessun plugin Wbcom collegato a questo hub ancora"
 
 #: includes/admin/views/hub.php:91
-msgid ""
-"Activate one or more Wbcom plugins and they will appear here automatically."
+msgid "Activate one or more Wbcom plugins and they will appear here automatically."
 msgstr "Attiva uno o più plugin Wbcom e appariranno qui automaticamente."
 
 #: includes/admin/views/hub.php:106
@@ -357,14 +307,8 @@ msgid "About WB Plugins"
 msgstr "Informazioni su Plugin WB"
 
 #: includes/admin/views/hub.php:120
-msgid ""
-"This hub is the single entry point for every Wbcom Designs plugin installed "
-"on your site. Each plugin lives on its own page under this menu and keeps "
-"its own settings and data."
-msgstr ""
-"Questo hub è il singolo punto di ingresso per ogni plugin Wbcom Designs "
-"installato sul tuo sito. Ogni plugin ha la sua pagina sotto questo menu e "
-"mantiene le sue impostazioni e i dati."
+msgid "This hub is the single entry point for every Wbcom Designs plugin installed on your site. Each plugin lives on its own page under this menu and keeps its own settings and data."
+msgstr "Questo hub è il singolo punto di ingresso per ogni plugin Wbcom Designs installato sul tuo sito. Ogni plugin ha la sua pagina sotto questo menu e mantiene le sue impostazioni e i dati."
 
 #: includes/admin/views/hub.php:124
 msgid "Visit wbcomdesigns.com for more plugins and themes →"
@@ -385,33 +329,24 @@ msgid "Adds resume management inside profiles"
 msgstr "Aggiunge la gestione dei curriculum all'interno dei profili"
 
 #: includes/admin/views/overview.php:49
-msgid "Lets members apply to jobs from their profile"
-msgstr "Consente ai membri di candidarsi ai lavori dal loro profilo"
+msgid "Lets members apply to jobs and follow each application from their profile"
+msgstr "Permette ai membri di candidarsi agli annunci e seguire ogni candidatura dal proprio profilo"
 
 #: includes/admin/views/overview.php:57
 msgid "Required plugins missing."
 msgstr "Plugin richiesti mancanti."
 
 #: includes/admin/views/overview.php:58
-msgid ""
-"BuddyPress Job Manager needs both BuddyPress and WP Job Manager to be "
-"active. Activate them to use the profile job and resume features."
-msgstr ""
-"BuddyPress Job Manager ha bisogno che sia BuddyPress che WP Job Manager "
-"siano attivi. Attivali per utilizzare le funzioni del profilo dei lavori e "
-"dei curriculum."
+msgid "BuddyPress Job Manager needs both BuddyPress and WP Job Manager to be active. Activate them to use the profile job and resume features."
+msgstr "BuddyPress Job Manager ha bisogno che sia BuddyPress che WP Job Manager siano attivi. Attivali per utilizzare le funzioni del profilo dei lavori e dei curriculum."
 
 #: includes/admin/views/overview.php:65
 msgid "Required Integrations"
 msgstr "Integrazioni Richieste"
 
 #: includes/admin/views/overview.php:66
-msgid ""
-"What this plugin connects to. Resume and application features need the "
-"matching WP Job Manager add-ons."
-msgstr ""
-"A cosa si connette questo plugin. Le funzioni di curriculum e candidatura "
-"richiedono i corrispondenti componenti aggiuntivi di WP Job Manager."
+msgid "What this plugin connects to. Resume and application features need the matching WP Job Manager add-ons."
+msgstr "A cosa si connette questo plugin. Le funzioni di curriculum e candidatura richiedono i corrispondenti componenti aggiuntivi di WP Job Manager."
 
 #: includes/admin/views/overview.php:73 includes/admin/views/overview.php:83
 #: includes/admin/views/overview.php:98 includes/admin/views/overview.php:113
@@ -437,12 +372,8 @@ msgid "Current Configuration"
 msgstr "Configurazione Attuale"
 
 #: includes/admin/views/overview.php:125
-msgid ""
-"What happens right now when members post jobs, publish resumes, or apply. "
-"Change any of these on the General tab."
-msgstr ""
-"Cosa accade ora quando i membri pubblicano lavori, pubblicano curriculum o "
-"si candidano. Modifica uno qualsiasi di questi nella scheda Generale."
+msgid "What happens right now when members post jobs, publish resumes, or apply. Change any of these on the General tab."
+msgstr "Cosa accade ora quando i membri pubblicano lavori, pubblicano curriculum o si candidano. Modifica uno qualsiasi di questi nella scheda Generale."
 
 #: includes/admin/views/overview.php:129
 msgid "Activity for job posts"
@@ -463,8 +394,7 @@ msgstr "Attività per i curriculum"
 
 #: includes/admin/views/overview.php:144
 msgid "On: a new resume creates a BuddyPress activity update"
-msgstr ""
-"Attivo: un nuovo curriculum crea un aggiornamento di attività BuddyPress"
+msgstr "Attivo: un nuovo curriculum crea un aggiornamento di attività BuddyPress"
 
 #: includes/admin/views/overview.php:154
 #: includes/admin/views/settings-general.php:93
@@ -473,9 +403,7 @@ msgstr "Notifiche di candidatura"
 
 #: includes/admin/views/overview.php:157
 msgid "On: job authors get a BuddyPress notification for each application"
-msgstr ""
-"Attivo: gli autori dei lavori ricevono una notifica BuddyPress per ogni "
-"candidatura"
+msgstr "Attivo: gli autori dei lavori ricevono una notifica BuddyPress per ogni candidatura"
 
 #: includes/admin/views/overview.php:170
 msgid "Quick Actions"
@@ -494,12 +422,8 @@ msgid "Activity & Notifications"
 msgstr "Attività e Notifiche"
 
 #: includes/admin/views/settings-general.php:68
-msgid ""
-"Decide what shows up in the BuddyPress activity feed and which notifications "
-"members receive."
-msgstr ""
-"Decidi cosa appare nel feed di attività di BuddyPress e quali notifiche "
-"ricevono i membri."
+msgid "Decide what shows up in the BuddyPress activity feed and which notifications members receive."
+msgstr "Decidi cosa appare nel feed di attività di BuddyPress e quali notifiche ricevono i membri."
 
 #: includes/admin/views/settings-general.php:72
 msgid "Post job activity"
@@ -507,9 +431,7 @@ msgstr "Attività di pubblicazione dei lavori"
 
 #: includes/admin/views/settings-general.php:76
 msgid "Add a BuddyPress activity update when a member posts a job"
-msgstr ""
-"Aggiungi un aggiornamento di attività BuddyPress quando un membro pubblica "
-"un lavoro"
+msgstr "Aggiungi un aggiornamento di attività BuddyPress quando un membro pubblica un lavoro"
 
 #: includes/admin/views/settings-general.php:82
 msgid "Post resume activity"
@@ -517,38 +439,25 @@ msgstr "Attività di pubblicazione del curriculum"
 
 #: includes/admin/views/settings-general.php:86
 msgid "Add a BuddyPress activity update when a member publishes a resume"
-msgstr ""
-"Aggiungi un aggiornamento di attività BuddyPress quando un membro pubblica "
-"un curriculum"
+msgstr "Aggiungi un aggiornamento di attività BuddyPress quando un membro pubblica un curriculum"
 
 #: includes/admin/views/settings-general.php:97
 msgid "Send the job author a BuddyPress notification when someone applies"
-msgstr ""
-"Invia all'autore del lavoro una notifica BuddyPress quando qualcuno si "
-"candida"
+msgstr "Invia all'autore del lavoro una notifica BuddyPress quando qualcuno si candida"
 
 #: includes/admin/views/settings-general.php:109
 msgid "More options unlock with the WP Job Manager add-ons."
-msgstr ""
-"Altre opzioni si sbloccano con i componenti aggiuntivi di WP Job Manager."
+msgstr "Altre opzioni si sbloccano con i componenti aggiuntivi di WP Job Manager."
 
 #. translators: 1: "Resume Manager" add-on name, 2: "Applications" add-on name. Both are WP Job Manager product names, do not translate the placeholder values.
 #: includes/admin/views/settings-general.php:112
 #, php-format
-msgid ""
-"Install the %1$s and %2$s add-ons to manage resumes on profiles and notify "
-"job authors about new applications."
-msgstr ""
-"Installa i componenti aggiuntivi %1$s e %2$s per gestire i curriculum sui "
-"profili e notificare agli autori dei lavori le nuove candidature."
+msgid "Install the %1$s and %2$s add-ons to manage resumes on profiles and notify job authors about new applications."
+msgstr "Installa i componenti aggiuntivi %1$s e %2$s per gestire i curriculum sui profili e notificare agli autori dei lavori le nuove candidature."
 
 #: includes/admin/views/shell.php:32
-msgid ""
-"Bring WP Job Manager into BuddyPress profiles. Members post jobs, manage "
-"resumes, and apply, all from their profile."
-msgstr ""
-"Porta WP Job Manager nei profili di BuddyPress. I membri pubblicano lavori, "
-"gestiscono curriculum e si candidano, tutto dal loro profilo."
+msgid "Bring WP Job Manager into BuddyPress profiles. Members post jobs, manage resumes, and apply, all from their profile."
+msgstr "Porta WP Job Manager nei profili di BuddyPress. I membri pubblicano lavori, gestiscono curriculum e si candidano, tutto dal loro profilo."
 
 #: includes/admin/views/shell.php:61
 msgid "Plugin"
@@ -587,134 +496,126 @@ msgid "Getting Started"
 msgstr "Per Iniziare"
 
 #: includes/admin/views/welcome.php:22
-msgid ""
-"BuddyPress Job Manager connects WP Job Manager to BuddyPress, adding "
-"dedicated Jobs and Resumes tabs to member profiles so employers and "
-"candidates can work entirely from their profile."
-msgstr ""
-"BuddyPress Job Manager collega WP Job Manager a BuddyPress, aggiungendo "
-"schede dedicate agli Annunci e ai Curriculum nei profili dei membri in modo "
-"che i datori di lavoro e i candidati possano lavorare interamente dal loro "
-"profilo."
+msgid "BuddyPress Job Manager connects WP Job Manager to BuddyPress, adding dedicated Jobs and Resumes tabs to member profiles so employers and candidates can work entirely from their profile."
+msgstr "BuddyPress Job Manager collega WP Job Manager a BuddyPress, aggiungendo schede dedicate agli Annunci e ai Curriculum nei profili dei membri in modo che i datori di lavoro e i candidati possano lavorare interamente dal loro profilo."
 
 #: includes/admin/views/welcome.php:25
-msgid ""
-"There is nothing to configure to get started. A member who posts a job gets "
-"a Jobs tab and a member who publishes a resume gets a Resumes tab. Use the "
-"General tab only to control activity-feed updates and application "
-"notifications."
-msgstr ""
-"Non c'è nulla da configurare per iniziare. Un membro che pubblica un "
-"annuncio ottiene una scheda Annunci, un membro che pubblica un curriculum "
-"ottiene una scheda Curriculum. Usa la scheda Generale solo per gestire gli "
-"aggiornamenti di attività e le notifiche di candidatura."
+msgid "There is nothing to configure to get started. Every member has Jobs and Resumes tabs on their own profile, so they can post a job or add a resume. On someone else's profile a tab appears only when that member has jobs or a resume to show. Use the General tab only to control activity-feed updates and application notifications."
+msgstr "Non devi configurare nulla per iniziare. Ogni membro ha le schede Annunci e Curriculum nel proprio profilo, per pubblicare un annuncio o aggiungere un curriculum. Nel profilo di un altro membro una scheda compare solo se quel membro ha annunci o un curriculum da mostrare. Usa la scheda Generale solo per gestire gli aggiornamenti delle attività e le notifiche di candidatura."
 
 #: includes/admin/views/welcome.php:32
 msgid "Help & Support Resources"
 msgstr "Risorse di Aiuto e Supporto"
 
 #: includes/admin/views/welcome.php:33
-msgid ""
-"Find the resources you need to get help from us. The documentation is a "
-"great place to start; for anything else, our support center is ready."
-msgstr ""
-"Trova le risorse di cui hai bisogno per ottenere aiuto da noi. La "
-"documentazione è un ottimo punto di partenza; per qualsiasi altra cosa, il "
-"nostro centro di supporto è pronto."
+msgid "Find the resources you need to get help from us. The documentation is a great place to start; for anything else, our support center is ready."
+msgstr "Trova le risorse di cui hai bisogno per ottenere aiuto da noi. La documentazione è un ottimo punto di partenza; per qualsiasi altra cosa, il nostro centro di supporto è pronto."
 
 #: includes/admin/views/welcome.php:40
-msgid ""
-"Our comprehensive guide covers every aspect of the plugin. You will find "
-"most of your answers here."
-msgstr ""
-"La nostra guida completa copre ogni aspetto del plugin. Troverai la maggior "
-"parte delle tue risposte qui."
+msgid "Our comprehensive guide covers every aspect of the plugin. You will find most of your answers here."
+msgstr "La nostra guida completa copre ogni aspetto del plugin. Troverai la maggior parte delle tue risposte qui."
 
 #: includes/admin/views/welcome.php:45
 msgid "Support Center"
 msgstr "Centro di Supporto"
 
 #: includes/admin/views/welcome.php:46
-msgid ""
-"Our support center provides top-notch assistance. Reach out any time you "
-"need a hand."
-msgstr ""
-"Il nostro centro di supporto fornisce assistenza di primo livello. "
-"Contattaci quando hai bisogno di aiuto."
+msgid "Our support center provides top-notch assistance. Reach out any time you need a hand."
+msgstr "Il nostro centro di supporto fornisce assistenza di primo livello. Contattaci quando hai bisogno di aiuto."
 
 #: includes/admin/views/welcome.php:47
 msgid "Get Support"
 msgstr "Ottieni Supporto"
 
 #. translators: %s: display name of the member whose profile is being viewed.
-#: public/class-bp-job-manager-public.php:215
+#: public/class-bp-job-manager-public.php:217
 #, php-format
 msgid "Resumes by %s"
 msgstr "Curriculum di %s"
 
 #. translators: %s: display name of the member whose profile is being viewed.
-#: public/class-bp-job-manager-public.php:235
+#: public/class-bp-job-manager-public.php:237
 #, php-format
 msgid "Jobs by %s"
 msgstr "Annunci di %s"
 
 #. translators: %s: Job count
-#: public/class-bp-job-manager-public.php:438
+#: public/class-bp-job-manager-public.php:440
 #, php-format
 msgid "Jobs %s"
 msgstr "Annunci %s"
 
-#: public/class-bp-job-manager-public.php:497
-#: public/class-bp-job-manager-public.php:740
+#: public/class-bp-job-manager-public.php:499
+#: public/class-bp-job-manager-public.php:908
 msgid "My Bookmarks"
 msgstr "I miei Segnalibri"
 
-#: public/class-bp-job-manager-public.php:511
-#: public/class-bp-job-manager-public.php:775
+#: public/class-bp-job-manager-public.php:513
+#: public/class-bp-job-manager-public.php:943
 msgid "Job Alerts"
 msgstr "Avvisi di Lavoro"
 
+#. translators: %s: job title.
+#: public/class-bp-job-manager-public.php:737
+#, php-format
+msgid "Applications: %s"
+msgstr "Candidature: %s"
+
+#: public/class-bp-job-manager-public.php:739
+msgid "Edit job"
+msgstr "Modifica annuncio"
+
+#: public/class-bp-job-manager-public.php:812
+msgid "Go to My Jobs"
+msgstr "Vai ai miei annunci"
+
+#: public/class-bp-job-manager-public.php:827
+msgid "Back to My Jobs"
+msgstr "Torna ai miei annunci"
+
+#: public/class-bp-job-manager-public.php:827
+msgid "Back to My Resumes"
+msgstr "Torna ai miei curriculum"
+
 #. translators: %s: bp_core_number_format
-#: public/class-bp-job-manager-public.php:929
+#: public/class-bp-job-manager-public.php:1097
 #, php-format
 msgid "Resumes %s"
 msgstr "Curriculum %s"
 
-#: public/class-bp-job-manager-public.php:1060
-msgid "You need to be signed in to manage your resumes."
-msgstr "Devi effettuare l'accesso per gestire i tuoi curriculum."
+#: public/class-bp-job-manager-public.php:1200
+msgid "Edit resume"
+msgstr "Modifica curriculum"
 
-#: public/class-bp-job-manager-public.php:1061
-msgid "Sign in"
-msgstr "Accedi"
-
-#: public/class-bp-job-manager-public.php:1270
+#: public/class-bp-job-manager-public.php:1485
 msgid "Private Message"
 msgstr "Messaggio Privato"
 
-#: public/class-bp-job-manager-public.php:1270
+#: public/class-bp-job-manager-public.php:1485
 msgid "Send Private Message"
 msgstr "Invia Messaggio Privato"
 
 #. translators: 1: applicant display name, 2: job title.
-#: public/class-bp-job-manager-public.php:1385
+#: public/class-bp-job-manager-public.php:1600
 #, php-format
 msgid "%1$s applied for %2$s."
 msgstr "%1$s si è candidato a %2$s."
 
 #. translators: %s: applicant display name.
-#: public/class-bp-job-manager-public.php:1388
+#: public/class-bp-job-manager-public.php:1603
 #, php-format
 msgid "%s applied for one of your jobs."
 msgstr "%s si è candidato a uno dei tuoi annunci."
 
-#: public/class-bp-job-manager-public.php:1461
-msgid ""
-"You are not authorized to post a job. Please reach out to the administrator "
-"for further assistance."
-msgstr ""
-"Non sei autorizzato a pubblicare un lavoro. Contatta l'amministratore per "
-"ulteriore assistenza."
+#. translators: 1: job title, 2: application status label such as "Interviewed".
+#: public/class-bp-job-manager-public.php:1656
+#, php-format
+msgid "Your application for %1$s is now: %2$s."
+msgstr "La tua candidatura per %1$s ora è: %2$s."
+
+#: public/class-bp-job-manager-public.php:1694
+msgid "You are not authorized to post a job. Please reach out to the administrator for further assistance."
+msgstr "Non sei autorizzato a pubblicare un lavoro. Contatta l'amministratore per ulteriore assistenza."
 
 #: public/templates/bpjm-job-application.php:62
 msgid "No content available."

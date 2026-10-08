@@ -376,7 +376,9 @@
       "before_delete_post",
       "deleted_post",
       "plugin_action_links_{basename}",
-      "toplevel_page_wbcomplugins"
+      "toplevel_page_wbcomplugins",
+      "wp_redirect",
+      "template_redirect"
     ],
     "buddypress": [
       "bp_setup_nav",
@@ -396,7 +398,8 @@
       "job_manager_should_run_shortcode_action_handler",
       "job_manager_get_dashboard_jobs_args",
       "has_wpjm_shortcode",
-      "job_manager_pagination_args"
+      "job_manager_pagination_args",
+      "job_manager_job_submitted_content_after"
     ],
     "wpjm_applications": [
       "job_manager_applications_new_job_application"
@@ -637,5 +640,8 @@
     "size_class": "small",
     "schema_version": "v2.2"
   },
-  "storage_policy": "Apart from bpjm_general_settings and two regenerable count transients, this plugin writes nothing. No tables, no post types, no user meta, no auto-created pages. Activation writes only a 30-second redirect flag."
+  "storage_policy": "Apart from bpjm_general_settings and two regenerable count transients, this plugin writes nothing. No tables, no post types, no user meta, no auto-created pages. Activation writes only a 30-second redirect flag.",
+  "notes_3_0_1": [
+    "BP notification component bpjm_notify_actions: actions applied_job (to job owner) and application_status (to candidate, 3.0.1). Applied Jobs subnav moved to the Jobs tab; /resumes/applied-jobs/ redirects."
+  ]
 }

@@ -117,11 +117,12 @@
 }
 
 /*
- * Job-card meta (visitor view): WP Job Manager greys it to #999, which fails
+ * Job- and resume-card meta (visitor view): both host plugins grey it to #999, which fails
  * contrast. Inherit the card's text colour instead - mixing from #999 would
  * only grey it further. The job-type badge keeps its own colour.
  */
-.bpjm-screen:not(#bpjm) ul.job_listings li.job_listing :is(.company, .company strong, .tagline, .location, .location small, .meta, .date, .date time) {
+.bpjm-screen:not(#bpjm) ul.job_listings li.job_listing :is(.company, .company strong, .tagline, .location, .location small, .meta, .date, .date time),
+.bpjm-screen:not(#bpjm) ul.resumes li.resume :is(.candidate-title, .candidate-location-column, .resume-posted-column, .resume-meta) {
 	color: inherit;
 }
 
@@ -136,6 +137,16 @@
 	flex-wrap: wrap;
 	gap: 8px;
 	min-width: 0;
+}
+
+/* "Back to My Jobs" above a sub-screen, "Go to My Jobs" after posting. */
+.bpjm-screen .bpjm-back {
+	margin: 0 0 16px;
+	font-size: 14px;
+}
+
+.bpjm-screen .bpjm-next {
+	margin: 16px 0 0;
 }
 
 /* Link-style row actions stay links, in the theme's link colour. */
@@ -270,7 +281,8 @@
 
 .bpjm-screen .candidate-dashboard-action-delete,
 .bpjm-screen .job-dashboard-action-delete,
-.bpjm-screen:not(#bpjm) a.jm-alert__action[href*="action=delete"] {
+.bpjm-screen:not(#bpjm) a.jm-alert__action[href*="action=delete"],
+.bpjm-screen:not(#bpjm) .resume-manager-remove-row {
 	color: var(--jm-ui-danger-color, #cc1818);
 }
 
@@ -443,6 +455,12 @@
 		flex: 1 1 100%;
 		justify-content: space-between;
 	}
+
+	/* 40px tap targets for the dashboard's row buttons and the actions menu. */
+	.bpjm-screen:not(#bpjm) .jm-dashboard-job :is(.jm-ui-button, .jm-ui-action-menu__open-button) {
+		min-height: 40px;
+		min-width: 40px;
+	}
 }
 
 /*--------------------------------------------------------------
@@ -465,13 +483,13 @@
 	border-color: rgba(255, 255, 255, 0.14);
 }
 
-/* Job cards (visitor view): WP Job Manager paints each card white, featured ones pale yellow. */
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-screen:not(#bpjm) ul.job_listings li.job_listing a {
+/* Job and resume cards (visitor view): the host plugins paint featured ones pale yellow. */
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-screen:not(#bpjm) :is(ul.job_listings li.job_listing, ul.resumes li.resume) a {
 	background: transparent;
 	color: inherit;
 }
 
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-screen:not(#bpjm) ul.job_listings li.job_position_featured a {
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-screen:not(#bpjm) :is(ul.job_listings li.job_position_featured, ul.resumes li.resume_featured) a {
 	background: var(--bpjm-surface);
 }
 

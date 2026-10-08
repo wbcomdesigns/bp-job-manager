@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T12:43:25+00:00\n"
+"POT-Creation-Date: 2026-10-08T13:14:03+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bp-job-manager\n"
@@ -128,48 +128,48 @@ msgstr ""
 msgid "Resumes"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:133
-#: public/class-bp-job-manager-public.php:211
+#: admin/class-bp-job-manager-admin.php:132
+#: public/class-bp-job-manager-public.php:213
 msgid "My Resumes"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:142
-#: public/class-bp-job-manager-public.php:976
-#: public/class-bp-job-manager-public.php:1108
-msgid "Applied Jobs"
-msgstr ""
-
-#: admin/class-bp-job-manager-admin.php:151
-#: public/class-bp-job-manager-public.php:961
-#: public/class-bp-job-manager-public.php:1010
+#: admin/class-bp-job-manager-admin.php:141
+#: public/class-bp-job-manager-public.php:1129
+#: public/class-bp-job-manager-public.php:1163
 msgid "Add Resume"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:163
+#: admin/class-bp-job-manager-admin.php:153
 msgid "Jobs"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:186
-#: public/class-bp-job-manager-public.php:219
+#: admin/class-bp-job-manager-admin.php:176
+#: public/class-bp-job-manager-public.php:221
 msgid "My Jobs"
 msgstr ""
 
-#: admin/class-bp-job-manager-admin.php:195
-#: public/class-bp-job-manager-public.php:524
-#: public/class-bp-job-manager-public.php:589
+#: admin/class-bp-job-manager-admin.php:186
+#: public/class-bp-job-manager-public.php:533
+#: public/class-bp-job-manager-public.php:1290
+msgid "Applied Jobs"
+msgstr ""
+
+#: admin/class-bp-job-manager-admin.php:196
+#: public/class-bp-job-manager-public.php:546
+#: public/class-bp-job-manager-public.php:611
 msgid "Post Job"
 msgstr ""
 
 #. translators: 1: member profile link, 2: job title link.
-#: admin/class-bp-job-manager-admin.php:229
+#: admin/class-bp-job-manager-admin.php:232
 #, php-format
 msgid "%1$s posted a job: %2$s"
 msgstr ""
 
-#. translators: 1: member profile link, 2: resume title link.
-#: admin/class-bp-job-manager-admin.php:254
+#. translators: 1: member profile link, 2: URL of the resume.
+#: admin/class-bp-job-manager-admin.php:258
 #, php-format
-msgid "%1$s published a resume: %2$s"
+msgid "%1$s published a <a href=\"%2$s\">resume</a>"
 msgstr ""
 
 #. translators: %1$s: BuddyPress Job Manager ;  %2$s: BuddyPress ; %3$s: WP Job Manager
@@ -334,7 +334,7 @@ msgid "Adds resume management inside profiles"
 msgstr ""
 
 #: includes/admin/views/overview.php:49
-msgid "Lets members apply to jobs from their profile"
+msgid "Lets members apply to jobs and follow each application from their profile"
 msgstr ""
 
 #: includes/admin/views/overview.php:57
@@ -513,7 +513,7 @@ msgid "BuddyPress Job Manager connects WP Job Manager to BuddyPress, adding dedi
 msgstr ""
 
 #: includes/admin/views/welcome.php:25
-msgid "There is nothing to configure to get started. A member who posts a job gets a Jobs tab and a member who publishes a resume gets a Resumes tab. Use the General tab only to control activity-feed updates and application notifications."
+msgid "There is nothing to configure to get started. Every member has Jobs and Resumes tabs on their own profile, so they can post a job or add a resume. On someone else's profile a tab appears only when that member has jobs or a resume to show. Use the General tab only to control activity-feed updates and application notifications."
 msgstr ""
 
 #: includes/admin/views/welcome.php:32
@@ -541,68 +541,92 @@ msgid "Get Support"
 msgstr ""
 
 #. translators: %s: display name of the member whose profile is being viewed.
-#: public/class-bp-job-manager-public.php:215
+#: public/class-bp-job-manager-public.php:217
 #, php-format
 msgid "Resumes by %s"
 msgstr ""
 
 #. translators: %s: display name of the member whose profile is being viewed.
-#: public/class-bp-job-manager-public.php:235
+#: public/class-bp-job-manager-public.php:237
 #, php-format
 msgid "Jobs by %s"
 msgstr ""
 
 #. translators: %s: Job count
-#: public/class-bp-job-manager-public.php:438
+#: public/class-bp-job-manager-public.php:440
 #, php-format
 msgid "Jobs %s"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:497
-#: public/class-bp-job-manager-public.php:740
+#: public/class-bp-job-manager-public.php:499
+#: public/class-bp-job-manager-public.php:908
 msgid "My Bookmarks"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:511
-#: public/class-bp-job-manager-public.php:775
+#: public/class-bp-job-manager-public.php:513
+#: public/class-bp-job-manager-public.php:943
 msgid "Job Alerts"
 msgstr ""
 
+#. translators: %s: job title.
+#: public/class-bp-job-manager-public.php:737
+#, php-format
+msgid "Applications: %s"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:739
+msgid "Edit job"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:812
+msgid "Go to My Jobs"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:827
+msgid "Back to My Jobs"
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:827
+msgid "Back to My Resumes"
+msgstr ""
+
 #. translators: %s: bp_core_number_format
-#: public/class-bp-job-manager-public.php:929
+#: public/class-bp-job-manager-public.php:1097
 #, php-format
 msgid "Resumes %s"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1060
-msgid "You need to be signed in to manage your resumes."
+#: public/class-bp-job-manager-public.php:1200
+msgid "Edit resume"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1061
-msgid "Sign in"
-msgstr ""
-
-#: public/class-bp-job-manager-public.php:1270
+#: public/class-bp-job-manager-public.php:1485
 msgid "Private Message"
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1270
+#: public/class-bp-job-manager-public.php:1485
 msgid "Send Private Message"
 msgstr ""
 
 #. translators: 1: applicant display name, 2: job title.
-#: public/class-bp-job-manager-public.php:1385
+#: public/class-bp-job-manager-public.php:1600
 #, php-format
 msgid "%1$s applied for %2$s."
 msgstr ""
 
 #. translators: %s: applicant display name.
-#: public/class-bp-job-manager-public.php:1388
+#: public/class-bp-job-manager-public.php:1603
 #, php-format
 msgid "%s applied for one of your jobs."
 msgstr ""
 
-#: public/class-bp-job-manager-public.php:1461
+#. translators: 1: job title, 2: application status label such as "Interviewed".
+#: public/class-bp-job-manager-public.php:1656
+#, php-format
+msgid "Your application for %1$s is now: %2$s."
+msgstr ""
+
+#: public/class-bp-job-manager-public.php:1694
 msgid "You are not authorized to post a job. Please reach out to the administrator for further assistance."
 msgstr ""
 

@@ -244,6 +244,11 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 
 			// Before WP Job Manager's own `wp` handler, which needs a submission page we do not have.
 			$this->loader->add_action( 'wp', $plugin_public, 'bpjm_handle_submission_actions', 9 );
+			$this->loader->add_action( 'wp', $plugin_public, 'bpjm_handle_resume_relist', 9 );
+			$this->loader->add_action( 'template_redirect', $plugin_public, 'bpjm_redirect_old_applied_jobs', 5 );
+			$this->loader->add_action( 'transition_post_status', $plugin_public, 'bpjm_notify_application_status', 10, 3 );
+			$this->loader->add_action( 'job_manager_job_submitted_content_after', $plugin_public, 'bpjm_job_submitted_next_step' );
+			$this->loader->add_filter( 'wp_redirect', $plugin_public, 'bpjm_keep_resume_save_in_profile' );
 			$this->loader->add_action( 'wp', $plugin_public, 'bpjm_shortcode_action_handler' );
 			$this->loader->add_action( 'wp', $plugin_public, 'bpjm_modify_job_alert_action_handler' );
 			$this->loader->add_filter( 'job_manager_pagination_args', $plugin_public, 'bpjm_pagination_args' );

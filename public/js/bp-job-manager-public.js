@@ -7,6 +7,9 @@ jQuery( function( $ ) {
 	if ( window.bpjm_public && bpjm_public.post_job_url ) {
 		$( '.jm-dashboard__actions a.jm-ui-button' ).attr( 'href', bpjm_public.post_job_url );
 	}
+	if ( window.bpjm_public && bpjm_public.add_resume_url ) {
+		$( '#resume-manager-candidate-dashboard tfoot a' ).attr( 'href', bpjm_public.add_resume_url );
+	}
 
 	// Resume Manager's and Applications' dashboards are tables; give each cell its
 	// column name so the stylesheet can stack rows into labelled cards on small screens.
