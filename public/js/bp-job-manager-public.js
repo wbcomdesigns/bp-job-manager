@@ -1,115 +1,25 @@
-jQuery( document ).ready(
-	function($) {
-		'use strict';
+jQuery( function( $ ) {
+	'use strict';
 
-		// Keep WP Job Manager's [job_dashboard] "Add Job" button inside the BuddyPress
-		// profile. WPJM hardcodes that button to its standalone submit_job_form page,
-		// which renders an empty href when unconfigured and otherwise leaves the profile.
-		// Point it at the in-profile "Post Job" tab instead (own dashboard only).
-		if ( typeof bpjm_load_jobs_object !== 'undefined' && bpjm_load_jobs_object.post_job_url ) {
-			$( '.jm-dashboard__actions a.jm-ui-button' ).attr( 'href', bpjm_load_jobs_object.post_job_url );
-		}
-
-		// Assign class to each header
-		$( '#job-manager-job-dashboard table th' ).each(
-			function() {
-				$( this ).addClass( 'header-' + $( this ).index() );
-			}
-		);
-
-		// Assign a data-header attribute with the text from the corresponding header
-		$( '#job-manager-job-dashboard table td' ).each(
-			function() {
-				$( this ).attr( 'data-header', $( '.header-' + $( this ).index() ).text() );
-			}
-		);
-
-		// Assign class to each header
-		$( '#resume-manager-candidate-dashboard table th' ).each(
-			function() {
-				$( this ).addClass( 'header-' + $( this ).index() );
-			}
-		);
-
-		// Assign a data-header attribute with the text from the corresponding header
-		$( '#resume-manager-candidate-dashboard table td' ).each(
-			function() {
-				$( this ).attr( 'data-header', $( '.header-' + $( this ).index() ).text() );
-			}
-		);
-
-		var count = 2;
-		var total = bpjm_load_jobs_object.max_num_pages;
-		$( window ).scroll(
-			function() {
-				if ($( window ).scrollTop() == $( document ).height() - $( window ).height()) {
-					if (count > total) {
-						return false;
-					} else {
-						loadJobs( count );
-					}
-					count++;
-				}
-
-			}
-		);
-
-		function loadJobs(pageNumber) {
-			$(".bpjm-loader").css("display", "block");
-			$( '#inifiniteLoader' ).show( 'fast' );
-			var data = {
-				'action': 'bpjm_load_more_jobs',
-				'page_no': pageNumber,
-				'user_id': bpjm_load_jobs_object.displayed_user_id,
-				'ajax_nonce': bpjm_load_jobs_object.ajax_nonce,
-			};
-			$.ajax(
-				{
-					url: bpjm_load_jobs_object.ajaxurl,
-					type: 'POST',
-					data: data,
-					beforeSend: function() {
-						$( '.wb-grid-cell' ).find( '.job-manager-jobs' ).after( '<div class="inifinite-loader-wrapper"><a id="inifiniteLoader" href="javascript: void(0)" ><button class="loading"></button></a></div >' );
-						$( '#inifiniteLoader .loading' ).text( bpjm_load_jobs_object.loading_text );
-					},
-					success: function(response) {
-						$(".bpjm-loader").css("display", "none");
-						$( '#inifiniteLoader' ).css( 'display', 'none' );
-						$( '.job-manager-jobs tbody:last' ).append( response );
-
-						// Assign class to each header
-						$( '#job-manager-job-dashboard table th' ).each(
-							function() {
-								$( this ).addClass( 'header-' + $( this ).index() );
-							}
-						);
-
-						// Assign a data-header attribute with the text from the corresponding header
-						$( '#job-manager-job-dashboard table td' ).each(
-							function() {
-								$( this ).attr( 'data-header', $( '.header-' + $( this ).index() ).text() );
-							}
-						);
-
-						// Assign class to each header
-						$( '#resume-manager-candidate-dashboard table th' ).each(
-							function() {
-								$( this ).addClass( 'header-' + $( this ).index() );
-							}
-						);
-
-						// Assign a data-header attribute with the text from the corresponding header
-						$( '#resume-manager-candidate-dashboard table td' ).each(
-							function() {
-								$( this ).attr( 'data-header', $( '.header-' + $( this ).index() ).text() );
-							}
-						);
-					}
-				}
-			);
-			return false;
-		}
-
-		jQuery('.applications').find('a:nth-child(2)').addClass('bpjm-app-count');
+	// Keep WP Job Manager's [job_dashboard] "Add Job" button inside the BuddyPress
+	// profile. WPJM hardcodes that button to its standalone submit_job_form page,
+	// which renders an empty href when unconfigured and otherwise leaves the profile.
+	if ( window.bpjm_public && bpjm_public.post_job_url ) {
+		$( '.jm-dashboard__actions a.jm-ui-button' ).attr( 'href', bpjm_public.post_job_url );
 	}
-);
+
+	// Resume Manager's and Applications' dashboards are tables; give each cell its
+	// column name so the stylesheet can stack rows into labelled cards on small screens.
+	// Applications has no <thead>, so read whichever row holds the <th> cells.
+	$( '.bpjm-screen table' ).each( function() {
+		var labels = $( this ).find( 'tr' ).has( 'th' ).first().children( 'th' ).map( function() {
+			return $( this ).text().trim();
+		} ).get();
+
+		$( this ).find( 'tr' ).has( 'td' ).each( function() {
+			$( this ).children( 'td' ).each( function( i ) {
+				$( this ).attr( 'data-header', labels[ i ] || '' );
+			} );
+		} );
+	} );
+} );

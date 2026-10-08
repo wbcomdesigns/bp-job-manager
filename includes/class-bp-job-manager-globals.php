@@ -104,7 +104,8 @@ if ( ! class_exists( 'Bp_Job_Manager_Globals' ) ) :
 		public function setup_plugin_global() {
 			$settings = get_option( 'bpjm_general_settings' );
 
-			if ( ! empty( $settings ) ) {
+			// A corrupt or hand-edited non-array row keeps the defaults instead of fataling every request.
+			if ( ! empty( $settings ) && is_array( $settings ) ) {
 				if ( array_key_exists( 'bpjm_resume_activity', $settings ) ) {
 					$this->bpjm_resume_activity = 'yes';
 				} else {
