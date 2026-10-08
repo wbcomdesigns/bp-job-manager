@@ -111,7 +111,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 						// Get resume count using the helper function.
 						$my_resumes_count = bpjm_member_profile_resumes_count( get_current_user_id() );
 
-						$base_url         = bp_loggedin_user_domain() . $profile_menu_slug;
+						$base_url       = bp_loggedin_user_domain() . $profile_menu_slug;
 						$my_resumes_url = $base_url . '/my-resumes';
 						$add_resume_url = $base_url . '/add-resume';
 

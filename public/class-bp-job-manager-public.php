@@ -313,7 +313,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				$this->plugin_name,
 				'bpjm_public',
 				array(
-					'post_job_url' => bp_is_my_profile() ? $this->bpjm_screen_url( bp_loggedin_user_id(), 'jobs', 'post-job' ) : '',
+					'post_job_url'   => bp_is_my_profile() ? $this->bpjm_screen_url( bp_loggedin_user_id(), 'jobs', 'post-job' ) : '',
 					'add_resume_url' => bp_is_my_profile() ? $this->bpjm_screen_url( bp_loggedin_user_id(), 'resumes', 'add-resume' ) : '',
 				)
 			);
