@@ -4,7 +4,6 @@
 **Branch / version:** 2.8.5  
 **Wrapper type:** NEW card-panel  
 **Audit date:** 2026-06-05  
-**Auditor:** AutoVAP (read-only)  
 **Reference:** buddypress-contact-me (`includes/admin/class-bcm-admin.php`)  
 
 ---
@@ -229,4 +228,4 @@ Every interactive element that suppresses `outline` does so only inside `:focus:
 
 ---
 
-*This file was generated read-only by AutoVAP. No code was modified.*
+*This file was generated read-only. No code was modified.*
