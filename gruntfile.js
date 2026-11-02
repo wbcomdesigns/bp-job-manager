@@ -78,6 +78,7 @@ module.exports = function ( grunt ) {
 							'!dist/**',
 							'!.git/**',
 							'!.github/**',
+							'!.wordpress-org/**',
 							'!.gitignore',
 							'!.gitattributes',
 							// Dev tooling. `vendor/` is Composer's DEV tree - PHPStan and
