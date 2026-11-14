@@ -111,9 +111,23 @@
 	color: inherit;
 }
 
-/* Dashboard column labels: same muted colour as table headers. */
-.bpjm-screen:not(#bpjm) .jm-dashboard-job-column-label {
+/*
+ * Dashboard column labels and job status: same muted colour as table headers.
+ * WP Job Manager mutes the header row and the status line with its own
+ * transparent mixes; stacked on ours (or on #505050) they drop under 4.5:1.
+ * The header row is already muted, so its labels inherit it.
+ */
+.bpjm-screen:not(#bpjm) :is(.jm-dashboard-job-column-label, .jm-dashboard .job-status) {
 	color: var(--bpjm-muted);
+}
+
+.bpjm-screen:not(#bpjm) .jm-dashboard-header .jm-dashboard-job-column-label {
+	color: inherit;
+}
+
+/* WP Job Manager fades field hints and "(optional)" to 75% opacity, under 4.5:1 on most themes. */
+.bpjm-screen .job-manager-form :is(small.description, label small) {
+	opacity: 1;
 }
 
 /*

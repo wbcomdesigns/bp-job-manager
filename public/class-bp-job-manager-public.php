@@ -286,9 +286,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				return true;
 			}
 
-			global $post;
-
-			return is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'job_dashboard' );
+			/*
+			 * Not a standalone [job_dashboard] page: that is WP Job Manager's own
+			 * screen, styled by WP Job Manager and the theme, and every rule here is
+			 * scoped to .bpjm-screen or the apply page.
+			 */
+			return false;
 		}
 
 		/**
