@@ -584,7 +584,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					array(
 						'name'                    => $job_tab,
 						'slug'                    => $parent_slug,
-						'screen_function'         => array( $this, 'bpjm_jobs_tab_function_to_show_screen' ),
+						'screen_function'         => array( $this, 'bpjm_my_jobs_show_screen' ),
 						'position'                => 75,
 						'default_subnav_slug'     => 'my-jobs',
 						'show_for_displayed_user' => true,
@@ -1133,7 +1133,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				array(
 					'name'                    => $resume_tab,
 					'slug'                    => 'resumes',
-					'screen_function'         => array( $this, 'bpjm_resumes_tab_function_to_show_screen' ),
+					'screen_function'         => array( $this, 'bpjm_my_resumes_show_screen' ),
 					'position'                => 75,
 					'default_subnav_slug'     => 'my-resumes',
 					'show_for_displayed_user' => true,
