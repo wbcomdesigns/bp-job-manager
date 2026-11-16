@@ -228,16 +228,11 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 				return;
 			}
 
-			/* translators: 1: member profile link, 2: job title link. */
-			$action = sprintf( __( '%1$s posted a job: %2$s', 'bp-job-manager' ), bp_core_get_userlink( $post->post_author ), '<a href="' . esc_url( get_permalink( $post->ID ) ) . '">' . esc_html( $post->post_title ) . '</a>' );
-			$this->bpjm_save_publish_activity( $post, 'bpjm_job_post', $action, 'publish' === $old_status );
+			$this->bpjm_save_publish_activity( $post, 'bpjm_job_post', 'publish' === $old_status );
 		}
 
 		/**
 		 * One BuddyPress activity per resume, same rules as bpjm_publish_job_listing().
-		 *
-		 * A resume's title is the candidate's own name, so the entry reads
-		 * "Fiona published a resume" rather than repeating the name as a link.
 		 *
 		 * @param string $new_status New post status.
 		 * @param string $old_status Previous post status.
@@ -254,9 +249,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 				return;
 			}
 
-			/* translators: 1: member profile link, 2: URL of the resume. */
-			$action = sprintf( __( '%1$s published a <a href="%2$s">resume</a>', 'bp-job-manager' ), bp_core_get_userlink( $post->post_author ), esc_url( get_permalink( $post->ID ) ) );
-			$this->bpjm_save_publish_activity( $post, 'bpjm_resume_publish', $action, 'publish' === $old_status );
+			$this->bpjm_save_publish_activity( $post, 'bpjm_resume_publish', 'publish' === $old_status );
 		}
 
 		/**
@@ -273,42 +266,41 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 			if ( ! function_exists( 'bp_activity_set_action' ) ) {
 				return;
 			}
-			bp_activity_set_action( 'activity', 'bpjm_job_post', __( 'Posted a job', 'bp-job-manager' ), array( $this, 'bpjm_format_job_activity' ), __( 'Jobs', 'bp-job-manager' ), array( 'activity', 'member' ) );
-			bp_activity_set_action( 'activity', 'bpjm_resume_publish', __( 'Published a resume', 'bp-job-manager' ), array( $this, 'bpjm_format_resume_activity' ), __( 'Resumes', 'bp-job-manager' ), array( 'activity', 'member' ) );
+			bp_activity_set_action( 'activity', 'bpjm_job_post', __( 'Posted a job', 'bp-job-manager' ), array( $this, 'bpjm_format_activity' ), __( 'Jobs', 'bp-job-manager' ), array( 'activity', 'member' ) );
+			bp_activity_set_action( 'activity', 'bpjm_resume_publish', __( 'Published a resume', 'bp-job-manager' ), array( $this, 'bpjm_format_activity' ), __( 'Resumes', 'bp-job-manager' ), array( 'activity', 'member' ) );
 		}
 
 		/**
-		 * Job activity text, in the reader's language.
+		 * Job / resume activity text, in the reader's language.
 		 *
 		 * @since 3.0.1
 		 * @param string $action   Stored action.
 		 * @param object $activity Activity item.
 		 * @return string
 		 */
-		public function bpjm_format_job_activity( $action, $activity ) {
+		public function bpjm_format_activity( $action, $activity ) {
 			$post = get_post( $activity->item_id );
-			if ( ! $post ) {
-				return $action;
+			return $post ? $this->bpjm_activity_text( $activity->type, $post, $activity->user_id ) : $action;
+		}
+
+		/**
+		 * The one place the job and resume activity text is built.
+		 *
+		 * A resume's title is the candidate's own name, so its entry reads
+		 * "Fiona published a resume" rather than repeating the name as a link.
+		 *
+		 * @param string  $activity_type bpjm_job_post|bpjm_resume_publish.
+		 * @param WP_Post $post          Job or resume.
+		 * @param int     $user_id       Member who posted it.
+		 * @return string
+		 */
+		private function bpjm_activity_text( $activity_type, $post, $user_id ) {
+			if ( 'bpjm_resume_publish' === $activity_type ) {
+				/* translators: 1: member profile link, 2: URL of the resume. */
+				return sprintf( __( '%1$s published a <a href="%2$s">resume</a>', 'bp-job-manager' ), bp_core_get_userlink( $user_id ), esc_url( get_permalink( $post ) ) );
 			}
 			/* translators: 1: member profile link, 2: job title link. */
-			return sprintf( __( '%1$s posted a job: %2$s', 'bp-job-manager' ), bp_core_get_userlink( $activity->user_id ), '<a href="' . esc_url( get_permalink( $post ) ) . '">' . esc_html( get_the_title( $post ) ) . '</a>' );
-		}
-
-		/**
-		 * Resume activity text, in the reader's language.
-		 *
-		 * @since 3.0.1
-		 * @param string $action   Stored action.
-		 * @param object $activity Activity item.
-		 * @return string
-		 */
-		public function bpjm_format_resume_activity( $action, $activity ) {
-			$post = get_post( $activity->item_id );
-			if ( ! $post ) {
-				return $action;
-			}
-			/* translators: 1: member profile link, 2: URL of the resume. */
-			return sprintf( __( '%1$s published a <a href="%2$s">resume</a>', 'bp-job-manager' ), bp_core_get_userlink( $activity->user_id ), esc_url( get_permalink( $post ) ) );
+			return sprintf( __( '%1$s posted a job: %2$s', 'bp-job-manager' ), bp_core_get_userlink( $user_id ), '<a href="' . esc_url( get_permalink( $post ) ) . '">' . esc_html( get_the_title( $post ) ) . '</a>' );
 		}
 
 		/**
@@ -316,18 +308,17 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin' ) ) :
 		 *
 		 * @param object $post          Post object.
 		 * @param string $activity_type Activity type (bpjm_job_post|bpjm_resume_publish).
-		 * @param string $action        Rendered activity action.
 		 * @param bool   $is_edit       True for an edit to an already published post: update only, never add.
 		 * @return void
 		 */
-		private function bpjm_save_publish_activity( $post, $activity_type, $action, $is_edit ) {
+		private function bpjm_save_publish_activity( $post, $activity_type, $is_edit ) {
 			if ( ! function_exists( 'bp_activity_add' ) ) {
 				return;
 			}
 
 			$args = array(
 				'type'      => $activity_type,
-				'action'    => $action,
+				'action'    => $this->bpjm_activity_text( $activity_type, $post, $post->post_author ),
 				'component' => 'activity',
 				'user_id'   => $post->post_author,
 				'item_id'   => $post->ID,
