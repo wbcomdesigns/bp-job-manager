@@ -46,6 +46,14 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		private $version;
 
 		/**
+		 * Whether the list being built is past its last page (set by the dashboard arg filters).
+		 *
+		 * @since 3.0.1
+		 * @var bool
+		 */
+		private $bpjm_past_last_page = false;
+
+		/**
 		 * Initialize the class and set its properties.
 		 *
 		 * @since    1.0.0
@@ -162,6 +170,50 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		public function bpjm_current_page() {
 			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only page number.
 			return isset( $_GET['bpjm-page'] ) ? max( 1, absint( $_GET['bpjm-page'] ) ) : 1;
+		}
+
+		/**
+		 * Record whether dashboard query args land past the last page.
+		 *
+		 * Only runs on page 2+, as a one-row ID query with the same args.
+		 *
+		 * @since 3.0.1
+		 * @param array $args WP_Query arguments with offset already set.
+		 * @return void
+		 */
+		private function bpjm_check_past_last_page( $args ) {
+			if ( $this->bpjm_current_page() < 2 ) {
+				return;
+			}
+			$probe = new WP_Query(
+				array_merge(
+					$args,
+					array(
+						'fields'         => 'ids',
+						'posts_per_page' => 1,
+						'no_found_rows'  => true,
+					)
+				)
+			);
+			$this->bpjm_past_last_page = empty( $probe->posts );
+		}
+
+		/**
+		 * On a page past the end of a list, link back to the first page.
+		 *
+		 * @since 3.0.1
+		 * @return bool True when the notice was printed.
+		 */
+		private function bpjm_first_page_notice() {
+			if ( $this->bpjm_current_page() < 2 ) {
+				return false;
+			}
+			printf(
+				'<p class="bpjm-back"><a href="%1$s">&larr; %2$s</a></p>',
+				esc_url( remove_query_arg( 'bpjm-page' ) ),
+				esc_html__( 'This page is empty. Back to the first page', 'bp-job-manager' )
+			);
+			return true;
 		}
 
 		/**
@@ -855,7 +907,11 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				if ( $this->bpjm_owner_sub_screen( 'job_id' )['action'] ) {
 					$this->bpjm_back_link( 'jobs' );
 				}
-				echo do_shortcode( '[job_dashboard]' );
+				$dashboard = do_shortcode( '[job_dashboard]' );
+				if ( $this->bpjm_past_last_page ) {
+					$this->bpjm_first_page_notice();
+				}
+				echo $dashboard; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output from WP Job Manager, escaped by its own templates.
 				return;
 			}
 
@@ -873,7 +929,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			);
 
 			if ( ! $jobs->have_posts() ) {
-				get_job_manager_template( 'content-no-jobs-found.php' );
+				if ( ! $this->bpjm_first_page_notice() ) {
+					get_job_manager_template( 'content-no-jobs-found.php' );
+				}
 				return;
 			}
 
@@ -993,6 +1051,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 				$job_dashboard_job_listing_args['posts_per_page'] = $per_page;
 				$job_dashboard_job_listing_args['offset']         = ( $this->bpjm_current_page() - 1 ) * $per_page;
+				$this->bpjm_check_past_last_page( $job_dashboard_job_listing_args );
 			}
 			return $job_dashboard_job_listing_args;
 		}
@@ -1228,7 +1287,11 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				if ( $this->bpjm_owner_sub_screen( 'resume_id' )['action'] ) {
 					$this->bpjm_back_link( 'resumes' );
 				}
-				echo do_shortcode( '[candidate_dashboard]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output from Resume Manager, escaped by that plugin's own templates.
+				$dashboard = do_shortcode( '[candidate_dashboard]' );
+				if ( $this->bpjm_past_last_page ) {
+					$this->bpjm_first_page_notice();
+				}
+				echo $dashboard; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output from Resume Manager, escaped by that plugin's own templates.
 				return;
 			}
 
@@ -1252,7 +1315,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			);
 
 			if ( ! $resumes->have_posts() ) {
-				get_job_manager_template_part( 'content', 'no-resumes-found', 'wp-job-manager-resumes', $templates );
+				if ( ! $this->bpjm_first_page_notice() ) {
+					get_job_manager_template_part( 'content', 'no-resumes-found', 'wp-job-manager-resumes', $templates );
+				}
 				return;
 			}
 
@@ -1343,6 +1408,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					'order'               => 'desc',
 					'author'              => bp_displayed_user_id(),
 				);
+				$this->bpjm_check_past_last_page( $candidate_dashboard_resume_listing_args );
 			}
 			return $candidate_dashboard_resume_listing_args;
 		}
