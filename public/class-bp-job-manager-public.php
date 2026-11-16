@@ -124,7 +124,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @since 3.0.1
 		 */
 		public function bpjm_screen_open() {
-			if ( in_array( bp_current_component(), array( 'jobs', 'resumes' ), true ) && $this->bpjm_is_owned_action() ) {
+			if ( $this->bpjm_is_screen() ) {
 				echo '<div class="bpjm-screen bpjm-screen--' . esc_attr( bp_current_action() ) . '">';
 			}
 		}
@@ -135,9 +135,76 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @since 3.0.1
 		 */
 		public function bpjm_screen_close() {
-			if ( in_array( bp_current_component(), array( 'jobs', 'resumes' ), true ) && $this->bpjm_is_owned_action() ) {
+			if ( $this->bpjm_is_screen() ) {
 				echo '</div>';
 			}
+		}
+
+		/**
+		 * Whether the current page is one of our Jobs / Resumes screens.
+		 *
+		 * @since 3.0.1
+		 * @return bool
+		 */
+		private function bpjm_is_screen() {
+			return in_array( bp_current_component(), array( 'jobs', 'resumes' ), true ) && $this->bpjm_is_owned_action();
+		}
+
+		/**
+		 * Register one Jobs / Resumes subnav item.
+		 *
+		 * @since 3.0.1
+		 * @param string $parent_slug     'jobs' or 'resumes'.
+		 * @param string $tab_link        Parent tab URL with trailing slash.
+		 * @param string $slug            Subnav slug.
+		 * @param string $name            Subnav label.
+		 * @param string $screen_function Method of this class that loads the screen.
+		 * @param int    $position        Subnav position.
+		 */
+		private function bpjm_add_subnav( $parent_slug, $tab_link, $slug, $name, $screen_function, $position ) {
+			bp_core_new_subnav_item(
+				array(
+					'name'            => $name,
+					'slug'            => $slug,
+					'parent_url'      => $tab_link . $slug,
+					'parent_slug'     => $parent_slug,
+					'screen_function' => array( $this, $screen_function ),
+					'position'        => $position,
+					'link'            => $tab_link . $slug,
+				)
+			);
+		}
+
+		/**
+		 * Load a profile screen whose title and content come from
+		 * bpjm_{$screen}_tab_function_to_show_title() / _content().
+		 *
+		 * @since 3.0.1
+		 * @param string $screen Screen key, e.g. 'my_jobs'.
+		 */
+		private function bpjm_load_screen( $screen ) {
+			add_action( 'bp_template_title', array( $this, "bpjm_{$screen}_tab_function_to_show_title" ) );
+			add_action( 'bp_template_content', array( $this, "bpjm_{$screen}_tab_function_to_show_content" ) );
+			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+		}
+
+		/**
+		 * The owner's WP Job Manager / Resume Manager dashboard on My Jobs / My Resumes.
+		 *
+		 * @since 3.0.1
+		 * @param string $tab       'jobs' or 'resumes'.
+		 * @param string $shortcode Dashboard shortcode.
+		 */
+		private function bpjm_render_owner_dashboard( $tab, $shortcode ) {
+			if ( $this->bpjm_owner_sub_screen( 'jobs' === $tab ? 'job_id' : 'resume_id' )['action'] ) {
+				$this->bpjm_back_link( $tab );
+			}
+			// Rendered first: the dashboard args filter decides whether this page is past the end.
+			$dashboard = do_shortcode( $shortcode );
+			if ( $this->bpjm_past_last_page ) {
+				$this->bpjm_first_page_notice();
+			}
+			echo $dashboard; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output from WP Job Manager / Resume Manager, escaped by their own templates.
 		}
 
 		/**
@@ -491,7 +558,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$is_current_user = ( get_current_user_id() === $displayed_uid );
 			$job_count       = function_exists( 'bpjm_member_profile_jobs_count' ) ? bpjm_member_profile_jobs_count( $displayed_uid ) : 0;
 
-			/* translators: %s: User's display name */
 			$my_job_tab = $this->bpjm_get_member_screen_label( 'jobs', $displayed_uid );
 			/* translators: %s: Job count */
 			$job_tab = trim( sprintf( __( 'Jobs %s', 'bp-job-manager' ), $job_count ? '<span class="count">' . bp_core_number_format( $job_count ) . '</span>' : '' ) ); // No "0" badge on an empty tab.
@@ -525,57 +591,17 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					)
 				);
 
-				bp_core_new_subnav_item(
-					array(
-
-						/*
-						 * Mirrors the Resumes tab exactly: the parent nav carries the
-						 * count badge ("Jobs 6"), the subnav carries the ownership
-						 * label ("My Jobs" / "Jobs by Rita"). $my_job_tab was built
-						 * for this slot years ago and then never passed to it, so the
-						 * variable sat dead, this subnav read a flat "Jobs", and the
-						 * "%s's Jobs" string it produced could never render - while
-						 * the Resumes subnav did show its owner label. Same shape on
-						 * both tabs now.
-						 */
-						'name'            => apply_filters( 'bpjm_jobs_tab_name', $my_job_tab ),
-						'slug'            => 'my-jobs',
-						'parent_url'      => $jobs_tab_link . 'my-jobs',
-						'parent_slug'     => $parent_slug,
-						'screen_function' => array( $this, 'bpjm_my_jobs_show_screen' ),
-						'position'        => 100,
-						'link'            => $jobs_tab_link . 'my-jobs',
-					)
-				);
+				// Same shape as the Resumes tab: count badge on the parent, owner label here.
+				$this->bpjm_add_subnav( $parent_slug, $jobs_tab_link, 'my-jobs', apply_filters( 'bpjm_jobs_tab_name', $my_job_tab ), 'bpjm_my_jobs_show_screen', 100 );
 
 				// Add other submenus for current user.
 				if ( $is_current_user ) {
 					if ( bpjm_is_plugin_active( 'wp-job-manager-bookmarks/wp-job-manager-bookmarks.php' ) ) {
-						bp_core_new_subnav_item(
-							array(
-								'name'            => __( 'My Bookmarks', 'bp-job-manager' ),
-								'slug'            => 'my-bookmarks',
-								'parent_url'      => $jobs_tab_link . 'my-bookmarks',
-								'parent_slug'     => $parent_slug,
-								'screen_function' => array( $this, 'bpjm_bookmarked_jobs_show_screen' ),
-								'position'        => 200,
-								'link'            => $jobs_tab_link . 'my-bookmarks',
-							)
-						);
+						$this->bpjm_add_subnav( $parent_slug, $jobs_tab_link, 'my-bookmarks', __( 'My Bookmarks', 'bp-job-manager' ), 'bpjm_bookmarked_jobs_show_screen', 200 );
 					}
 
 					if ( bpjm_is_plugin_active( 'wp-job-manager-alerts/wp-job-manager-alerts.php' ) ) {
-						bp_core_new_subnav_item(
-							array(
-								'name'            => __( 'Job Alerts', 'bp-job-manager' ),
-								'slug'            => 'job-alerts',
-								'parent_url'      => $jobs_tab_link . 'job-alerts',
-								'parent_slug'     => $parent_slug,
-								'screen_function' => array( $this, 'bpjm_job_alerts_show_screen' ),
-								'position'        => 200,
-								'link'            => $jobs_tab_link . 'job-alerts',
-							)
-						);
+						$this->bpjm_add_subnav( $parent_slug, $jobs_tab_link, 'job-alerts', __( 'Job Alerts', 'bp-job-manager' ), 'bpjm_job_alerts_show_screen', 200 );
 					}
 
 					/*
@@ -585,49 +611,14 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					 * /resumes/applied-jobs/ URL redirects (bpjm_redirect_old_applied_jobs()).
 					 */
 					if ( bpjm_is_plugin_active( 'wp-job-manager-applications/wp-job-manager-applications.php' ) ) {
-						bp_core_new_subnav_item(
-							array(
-								'name'            => apply_filters( 'bpjm_resumes_subnav_item_applied_jobs', __( 'Applied Jobs', 'bp-job-manager' ) ),
-								'slug'            => 'applied-jobs',
-								'parent_url'      => $jobs_tab_link . 'applied-jobs',
-								'parent_slug'     => $parent_slug,
-								'screen_function' => array( $this, 'bpjm_applied_jobs_show_screen' ),
-								'position'        => 150,
-								'link'            => $jobs_tab_link . 'applied-jobs',
-							)
-						);
+						$this->bpjm_add_subnav( $parent_slug, $jobs_tab_link, 'applied-jobs', apply_filters( 'bpjm_resumes_subnav_item_applied_jobs', __( 'Applied Jobs', 'bp-job-manager' ) ), 'bpjm_applied_jobs_show_screen', 150 );
 					}
 
-					bp_core_new_subnav_item(
-						array(
-							'name'            => __( 'Post Job', 'bp-job-manager' ),
-							'slug'            => 'post-job',
-							'parent_url'      => $jobs_tab_link . 'post-job',
-							'parent_slug'     => $parent_slug,
-							'screen_function' => array( $this, 'bpjm_post_job_show_screen' ),
-							'position'        => 200,
-							'link'            => $jobs_tab_link . 'post-job',
-						)
-					);
+					$this->bpjm_add_subnav( $parent_slug, $jobs_tab_link, 'post-job', __( 'Post Job', 'bp-job-manager' ), 'bpjm_post_job_show_screen', 200 );
 				}
 			}
 
-			/*
-			 * There is deliberately no `else`.
-			 *
-			 * A bare "jobs" fallback tab used to be registered here for members
-			 * whose role was not in the configured posting list: an employer's
-			 * empty dashboard - Title / Filled? / Date posted / Listing expires /
-			 * Actions and "No jobs found." - with no subnav, shown to the majority
-			 * role on a job site. It existed only to serve the role gating, and it
-			 * took the post-job subnav with `user_has_access => false` along with
-			 * it to stop direct URLs 404ing.
-			 *
-			 * With the gating gone the whole branch has nothing to do: a member on
-			 * their own profile gets the real Jobs tab and can post, and a visitor
-			 * looking at someone with no jobs simply sees no Jobs tab rather than
-			 * an empty one.
-			 */
+			// No else: a visitor on a profile with no jobs gets no Jobs tab, not an empty one.
 		}
 
 		/**
@@ -638,23 +629,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_post_job_show_screen() {
-			/*
-			 * Defense in depth: a profile owner without posting permission must
-			 * never reach [submit_job_form] here. The post-job subnav is already
-			 * registered `user_has_access => false` in the no-post-role branch
-			 * (which hides the tab and hands the URL to BP's no-access handling),
-			 * but BP grants owners access to their own tabs in some versions, so
-			 * we also gate here: redirect the non-poster to their jobs listing
-			 * with the standard "not authorized" message. Prevents both the Add
-			 * Job button AND a direct jobs/post-job/ hit from exposing the form.
-			 */
+			// An owner WP Job Manager will not let post never reaches [submit_job_form], even by direct URL.
 			if ( bp_loggedin_user_id() === bp_displayed_user_id() && ! $this->bpjm_restrict_user_post_job( true ) ) {
 				bp_core_add_message( $this->bpjm_restrict_user_post_job_message(), 'error' );
 				bp_core_redirect( trailingslashit( bp_displayed_user_domain() . 'jobs' ) );
 			}
-			add_action( 'bp_template_title', array( $this, 'bpjm_post_job_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_post_job_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			$this->bpjm_load_screen( 'post_job' );
 		}
 
 		/**
@@ -688,9 +668,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 */
 		public function bpjm_my_jobs_show_screen() {
 			$this->bpjm_mark_application_notifications_read();
-			add_action( 'bp_template_title', array( $this, 'bpjm_my_jobs_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_my_jobs_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			$this->bpjm_load_screen( 'my_jobs' );
 		}
 
 		/**
@@ -904,14 +882,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$is_owner = ( bp_loggedin_user_id() === bp_displayed_user_id() );
 
 			if ( $is_owner && $this->bpjm_restrict_user_post_job( true ) ) {
-				if ( $this->bpjm_owner_sub_screen( 'job_id' )['action'] ) {
-					$this->bpjm_back_link( 'jobs' );
-				}
-				$dashboard = do_shortcode( '[job_dashboard]' );
-				if ( $this->bpjm_past_last_page ) {
-					$this->bpjm_first_page_notice();
-				}
-				echo $dashboard; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output from WP Job Manager, escaped by its own templates.
+				$this->bpjm_render_owner_dashboard( 'jobs', '[job_dashboard]' );
 				return;
 			}
 
@@ -955,9 +926,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_bookmarked_jobs_show_screen() {
-			add_action( 'bp_template_title', array( $this, 'bpjm_bookmarked_jobs_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_bookmarked_jobs_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			$this->bpjm_load_screen( 'bookmarked_jobs' );
 		}
 
 		/**
@@ -990,9 +959,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_job_alerts_show_screen() {
-			add_action( 'bp_template_title', array( $this, 'bpjm_job_alerts_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_job_alerts_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			$this->bpjm_load_screen( 'job_alerts' );
 		}
 
 		/**
@@ -1174,31 +1141,11 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			);
 
 			// Subnav items.
-			bp_core_new_subnav_item(
-				array(
-					'name'            => $resume_tab_name,
-					'slug'            => 'my-resumes',
-					'parent_url'      => $resumes_tab_link . 'my-resumes',
-					'parent_slug'     => 'resumes',
-					'screen_function' => array( $this, 'bpjm_my_resumes_show_screen' ),
-					'position'        => 100,
-					'link'            => $resumes_tab_link . 'my-resumes',
-				)
-			);
+			$this->bpjm_add_subnav( 'resumes', $resumes_tab_link, 'my-resumes', $resume_tab_name, 'bpjm_my_resumes_show_screen', 100 );
 
 			if ( $is_logged_in_user ) {
 				// Add Resume subnav.
-				bp_core_new_subnav_item(
-					array(
-						'name'            => apply_filters( 'bpjm_resumes_subnav_item_add_resume', __( 'Add Resume', 'bp-job-manager' ) ),
-						'slug'            => 'add-resume',
-						'parent_url'      => $resumes_tab_link . 'add-resume',
-						'parent_slug'     => 'resumes',
-						'screen_function' => array( $this, 'bpjm_add_resume_show_screen' ),
-						'position'        => 200,
-						'link'            => $resumes_tab_link . 'add-resume',
-					)
-				);
+				$this->bpjm_add_subnav( 'resumes', $resumes_tab_link, 'add-resume', apply_filters( 'bpjm_resumes_subnav_item_add_resume', __( 'Add Resume', 'bp-job-manager' ) ), 'bpjm_add_resume_show_screen', 200 );
 
 			}
 		}
@@ -1211,9 +1158,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_add_resume_show_screen() {
-			add_action( 'bp_template_title', array( $this, 'bpjm_add_resume_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_add_resume_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			$this->bpjm_load_screen( 'add_resume' );
 		}
 
 		/**
@@ -1246,9 +1191,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_my_resumes_show_screen() {
-			add_action( 'bp_template_title', array( $this, 'bpjm_my_resumes_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_my_resumes_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			$this->bpjm_load_screen( 'my_resumes' );
 		}
 
 		/**
@@ -1284,14 +1227,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			 * own "who can browse resumes" setting.
 			 */
 			if ( bp_is_my_profile() ) {
-				if ( $this->bpjm_owner_sub_screen( 'resume_id' )['action'] ) {
-					$this->bpjm_back_link( 'resumes' );
-				}
-				$dashboard = do_shortcode( '[candidate_dashboard]' );
-				if ( $this->bpjm_past_last_page ) {
-					$this->bpjm_first_page_notice();
-				}
-				echo $dashboard; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output from Resume Manager, escaped by that plugin's own templates.
+				$this->bpjm_render_owner_dashboard( 'resumes', '[candidate_dashboard]' );
 				return;
 			}
 
@@ -1344,9 +1280,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			if ( bp_is_my_profile() && bp_is_active( 'notifications' ) ) {
 				bp_notifications_mark_notifications_by_type( bp_loggedin_user_id(), 'bpjm_notify_actions', 'application_status' );
 			}
-			add_action( 'bp_template_title', array( $this, 'bpjm_applied_jobs_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_applied_jobs_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			$this->bpjm_load_screen( 'applied_jobs' );
 		}
 
 		/**
@@ -1705,17 +1639,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					);
 				}
 
-				$result = array(
-					'text' => $text,
-					'link' => $application_link,
-				);
-
-				// WordPress Toolbar.
-				if ( 'string' === $format ) {
-					$result = sprintf( '<a class="ab-item" href="%s">%s</a>', esc_url( $application_link ), $text );
-				}
-
-				return $result;
+				return $this->bpjm_notification_output( $text, $application_link, $format );
 			}
 
 			if ( 'application_status' === $component_action_name ) {
@@ -1725,18 +1649,29 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 				/* translators: 1: job title, 2: application status label such as "Interviewed". */
 				$text = sprintf( esc_html__( 'Your application for %1$s is now: %2$s.', 'bp-job-manager' ), esc_html( $job_title ), esc_html( $status ? $status->label : '' ) );
-				$link = $this->bpjm_screen_url( bp_loggedin_user_id(), 'jobs', 'applied-jobs' );
-
-				if ( 'string' === $format ) {
-					return sprintf( '<a class="ab-item" href="%s">%s</a>', esc_url( $link ), $text );
-				}
-				return array(
-					'text' => $text,
-					'link' => $link,
-				);
+				return $this->bpjm_notification_output( $text, $this->bpjm_screen_url( bp_loggedin_user_id(), 'jobs', 'applied-jobs' ), $format );
 			}
 
 			return $action;
+		}
+
+		/**
+		 * A notification as BuddyPress asks for it: a toolbar link, or text + link.
+		 *
+		 * @since 3.0.1
+		 * @param string $text   Escaped notification text.
+		 * @param string $link   Target URL.
+		 * @param string $format 'string' or 'object'.
+		 * @return string|array
+		 */
+		private function bpjm_notification_output( $text, $link, $format ) {
+			if ( 'string' === $format ) {
+				return sprintf( '<a class="ab-item" href="%s">%s</a>', esc_url( $link ), $text );
+			}
+			return array(
+				'text' => $text,
+				'link' => $link,
+			);
 		}
 
 		/**
@@ -1746,8 +1681,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @return boolean
 		 */
 		public function bpjm_restrict_user_post_job( $can_post ) {
-			global $bpjm_bp_job_manager;
-
 			return bpjm_user_can_post_job( is_user_logged_in() ? bp_loggedin_user_id() : null );
 		}
 
