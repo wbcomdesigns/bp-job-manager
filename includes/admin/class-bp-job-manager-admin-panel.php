@@ -350,7 +350,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Admin_Panel' ) ) :
 			$settings_form_group = self::OPTION_GROUP;
 
 			$view_path = BPJM_PLUGIN_PATH . 'includes/admin/views/' . $view . '.php';
-			$shell     = BPJM_PLUGIN_PATH . 'includes/admin/views/shell.php';
+			$shell     = BPJM_PLUGIN_PATH . 'includes/admin/views/layout.php';
 
 			include $shell;
 		}

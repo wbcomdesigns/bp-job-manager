@@ -1,6 +1,6 @@
 <?php
 /**
- * Help & Support partial: rendered inside shell.php (non-settings tab).
+ * Help & Support partial: rendered inside layout.php (non-settings tab).
  *
  * Ports the legacy welcome page (documentation, support, feedback) into
  * the card-panel vocabulary.

@@ -1,6 +1,6 @@
 <?php
 /**
- * Overview dashboard partial: rendered inside shell.php.
+ * Overview dashboard partial: rendered inside layout.php.
  *
  * Read-only snapshot — dependency status, who-can-do-what role counts,
  * and the current activity/notification feature configuration. No DB
