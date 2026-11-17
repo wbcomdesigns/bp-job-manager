@@ -8,7 +8,7 @@
  * @package BP_Job_Manager
  */
 
-define( 'BPJM_PLUGIN_VERSION', '3.0.0' );
+define( 'BPJM_PLUGIN_VERSION', '3.0.1' );
 define( 'BPJM_PLUGIN_PATH', __DIR__ . '/' );
 define( 'BPJM_PLUGIN_URL', 'https://example.test/wp-content/plugins/bp-job-manager/' );
 define( 'BPJM_PLUGIN_BASENAME', 'bp-job-manager/bp-job-manager.php' );

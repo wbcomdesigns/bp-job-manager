@@ -210,7 +210,7 @@ We regularly update the plugin to ensure compatibility with the latest versions 
 
 == Changelog ==
 
-= 3.0.1 - October 2026 =
+= 3.0.1 - November 2026 =
 
 Fixes for sites where WP Job Manager's and Resume Manager's own pages are not set up, which is the normal BuddyPress setup, one consistent look for every Jobs and Resumes tab on any theme, and clearer job-seeker screens.
 
@@ -223,6 +223,8 @@ Fixes for sites where WP Job Manager's and Resume Manager's own pages are not se
 * Improve  - A job's applications, the job edit form and the resume edit form now have their own headings and a link back to My Jobs or My Resumes.
 * Improve  - Empty Jobs and Resumes tabs no longer show a "0" count, and the toolbar's Resumes menu only appears when Resume Manager is active.
 * Improve  - Tables on Resumes, Applied Jobs and Bookmarks stack into labelled cards on phones, and dashboard row buttons meet the 40px tap target.
+* Improve  - Visitors that Resume Manager does not allow to browse resumes no longer see a Resumes tab that only opens an access-denied notice.
+* Improve  - Opening a Jobs or Resumes page past the last one shows "This page is empty" with a link back to the first page.
 * Fix      - Members with more jobs than fit on one page could not reach the rest, because the page links were hidden and the infinite scroll that replaced them no longer worked.
 * Fix      - Duplicate, Continue Submission and Relist on a member's own jobs showed "Missing submission page." and did nothing when WP Job Manager's submission page was not set; they now open the Post Job tab with the job loaded.
 * Fix      - An expired resume could not be relisted from the profile; Relist now opens the Add Resume tab with the resume loaded.
@@ -237,6 +239,8 @@ Fixes for sites where WP Job Manager's and Resume Manager's own pages are not se
 * Fix      - The plugin's script loaded on unrelated pages such as the activity stream when WP Job Manager's dashboard page was not set; it now loads only on Jobs and Resumes tabs.
 * Fix      - Dashboard column labels, job status, field hints and "(optional)" on the Jobs and Resumes tabs were faded below readable contrast on some themes.
 * Fix      - The plugin's stylesheet no longer loads on WP Job Manager's own Job Dashboard page, where none of its rules apply.
+* Fix      - The plugin can be activated on BuddyBoss Platform again.
+* Fix      - The plugin settings screen no longer scrolls sideways on phones.
 * Dev      - Removed the `bpjm_load_more_jobs` AJAX action, its script and the plugin's own job table template. Lists use WP Job Manager's pagination with a `bpjm-page` query argument.
 * Dev      - WP Job Manager's dashboard action handler now runs only on a member's own Jobs and Resumes tabs instead of on every request.
 * Dev      - Translation ready: every string in the plugin's own text domain, 0 i18n audit warnings, and all five bundled languages complete.

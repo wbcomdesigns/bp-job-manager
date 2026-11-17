@@ -15,6 +15,7 @@ error_log
 !package.json
 !package-lock.json
 !.wbcom-i18n.json
+!docs/website/docs_config.json
 
 # Onboarding artifacts — keep tracked despite broad ignores above
 !CLAUDE.md

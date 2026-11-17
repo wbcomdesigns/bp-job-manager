@@ -1,0 +1,97 @@
+{
+  "product": "BuddyPress Job Manager",
+  "productType": "plugin",
+  "shortId": "bpjm",
+  "slug": "bp-job-manager",
+  "version": "3.0.1",
+  "repository": "https://github.com/wbcomdesigns/bp-job-manager",
+  "requires": {
+    "wordpress": "6.5",
+    "php": "8.0",
+    "plugins": [
+      "buddypress",
+      "wp-job-manager"
+    ]
+  },
+  "optional_addons": [
+    "wp-job-manager-resumes",
+    "wp-job-manager-applications",
+    "wp-job-manager-bookmarks",
+    "wp-job-manager-alerts"
+  ],
+  "sections": [
+    {
+      "name": "Getting Started",
+      "folder": "getting-started",
+      "description": "What the plugin does, what it needs, and what members see.",
+      "pages": [
+        {
+          "slug": "index",
+          "title": "Getting Started",
+          "file": "getting-started/index.md"
+        }
+      ]
+    },
+    {
+      "name": "Settings",
+      "folder": "settings",
+      "description": "The one settings screen and what the plugin stores.",
+      "pages": [
+        {
+          "slug": "index",
+          "title": "Settings",
+          "file": "settings/index.md"
+        }
+      ]
+    },
+    {
+      "name": "Developer Guide",
+      "folder": "developer-guide",
+      "description": "Architecture, the screens it renders, hooks and quality gates.",
+      "pages": [
+        {
+          "slug": "index",
+          "title": "Developer Guide",
+          "file": "developer-guide/index.md"
+        }
+      ]
+    },
+    {
+      "name": "FAQ",
+      "folder": "faq",
+      "description": "Common questions about tabs, posting, applications and translation.",
+      "pages": [
+        {
+          "slug": "index",
+          "title": "FAQ",
+          "file": "faq/index.md"
+        }
+      ]
+    },
+    {
+      "name": "Troubleshooting",
+      "folder": "troubleshooting",
+      "description": "Missing tabs, posting errors, pagination and styling.",
+      "pages": [
+        {
+          "slug": "index",
+          "title": "Troubleshooting",
+          "file": "troubleshooting/index.md"
+        }
+      ]
+    },
+    {
+      "name": "What's New",
+      "folder": "whats-new",
+      "description": "What changed in each release, newest first.",
+      "pages": [
+        {
+          "slug": "whats-new-in-3-0-1",
+          "title": "What's New in 3.0.1",
+          "file": "whats-new/whats-new-in-3-0-1.md"
+        }
+      ]
+    }
+  ],
+  "note": "GitHub-only. These docs are never published, synced or uploaded to any site."
+}
