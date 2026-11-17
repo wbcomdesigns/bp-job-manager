@@ -478,7 +478,10 @@
 	}
 
 	/* 40px tap targets for the dashboard's row buttons and the actions menu. */
-	.bpjm-screen:not(#bpjm) .jm-dashboard-job :is(.jm-ui-button, .jm-ui-action-menu__open-button) {
+	/* WPJM marks row buttons only with modifier classes (jm-ui-button--small), so match those too. */
+	.bpjm-screen:not(#bpjm) .jm-dashboard-job :is(.jm-ui-button, [class*="jm-ui-button--"], .jm-ui-action-menu__open-button) {
+		display: inline-flex;
+		align-items: center;
 		min-height: 40px;
 		min-width: 40px;
 	}
