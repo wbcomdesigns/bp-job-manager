@@ -244,6 +244,7 @@ Fixes for sites where WP Job Manager's and Resume Manager's own pages are not se
 * Dev      - Removed the `bpjm_load_more_jobs` AJAX action, its script and the plugin's own job table template. Lists use WP Job Manager's pagination with a `bpjm-page` query argument.
 * Dev      - WP Job Manager's dashboard action handler now runs only on a member's own Jobs and Resumes tabs instead of on every request.
 * Dev      - Translation ready: every string in the plugin's own text domain, 0 i18n audit warnings, and all five bundled languages complete.
+* Dev      - Renamed the admin layout file from shell.php to layout.php so the plugin zip installs on hosts whose firewalls block that file name.
 * Compat   - Tested with Reign 8.0.9, BuddyX 5.2.0, BuddyX Pro 5.1.8 and Twenty Twenty-Five.
 
 = 3.0.0 - August 2026 =
