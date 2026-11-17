@@ -38,10 +38,10 @@ install it:
 
 | Add-on | What it adds |
 |---|---|
-| Resume Manager | The Resumes tab: My Resumes, Add Resume, Applied Jobs |
-| Applications | The Applied Jobs list and a notification to the job author |
-| Bookmarks | Saved jobs on the Jobs tab |
-| Job Alerts | Job alerts on the Jobs tab |
+| Resume Manager | The Resumes tab: My Resumes and Add Resume |
+| Applications | Applied Jobs on the Jobs tab, and notifications to the job author and the applicant |
+| Bookmarks | My Bookmarks on the Jobs tab |
+| Job Alerts | Job Alerts on the Jobs tab |
 
 ## Installing
 
@@ -54,16 +54,18 @@ screen once. It creates no pages and changes no member data.
 
 ## What happens next
 
-**A member who posts a job** gets a Jobs tab on their profile containing My Jobs, Post Job,
-and (with the add-ons) Saved jobs and Job alerts. WP Job Manager decides who may post; the
+**On their own profile** every member has a Jobs tab with My Jobs and Post Job, plus
+(with the add-ons) Applied Jobs, My Bookmarks and Job Alerts. WP Job Manager decides who may post; the
 plugin does not add a permission layer of its own.
 
-**A member who publishes a resume** gets a Resumes tab containing My Resumes, Add Resume
-and Applied Jobs.
+With Resume Manager active, every member also has a Resumes tab on their own profile with My
+Resumes and Add Resume.
 
 **A visitor** sees a member's Jobs tab only if that member actually has jobs, and their
-Resumes tab only if they actually have resumes. Empty tabs are not shown on other people's
-profiles.
+Resumes tab only if they actually have resumes and Resume Manager lets the visitor browse
+resumes. Empty tabs, and tabs that would only say "you do not have permission", are not
+shown on other people's profiles. Visitors see the jobs and resumes as WP Job Manager's own
+listing cards, never the owner's dashboard.
 
 ## Related
 

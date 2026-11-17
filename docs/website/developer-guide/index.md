@@ -42,11 +42,11 @@ Most of this plugin's historical bugs came from breaking one of these.
 |---|---|
 | Jobs → My Jobs | `[job_dashboard]` |
 | Jobs → Post Job | `[submit_job_form]` |
-| Jobs → Saved jobs | `[my_bookmarks]` |
-| Jobs → Job alerts | `[job_alerts]` |
+| Jobs → Applied Jobs | `[past_applications]` |
+| Jobs → My Bookmarks | `[my_bookmarks]` |
+| Jobs → Job Alerts | `[job_alerts]` |
 | Resumes → My Resumes | `[candidate_dashboard]` |
 | Resumes → Add Resume | `[submit_resume_form]` |
-| Resumes → Applied Jobs | `[past_applications]` |
 | Apply To Job page | `[job_apply]`, in our template |
 
 Eight screens, eight host shortcodes. We own the tab, the frame and the context; the host
@@ -102,7 +102,7 @@ cause of members being shown an employer dashboard they were then refused.
 bpjm_is_plugin_active( 'wp-job-manager-resumes/wp-job-manager-resumes.php' );
 ```
 
-Always use this rather than reading `active_plugins` directly — a bare `in_array()` against
+Always use this rather than reading `active_plugins` directly: a bare `in_array()` against
 that option reports every network-activated add-on as inactive on every multisite subsite.
 Core's `is_plugin_active()` does the same job but is admin-only, and most of these checks
 run on the front end.
@@ -136,7 +136,7 @@ These no longer fire. A site filtering any of them needs to know.
 | `bpjm_applied_jobs_per_page` | Applied Jobs is rendered by `[past_applications]`; use `job_manager_job_applications_past_args` |
 
 We also stopped filtering `job_manager_user_can_post_job`. Do not re-add a callback there
-that calls `bpjm_user_can_post_job()` — that function asks WP Job Manager through the same
+that calls `bpjm_user_can_post_job()`, and that function asks WP Job Manager through the same
 hook, so it would recurse until the request exhausts memory.
 
 ## Quality gates
@@ -168,4 +168,4 @@ never translated.
 
 - [Getting started](../getting-started/index.md)
 - [Settings](../settings/index.md)
-- `audit/manifest.json` — machine-readable inventory
+- `audit/manifest.json`: machine-readable inventory
