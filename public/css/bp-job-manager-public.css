@@ -173,6 +173,13 @@
 	text-decoration: none;
 }
 
+/* Text-link actions still get a 40px tap row (Resume Manager draws them 16-19px tall). */
+.bpjm-screen:not(#bpjm) :is(.candidate-dashboard-actions a, .resume-manager-add-row) {
+	display: inline-flex;
+	align-items: center;
+	min-height: 40px;
+}
+
 /* Form footers: buttons sit in one row and wrap on narrow screens. */
 .bpjm-screen :is(.job-manager-form, #job_preview) p:has(> input[type="submit"]) {
 	display: flex;

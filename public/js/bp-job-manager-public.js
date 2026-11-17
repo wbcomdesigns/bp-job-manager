@@ -19,8 +19,10 @@ jQuery( function( $ ) {
 			return $( this ).text().trim();
 		} ).get();
 
-		$( this ).find( 'tr' ).has( 'td' ).each( function() {
-			$( this ).children( 'td' ).each( function( i ) {
+		// Body rows only: the tfoot "Add Resume" row and full-width notice rows
+		// ("You do not have any active resume listings") are not columns.
+		$( this ).find( 'tbody tr' ).has( 'td' ).each( function() {
+			$( this ).children( 'td' ).not( '[colspan]' ).each( function( i ) {
 				$( this ).attr( 'data-header', labels[ i ] || '' );
 			} );
 		} );

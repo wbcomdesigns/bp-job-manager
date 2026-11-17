@@ -1117,8 +1117,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			 * A "Resumes 0" tab on a stranger's profile tells a visitor nothing,
 			 * and the two tabs disagreeing about when they appear is exactly the
 			 * inconsistency 3.0.0 is removing.
+			 *
+			 * A visitor Resume Manager will not let browse resumes gets no tab
+			 * either: "Resumes 1" that opens on "you do not have permission" is a
+			 * dead end. The screen keeps its access-denied guard for direct URLs.
 			 */
-			if ( ! $is_logged_in_user && $my_resumes_count < 1 ) {
+			if ( ! $is_logged_in_user && ( $my_resumes_count < 1 || ! resume_manager_user_can_browse_resumes() ) ) {
 				return;
 			}
 			$resume_tab_name = apply_filters(
