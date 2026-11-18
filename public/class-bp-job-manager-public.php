@@ -126,6 +126,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		public function bpjm_screen_open() {
 			if ( $this->bpjm_is_screen() ) {
 				echo '<div class="bpjm-screen bpjm-screen--' . esc_attr( bp_current_action() ) . '">';
+				ob_start();
 			}
 		}
 
@@ -136,8 +137,42 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 */
 		public function bpjm_screen_close() {
 			if ( $this->bpjm_is_screen() ) {
+				// Markup already escaped by WP Job Manager; only classes and a wrapper are added.
+				echo self::bpjm_bp_feedback_notices( (string) ob_get_clean() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				echo '</div>';
 			}
+		}
+
+		/**
+		 * Give WP Job Manager's and Resume Manager's notices BuddyPress notice markup.
+		 *
+		 * Both plugins echo `job-manager-message|error|info` boxes from many places
+		 * with no filter. Swapping them for `.bp-feedback` markup (WPJM's own classes dropped, its
+		 * CSS draws an icon of its own) lets the theme
+		 * paint them like every other BuddyPress add-on's notice on the profile.
+		 *
+		 * @since 3.0.1
+		 * @param string $html Screen output.
+		 * @return string
+		 */
+		public static function bpjm_bp_feedback_notices( $html ) {
+			$types = array(
+				'message' => 'success',
+				'error'   => 'error',
+				'info'    => 'info',
+			);
+			// ponytail: non-greedy match to the first closing tag of the same name; a notice nesting its own div/p would close early (WPJM's never do).
+			return (string) preg_replace_callback(
+				'#<(div|p) class="job-manager-(message|error|info)">(.*?)</\1>#s',
+				static function ( $m ) use ( $types ) {
+					return sprintf(
+						'<div class="bp-feedback bp-messages %1$s"><span class="bp-icon" aria-hidden="true"></span><span class="bpjm-feedback__text">%2$s</span></div>',
+						$types[ $m[2] ],
+						$m[3]
+					);
+				},
+				$html
+			);
 		}
 
 		/**

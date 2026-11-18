@@ -217,6 +217,7 @@ Fixes for sites where WP Job Manager's and Resume Manager's own pages are not se
 * New      - Candidates get a BuddyPress notification when an employer changes the status of their application, linking to Applied Jobs.
 * New      - After posting a job from the profile, a Go to My Jobs button leads back to the member's jobs.
 * Improve  - Every Jobs and Resumes tab now shares one set of buttons, tables, notices and empty states, coloured from the active theme, in light and dark mode.
+* Improve  - Job and resume notices (saved, errors, required fields) use BuddyPress's own notice style, so they match the notices of the other BuddyPress add-ons on the profile.
 * Improve  - Applied Jobs moved from the Resumes tab to the Jobs tab, where job seekers look for it; it no longer disappears on sites without Resume Manager, and the old address redirects.
 * Improve  - A visitor viewing a member's Jobs tab sees that member's open jobs as the same job cards used on the site's Jobs page, with page links.
 * Improve  - A visitor viewing a member's Resumes tab sees the member's published resumes as resume cards, following Resume Manager's own setting for who may browse resumes.
