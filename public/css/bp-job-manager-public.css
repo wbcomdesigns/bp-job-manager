@@ -308,25 +308,29 @@
 }
 
 /*--------------------------------------------------------------
-# Notices and empty states - one box style, readable on any background.
+# Notices: WP Job Manager's boxes get BuddyPress .bp-feedback markup
+# (bpjm_bp_feedback_notices()), so the theme's notice style applies.
+# :where() keeps this a fallback for themes that do not style .bp-feedback.
 --------------------------------------------------------------*/
-.bpjm-screen :is(.job-manager-message, .job-manager-info, .job-manager-error) {
+:where(.bpjm-screen) .bp-feedback {
+	display: flex;
+	align-items: center;
 	margin: 0 0 1.5em;
-	padding: 14px 16px;
+	padding: 10px 15px;
 	border: 1px solid var(--bpjm-border);
-	border-inline-start: 4px solid var(--jm-ui-info-color, #4e71ec);
 	border-radius: var(--bpjm-radius);
 	background: var(--bpjm-surface);
 	color: inherit;
-	box-shadow: none;
 }
 
-.bpjm-screen .job-manager-message {
-	border-inline-start-color: var(--jm-ui-success-color, #4ab866);
+.bpjm-screen .bp-feedback {
+	gap: 12px;
+	margin-block: 0 1.5em;
 }
 
-.bpjm-screen .job-manager-error {
-	border-inline-start-color: var(--jm-ui-danger-color, #cc1818);
+.bpjm-screen .bpjm-feedback__text {
+	flex: 1;
+	min-width: 0;
 }
 
 /* WP Job Manager gives dialog notices a fixed 400px min-width: wider than a phone. */
