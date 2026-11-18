@@ -33,11 +33,12 @@ parameters:
         # explicit — a broad `.*not found` pattern would hide our own typos.
         # ------------------------------------------------------------------
         - '#Function (bp_[a-z_]+|buddypress|is_buddypress) not found#'
-        - '#Function (wpjm_the_job_title|the_job_status|is_position_featured|is_position_filled|get_job_manager_template|job_manager_get_permalink|user_has_applied_for_job) not found#'
+        - '#Function (get_job_manager_template|get_job_manager_template_part|job_manager_duplicate_listing|job_manager_user_can_edit_job) not found#'
         - '#Call to static method [a-zA-Z_]+\(\) on an unknown class WP_Job_Manager_Post_Types#'
         - '#Function (the_resume_[a-z_]+|the_candidate_[a-z_]+|get_the_candidate_title|resume_manager_[a-z_]+) not found#'
-        - '#Constant (BP_VERSION|JOB_MANAGER_APPLICATIONS_PLUGIN_DIR) not found#'
-        - '#(Instantiated c|C)lass (WP_Job_Manager_Shortcodes|WP_Resume_Manager_Shortcodes) not found#'
+        - '#Constant (BP_VERSION|JOB_MANAGER_APPLICATIONS_PLUGIN_DIR|RESUME_MANAGER_PLUGIN_DIR) not found#'
+        - '#(Instantiated c|C)lass (WP_Resume_Manager_Shortcodes|BP_Activity_Activity) not found#'
+        - '#Access to property \$date_recorded on an unknown class BP_Activity_Activity#'
         - '#Call to method [a-zA-Z_]+\(\) on an unknown class (WP_Job_Manager_Shortcodes|WP_Resume_Manager_Shortcodes)#'
         # Bpjm_Job_Manager_Deactivator::deactivate() is an intentional no-op kept
         # as the plugin's deactivation extension point. The wrapper function is

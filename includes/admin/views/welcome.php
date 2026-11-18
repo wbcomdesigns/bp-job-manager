@@ -1,6 +1,6 @@
 <?php
 /**
- * Help & Support partial: rendered inside shell.php (non-settings tab).
+ * Help & Support partial: rendered inside layout.php (non-settings tab).
  *
  * Ports the legacy welcome page (documentation, support, feedback) into
  * the card-panel vocabulary.
@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
 			<?php esc_html_e( 'BuddyPress Job Manager connects WP Job Manager to BuddyPress, adding dedicated Jobs and Resumes tabs to member profiles so employers and candidates can work entirely from their profile.', 'bp-job-manager' ); ?>
 		</p>
 		<p>
-			<?php esc_html_e( 'There is nothing to configure to get started. A member who posts a job gets a Jobs tab and a member who publishes a resume gets a Resumes tab. Use the General tab only to control activity-feed updates and application notifications.', 'bp-job-manager' ); ?>
+			<?php esc_html_e( 'There is nothing to configure to get started. Every member has Jobs and Resumes tabs on their own profile, so they can post a job or add a resume. On someone else\'s profile a tab appears only when that member has jobs or a resume to show. Use the General tab only to control activity-feed updates and application notifications.', 'bp-job-manager' ); ?>
 		</p>
 	</div>
 </div>

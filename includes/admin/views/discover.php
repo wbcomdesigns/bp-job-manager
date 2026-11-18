@@ -2,7 +2,7 @@
 /**
  * Discover partial: ecosystem cross-promotion (read-only display view).
  *
- * Rendered inside shell.php as a non-settings tab. This is a pure
+ * rendered inside layout.php as a non-settings tab. This is a pure
  * presentation view — product cards that link out to other free Wbcom
  * Designs tools. No forms, no settings, no options, no AJAX.
  *

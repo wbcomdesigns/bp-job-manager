@@ -15,8 +15,9 @@ error_log
 !package.json
 !package-lock.json
 !.wbcom-i18n.json
+!docs/website/docs_config.json
 
-# AutoVAP onboarding artifacts — keep tracked despite broad ignores above
+# Onboarding artifacts — keep tracked despite broad ignores above
 !CLAUDE.md
 !audit/
 !audit/**

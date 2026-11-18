@@ -1,6 +1,6 @@
 <?php
 /**
- * Overview dashboard partial: rendered inside shell.php.
+ * Overview dashboard partial: rendered inside layout.php.
  *
  * Read-only snapshot — dependency status, who-can-do-what role counts,
  * and the current activity/notification feature configuration. No DB
@@ -46,7 +46,7 @@ $app_notify_on      = array_key_exists( 'bpjm_app_notify', $settings );
 	<div class="bpjm-stat">
 		<p class="bpjm-stat__label"><?php echo 'Applications'; ?></p>
 		<p class="bpjm-stat__value"><?php echo $bpjm_apps_on ? esc_html__( 'On', 'bp-job-manager' ) : esc_html__( 'Off', 'bp-job-manager' ); ?></p>
-		<p class="bpjm-stat__trend"><?php esc_html_e( 'Lets members apply to jobs from their profile', 'bp-job-manager' ); ?></p>
+		<p class="bpjm-stat__trend"><?php esc_html_e( 'Lets members apply to jobs and follow each application from their profile', 'bp-job-manager' ); ?></p>
 	</div>
 </div>
 

@@ -10,7 +10,7 @@
  * Plugin Name:       Wbcom Designs - BuddyPress Job Manager
  * Plugin URI:        https://wbcomdesigns.com/
  * Description:       This plugin integrates WordPress Job Manager with BuddyPress. Allows the members to post jobs, and others to apply for those posted jobs.
- * Version:           3.0.0
+ * Version:           3.0.1
  * Author:            Wbcom Designs
  * Author URI:        https://wbcomdesigns.com/
  * License:           GPL-2.0+
@@ -19,7 +19,7 @@
  * Domain Path:       /languages
  * Requires at least: 6.5
  * Requires PHP:      8.0
- * Requires Plugins:  buddypress, wp-job-manager
+ * Requires Plugins:  wp-job-manager
  */
 
 // If this file is called directly, abort.
@@ -36,7 +36,7 @@ if ( ! defined( 'BPJM_PLUGIN_URL' ) ) {
 }
 
 if ( ! defined( 'BPJM_PLUGIN_VERSION' ) ) {
-	define( 'BPJM_PLUGIN_VERSION', '3.0.0' );
+	define( 'BPJM_PLUGIN_VERSION', '3.0.1' );
 }
 
 
@@ -114,6 +114,10 @@ function bpjm_plugin_init() {
 	 * job_manager_should_run_shortcode_action_handler filter, which runs on
 	 * `wp`, i.e. before wp_enqueue_scripts. Result: HTTP 500 on the front end
 	 * for everyone except administrators.
+	 *
+	 * BuddyPress is checked here, not in `Requires Plugins`: that header names a
+	 * plugin folder, so `buddypress` blocked activation on BuddyBoss Platform,
+	 * which also provides the BuddyPress class this check accepts.
 	 *
 	 * The `Requires Plugins` header (WP 6.5+) does NOT cover this. Core only
 	 * consults it in validate_plugin_requirements() on the activation path, so

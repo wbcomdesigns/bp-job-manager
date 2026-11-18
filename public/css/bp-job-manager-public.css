@@ -1,470 +1,571 @@
-.profile-fields .bpjm-set-odd {
-    background: #cccccc1a;
-}
-
-.profile-fields ul.resume-links {
-    list-style: none;
-    margin-bottom: 0px;
-}
-
-#resume-manager-candidate-dashboard table td.resume-title {
-    vertical-align: middle;
-}
-
-.display-false {
-    display: none;
-}
-
-.inifinite-loader-wrapper {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-}
-
-#inifiniteLoader .loading::after {
-    content: "\f1ce";
-    font-family: "FontAwesome";
-    font-size: 18px;
-    line-height: 1;
-    margin-inline-start: 10px;
-    text-align: center;
-    display: inline-block;
-    -webkit-animation: spin 1s infinite linear;
-    animation: spin 1s infinite linear;
-}
-
-.job-manager-pagination {
-    display: none;
-}
-
-.item-body .job-manager-form fieldset select[multiple] {
-    overflow: auto;
-    background-image: none;
-}
-
-@-webkit-keyframes spin {
-    from {
-        -webkit-transform: rotate(0deg);
-    }
-
-    to {
-        -webkit-transform: rotate(360deg);
-    }
-}
-
-@keyframes spin {
-    from {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-
-    to {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
-
-@media screen and (max-width: 1024px) {
-
-    .job-manager-jobs thead,
-    .resume-manager-resumes thead {
-        display: none;
-    }
-
-    .job-manager-jobs tr:nth-child(odd),
-    .resume-manager-resumes tr:nth-child(odd) {
-        background: #f7f7f7;
-    }
-
-    .job-manager-jobs tr,
-    .resume-manager-resumes tr {
-        margin: 0 0 1rem 0;
-    }
-
-    .job-manager-jobs td,
-    .resume-manager-resumes td {
-        border: none;
-        border-bottom: 1px solid #eee;
-        position: relative;
-        padding-inline-start: 50% !important;
-        display: block;
-        width: 100%;
-        text-align: start !important;
-        min-height: 54px;
-    }
-
-    .job-manager-jobs td:before,
-    .resume-manager-resumes td:before {
-        content: attr(data-header);
-        position: absolute;
-        inset-inline-start: 15px;
-        width: 45%;
-        padding-inline-end: 10px;
-        white-space: nowrap;
-        text-align: start;
-    }
-
-    .job-manager-jobs td .job-dashboard-actions {
-        font-size: 75% !important;
-    }
-
-    #job-manager-job-dashboard table ul.job-dashboard-actions li {
-        display: inline-block !important;
-    }
-}
-
-#job-manager-job-dashboard table td,
-#job-manager-job-dashboard table th,
-#job-manager-alerts .job-manager-alerts td,
-#job-manager-alerts .job-manager-alerts th {
-    padding: 0.5em;
-    text-align: center;
-}
-
-#job-manager-job-dashboard table td.job_title,
-#job-manager-job-dashboard table th.job_title,
-#job-manager-alerts .job-manager-alerts td,
-#job-manager-alerts .job-manager-alerts th {
-    text-align: left;
-}
-
-/* .bpjm-app-count{
-        display:none;
-      } */
-
-.bpjm-loader-img {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    height: 100%;
-}
-
-.bpjm-loader-img img {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
-
-/* BP Profile */
-.item-body #job-manager-job-dashboard .jm-dashboard-job-column.job_title {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 50%;
-    flex: 1 1 50%;
-}
-
-#job-manager-job-dashboard .position-filled {
-    font-size: 85%;
-    color: var(--jm-ui-danger-color, #b32d2e);
-}
-
-.jm-dashboard-job .bpjm-job-application-btn-action a,
-.bpjm-job-application-btn-action a {
-    border: 1px solid;
-    padding: var(--jm-ui-space-xs) var(--jm-ui-space-s);
-    line-height: 1;
-    border-radius: 4px;
-}
-
-body.wb-reign-theme.my-jobs .job-manager-jobs .bpjm-job-application-btn-action a {
-    background-color: var(--reign-site-button-bg-color);
-    color: var(--reign-site-button-text-color) !important;
-    padding: 5px 15px;
-    border: 1px solid var(--reign-site-button-bg-color);
-    font-size: 15px;
-}
-
-@media screen and (min-width: 640px) and (max-width: 1024px) {
-    .item-body #job-manager-job-dashboard .jm-dashboard-job {
-        -webkit-box-align: start;
-        -ms-flex-align: start;
-        align-items: flex-start;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    }
-
-    .item-body #job-manager-job-dashboard .jm-dashboard-job-column.actions {
-        -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-        justify-content: space-between;
-    }
-}
-
-/* Job/Resume Tab */
-.item-body .resume-dashboard__actions {
-    text-align: right;
-    margin: -55px 0 20px;
-}
-
-#buddypress .resume-dashboard__actions a.button {
-    padding: 6px 12px;
-    font-size: 14px;
-}
-
-#resume-manager-candidate-dashboard table.resume-manager-resumes.resume-dashboard-table ul.candidate-dashboard-actions {
-    visibility: visible;
-}
-
-@media screen and (min-width: 1025px) {
-
-    #resume-manager-candidate-dashboard table.resume-manager-resumes.resume-dashboard-table,
-    #job-manager-job-dashboard table.job-manager-jobs.job-dashboard-table {
-        font-size: 14px;
-        border-collapse: separate;
-        border-spacing: 0 15px;
-        border: 0;
-    }
-
-    #resume-manager-candidate-dashboard table.resume-manager-resumes thead th.resume-dashboard-resume-column-label,
-    #job-manager-job-dashboard table.job-manager-jobs thead th.job-dashboard-job-column-label {
-        font-size: 12px;
-        font-weight: 200;
-        text-transform: uppercase;
-        padding: 0 10px;
-        border: 0;
-        text-align: left;
-    }
-
-    #resume-manager-candidate-dashboard table.resume-manager-resumes thead.resume-dashboard-header,
-    #job-manager-job-dashboard table.job-manager-jobs thead.job-dashboard-header {
-        background-color: transparent;
-        color: inherit;
-    }
-
-    #resume-manager-candidate-dashboard table.resume-manager-resumes.resume-dashboard-table tbody tr:hover,
-    #job-manager-job-dashboard table.job-manager-jobs.job-dashboard-table tbody tr:hover {
-        background-color: transparent;
-        box-shadow: none;
-    }
-
-    #resume-manager-candidate-dashboard table.resume-manager-resumes.resume-dashboard-table td,
-    #job-manager-job-dashboard table.job-manager-jobs.job-dashboard-table td {
-        text-align: left;
-        border: 0;
-        border-top: 1px solid#e5e7e8;
-        border-bottom: 1px solid#e5e7e8;
-    }
-
-    #resume-manager-candidate-dashboard table.resume-manager-resumes.resume-dashboard-table tbody td:first-child,
-    #job-manager-job-dashboard table.job-manager-jobs.job-dashboard-table tbody td:first-child {
-        border-left: 1px solid#e5e7e8;
-    }
-
-    #resume-manager-candidate-dashboard table.resume-manager-resumes.resume-dashboard-table tbody td:last-child,
-    #job-manager-job-dashboard table.job-manager-jobs.job-dashboard-table tbody td:last-child {
-        border-right: 1px solid#e5e7e8;
-    }
-
-    #resume-manager-candidate-dashboard table.resume-manager-resumes.resume-dashboard-table tbody td.resume-title>a {
-        display: block;
-        margin-bottom: 10px;
-    }
-
-    #resume-manager-candidate-dashboard table.resume-manager-resumes.resume-dashboard-table tbody td small,
-    #job-manager-job-dashboard table.job-manager-jobs.job-dashboard-table tbody td small {
-        margin: 5px 0;
-    }
-}
-
-@media screen and (max-width: 1024px) {
-
-    #resume-manager-candidate-dashboard table.resume-manager-resumes.resume-dashboard-table,
-    #job-manager-job-dashboard table.job-manager-jobs.job-dashboard-table {
-        border: 1px solid#e5e7e8;
-    }
-}
-
-
-.bpjm-flex-container {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    background-color: white;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
-
-.bpjm-flex-container>div {
-    background-color: #ef5455 !important;
-    padding: 12px;
-}
-
-.bpjm-fa-icon {
-    color: white;
-    font-size: 15px !important;
-}
-
-.bpjm-flex-container>p {
-    font-size: 14px;
-    line-height: 1.5 !important;
-    color: #807f7f;
-    margin-top: 12px;
-    margin-inline-start: 24px;
-}/*--------------------------------------------------------------
-# Dark mode
-# Dark styling is applied ONLY under an explicit dark choice:
-#   html[data-bx-mode="dark"]  - BuddyX / BuddyX Pro / Reign explicit dark
-#   .buddyx-dark-theme         - legacy BuddyX builds (always explicit dark)
-# Never key dark styling off the OS via prefers-color-scheme (owner rule):
-# "auto" mode must fall back to the theme's own handling, not to a media
-# query here. WP Job Manager core renders light surfaces (dashboard
-# buttons, search icon, actions popover, jm-notice boxes, the submit-form
-# preview panel and confirmation notices) that these themes do not darken,
-# so they are restyled here for the explicit dark scopes only.
+/*--------------------------------------------------------------
+# BuddyPress Job Manager - profile screens
+#
+# Every Jobs / Resumes tab renders WP Job Manager's or an add-on's own
+# markup (dashboard, submit form, alerts, bookmarks, resumes, applications)
+# inside one wrapper, .bpjm-screen (Bp_Job_Manager_Public::bpjm_screen_open()).
+# This sheet gives all of them one look - buttons, tables, notices - on any
+# theme, without re-rendering anything. Nothing here leaks outside the wrapper
+# except the Apply page rule at the end.
+#
+# Colour follows the theme: BuddyX tokens -> Reign tokens -> theme.json
+# presets -> a neutral default. BuddyX and Reign redefine their tokens for
+# dark mode, so buttons follow them there too. Surfaces are drawn with
+# currentColor mixes, so they work on light and dark backgrounds alike.
+# Breakpoints: 640 / 1024.
 --------------------------------------------------------------*/
 
-/* WP Job Manager --jm-ui-* design tokens (defined at :where(:root) in
-   ui.css, so any scoped override wins). These flip the token-driven
-   surfaces in one place:
-   - --jm-ui-background-color: .jm-notice boxes and the three-dot
-     actions popover (.jm-ui-action-menu__content, fallback #fff).
-   - --jm-ui-svg-search: the dashboard search-input icon is a black-fill
-     SVG background image — invisible on the dark input. Re-declared
-     with a light fill (#e6e6e6).
-   - --jm-ui-danger-color: WPJM ships a dark-mode variant for the
-     Delete action link; use it. */
-[data-bx-mode="dark"],
-.buddyx-dark-theme {
-    --jm-ui-background-color: #1f1f1f;
-    --jm-ui-danger-color: var(--jm-ui-danger-color-dark-mode, #f86c80);
-    --jm-ui-svg-search: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27 fill=%27none%27%3E%3Cpath fill=%27%23e6e6e6%27 fill-rule=%27evenodd%27 d=%27M19 11a6 6 0 0 1-9.68 4.74l-3.79 3.79-1.06-1.06 3.79-3.8A6 6 0 1 1 19 11Zm-1.5 0a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z%27 clip-rule=%27evenodd%27/%3E%3C/svg%3E");
+.bpjm-screen {
+	--bpjm-btn-bg: var(--bx-color-button-bg, var(--reign-site-button-bg-color, var(--wp--preset--color--contrast, #1e1e1e)));
+	--bpjm-btn-fg: var(--bx-color-button-fg, var(--reign-site-button-text-color, var(--wp--preset--color--base, #fff)));
+	--bpjm-btn-bg-hover: var(--bx-color-button-bg-hover, var(--reign-site-button-bg-hover-color, var(--bpjm-btn-bg)));
+	--bpjm-btn-fg-hover: var(--bx-color-button-fg-hover, var(--reign-site-button-text-hover-color, var(--bpjm-btn-fg)));
+	--bpjm-radius: var(--bx-radius-button, var(--button-border-radius, 6px));
+	--bpjm-border: color-mix(in srgb, currentColor 15%, transparent);
+	--bpjm-surface: color-mix(in srgb, currentColor 4%, transparent);
+	--bpjm-muted: color-mix(in srgb, currentColor 80%, transparent);
+
+	/* WP Job Manager's own design tokens, so its dashboard and notices match. */
+	--jm-ui-button-color: var(--bpjm-btn-bg);
+	--jm-ui-button-color-contrast: var(--bpjm-btn-fg);
+	--jm-ui-accent-color: var(--bpjm-btn-bg);
+	--jm-ui-accent-color-contrast: var(--bpjm-btn-fg);
+	--jm-ui-radius: var(--bpjm-radius);
+	--jm-ui-font-family: inherit;
+
+	display: flow-root;
+	max-width: 100%;
+	overflow-wrap: break-word;
 }
 
-/* "Add Job" / dashboard buttons: were light bg + inherited light text
-   (invisible) in dark mode. */
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job-manager-jobs .jm-ui-button,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) #job-manager-job-dashboard .jm-ui-button,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-job-dashboard .jm-ui-button {
-    background-color: #2b2b2b;
-    color: #f0f0f0;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+/*--------------------------------------------------------------
+# Buttons - one primary, one secondary, everywhere on our screens.
+# Themes style bare button/input/a.button differently; we set every
+# property that carries meaning so no theme rule decides it for us.
+# :not(#bpjm) adds ID-level weight without needing an ID, so theme rules
+# such as `#buddypress input[type=submit]` cannot outrank these.
+--------------------------------------------------------------*/
+.bpjm-screen:not(#bpjm) :is(
+	a.jm-ui-button:not(.jm-ui-button--link),
+	button.jm-ui-button:not(.jm-ui-button--link),
+	input[type="submit"],
+	button[type="submit"],
+	a.button,
+	.button:not(.wp-switch-editor):not(.jm-ui-button--link),
+	.jm-alerts__add-new a
+) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4em;
+	box-sizing: border-box;
+	min-height: 40px;
+	padding: 0.5em 1.25em;
+	margin: 0;
+	border: 1px solid var(--bpjm-btn-bg);
+	border-radius: var(--bpjm-radius);
+	background: var(--bpjm-btn-bg);
+	color: var(--bpjm-btn-fg);
+	font: inherit;
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 1.2;
+	text-decoration: none;
+	text-transform: none;
+	letter-spacing: normal;
+	box-shadow: none;
+	cursor: pointer;
+	width: auto;
+	height: auto;
 }
 
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job-manager-jobs .jm-ui-button:hover,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) #job-manager-job-dashboard .jm-ui-button:hover {
-    background-color: #3a3a3a;
-    color: #ffffff;
+.bpjm-screen:not(#bpjm) :is(
+	a.jm-ui-button:not(.jm-ui-button--link),
+	button.jm-ui-button:not(.jm-ui-button--link),
+	input[type="submit"],
+	button[type="submit"],
+	a.button,
+	.button:not(.wp-switch-editor):not(.jm-ui-button--link),
+	.jm-alerts__add-new a
+):is(:hover, :focus-visible) {
+	border-color: var(--bpjm-btn-bg-hover);
+	background: var(--bpjm-btn-bg-hover);
+	color: var(--bpjm-btn-fg-hover);
 }
 
-/* Submit-form preview header bar: was a light bar with invisible
-   "Preview" heading text. */
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_preview_title {
-    background-color: #1f1f1f;
-    border-color: rgba(255, 255, 255, 0.12);
+.bpjm-screen:not(#bpjm) :is(input[type="submit"], button, .button, a.button):focus-visible {
+	outline: 2px solid var(--bpjm-btn-bg);
+	outline-offset: 2px;
 }
 
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_preview_title h2,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_preview_title h3,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_preview_title .job_listing_preview_title__label {
-    color: #e6e6e6;
+/* Secondary: Save Draft, Edit listing, the dashboard's outline buttons. */
+.bpjm-screen:not(#bpjm) :is(.save_draft, .secondary, input[name="edit_job"], input[name="edit_resume"], .jm-ui-button--outline) {
+	border-color: var(--bpjm-border);
+	background: transparent;
+	color: inherit;
 }
 
-/* Preview panel: WPJM frontend.css hardcodes light borders
-   (.job_listing_preview 5px #eee, .company 1px #eee) that read as
-   bright white frames on the dark page. */
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_preview {
-    border-color: #2f2f2f;
+.bpjm-screen:not(#bpjm) :is(.save_draft, .secondary, input[name="edit_job"], input[name="edit_resume"], .jm-ui-button--outline):is(:hover, :focus-visible) {
+	border-color: var(--bpjm-btn-bg);
+	background: var(--bpjm-surface);
+	color: inherit;
 }
 
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .single_job_listing .company {
-    border-color: rgba(255, 255, 255, 0.14);
-    box-shadow: none;
+/*
+ * Dashboard column labels and job status: same muted colour as table headers.
+ * WP Job Manager mutes the header row and the status line with its own
+ * transparent mixes; stacked on ours (or on #505050) they drop under 4.5:1.
+ * The header row is already muted, so its labels inherit it.
+ */
+.bpjm-screen:not(#bpjm) :is(.jm-dashboard-job-column-label, .jm-dashboard .job-status) {
+	color: var(--bpjm-muted);
 }
 
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .single_job_listing .company .company_video {
-    border-top-color: rgba(255, 255, 255, 0.14);
+.bpjm-screen:not(#bpjm) .jm-dashboard-header .jm-dashboard-job-column-label {
+	color: inherit;
 }
 
-/* Legacy submit confirmation / info notices: were white boxes on the
-   dark page. */
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job-manager-message,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job-manager-info,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job-manager-error {
-    background-color: #1f1f1f;
-    color: #e6e6e6;
-    border-color: rgba(255, 255, 255, 0.14);
+/* WP Job Manager fades field hints and "(optional)" to 75% opacity, under 4.5:1 on most themes. */
+.bpjm-screen .job-manager-form :is(small.description, label small) {
+	opacity: 1;
 }
 
-/* jm-ui notices (dashboard empty state "You do not have any active
-   listings." and the deleted/updated confirmations): light boxes with
-   low-contrast text in dark mode. */
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .jm-notice {
-    background-color: #1f1f1f;
-    color: #e6e6e6;
-    border-color: rgba(255, 255, 255, 0.14);
+/*
+ * Job- and resume-card meta (visitor view): both host plugins grey it to #999, which fails
+ * contrast. Inherit the card's text colour instead - mixing from #999 would
+ * only grey it further. The job-type badge keeps its own colour.
+ */
+.bpjm-screen:not(#bpjm) ul.job_listings li.job_listing :is(.company, .company strong, .tagline, .location, .location small, .meta, .date, .date time),
+.bpjm-screen:not(#bpjm) ul.resumes li.resume :is(.candidate-title, .candidate-location-column, .resume-posted-column, .resume-meta) {
+	color: inherit;
 }
 
-/* Three-dot actions popover (Edit / Duplicate / Delete): rendered as a
-   light panel with the page's light text — unreadable in dark mode. */
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .jm-ui-action-menu__content {
-    background-color: #1f1f1f;
-    border-color: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+/* Row buttons on the jobs dashboard: compact, and the actions cell may wrap. */
+.bpjm-screen:not(#bpjm) .jm-dashboard-job .jm-ui-button {
+	min-height: 34px;
+	padding: 0.35em 0.9em;
+	font-size: 14px;
 }
 
-/* Job/Resume Packages: light background on dark page. */
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .entry-content .job_listing_packages_title,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .entry-content .resume_packages_title,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages_title,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages_title {
-    background-color: #1f1f1f;
+.bpjm-screen .jm-dashboard-job-column.actions {
+	flex-wrap: wrap;
+	gap: 8px;
+	min-width: 0;
 }
 
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages {
-    border-color: rgba(255, 255, 255, 0.14);
+/* "Back to My Jobs" above a sub-screen, "Go to My Jobs" after posting. */
+.bpjm-screen .bpjm-back {
+	margin: 0 0 16px;
+	font-size: 14px;
 }
 
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages ul.job_packages li.user-job-package,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages ul.job_packages li.user-resume-package, 
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages ul.resume_packages li.user-job-package,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages ul.resume_packages li.user-resume-package,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages ul.job_packages li.user-job-package,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages ul.job_packages li.user-resume-package, 
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages ul.resume_packages li.user-job-package,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages ul.resume_packages li.user-resume-package {
-    background-color: #1f1f1f;
+.bpjm-screen .bpjm-next {
+	margin: 16px 0 0;
 }
 
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages ul.job_packages li,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .job_listing_packages ul.resume_packages li,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages ul.job_packages li,
-:is([data-bx-mode="dark"], .buddyx-dark-theme) .resume_packages ul.resume_packages li {
-    border-color: rgba(255, 255, 255, 0.14);
+/* Link-style row actions stay links, in the theme's link colour. */
+.bpjm-screen:not(#bpjm) :is(.jm-ui-button--link, .candidate-dashboard-actions a) {
+	background: none;
+	border: 0;
+	padding: 0;
+	min-height: 0;
+	font-weight: 500;
+	text-decoration: none;
 }
 
-/* ---------------------------------------------------------------------------
- * Standalone "Apply To Job" page (public/templates/bpjm-job-application.php).
- *
- * The real cause of the cramped form was NOT missing rules here - it was that
- * WP Job Manager's own frontend.css never loaded on this page, because
- * is_wpjm() returned false for it. That is fixed in
- * Bp_Job_Manager_Public::bpjm_has_wpjm_shortcode(), so the form now gets WP Job
- * Manager's real fieldset / label / field spacing, identical to the single job
- * listing page. Do not re-add a parallel set of spacing rules here.
- *
- * This one rule remains because WP Job Manager Applications scopes its own
- * form padding under `.single_job_listing .application .application_details`,
- * an ancestor chain this page has no equivalent for. The value is copied
- * verbatim from Applications' frontend.css. Its sibling rules (.form-content
- * and friends) were deliberately NOT copied - that markup does not exist in
- * this form variant, so they would be dead CSS.
- * ------------------------------------------------------------------------ */
+/* Text-link actions still get a 40px tap row (Resume Manager draws them 16-19px tall). */
+.bpjm-screen:not(#bpjm) :is(.candidate-dashboard-actions a, .resume-manager-add-row) {
+	display: inline-flex;
+	align-items: center;
+	min-height: 40px;
+}
+
+/* Form footers: buttons sit in one row and wrap on narrow screens. */
+.bpjm-screen :is(.job-manager-form, #job_preview) p:has(> input[type="submit"]) {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	align-items: center;
+}
+
+/*--------------------------------------------------------------
+# Tables - Resume Manager's dashboard, Applications' past applications,
+# Bookmarks and Alerts. Same header, row and spacing everywhere.
+--------------------------------------------------------------*/
+.bpjm-screen table {
+	width: 100%;
+	margin: 0 0 1.5em;
+	border: 1px solid var(--bpjm-border);
+	border-collapse: separate;
+	border-spacing: 0;
+	border-radius: var(--bpjm-radius);
+	background: transparent;
+	font-size: 15px;
+	table-layout: auto;
+}
+
+.bpjm-screen :is(th, td) {
+	padding: 12px 16px;
+	border: 0;
+	border-bottom: 1px solid var(--bpjm-border);
+	background: transparent;
+	color: inherit;
+	text-align: start;
+	vertical-align: top;
+}
+
+.bpjm-screen tr:last-child > td {
+	border-bottom: 0;
+}
+
+.bpjm-screen.bpjm-screen:not(#bpjm) table :is(th, thead td) {
+	background: var(--bpjm-surface);
+	color: var(--bpjm-muted);
+	font-size: 13px;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
+/* Themes paint table sections and zebra rows (Reign fills thead with its button colour). */
+.bpjm-screen.bpjm-screen:not(#bpjm) table :is(thead, tbody, tfoot, tr) {
+	background: transparent;
+	color: inherit;
+}
+
+/*
+ * Empty lists. Bookmarks and Resume Manager print "nothing here" as a single
+ * full-width row under the column headers, which reads as a broken table.
+ * Drop the headers and show the sentence as a plain empty state.
+ */
+.bpjm-screen table:has(tbody > tr:only-child > td[colspan]:only-child) thead {
+	display: none;
+}
+
+.bpjm-screen tbody > tr:only-child > td[colspan]:only-child {
+	padding: 32px 16px;
+	color: var(--bpjm-muted);
+	text-align: center;
+}
+
+/*
+ * Applications list (My Jobs -> a job's applications, where the "X applied"
+ * notification lands). Applications hardcodes a white card and a #f5f5f5 meta
+ * panel, so on a dark page the text is light on white.
+ */
+.bpjm-screen:not(#bpjm) .job-applications {
+	background: transparent;
+}
+
+.bpjm-screen:not(#bpjm) .job-applications li.job-application {
+	border-color: var(--bpjm-border);
+	border-radius: var(--bpjm-radius);
+	background: transparent;
+	color: inherit;
+	box-shadow: none;
+}
+
+.bpjm-screen:not(#bpjm) .job-applications .job-application-meta {
+	background: var(--bpjm-surface);
+	color: inherit;
+}
+
+.bpjm-screen:not(#bpjm) .job-applications :is(footer li, footer a, .hide_section) {
+	color: var(--bpjm-muted);
+}
+
+/* Alert cards (Job Alerts): same border and radius as everything else. */
+.bpjm-screen .jm-alert {
+	border-color: var(--bpjm-border);
+	border-radius: var(--bpjm-radius);
+	box-shadow: none;
+}
+
+/* Row actions under a title: always visible (Resume Manager hides them until hover). */
+.bpjm-screen ul.candidate-dashboard-actions,
+.bpjm-screen ul.job-dashboard-actions {
+	visibility: visible;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 16px;
+	margin: 6px 0 0;
+	padding: 0;
+	list-style: none;
+	font-size: 14px;
+}
+
+.bpjm-screen ul.candidate-dashboard-actions li {
+	margin: 0;
+	padding: 0;
+}
+
+.bpjm-screen .candidate-dashboard-action-delete,
+.bpjm-screen .job-dashboard-action-delete,
+.bpjm-screen:not(#bpjm) a.jm-alert__action[href*="action=delete"],
+.bpjm-screen:not(#bpjm) .resume-manager-remove-row {
+	color: var(--jm-ui-danger-color, #cc1818);
+}
+
+/*--------------------------------------------------------------
+# Notices and empty states - one box style, readable on any background.
+--------------------------------------------------------------*/
+.bpjm-screen :is(.job-manager-message, .job-manager-info, .job-manager-error) {
+	margin: 0 0 1.5em;
+	padding: 14px 16px;
+	border: 1px solid var(--bpjm-border);
+	border-inline-start: 4px solid var(--jm-ui-info-color, #4e71ec);
+	border-radius: var(--bpjm-radius);
+	background: var(--bpjm-surface);
+	color: inherit;
+	box-shadow: none;
+}
+
+.bpjm-screen .job-manager-message {
+	border-inline-start-color: var(--jm-ui-success-color, #4ab866);
+}
+
+.bpjm-screen .job-manager-error {
+	border-inline-start-color: var(--jm-ui-danger-color, #cc1818);
+}
+
+/* WP Job Manager gives dialog notices a fixed 400px min-width: wider than a phone. */
+.bpjm-screen:not(#bpjm) .jm-notice {
+	min-width: 0;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+/*--------------------------------------------------------------
+# Submit forms (Post Job / Add Resume)
+--------------------------------------------------------------*/
+.bpjm-screen .job-manager-form :is(h2, h3) {
+	margin: 1.5em 0 0.75em;
+	font-size: 20px;
+	line-height: 1.3;
+}
+
+.bpjm-screen .job-manager-form fieldset select[multiple] {
+	overflow: auto;
+	background-image: none;
+}
+
+/*
+ * WP Job Manager reveals the editor's hidden textarea at 1px so the browser's
+ * "required" bubble has something to point at. A theme that gives editor
+ * textareas a min-height (Reign does) turns that pixel into a second, fake
+ * description field that swallows what the member types. Keep it at a pixel
+ * whatever the theme says; the member types in the visual editor.
+ */
+.bpjm-screen .wp-editor-wrap.tmce-active textarea.wp-editor-area {
+	min-height: 0 !important;
+	max-height: 1px !important;
+	padding: 0 !important;
+	border: 0 !important;
+	resize: none !important;
+}
+
+/* Preview panel borders: WP Job Manager hardcodes #eee, a bright frame on dark pages. */
+.bpjm-screen .job_listing_preview {
+	border-color: var(--bpjm-border);
+}
+
+.bpjm-screen .single_job_listing .company,
+.bpjm-screen .single_job_listing .company .company_video {
+	border-color: var(--bpjm-border);
+	box-shadow: none;
+}
+
+/*--------------------------------------------------------------
+# Pagination (WP Job Manager's pager, pointed at ?bpjm-page=N)
+--------------------------------------------------------------*/
+.bpjm-screen .job-manager-pagination ul {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 1.5em 0 0;
+	padding: 0;
+	border: 0;
+	list-style: none;
+}
+
+.bpjm-screen .job-manager-pagination li {
+	margin: 0;
+	border: 0;
+}
+
+.bpjm-screen:not(#bpjm) .job-manager-pagination :is(a, span) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 40px;
+	min-height: 40px;
+	padding: 0 12px;
+	border: 1px solid var(--bpjm-border);
+	border-radius: var(--bpjm-radius);
+	background: transparent;
+	color: inherit;
+	text-decoration: none;
+}
+
+.bpjm-screen:not(#bpjm) .job-manager-pagination a:is(:hover, :focus-visible) {
+	border-color: var(--bpjm-btn-bg);
+}
+
+.bpjm-screen:not(#bpjm) .job-manager-pagination .current {
+	border-color: var(--bpjm-btn-bg);
+	background: var(--bpjm-btn-bg);
+	color: var(--bpjm-btn-fg);
+	font-weight: 600;
+}
+
+/*--------------------------------------------------------------
+# Small screens: tables become labelled cards (labels from data-header,
+# set by bp-job-manager-public.js), the dashboard stacks.
+--------------------------------------------------------------*/
+@media screen and (max-width: 640px) {
+	.bpjm-screen table,
+	.bpjm-screen tbody,
+	.bpjm-screen tfoot,
+	.bpjm-screen tr,
+	.bpjm-screen td {
+		display: block;
+		width: 100%;
+	}
+
+	.bpjm-screen table {
+		border: 0;
+	}
+
+	.bpjm-screen thead,
+	.bpjm-screen tr:has(> th) {
+		display: none;
+	}
+
+	.bpjm-screen tr {
+		margin: 0 0 12px;
+		border: 1px solid var(--bpjm-border);
+		border-radius: var(--bpjm-radius);
+	}
+
+	.bpjm-screen td {
+		padding: 10px 14px;
+	}
+
+	.bpjm-screen td[data-header]:not([data-header=""])::before {
+		content: attr(data-header);
+		display: block;
+		margin-bottom: 2px;
+		color: var(--bpjm-muted);
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+		text-transform: uppercase;
+	}
+
+	.bpjm-screen :is(input[type="submit"], button[type="submit"], a.button, .jm-dashboard__actions .jm-ui-button) {
+		width: 100%;
+	}
+
+	.bpjm-screen .jm-dashboard__intro {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.bpjm-screen .jm-dashboard-job-column.actions {
+		flex: 1 1 100%;
+		justify-content: space-between;
+	}
+
+	/* 40px tap targets for the dashboard's row buttons and the actions menu. */
+	/* WPJM marks row buttons only with modifier classes (jm-ui-button--small), so match those too. */
+	.bpjm-screen:not(#bpjm) .jm-dashboard-job :is(.jm-ui-button, [class*="jm-ui-button--"], .jm-ui-action-menu__open-button) {
+		display: inline-flex;
+		align-items: center;
+		min-height: 40px;
+		min-width: 40px;
+	}
+}
+
+/*--------------------------------------------------------------
+# Dark mode - ONLY under an explicit dark choice (owner rule):
+#   html[data-bx-mode="dark"] - BuddyX / BuddyX Pro / Reign
+#   .buddyx-dark-theme        - legacy BuddyX builds
+# Never prefers-color-scheme. Everything above is already dark-safe; these
+# are the surfaces WP Job Manager and WordPress paint white themselves.
+--------------------------------------------------------------*/
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-screen {
+	--jm-ui-background-color: #1f1f1f;
+	--jm-ui-danger-color: var(--jm-ui-danger-color-dark-mode, #f86c80);
+	--jm-ui-svg-search: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27 fill=%27none%27%3E%3Cpath fill=%27%23e6e6e6%27 fill-rule=%27evenodd%27 d=%27M19 11a6 6 0 0 1-9.68 4.74l-3.79 3.79-1.06-1.06 3.79-3.8A6 6 0 1 1 19 11Zm-1.5 0a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z%27 clip-rule=%27evenodd%27/%3E%3C/svg%3E");
+}
+
+/* Dashboard notices and the three-dot actions popover. */
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-screen :is(.jm-notice, .jm-ui-action-menu__content) {
+	background-color: #1f1f1f;
+	color: #e6e6e6;
+	border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Job and resume cards (visitor view): the host plugins paint featured ones pale yellow. */
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-screen:not(#bpjm) :is(ul.job_listings li.job_listing, ul.resumes li.resume) a {
+	background: transparent;
+	color: inherit;
+}
+
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-screen:not(#bpjm) :is(ul.job_listings li.job_position_featured, ul.resumes li.resume_featured) a {
+	background: var(--bpjm-surface);
+}
+
+/* Submit form preview header bar. */
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-screen .job_listing_preview_title {
+	background-color: #1f1f1f;
+	border-color: rgba(255, 255, 255, 0.12);
+	color: #e6e6e6;
+}
+
+/* Description editor (TinyMCE) and category picker (select2) are white widgets. */
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-screen :is(.mce-tinymce, .mce-panel, .mce-toolbar-grp, .wp-editor-container) {
+	background: #1f1f1f;
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-screen :is(.mce-btn, .mce-btn button, .mce-ico) {
+	background: transparent;
+	color: #e6e6e6;
+}
+
+:is([data-bx-mode="dark"], .buddyx-dark-theme) :is(.bpjm-screen .select2-container--default .select2-selection, .select2-dropdown) {
+	background: #1f1f1f;
+	border-color: rgba(255, 255, 255, 0.18);
+	color: #e6e6e6;
+}
+
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-screen .select2-container--default .select2-selection--multiple .select2-selection__choice {
+	background: #2f2f2f;
+	border-color: rgba(255, 255, 255, 0.24);
+	color: #f0f0f0;
+}
+
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-screen .select2-search__field {
+	color: #e6e6e6;
+}
+
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .select2-results__option {
+	color: #e6e6e6;
+}
+
+/* Paid-listing package pickers on Post Job / Add Resume. */
+:is([data-bx-mode="dark"], .buddyx-dark-theme) .bpjm-screen :is(.job_listing_packages_title, .resume_packages_title, .job_packages li, .resume_packages li) {
+	background-color: #1f1f1f;
+	border-color: rgba(255, 255, 255, 0.14);
+}
+
+/*--------------------------------------------------------------
+# Legacy "Apply To Job" page (public/templates/bpjm-job-application.php),
+# only on sites that still have the page from before 3.0.0. Applications
+# scopes its form padding under .single_job_listing, which this page lacks.
+--------------------------------------------------------------*/
 .job-manager-application-wrapper form.job-manager-application-form {
-    padding: 0.25em 0 0;
+	padding: 0.25em 0 0;
 }

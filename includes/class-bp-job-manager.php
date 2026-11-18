@@ -193,6 +193,7 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			$this->loader->add_action( 'bp_setup_admin_bar', $plugin_admin, 'bpjm_setup_admin_bar_links', 70 );
 			$this->loader->add_action( 'transition_post_status', $plugin_admin, 'bpjm_publish_job_listing', 10, 3 );
 			$this->loader->add_action( 'transition_post_status', $plugin_admin, 'bpjm_publish_resume', 10, 3 );
+			$this->loader->add_action( 'bp_register_activity_actions', $plugin_admin, 'bpjm_register_activity_actions' );
 
 			// Remove the matching BP activity when a job/resume is trashed or
 			// permanently deleted so the stream never keeps a dead link.
@@ -242,17 +243,23 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 
 			$this->loader->add_filter( 'page_template', $plugin_public, 'bpjm_job_application_page' );
 
-			/*** Call function for mark filled */
-			$this->loader->add_filter( 'wp_redirect', $plugin_public, 'bpjm_filter_redirect_duplicate_post_url', 10, 2 );
+			// Before WP Job Manager's own `wp` handler, which needs a submission page we do not have.
+			$this->loader->add_action( 'wp', $plugin_public, 'bpjm_handle_submission_actions', 9 );
+			$this->loader->add_action( 'wp', $plugin_public, 'bpjm_handle_resume_relist', 9 );
+			$this->loader->add_action( 'template_redirect', $plugin_public, 'bpjm_redirect_old_applied_jobs', 5 );
+			$this->loader->add_action( 'transition_post_status', $plugin_public, 'bpjm_notify_application_status', 10, 3 );
+			$this->loader->add_action( 'job_manager_job_submitted_content_after', $plugin_public, 'bpjm_job_submitted_next_step' );
+			$this->loader->add_filter( 'wp_redirect', $plugin_public, 'bpjm_keep_resume_save_in_profile' );
 			$this->loader->add_action( 'wp', $plugin_public, 'bpjm_shortcode_action_handler' );
 			$this->loader->add_action( 'wp', $plugin_public, 'bpjm_modify_job_alert_action_handler' );
+			$this->loader->add_filter( 'job_manager_pagination_args', $plugin_public, 'bpjm_pagination_args' );
+			$this->loader->add_action( 'bp_template_content', $plugin_public, 'bpjm_screen_open', 1 );
+			$this->loader->add_action( 'bp_template_content', $plugin_public, 'bpjm_screen_close', 999 );
 
 			$this->loader->add_filter( 'job_manager_user_can_edit_published_submissions', $plugin_public, 'bpjm_filter_wpjm_user_can_edit_published_submissions', 10, 1 );
 
 			$this->loader->add_filter( 'job_manager_user_can_edit_pending_submissions', $plugin_public, 'bpjm_allow_user_to_edit_pending_jobs', 10, 1 );
 			$this->loader->add_filter( 'job_manager_my_job_actions', $plugin_public, 'bpjm_job_dashboard_job_actions', 10, 2 );
-			$this->loader->add_filter( 'job_manager_job_dashboard_columns', $plugin_public, 'bpjm_job_dashboard_cols', 20, 1 );
-			$this->loader->add_action( 'job_manager_job_dashboard_column_actions', $plugin_public, 'bpjm_job_dashboard_actions_col_content', 10, 1 );
 			$this->loader->add_filter( 'resume_manager_get_dashboard_resumes_args', $plugin_public, 'bpjm_resume_dashboard_user_id', 10, 1 );
 			$this->loader->add_filter( 'resume_manager_my_resume_actions', $plugin_public, 'bpjm_candidate_dashboard_resume_actions', 10, 2 );
 
@@ -326,11 +333,10 @@ if ( ! class_exists( 'Bp_Job_Manager' ) ) :
 			 * pre-12 compatibility shims against core's own rewrites and
 			 * against a namespace that is not there.
 			 *
-			 * This is not dead code: the plugin still supports BP < 12 (see the
-			 * bp_core_get_user_domain() fallback in
-			 * Bp_Job_Manager_Public::bpjm_filter_redirect_duplicate_post_url()),
-			 * and on those installs the standalone plugin is exactly what this
-			 * gate is for.
+			 * This is not dead code: the plugin still supports BP < 12 (profile
+			 * URLs are built with bp_core_get_userlink(), which predates 12), and
+			 * on those installs the standalone plugin is exactly what this gate
+			 * is for.
 			 */
 			if ( bpjm_is_plugin_active( 'bp-rewrites/class-bp-rewrites.php' ) ) {
 				$this->loader->add_filter( 'bp_nouveau_get_nav_link', $plugin_public, 'bpjm_nouveau_link_fix', 10, 2 );

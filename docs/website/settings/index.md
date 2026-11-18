@@ -17,7 +17,7 @@ Three toggles, all on by default. Nothing here is required for the plugin to wor
 |---|---|
 | Post job activity | Adds a BuddyPress activity update when a member posts a job |
 | Post resume activity | Adds a BuddyPress activity update when a member publishes a resume |
-| Application notifications | Sends the job author a BuddyPress notification when someone applies |
+| Application notifications | Sends the job author a BuddyPress notification when someone applies, and the applicant one when the job author changes the application's status |
 
 The resume and application rows only appear when the matching add-on is active.
 
@@ -28,7 +28,7 @@ apply. Those settings are gone as of 3.0.0.
 
 WP Job Manager already decides who may post a job, and this plugin now defers to it rather
 than running a second permission system alongside it. If you want to narrow who can post,
-filter `job_manager_user_can_post_job` — that is WP Job Manager's own contract, and it
+filter `job_manager_user_can_post_job`. That is WP Job Manager's own contract, and it
 applies everywhere on the site rather than only on the profile tabs.
 
 ## Overview

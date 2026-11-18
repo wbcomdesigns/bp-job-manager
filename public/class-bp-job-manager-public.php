@@ -46,13 +46,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		private $version;
 
 		/**
-		 * Total pages in the profile job listing, set by get_jobs_max_num_pages().
+		 * Whether the list being built is past its last page (set by the dashboard arg filters).
 		 *
-		 * @since    1.0.0
-		 * @access   public
-		 * @var      int    $max_num_pages    Maximum pages.
+		 * @since 3.0.1
+		 * @var bool
 		 */
-		public $max_num_pages = 0;
+		private $bpjm_past_last_page = false;
 
 		/**
 		 * Initialize the class and set its properties.
@@ -67,8 +66,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 
 			add_filter( 'job_manager_get_dashboard_jobs_args', array( $this, 'bpjm_job_dashboard_user_id' ) );
 			add_filter( 'has_wpjm_shortcode', array( $this, 'bpjm_has_wpjm_shortcode' ) );
-			add_action( 'wp_ajax_bpjm_load_more_jobs', array( $this, 'bpjm_load_more_jobs' ) );
-			add_action( 'wp_ajax_nopriv_bpjm_load_more_jobs', array( $this, 'bpjm_load_more_jobs' ) );
+			// Reign overrides WP Job Manager's job card template but only loads its CSS on pages it
+			// recognises as job pages; without this our profile tabs get the markup without the styles.
+			add_filter( 'reign_load_wp_job_manager_assets', array( $this, 'bpjm_has_wpjm_shortcode' ) );
 			add_action( 'transition_post_status', array( $this, 'flush_job_listings_transient_on_update' ), 10, 3 );
 			add_action( 'deleted_post', array( $this, 'flush_job_listings_transient_on_delete' ), 10, 2 );
 		}
@@ -112,6 +112,191 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 */
 		public function bpjm_is_owned_action() {
 			return in_array( bp_current_action(), $this->bpjm_get_owned_actions(), true );
+		}
+
+		/**
+		 * Open the wrapper every Jobs / Resumes screen renders inside.
+		 *
+		 * The screens are WP Job Manager's and its add-ons' own markup, each with
+		 * its own look. One wrapper lets the stylesheet give all of them the same
+		 * buttons, tables and notices without re-rendering any of it.
+		 *
+		 * @since 3.0.1
+		 */
+		public function bpjm_screen_open() {
+			if ( $this->bpjm_is_screen() ) {
+				echo '<div class="bpjm-screen bpjm-screen--' . esc_attr( bp_current_action() ) . '">';
+			}
+		}
+
+		/**
+		 * Close the wrapper opened by bpjm_screen_open().
+		 *
+		 * @since 3.0.1
+		 */
+		public function bpjm_screen_close() {
+			if ( $this->bpjm_is_screen() ) {
+				echo '</div>';
+			}
+		}
+
+		/**
+		 * Whether the current page is one of our Jobs / Resumes screens.
+		 *
+		 * @since 3.0.1
+		 * @return bool
+		 */
+		private function bpjm_is_screen() {
+			return in_array( bp_current_component(), array( 'jobs', 'resumes' ), true ) && $this->bpjm_is_owned_action();
+		}
+
+		/**
+		 * Register one Jobs / Resumes subnav item.
+		 *
+		 * @since 3.0.1
+		 * @param string $parent_slug     'jobs' or 'resumes'.
+		 * @param string $tab_link        Parent tab URL with trailing slash.
+		 * @param string $slug            Subnav slug.
+		 * @param string $name            Subnav label.
+		 * @param string $screen_function Method of this class that loads the screen.
+		 * @param int    $position        Subnav position.
+		 */
+		private function bpjm_add_subnav( $parent_slug, $tab_link, $slug, $name, $screen_function, $position ) {
+			bp_core_new_subnav_item(
+				array(
+					'name'            => $name,
+					'slug'            => $slug,
+					'parent_url'      => $tab_link . $slug,
+					'parent_slug'     => $parent_slug,
+					'screen_function' => array( $this, $screen_function ),
+					'position'        => $position,
+					'link'            => $tab_link . $slug,
+				)
+			);
+		}
+
+		/**
+		 * Load a profile screen whose title and content come from
+		 * bpjm_{$screen}_tab_function_to_show_title() / _content().
+		 *
+		 * @since 3.0.1
+		 * @param string $screen Screen key, e.g. 'my_jobs'.
+		 */
+		private function bpjm_load_screen( $screen ) {
+			add_action( 'bp_template_title', array( $this, "bpjm_{$screen}_tab_function_to_show_title" ) );
+			add_action( 'bp_template_content', array( $this, "bpjm_{$screen}_tab_function_to_show_content" ) );
+			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+		}
+
+		/**
+		 * The owner's WP Job Manager / Resume Manager dashboard on My Jobs / My Resumes.
+		 *
+		 * @since 3.0.1
+		 * @param string $tab       'jobs' or 'resumes'.
+		 * @param string $shortcode Dashboard shortcode.
+		 */
+		private function bpjm_render_owner_dashboard( $tab, $shortcode ) {
+			if ( $this->bpjm_owner_sub_screen( 'jobs' === $tab ? 'job_id' : 'resume_id' )['action'] ) {
+				$this->bpjm_back_link( $tab );
+			}
+			// Rendered first: the dashboard args filter decides whether this page is past the end.
+			$dashboard = do_shortcode( $shortcode );
+			if ( $this->bpjm_past_last_page ) {
+				$this->bpjm_first_page_notice();
+			}
+			echo $dashboard; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output from WP Job Manager / Resume Manager, escaped by their own templates.
+		}
+
+		/**
+		 * URL of a member's Jobs or Resumes tab, or one of its subnav screens.
+		 *
+		 * WP Job Manager's and Resume Manager's own dashboard and submission pages
+		 * are usually not configured on a BuddyPress site - the profile tabs are
+		 * those pages - so every link that means "your jobs", "post a job" or
+		 * "add a resume" is built here.
+		 *
+		 * @since 3.0.1
+		 * @param int    $user_id Member ID.
+		 * @param string $tab     'jobs' or 'resumes'.
+		 * @param string $screen  Optional subnav slug, e.g. 'post-job'.
+		 * @return string
+		 */
+		public function bpjm_screen_url( $user_id, $tab, $screen = '' ) {
+			return bp_core_get_userlink( $user_id, false, true ) . $tab . '/' . ( $screen ? $screen . '/' : '' );
+		}
+
+		/**
+		 * Current page of a paginated list on a Jobs / Resumes screen.
+		 *
+		 * WP Job Manager paginates with /page/N/, which BuddyPress does not route
+		 * under a member URL (it 404s), so our screens page with ?bpjm-page=N.
+		 *
+		 * @since 3.0.1
+		 * @return int
+		 */
+		public function bpjm_current_page() {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only page number.
+			return isset( $_GET['bpjm-page'] ) ? max( 1, absint( $_GET['bpjm-page'] ) ) : 1;
+		}
+
+		/**
+		 * Record whether dashboard query args land past the last page.
+		 *
+		 * Only runs on page 2+, as a one-row ID query with the same args.
+		 *
+		 * @since 3.0.1
+		 * @param array $args WP_Query arguments with offset already set.
+		 * @return void
+		 */
+		private function bpjm_check_past_last_page( $args ) {
+			if ( $this->bpjm_current_page() < 2 ) {
+				return;
+			}
+			$probe = new WP_Query(
+				array_merge(
+					$args,
+					array(
+						'fields'         => 'ids',
+						'posts_per_page' => 1,
+						'no_found_rows'  => true,
+					)
+				)
+			);
+			$this->bpjm_past_last_page = empty( $probe->posts );
+		}
+
+		/**
+		 * On a page past the end of a list, link back to the first page.
+		 *
+		 * @since 3.0.1
+		 * @return bool True when the notice was printed.
+		 */
+		private function bpjm_first_page_notice() {
+			if ( $this->bpjm_current_page() < 2 ) {
+				return false;
+			}
+			printf(
+				'<p class="bpjm-back"><a href="%1$s">&larr; %2$s</a></p>',
+				esc_url( remove_query_arg( 'bpjm-page' ) ),
+				esc_html__( 'This page is empty. Back to the first page', 'bp-job-manager' )
+			);
+			return true;
+		}
+
+		/**
+		 * Point WP Job Manager's pager at ?bpjm-page=N on our screens.
+		 *
+		 * @since 3.0.1
+		 * @param array $args paginate_links() arguments.
+		 * @return array
+		 */
+		public function bpjm_pagination_args( $args ) {
+			if ( bp_is_user() && $this->bpjm_is_owned_action() ) {
+				$args['base']    = add_query_arg( 'bpjm-page', '%#%' );
+				$args['format']  = '';
+				$args['current'] = $this->bpjm_current_page();
+			}
+			return $args;
 		}
 
 		/**
@@ -172,35 +357,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		}
 
 		/**
-		 * Job Listing Maximum pages.
-		 *
-		 * @return void
-		 */
-		public function get_jobs_max_num_pages() {
-			$per_page = get_option( 'job_manager_per_page' );
-
-			// Defining allowed actions once.
-			$allowed_actions = array( 'my-jobs', 'jobs' );
-
-			if ( in_array( bp_current_action(), $allowed_actions, true ) ) {
-				$args = array(
-					'post_type'           => 'job_listing',
-					'post_status'         => array( 'publish', 'expired', 'pending', 'draft', 'preview' ),
-					'ignore_sticky_posts' => true,
-					'posts_per_page'      => $per_page,
-					'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * $per_page,
-					'orderby'             => 'date',
-					'order'               => 'DESC',
-					'author'              => bp_displayed_user_id(),
-				);
-
-				$jobs                = new WP_Query( $args );
-				$this->max_num_pages = $jobs->max_num_pages;
-				wp_reset_postdata();
-			}
-		}
-
-		/**
 		 * Register the stylesheets for the public-facing side of the site.
 		 *
 		 * @since    1.0.0
@@ -249,9 +405,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				return true;
 			}
 
-			global $post;
-
-			return is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'job_dashboard' );
+			/*
+			 * Not a standalone [job_dashboard] page: that is WP Job Manager's own
+			 * screen, styled by WP Job Manager and the theme, and every rule here is
+			 * scoped to .bpjm-screen or the apply page.
+			 */
+			return false;
 		}
 
 		/**
@@ -260,49 +419,27 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @since    1.0.0
 		 */
 		public function enqueue_scripts() {
-			/**
-			 * This function is provided for demonstration purposes only.
-			 *
-			 * An instance of this class should be passed to the run() function
-			 * defined in Bp_Job_Manager_Loader as all of the hooks are defined
-			 * in that particular class.
-			 *
-			 * The Bp_Job_Manager_Loader will then create the relationship
-			 * between the defined hooks and the functions defined in this
-			 * class.
-			 */
-			// Global $wp_query.
-			$get_dashboard_page_id = (int) get_option( 'job_manager_job_dashboard_page_id' );
-			if ( $this->bpjm_is_owned_action() || get_the_ID() === $get_dashboard_page_id ) {
-				$this->get_jobs_max_num_pages();
-
-				/*
-				 * WP Job Manager's [job_dashboard] "Add Job" button links to the standalone
-				 * submit_job_form page (job_manager_submit_job_form_page_id). Inside a BuddyPress
-				 * profile that either renders empty (when the WPJM page is unconfigured) or navigates
-				 * the member out of their profile. Point it at the in-profile "Post Job" tab instead,
-				 * for the member viewing their own dashboard.
-				 */
-				$bpjm_post_job_url = '';
-				if ( bp_loggedin_user_id() === bp_displayed_user_id() ) {
-					$bpjm_post_job_url = bp_core_get_userlink( bp_displayed_user_id(), false, true ) . 'jobs/post-job/';
-				}
-
-				wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-public.js', array( 'jquery' ), $this->version, false );
-				wp_localize_script(
-					$this->plugin_name,
-					'bpjm_load_jobs_object',
-					array(
-						'ajaxurl'           => admin_url( 'admin-ajax.php' ),
-						'max_num_pages'     => $this->max_num_pages,
-						'ajax_nonce'        => wp_create_nonce( 'bpjm_load_jobs_nonce' ),
-						'displayed_user_id' => bp_displayed_user_id(),
-						'loading_text'      => __( 'Loading...', 'bp-job-manager' ),
-						'post_job_url'      => $bpjm_post_job_url,
-					)
-				);
-				wp_enqueue_script( $this->plugin_name );
+			// Same gate as the stylesheet: only the plugin's own profile screens.
+			if ( ! $this->bpjm_is_owned_action() ) {
+				return;
 			}
+
+			/*
+			 * WP Job Manager's [job_dashboard] "Add Job" button links to its standalone
+			 * submission page, which is empty when unconfigured and otherwise leaves the
+			 * profile. Point it at the in-profile Post Job tab, on the member's own profile;
+			 * same for Resume Manager's Add Resume link.
+			 */
+			wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/bp-job-manager-public.js', array( 'jquery' ), $this->version, true );
+			wp_localize_script(
+				$this->plugin_name,
+				'bpjm_public',
+				array(
+					'post_job_url'   => bp_is_my_profile() ? $this->bpjm_screen_url( bp_loggedin_user_id(), 'jobs', 'post-job' ) : '',
+					'add_resume_url' => bp_is_my_profile() ? $this->bpjm_screen_url( bp_loggedin_user_id(), 'resumes', 'add-resume' ) : '',
+				)
+			);
+			wp_enqueue_script( $this->plugin_name );
 		}
 
 		/**
@@ -393,164 +530,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		}
 
 		/**
-		 *  Load jobs on scroll.
-		 */
-		public function bpjm_load_more_jobs() {
-				check_ajax_referer( 'bpjm_load_jobs_nonce', 'ajax_nonce' );
-				$paged = ! empty( $_POST['page_no'] ) ? intval( sanitize_text_field( wp_unslash( $_POST['page_no'] ) ) ) : 1;
-
-				/*
-				 * Resolve the profile owner whose jobs are being listed. BuddyPress cannot
-				 * parse a member URL out of an admin-ajax.php request, so bp_displayed_user_id()
-				 * is 0 here; the profile page passes its displayed user ID in the payload.
-				 * Never fall through to an unfiltered query - WP_Query drops the author
-				 * clause entirely when 'author' is 0, which would leak every user's jobs.
-				 */
-				$author = ! empty( $_POST['user_id'] ) ? absint( wp_unslash( $_POST['user_id'] ) ) : bp_displayed_user_id();
-			if ( empty( $author ) ) {
-				wp_send_json_error( array( 'message' => __( 'Invalid member profile.', 'bp-job-manager' ) ), 400 );
-			}
-
-				// Only the profile owner may see their non-public (draft/pending/expired/preview) listings.
-				$is_profile_owner = ( get_current_user_id() === $author );
-				$post_status      = $is_profile_owner ? array( 'publish', 'expired', 'pending', 'draft', 'preview' ) : array( 'publish' );
-
-				$per_page              = get_option( 'job_manager_per_page' );
-				$job_dashboard_columns = array(
-					'job_title' => __( 'Title', 'bp-job-manager' ),
-					'filled'    => __( 'Filled?', 'bp-job-manager' ),
-					'date'      => __( 'Date Posted', 'bp-job-manager' ),
-					'expires'   => __( 'Listing Expires', 'bp-job-manager' ),
-					'actions'   => __( 'Actions', 'bp-job-manager' ),
-				);
-
-				$args = array(
-					'post_type'           => 'job_listing',
-					'post_status'         => $post_status,
-					'ignore_sticky_posts' => true,
-					'posts_per_page'      => $per_page,
-					'orderby'             => 'date',
-					'order'               => 'desc',
-					'author'              => $author,
-					'paged'               => $paged,
-				);
-				$jobs = get_posts( $args );
-
-				foreach ( $jobs as $job ) : ?>
-					<tr>
-						<?php foreach ( $job_dashboard_columns as $key => $column ) : ?>
-							<td class="<?php echo esc_attr( $key ); ?>">
-								<?php if ( 'job_title' === $key ) : ?>
-									<?php if ( 'publish' === $job->post_status ) : ?>
-										<a href="<?php echo esc_url( get_permalink( $job->ID ) ); ?>"><?php wpjm_the_job_title( $job ); ?></a>
-									<?php else : ?>
-										<?php wpjm_the_job_title( $job ); ?> <small>(<?php the_job_status( $job ); ?>)</small>
-									<?php endif; ?>
-									<?php echo is_position_featured( $job ) ? '<span class="featured-job-icon" title="' . esc_attr__( 'Featured Job', 'bp-job-manager' ) . '"></span>' : ''; ?>
-									<?php if ( $is_profile_owner ) { ?>
-										<ul class="job-dashboard-actions">
-											<?php
-											$actions = array();
-
-											switch ( $job->post_status ) {
-												case 'publish':
-													if ( WP_Job_Manager_Post_Types::job_is_editable( $job->ID ) ) {
-														$actions['edit'] = array(
-															'label' => __( 'Edit', 'bp-job-manager' ),
-															'nonce' => false,
-														);
-													}
-													if ( is_position_filled( $job ) ) {
-														$actions['mark_not_filled'] = array(
-															'label' => __( 'Mark not filled', 'bp-job-manager' ),
-															'nonce' => true,
-														);
-													} else {
-														$actions['mark_filled'] = array(
-															'label' => __( 'Mark filled', 'bp-job-manager' ),
-															'nonce' => true,
-														);
-													}
-
-													$actions['duplicate'] = array(
-														'label' => __( 'Duplicate', 'bp-job-manager' ),
-														'nonce' => true,
-													);
-													break;
-												case 'expired':
-													if ( job_manager_get_permalink( 'submit_job_form' ) ) {
-														$actions['relist'] = array(
-															'label' => __( 'Relist', 'bp-job-manager' ),
-															'nonce' => true,
-														);
-													}
-													break;
-												case 'pending_payment':
-												case 'pending':
-													if ( WP_Job_Manager_Post_Types::job_is_editable( $job->ID ) ) {
-														$actions['edit'] = array(
-															'label' => __( 'Edit', 'bp-job-manager' ),
-															'nonce' => false,
-														);
-													}
-													break;
-												case 'draft':
-												case 'preview':
-													$actions['continue'] = array(
-														'label' => __( 'Continue Submission', 'bp-job-manager' ),
-														'nonce' => true,
-													);
-													break;
-											}
-
-											$actions['delete'] = array(
-												'label' => __( 'Delete', 'bp-job-manager' ),
-												'nonce' => true,
-											);
-											foreach ( $actions as $action => $value ) {
-
-												$action_url = add_query_arg(
-													array(
-														'action' => $action,
-														'job_id' => $job->ID,
-													)
-												);
-												if ( $value['nonce'] ) {
-													$action_url = wp_nonce_url( $action_url, 'job_manager_my_job_actions' );
-												}
-												echo '<li><a href="' . esc_url( $action_url ) . '" class="job-dashboard-action-' . esc_attr( $action ) . '">' . esc_html( $value['label'] ) . '</a></li>';
-											}
-											?>
-										</ul>
-									<?php } ?>
-
-								<?php elseif ( 'date' === $key ) : ?>
-									<?php echo esc_html( date_i18n( get_option( 'date_format' ), strtotime( $job->post_date ) ) ); ?>
-								<?php elseif ( 'expires' === $key ) : ?>
-									<?php echo esc_html( $job->_job_expires ? date_i18n( get_option( 'date_format' ), strtotime( $job->_job_expires ) ) : '&ndash;' ); ?>
-								<?php elseif ( 'filled' === $key ) : ?>
-									<?php echo is_position_filled( $job ) ? '&#10004;' : '&ndash;'; ?>
-								<?php else : ?>
-									<?php
-									/*
-									 * WPJM 2.3+ hooks the actions column with 2 required args
-									 * ($job, $actions) - see WPJM templates/job-dashboard.php.
-									 * Pass an empty actions array to satisfy that contract; this
-									 * handler renders its own owner actions in the title column.
-									 */
-									do_action( 'job_manager_job_dashboard_column_' . $key, $job, array() );
-									?>
-								<?php endif; ?>
-							</td>
-						<?php endforeach; ?>
-					</tr>
-				<?php endforeach; ?>
-			<?php
-				wp_reset_postdata();
-			wp_die();
-		}
-
-		/**
 		 * Register a new tab in member's profile - Jobs.
 		 *
 		 * @since    1.0.0
@@ -579,10 +558,9 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			$is_current_user = ( get_current_user_id() === $displayed_uid );
 			$job_count       = function_exists( 'bpjm_member_profile_jobs_count' ) ? bpjm_member_profile_jobs_count( $displayed_uid ) : 0;
 
-			/* translators: %s: User's display name */
 			$my_job_tab = $this->bpjm_get_member_screen_label( 'jobs', $displayed_uid );
 			/* translators: %s: Job count */
-			$job_tab = sprintf( __( 'Jobs %s', 'bp-job-manager' ), '<span class="count">' . bp_core_number_format( $job_count ) . '</span>' );
+			$job_tab = trim( sprintf( __( 'Jobs %s', 'bp-job-manager' ), $job_count ? '<span class="count">' . bp_core_number_format( $job_count ) . '</span>' : '' ) ); // No "0" badge on an empty tab.
 
 			/*
 			 * A tab exists because the member HAS something, or because it is
@@ -606,96 +584,41 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					array(
 						'name'                    => $job_tab,
 						'slug'                    => $parent_slug,
-						'screen_function'         => array( $this, 'bpjm_jobs_tab_function_to_show_screen' ),
+						'screen_function'         => array( $this, 'bpjm_my_jobs_show_screen' ),
 						'position'                => 75,
 						'default_subnav_slug'     => 'my-jobs',
 						'show_for_displayed_user' => true,
 					)
 				);
 
-				bp_core_new_subnav_item(
-					array(
-
-						/*
-						 * Mirrors the Resumes tab exactly: the parent nav carries the
-						 * count badge ("Jobs 6"), the subnav carries the ownership
-						 * label ("My Jobs" / "Jobs by Rita"). $my_job_tab was built
-						 * for this slot years ago and then never passed to it, so the
-						 * variable sat dead, this subnav read a flat "Jobs", and the
-						 * "%s's Jobs" string it produced could never render - while
-						 * the Resumes subnav did show its owner label. Same shape on
-						 * both tabs now.
-						 */
-						'name'            => apply_filters( 'bpjm_jobs_tab_name', $my_job_tab ),
-						'slug'            => 'my-jobs',
-						'parent_url'      => $jobs_tab_link . 'my-jobs',
-						'parent_slug'     => $parent_slug,
-						'screen_function' => array( $this, 'bpjm_my_jobs_show_screen' ),
-						'position'        => 100,
-						'link'            => $jobs_tab_link . 'my-jobs',
-					)
-				);
+				// Same shape as the Resumes tab: count badge on the parent, owner label here.
+				$this->bpjm_add_subnav( $parent_slug, $jobs_tab_link, 'my-jobs', apply_filters( 'bpjm_jobs_tab_name', $my_job_tab ), 'bpjm_my_jobs_show_screen', 100 );
 
 				// Add other submenus for current user.
 				if ( $is_current_user ) {
 					if ( bpjm_is_plugin_active( 'wp-job-manager-bookmarks/wp-job-manager-bookmarks.php' ) ) {
-						bp_core_new_subnav_item(
-							array(
-								'name'            => __( 'My Bookmarks', 'bp-job-manager' ),
-								'slug'            => 'my-bookmarks',
-								'parent_url'      => $jobs_tab_link . 'my-bookmarks',
-								'parent_slug'     => $parent_slug,
-								'screen_function' => array( $this, 'bpjm_bookmarked_jobs_show_screen' ),
-								'position'        => 200,
-								'link'            => $jobs_tab_link . 'my-bookmarks',
-							)
-						);
+						$this->bpjm_add_subnav( $parent_slug, $jobs_tab_link, 'my-bookmarks', __( 'My Bookmarks', 'bp-job-manager' ), 'bpjm_bookmarked_jobs_show_screen', 200 );
 					}
 
 					if ( bpjm_is_plugin_active( 'wp-job-manager-alerts/wp-job-manager-alerts.php' ) ) {
-						bp_core_new_subnav_item(
-							array(
-								'name'            => __( 'Job Alerts', 'bp-job-manager' ),
-								'slug'            => 'job-alerts',
-								'parent_url'      => $jobs_tab_link . 'job-alerts',
-								'parent_slug'     => $parent_slug,
-								'screen_function' => array( $this, 'bpjm_job_alerts_show_screen' ),
-								'position'        => 200,
-								'link'            => $jobs_tab_link . 'job-alerts',
-							)
-						);
+						$this->bpjm_add_subnav( $parent_slug, $jobs_tab_link, 'job-alerts', __( 'Job Alerts', 'bp-job-manager' ), 'bpjm_job_alerts_show_screen', 200 );
 					}
 
-					bp_core_new_subnav_item(
-						array(
-							'name'            => __( 'Post Job', 'bp-job-manager' ),
-							'slug'            => 'post-job',
-							'parent_url'      => $jobs_tab_link . 'post-job',
-							'parent_slug'     => $parent_slug,
-							'screen_function' => array( $this, 'bpjm_post_job_show_screen' ),
-							'position'        => 200,
-							'link'            => $jobs_tab_link . 'post-job',
-						)
-					);
+					/*
+					 * Applied Jobs lives under Jobs: it is about jobs, a job seeker
+					 * looks for it there, and it needs only Applications - under
+					 * Resumes it vanished on sites without Resume Manager. The old
+					 * /resumes/applied-jobs/ URL redirects (bpjm_redirect_old_applied_jobs()).
+					 */
+					if ( bpjm_is_plugin_active( 'wp-job-manager-applications/wp-job-manager-applications.php' ) ) {
+						$this->bpjm_add_subnav( $parent_slug, $jobs_tab_link, 'applied-jobs', apply_filters( 'bpjm_resumes_subnav_item_applied_jobs', __( 'Applied Jobs', 'bp-job-manager' ) ), 'bpjm_applied_jobs_show_screen', 150 );
+					}
+
+					$this->bpjm_add_subnav( $parent_slug, $jobs_tab_link, 'post-job', __( 'Post Job', 'bp-job-manager' ), 'bpjm_post_job_show_screen', 200 );
 				}
 			}
 
-			/*
-			 * There is deliberately no `else`.
-			 *
-			 * A bare "jobs" fallback tab used to be registered here for members
-			 * whose role was not in the configured posting list: an employer's
-			 * empty dashboard - Title / Filled? / Date posted / Listing expires /
-			 * Actions and "No jobs found." - with no subnav, shown to the majority
-			 * role on a job site. It existed only to serve the role gating, and it
-			 * took the post-job subnav with `user_has_access => false` along with
-			 * it to stop direct URLs 404ing.
-			 *
-			 * With the gating gone the whole branch has nothing to do: a member on
-			 * their own profile gets the real Jobs tab and can post, and a visitor
-			 * looking at someone with no jobs simply sees no Jobs tab rather than
-			 * an empty one.
-			 */
+			// No else: a visitor on a profile with no jobs gets no Jobs tab, not an empty one.
 		}
 
 		/**
@@ -706,23 +629,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_post_job_show_screen() {
-			/*
-			 * Defense in depth: a profile owner without posting permission must
-			 * never reach [submit_job_form] here. The post-job subnav is already
-			 * registered `user_has_access => false` in the no-post-role branch
-			 * (which hides the tab and hands the URL to BP's no-access handling),
-			 * but BP grants owners access to their own tabs in some versions, so
-			 * we also gate here: redirect the non-poster to their jobs listing
-			 * with the standard "not authorized" message. Prevents both the Add
-			 * Job button AND a direct jobs/post-job/ hit from exposing the form.
-			 */
+			// An owner WP Job Manager will not let post never reaches [submit_job_form], even by direct URL.
 			if ( bp_loggedin_user_id() === bp_displayed_user_id() && ! $this->bpjm_restrict_user_post_job( true ) ) {
 				bp_core_add_message( $this->bpjm_restrict_user_post_job_message(), 'error' );
 				bp_core_redirect( trailingslashit( bp_displayed_user_domain() . 'jobs' ) );
 			}
-			add_action( 'bp_template_title', array( $this, 'bpjm_post_job_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_post_job_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			$this->bpjm_load_screen( 'post_job' );
 		}
 
 		/**
@@ -755,10 +667,95 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_my_jobs_show_screen() {
-			add_action( 'bp_template_title', array( $this, 'bpjm_my_jobs_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_my_jobs_tab_function_to_show_content' ) );
-			add_filter( 'job_manager_my_job_actions', array( $this, 'bpjm_hide_job_actions' ), 999, 2 );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			$this->bpjm_mark_application_notifications_read();
+			$this->bpjm_load_screen( 'my_jobs' );
+		}
+
+		/**
+		 * Tell the applicant when the employer changes their application's status.
+		 *
+		 * Applications stores the status as the post status (new, interviewed,
+		 * offer, hired, rejected, archived). Creation goes new -> new and is
+		 * skipped; archiving is the employer's housekeeping, not news for the
+		 * candidate. Gated by the same "application notifications" setting as the
+		 * employer's notice.
+		 *
+		 * @since 3.0.1
+		 * @param string  $new_status New post status.
+		 * @param string  $old_status Old post status.
+		 * @param WP_Post $post       Application post.
+		 */
+		public function bpjm_notify_application_status( $new_status, $old_status, $post ) {
+			global $bpjm_bp_job_manager;
+
+			if ( 'job_application' !== $post->post_type || $new_status === $old_status || in_array( $new_status, array( 'archived', 'trash', 'auto-draft' ), true )
+				|| ! bp_is_active( 'notifications' ) || ! isset( $bpjm_bp_job_manager->bpjm_app_notify ) || 'yes' !== $bpjm_bp_job_manager->bpjm_app_notify ) {
+				return;
+			}
+
+			$candidate_id = (int) get_post_meta( $post->ID, '_candidate_user_id', true );
+			if ( ! $candidate_id ) {
+				return;
+			}
+
+			bp_notifications_add_notification(
+				array(
+					'user_id'          => $candidate_id,
+					'item_id'          => $post->ID,
+					'component_name'   => 'bpjm_notify_actions',
+					'component_action' => 'application_status',
+					'allow_duplicate'  => true,
+				)
+			);
+		}
+
+		/**
+		 * Send the pre-3.0.1 /resumes/applied-jobs/ URL to /jobs/applied-jobs/.
+		 *
+		 * @since 3.0.1
+		 */
+		public function bpjm_redirect_old_applied_jobs() {
+			if ( bp_is_user() && bp_is_current_component( 'resumes' ) && bp_is_current_action( 'applied-jobs' ) ) {
+				bp_core_redirect( $this->bpjm_screen_url( bp_displayed_user_id(), 'jobs', 'applied-jobs' ) );
+			}
+		}
+
+		/**
+		 * Mark "X applied for Y" notices read once the owner opens Y's applications.
+		 *
+		 * The notice links here (bpjm_job_application_notifications()). Without
+		 * this the unread count never clears, because no BuddyPress screen of
+		 * ours marks them.
+		 *
+		 * @since 3.0.1
+		 */
+		private function bpjm_mark_application_notifications_read() {
+			// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Read-only view state; marks the viewer's own notices.
+			$action = isset( $_GET['action'] ) ? sanitize_key( wp_unslash( $_GET['action'] ) ) : '';
+			if ( ! bp_is_my_profile() || ! bp_is_active( 'notifications' ) || empty( $_GET['job_id'] ) || 'show_applications' !== $action ) {
+				return;
+			}
+			$job_id = absint( $_GET['job_id'] );
+			// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+			if ( (int) get_post_field( 'post_author', $job_id ) !== bp_loggedin_user_id() ) {
+				return;
+			}
+
+			$application_ids = get_posts(
+				array(
+					'post_type'      => 'job_application',
+					'post_parent'    => $job_id,
+					'post_status'    => 'any',
+					'fields'         => 'ids',
+					'posts_per_page' => -1, // ponytail: one job's applications; ids only, one UPDATE below.
+					'no_found_rows'  => true,
+				)
+			);
+
+			if ( $application_ids ) {
+				bp_notifications_mark_notifications_by_item_ids( bp_loggedin_user_id(), $application_ids, 'bpjm_notify_actions', 'applied_job' );
+			}
 		}
 
 		/**
@@ -769,7 +766,101 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_my_jobs_tab_function_to_show_title() {
-			echo esc_html( $this->bpjm_get_member_screen_label( 'jobs', bp_displayed_user_id() ) );
+			$sub = $this->bpjm_owner_sub_screen( 'job_id' );
+			if ( 'show_applications' === $sub['action'] ) {
+				/* translators: %s: job title. */
+				echo esc_html( sprintf( __( 'Applications: %s', 'bp-job-manager' ), get_the_title( $sub['id'] ) ) );
+			} elseif ( 'edit' === $sub['action'] ) {
+				esc_html_e( 'Edit job', 'bp-job-manager' );
+			} else {
+				echo esc_html( $this->bpjm_get_member_screen_label( 'jobs', bp_displayed_user_id() ) );
+			}
+		}
+
+		/**
+		 * The owner's sub-screen on My Jobs / My Resumes, if any.
+		 *
+		 * WP Job Manager and Resume Manager open a job's applications, the job edit
+		 * form and the resume edit form inside the same dashboard via ?action=,
+		 * which left all of them headed "My Jobs" / "My Resumes" with no way back.
+		 *
+		 * @since 3.0.1
+		 * @param string $id_key Query key holding the post ID: 'job_id' or 'resume_id'.
+		 * @return array{action: string, id: int}
+		 */
+		private function bpjm_owner_sub_screen( $id_key ) {
+			// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Read-only view state.
+			$action = isset( $_GET['action'] ) ? sanitize_key( wp_unslash( $_GET['action'] ) ) : '';
+			$id     = isset( $_GET[ $id_key ] ) ? absint( $_GET[ $id_key ] ) : 0;
+			// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+			if ( ! bp_is_my_profile() || ! $id || ! in_array( $action, array( 'show_applications', 'edit' ), true ) ) {
+				return array(
+					'action' => '',
+					'id'     => 0,
+				);
+			}
+			return array(
+				'action' => $action,
+				'id'     => $id,
+			);
+		}
+
+		/**
+		 * Keep "Save changes" on a resume inside the profile.
+		 *
+		 * When Resume Manager's own Candidate Dashboard page is set, saving a
+		 * resume edited from My Resumes redirects there and the member leaves
+		 * their profile. Resume Manager has no filter for that URL, so this
+		 * rewrites only that one redirect, only on the member's own Resumes tab.
+		 *
+		 * @since 3.0.1
+		 * @param string $location Redirect target.
+		 * @return string
+		 */
+		public function bpjm_keep_resume_save_in_profile( $location ) {
+			if ( ! bp_is_user() || ! bp_is_my_profile() || ! bp_is_current_component( 'resumes' ) ) {
+				return $location;
+			}
+			$page_id = (int) get_option( 'resume_manager_candidate_dashboard_page_id' );
+			if ( $page_id && untrailingslashit( (string) get_permalink( $page_id ) ) === untrailingslashit( $location ) ) {
+				return $this->bpjm_screen_url( bp_loggedin_user_id(), 'resumes', 'my-resumes' );
+			}
+			return $location;
+		}
+
+		/**
+		 * After posting a job on the profile, offer the way to My Jobs.
+		 *
+		 * WP Job Manager's confirmation only links to the listing itself, which
+		 * left the member on an emptied Post Job screen.
+		 *
+		 * @since 3.0.1
+		 */
+		public function bpjm_job_submitted_next_step() {
+			if ( ! bp_is_user() || ! bp_is_my_profile() || 'post-job' !== bp_current_action() ) {
+				return;
+			}
+			printf(
+				'<p class="bpjm-next"><a class="button" href="%1$s">%2$s</a></p>',
+				esc_url( $this->bpjm_screen_url( bp_loggedin_user_id(), 'jobs', 'my-jobs' ) ),
+				esc_html__( 'Go to My Jobs', 'bp-job-manager' )
+			);
+		}
+
+		/**
+		 * "Back to My Jobs / My Resumes" link above an owner sub-screen.
+		 *
+		 * @since 3.0.1
+		 * @param string $tab 'jobs' or 'resumes'.
+		 */
+		private function bpjm_back_link( $tab ) {
+			$is_jobs = ( 'jobs' === $tab );
+			printf(
+				'<p class="bpjm-back"><a href="%1$s">&larr; %2$s</a></p>',
+				esc_url( $this->bpjm_screen_url( bp_loggedin_user_id(), $tab, $is_jobs ? 'my-jobs' : 'my-resumes' ) ),
+				esc_html( $is_jobs ? __( 'Back to My Jobs', 'bp-job-manager' ) : __( 'Back to My Resumes', 'bp-job-manager' ) )
+			);
 		}
 
 
@@ -783,58 +874,48 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 */
 		public function bpjm_my_jobs_tab_function_to_show_content() {
 			/*
-			 * The WP Job Manager [job_dashboard] (and its "Add Job" button) is a
-			 * posting surface, so it is only shown to the profile owner when that
-			 * owner's role is allowed to post jobs (post_job_user_roles). Owners
-			 * without posting permission - and every other viewer - get the
-			 * read-only listing below instead of the Add Job dashboard.
+			 * The owner gets WP Job Manager's [job_dashboard], a posting surface.
+			 * Everyone else - and an owner WP Job Manager will not let post - gets
+			 * the member's open jobs as WP Job Manager's own job cards, the same
+			 * markup and translations as the site's Jobs page.
 			 */
-			$is_owner   = ( bp_loggedin_user_id() === bp_displayed_user_id() );
-			$can_manage = $is_owner && $this->bpjm_restrict_user_post_job( true );
+			$is_owner = ( bp_loggedin_user_id() === bp_displayed_user_id() );
 
-			if ( $can_manage ) {
-				echo do_shortcode( '[job_dashboard]' );
-				?>
-				<div class="bpjm-loader" style="display:none;">
-					<div class="bpjm-loader-img">
-						<img src="<?php echo esc_url( BPJM_PLUGIN_URL . '/public/images/spinner.gif' ); ?>" />
-					</div>
-				</div>
-				<?php
-			} else {
-				$job_args = array(
+			if ( $is_owner && $this->bpjm_restrict_user_post_job( true ) ) {
+				$this->bpjm_render_owner_dashboard( 'jobs', '[job_dashboard]' );
+				return;
+			}
+
+			$jobs = new WP_Query(
+				array(
 					'post_type'           => 'job_listing',
 					'post_status'         => 'publish',
-					'ignore_sticky_posts' => 1,
-					'posts_per_page'      => 10,
-					'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * 25,
-					'orderby'             => 'date',
-					'order'               => 'desc',
 					'author'              => bp_displayed_user_id(),
-				);
-				$jobs     = get_posts( $job_args );
-				include BPJM_PLUGIN_PATH . '/public/templates/bpjm-job-listing.php';
-			}
-		}
+					'posts_per_page'      => absint( get_option( 'job_manager_per_page', 10 ) ),
+					'paged'               => $this->bpjm_current_page(),
+					'orderby'             => 'date',
+					'order'               => 'DESC',
+					'ignore_sticky_posts' => true,
+				)
+			);
 
-		/**
-		 * Hide job actions from display member profile.
-		 *
-		 * @param  array        $job_actions Job actions keyed by action slug.
-		 * @param  WP_Post|null $job         Job listing post.
-		 * @return array Filtered job actions.
-		 */
-		public function bpjm_hide_job_actions( $job_actions, $job ) {
-			if ( ( bp_loggedin_user_id() !== bp_displayed_user_id() ) && ! bp_is_user_profile() ) {
-				if ( ! empty( $job ) && 'publish' === $job->post_status ) {
-					unset( $job_actions['edit'] );
-					unset( $job_actions['delete'] );
-					unset( $job_actions['mark_filled'] );
-					unset( $job_actions['duplicate'] );
-					unset( $job_actions['mark_not_filled'] );
+			if ( ! $jobs->have_posts() ) {
+				if ( ! $this->bpjm_first_page_notice() ) {
+					get_job_manager_template( 'content-no-jobs-found.php' );
 				}
+				return;
 			}
-			return $job_actions;
+
+			get_job_manager_template( 'job-listings-start.php' );
+			while ( $jobs->have_posts() ) {
+				$jobs->the_post();
+				get_job_manager_template_part( 'content', 'job_listing' );
+			}
+			get_job_manager_template( 'job-listings-end.php' );
+			wp_reset_postdata();
+
+			// Links point at ?bpjm-page=N via bpjm_pagination_args().
+			get_job_manager_template( 'pagination.php', array( 'max_num_pages' => $jobs->max_num_pages ) );
 		}
 
 		/**
@@ -845,9 +926,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_bookmarked_jobs_show_screen() {
-			add_action( 'bp_template_title', array( $this, 'bpjm_bookmarked_jobs_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_bookmarked_jobs_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			$this->bpjm_load_screen( 'bookmarked_jobs' );
 		}
 
 		/**
@@ -880,9 +959,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_job_alerts_show_screen() {
-			add_action( 'bp_template_title', array( $this, 'bpjm_job_alerts_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_job_alerts_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			$this->bpjm_load_screen( 'job_alerts' );
 		}
 
 		/**
@@ -909,16 +986,19 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		}
 
 		/**
-		 * Modify alert short_code handler for buddypress
+		 * Run Job Alerts' add/edit/delete handler on the member's own Job Alerts tab.
+		 *
+		 * Alerts only runs it on a page whose content holds [job_alerts]; ours is a
+		 * profile tab. It used to run on every BuddyPress page, and with guest
+		 * alerts enabled Alerts redirects any visitor without an action to
+		 * ?action=add_alert - so every directory, stream and profile 302'd.
+		 *
+		 * @since 3.0.1 Scoped to the Job Alerts tab.
 		 */
 		public function bpjm_modify_job_alert_action_handler() {
-			global $post;
-			if ( is_buddypress() ) {
-				if ( class_exists( 'WP_Job_Manager_Alerts_Shortcodes' ) ) {
-					remove_action( 'wp', array( 'WP_Job_Manager_Alerts_Shortcodes', 'shortcode_action_handler' ) );
-					$alert_handler = new WP_Job_Manager_Alerts_Shortcodes();
-					$alert_handler->job_alerts_handler();
-				}
+			if ( class_exists( 'WP_Job_Manager_Alerts_Shortcodes' ) && bp_is_user() && bp_is_my_profile() && 'job-alerts' === bp_current_action() ) {
+				$alert_handler = new WP_Job_Manager_Alerts_Shortcodes();
+				$alert_handler->job_alerts_handler();
 			}
 		}
 
@@ -933,13 +1013,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @return   array $job_dashboard_job_listing_args return job listing arguments.
 		 */
 		public function bpjm_job_dashboard_user_id( $job_dashboard_job_listing_args ) {
-			$displayed_uid  = bp_displayed_user_id();
-			$displayed_user = get_userdata( $displayed_uid );
-			$curr_user      = wp_get_current_user();
-			$per_page       = get_option( 'job_manager_per_page' );
-			if ( ! empty( $curr_user->roles ) && ! empty( $displayed_user->roles ) ) {
+			if ( bp_is_user() && $this->bpjm_is_owned_action() ) {
+				$per_page = absint( get_option( 'job_manager_per_page', 10 ) );
+
 				$job_dashboard_job_listing_args['posts_per_page'] = $per_page;
-				$job_dashboard_job_listing_args['offset']         = ( max( 1, get_query_var( 'paged' ) ) - 1 ) * $per_page;
+				$job_dashboard_job_listing_args['offset']         = ( $this->bpjm_current_page() - 1 ) * $per_page;
+				$this->bpjm_check_past_last_page( $job_dashboard_job_listing_args );
 			}
 			return $job_dashboard_job_listing_args;
 		}
@@ -973,93 +1052,28 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		}
 
 		/**
-		 * Action performed to hide the actions on job dashboard.
-		 * when the loggedin user id != displayed user id.
+		 * Offer Relist on the member's own My Jobs tab.
+		 *
+		 * WP Job Manager only offers Relist when its submission page exists; on
+		 * a BuddyPress site that page is the profile's Post Job tab, which
+		 * bpjm_handle_submission_actions() sends the member to.
 		 *
 		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 * @param    array   $actions contain job action.
-		 * @param    WP_Post $job contain job data.
-		 * @return   array   $actions contain job action.
+		 * @param    array   $actions Job actions keyed by slug.
+		 * @param    WP_Post $job     Job listing.
+		 * @return   array
 		 */
 		public function bpjm_job_dashboard_job_actions( $actions, $job ) {
-			if ( bp_is_user_profile() ) {
-				if ( bp_displayed_user_id() !== get_current_user_id() ) {
-					$actions = array();
-				}
+			if ( 'expired' === $job->post_status && ! isset( $actions['relist'] )
+				&& bp_is_user() && bp_is_my_profile() ) {
+				$actions = array(
+					'relist' => array(
+						'label' => __( 'Relist', 'bp-job-manager' ),
+						'nonce' => 'job_manager_my_job_actions',
+					),
+				) + $actions;
 			}
 			return $actions;
-		}
-		/**
-		 * Action performed to add a column in job dashboard table.
-		 *
-		 * @param array $job_dashboard_cols contain dashboard column data.
-		 * @return array
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 */
-		public function bpjm_job_dashboard_cols( $job_dashboard_cols ) {
-			if ( 'my-jobs' === bp_current_action() ) {
-				if ( ! bp_is_user_profile() && ( bp_loggedin_user_id() !== bp_displayed_user_id() ) ) {
-					$column             = array(
-						'actions' => __( 'Actions', 'bp-job-manager' ),
-					);
-					$job_dashboard_cols = array_merge( $job_dashboard_cols, $column );
-				}
-			}
-			return $job_dashboard_cols;
-		}
-
-		/**
-		 * Action performed to add a column content in job dashboard.
-		 * Column added above - Actions.
-		 *
-		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 * @param    WP_Post $job contain job data.
-		 */
-		public function bpjm_job_dashboard_actions_col_content( $job ) {
-			if ( ! is_user_logged_in() || ! bp_is_user() || bp_loggedin_user_id() === bp_displayed_user_id() ) {
-				return;
-			}
-
-			// Applications owns the apply form; without it there is nothing to send.
-			if ( ! class_exists( 'WP_Job_Manager_Applications' ) ) {
-				return;
-			}
-
-			if ( is_position_filled( $job ) ) {
-				echo '<span class="position-filled">' . esc_html__( 'This job position is no longer available.', 'bp-job-manager' ) . '</span>';
-				return;
-			}
-
-			$user_id = bp_loggedin_user_id();
-
-			if ( user_has_applied_for_job( $user_id, $job->ID ) ) {
-				get_job_manager_template( 'applied-notice.php', array(), 'wp-job-manager-applications', JOB_MANAGER_APPLICATIONS_PLUGIN_DIR . '/templates/' );
-				return;
-			}
-
-			/*
-			 * Send the member to the job listing, which is where WP Job Manager and
-			 * Applications render the apply form.
-			 *
-			 * Until 3.0.0 this pointed at an "Apply To Job" page the plugin created
-			 * for itself at activation, carrying the job id in a query argument.
-			 * 3.0.0 stopped creating that page - a bridge should not author content
-			 * in the customer's site - so on every new install the option behind it
-			 * was empty, get_permalink() returned false, and the button's URL
-			 * collapsed to "?args=<id>": a relative link that reloaded the profile.
-			 * The job listing needs no stored page id and is the same form.
-			 */
-			?>
-			<div class="generic-button bpjm-job-application-btn-action">
-				<a href="<?php echo esc_url( get_permalink( $job->ID ) ); ?>"><?php esc_html_e( 'Submit Application', 'bp-job-manager' ); ?></a>
-			</div>
-			<?php
 		}
 
 		/**
@@ -1103,15 +1117,19 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			 * A "Resumes 0" tab on a stranger's profile tells a visitor nothing,
 			 * and the two tabs disagreeing about when they appear is exactly the
 			 * inconsistency 3.0.0 is removing.
+			 *
+			 * A visitor Resume Manager will not let browse resumes gets no tab
+			 * either: "Resumes 1" that opens on "you do not have permission" is a
+			 * dead end. The screen keeps its access-denied guard for direct URLs.
 			 */
-			if ( ! $is_logged_in_user && $my_resumes_count < 1 ) {
+			if ( ! $is_logged_in_user && ( $my_resumes_count < 1 || ! resume_manager_user_can_browse_resumes() ) ) {
 				return;
 			}
 			$resume_tab_name = apply_filters(
 				'bpjm_resume_tab_name',
 				$this->bpjm_get_member_screen_label( 'resumes', $user_id )
 			);
-			$resume_tab      = sprintf( /* translators: %s: bp_core_number_format */ __( 'Resumes %s', 'bp-job-manager' ), '<span class="count">' . bp_core_number_format( $my_resumes_count ) . '</span>' );
+			$resume_tab      = trim( sprintf( /* translators: %s: bp_core_number_format */ __( 'Resumes %s', 'bp-job-manager' ), $my_resumes_count ? '<span class="count">' . bp_core_number_format( $my_resumes_count ) . '</span>' : '' ) ); // No "0" badge on an empty tab.
 
 			$resumes_tab_link = apply_filters( 'bpjm_resumes_tab_link', bp_core_get_userlink( $user_id, false, true ) . 'resumes/' );
 
@@ -1119,7 +1137,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				array(
 					'name'                    => $resume_tab,
 					'slug'                    => 'resumes',
-					'screen_function'         => array( $this, 'bpjm_resumes_tab_function_to_show_screen' ),
+					'screen_function'         => array( $this, 'bpjm_my_resumes_show_screen' ),
 					'position'                => 75,
 					'default_subnav_slug'     => 'my-resumes',
 					'show_for_displayed_user' => true,
@@ -1127,47 +1145,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 			);
 
 			// Subnav items.
-			bp_core_new_subnav_item(
-				array(
-					'name'            => $resume_tab_name,
-					'slug'            => 'my-resumes',
-					'parent_url'      => $resumes_tab_link . 'my-resumes',
-					'parent_slug'     => 'resumes',
-					'screen_function' => array( $this, 'bpjm_my_resumes_show_screen' ),
-					'position'        => 100,
-					'link'            => $resumes_tab_link . 'my-resumes',
-				)
-			);
+			$this->bpjm_add_subnav( 'resumes', $resumes_tab_link, 'my-resumes', $resume_tab_name, 'bpjm_my_resumes_show_screen', 100 );
 
 			if ( $is_logged_in_user ) {
 				// Add Resume subnav.
-				bp_core_new_subnav_item(
-					array(
-						'name'            => apply_filters( 'bpjm_resumes_subnav_item_add_resume', __( 'Add Resume', 'bp-job-manager' ) ),
-						'slug'            => 'add-resume',
-						'parent_url'      => $resumes_tab_link . 'add-resume',
-						'parent_slug'     => 'resumes',
-						'screen_function' => array( $this, 'bpjm_add_resume_show_screen' ),
-						'position'        => 200,
-						'link'            => $resumes_tab_link . 'add-resume',
-					)
-				);
+				$this->bpjm_add_subnav( 'resumes', $resumes_tab_link, 'add-resume', apply_filters( 'bpjm_resumes_subnav_item_add_resume', __( 'Add Resume', 'bp-job-manager' ) ), 'bpjm_add_resume_show_screen', 200 );
 
-				// Applied Jobs subnav, if applicable.
-				$wpjm_applications_active = bpjm_is_plugin_active( 'wp-job-manager-applications/wp-job-manager-applications.php' );
-				if ( $wpjm_applications_active ) {
-					bp_core_new_subnav_item(
-						array(
-							'name'            => apply_filters( 'bpjm_resumes_subnav_item_applied_jobs', __( 'Applied Jobs', 'bp-job-manager' ) ),
-							'slug'            => 'applied-jobs',
-							'parent_url'      => $resumes_tab_link . 'applied-jobs',
-							'parent_slug'     => 'resumes',
-							'screen_function' => array( $this, 'bpjm_applied_jobs_show_screen' ),
-							'position'        => 200,
-							'link'            => $resumes_tab_link . 'applied-jobs',
-						)
-					);
-				}
 			}
 		}
 
@@ -1179,9 +1162,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_add_resume_show_screen() {
-			add_action( 'bp_template_title', array( $this, 'bpjm_add_resume_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_add_resume_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			$this->bpjm_load_screen( 'add_resume' );
 		}
 
 		/**
@@ -1214,9 +1195,7 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_my_resumes_show_screen() {
-			add_action( 'bp_template_title', array( $this, 'bpjm_my_resumes_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_my_resumes_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			$this->bpjm_load_screen( 'my_resumes' );
 		}
 
 		/**
@@ -1227,7 +1206,12 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_my_resumes_tab_function_to_show_title() {
-			echo esc_html( $this->bpjm_get_member_screen_label( 'resumes', bp_displayed_user_id() ) );
+			$sub = $this->bpjm_owner_sub_screen( 'resume_id' );
+			if ( 'edit' === $sub['action'] ) {
+				esc_html_e( 'Edit resume', 'bp-job-manager' );
+			} else {
+				echo esc_html( $this->bpjm_get_member_screen_label( 'resumes', bp_displayed_user_id() ) );
+			}
 		}
 
 		/**
@@ -1238,35 +1222,55 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_my_resumes_tab_function_to_show_content() {
-			if ( ! is_user_logged_in() ) {
-				?>
-				<div id="resume-manager-candidate-dashboard">
-					<p class="account-sign-in">
-						<?php esc_html_e( 'You need to be signed in to manage your resumes.', 'bp-job-manager' ); ?>
-						<a class="button" href="<?php echo esc_url( apply_filters( 'resume_manager_candidate_dashboard_login_url', wp_login_url( get_permalink() ) ) ); ?>"><?php esc_html_e( 'Sign in', 'bp-job-manager' ); ?></a>
-					</p>
-				</div>
-				<?php
+			/*
+			 * The owner gets Resume Manager's own [candidate_dashboard], scoped to
+			 * them by bpjm_resume_dashboard_user_id(). It is an owner screen ("Your
+			 * resume(s) can be edited...", Add Resume), so everyone else - other
+			 * members and logged-out visitors - gets the member's published resumes
+			 * as Resume Manager's own resume cards instead, behind Resume Manager's
+			 * own "who can browse resumes" setting.
+			 */
+			if ( bp_is_my_profile() ) {
+				$this->bpjm_render_owner_dashboard( 'resumes', '[candidate_dashboard]' );
 				return;
 			}
 
-			/*
-			 * Resume Manager renders this screen - we do not.
-			 *
-			 * This used to be our own 193-line template plus a hand-built query and
-			 * column list. It drifted from the dashboard it was copied from - it
-			 * never gained the status column Resume Manager shows - and it
-			 * re-declared labels (Name, Title, Location, Category, Date Posted,
-			 * Edit, Delete) that already exist in the Resume Manager catalogue with
-			 * community translations from wordpress.org. So a translated site got
-			 * Resume Manager's own screens in its language and this one in English.
-			 *
-			 * [candidate_dashboard] is scoped to the displayed member by our
-			 * existing `resume_manager_get_dashboard_resumes_args` filter
-			 * (bpjm_resume_dashboard_user_id), so it shows the right person's
-			 * resumes inside a BuddyPress profile.
-			 */
-			echo do_shortcode( '[candidate_dashboard]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Shortcode output from Resume Manager, escaped by that plugin's own templates.
+			$templates = RESUME_MANAGER_PLUGIN_DIR . '/templates/';
+
+			if ( ! resume_manager_user_can_browse_resumes() ) {
+				get_job_manager_template_part( 'access-denied', 'browse-resumes', 'wp-job-manager-resumes', $templates );
+				return;
+			}
+
+			$resumes = new WP_Query(
+				array(
+					'post_type'      => 'resume',
+					'post_status'    => 'publish',
+					'author'         => bp_displayed_user_id(),
+					'posts_per_page' => absint( get_option( 'resume_manager_per_page', 10 ) ),
+					'paged'          => $this->bpjm_current_page(),
+					'orderby'        => 'date',
+					'order'          => 'DESC',
+				)
+			);
+
+			if ( ! $resumes->have_posts() ) {
+				if ( ! $this->bpjm_first_page_notice() ) {
+					get_job_manager_template_part( 'content', 'no-resumes-found', 'wp-job-manager-resumes', $templates );
+				}
+				return;
+			}
+
+			get_job_manager_template( 'resumes-start.php', array(), 'wp-job-manager-resumes', $templates );
+			while ( $resumes->have_posts() ) {
+				$resumes->the_post();
+				get_job_manager_template_part( 'content', 'resume', 'wp-job-manager-resumes', $templates );
+			}
+			get_job_manager_template( 'resumes-end.php', array(), 'wp-job-manager-resumes', $templates );
+			wp_reset_postdata();
+
+			// Links point at ?bpjm-page=N via bpjm_pagination_args().
+			get_job_manager_template( 'pagination.php', array( 'max_num_pages' => $resumes->max_num_pages ) );
 		}
 
 		/**
@@ -1277,9 +1281,10 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @access   public
 		 */
 		public function bpjm_applied_jobs_show_screen() {
-			add_action( 'bp_template_title', array( $this, 'bpjm_applied_jobs_tab_function_to_show_title' ) );
-			add_action( 'bp_template_content', array( $this, 'bpjm_applied_jobs_tab_function_to_show_content' ) );
-			bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
+			if ( bp_is_my_profile() && bp_is_active( 'notifications' ) ) {
+				bp_notifications_mark_notifications_by_type( bp_loggedin_user_id(), 'bpjm_notify_actions', 'application_status' );
+			}
+			$this->bpjm_load_screen( 'applied_jobs' );
 		}
 
 		/**
@@ -1336,24 +1341,23 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					'post_status'         => array( 'publish', 'expired', 'pending', 'hidden' ),
 					'ignore_sticky_posts' => 1,
 					'posts_per_page'      => 25,
-					'offset'              => ( max( 1, get_query_var( 'paged' ) ) - 1 ) * 25,
+					'offset'              => ( $this->bpjm_current_page() - 1 ) * 25,
 					'orderby'             => 'date',
 					'order'               => 'desc',
 					'author'              => bp_displayed_user_id(),
 				);
+				$this->bpjm_check_past_last_page( $candidate_dashboard_resume_listing_args );
 			}
 			return $candidate_dashboard_resume_listing_args;
 		}
 
 		/**
-		 * Action performed to hide the actions on candidate dashboard.
-		 * when the loggedin user id != displayed user id.
+		 * Resume actions on My Resumes: none for other viewers, Relist for the owner.
 		 *
 		 * @since    1.0.0
-		 * @author   wbcomdesigns
-		 * @access   public
-		 * @param    string $actions contain job action.
-		 * @param    string $job contain job data.
+		 * @param    array   $actions Resume actions keyed by slug.
+		 * @param    WP_Post $job     The resume.
+		 * @return   array
 		 */
 		public function bpjm_candidate_dashboard_resume_actions( $actions, $job ) {
 			if ( bp_is_user() ) {
@@ -1361,83 +1365,110 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 					$actions = array();
 				}
 			}
+
+			// Resume Manager only offers Relist when its submission page exists; ours is the profile tab.
+			if ( 'expired' === $job->post_status && ! isset( $actions['relist'] ) && bp_is_user() && bp_is_my_profile() ) {
+				$actions = array(
+					'relist' => array(
+						'label' => __( 'Relist', 'bp-job-manager' ),
+						'nonce' => true,
+					),
+				) + $actions;
+			}
 			return $actions;
 		}
 
+		/**
+		 * Relist an expired resume from the profile, landing on the Add Resume tab.
+		 *
+		 * Resume Manager sends Relist to its standalone submission page, so the
+		 * link does nothing when that page is not set (the normal BuddyPress
+		 * setup) and leaves the profile when it is. Same nonce and edit check as
+		 * Resume Manager; runs on `wp` before its own handler.
+		 *
+		 * @since 3.0.1
+		 */
+		public function bpjm_handle_resume_relist() {
+			// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Verified below with Resume Manager's own nonce action.
+			$action    = isset( $_GET['action'] ) ? sanitize_key( wp_unslash( $_GET['action'] ) ) : '';
+			$resume_id = isset( $_GET['resume_id'] ) ? absint( $_GET['resume_id'] ) : 0;
+			$nonce     = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+			// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
+			if ( 'relist' !== $action || ! $resume_id || ! function_exists( 'resume_manager_user_can_edit_resume' )
+				|| ! bp_is_user() || ! bp_is_my_profile() || ! $this->bpjm_is_owned_action()
+				|| ! wp_verify_nonce( $nonce, 'resume_manager_my_resume_actions' )
+				|| 'resume' !== get_post_type( $resume_id ) || ! resume_manager_user_can_edit_resume( $resume_id ) ) {
+				return;
+			}
 
+			wp_safe_redirect( add_query_arg( 'resume_id', $resume_id, $this->bpjm_screen_url( bp_loggedin_user_id(), 'resumes', 'add-resume' ) ) );
+			exit;
+		}
 
 		/**
-		 * Function to call wp job manager plugin's WP_Job_Manager_Shortcodes class job_dashboard_handler function for mark filled functionality on buddypress job tab.
+		 * Run Resume Manager's candidate-dashboard actions on the profile My Resumes tab.
+		 *
+		 * Job actions are not handled here: WP Job Manager runs its own handler on
+		 * our job screens (bpjm_allow_continue_submission()), and the actions that
+		 * need its submission page go through bpjm_handle_submission_actions().
 		 *
 		 * @since    1.0.6
-		 * @author   wbcomdesigns
-		 * @access   public
 		 */
 		public function bpjm_shortcode_action_handler() {
-			if ( ! bp_is_user() ) {
+			if ( ! bp_is_user() || ! class_exists( 'WP_Resume_Manager_Shortcodes' ) ) {
 				return;
 			}
 
 			$action = filter_input( INPUT_GET, 'action' );
-			if ( null === $action ) {
-				return;
-			}
-
-			$job_id_param    = filter_input( INPUT_GET, 'job_id' );
-			$resume_id_param = filter_input( INPUT_GET, 'resume_id' );
-
-			$job_actions    = array( 'mark_filled', 'mark_not_filled', 'duplicate', 'delete', 'relist' );
-			$resume_actions = array( 'delete', 'hide', 'publish' );
-
-			if ( in_array( $action, $job_actions, true ) && null !== $job_id_param ) {
-				$wbjob_shortcode_object = new WP_Job_Manager_Shortcodes();
-				$wbjob_shortcode_object->job_dashboard_handler();
-			} elseif ( in_array( $action, $resume_actions, true ) && null !== $resume_id_param ) {
+			if ( null !== $action && null !== filter_input( INPUT_GET, 'resume_id' ) && in_array( $action, array( 'delete', 'hide', 'publish' ), true ) ) {
 				$wb_resume_shortcode_object = new WP_Resume_Manager_Shortcodes();
 				$wb_resume_shortcode_object->candidate_dashboard_handler();
 			}
 		}
 
-
 		/**
-		 * Function for filter redirect url when duplicate any job on buddypress job tab.
+		 * Duplicate / Continue / Relist / Renew from the profile, landing on the Post Job tab.
 		 *
-		 * @since    1.0.6
-		 * @author   wbcomdesigns
-		 * @access   public
-		 * @param string $location The path or URL to redirect to.
-		 * @param int    $status HTTP response status code to use. Default '302' (Moved Temporarily).
+		 * WP Job Manager sends these to its standalone submission page, and
+		 * refuses with "Missing submission page." when that page is not set -
+		 * which is the normal state on a BuddyPress site, where the profile's Post
+		 * Job tab is the submission page. Runs on `wp` before WP Job Manager's own
+		 * handler, with the same nonce and edit check.
+		 *
+		 * @since 3.0.1
 		 */
-		public function bpjm_filter_redirect_duplicate_post_url( $location, $status ) {
-			// Check if the current page is a user's profile page.
-			if ( ! bp_is_user() || ! bp_is_my_profile() ) {
-				return $location;
+		public function bpjm_handle_submission_actions() {
+			// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Verified below with WP Job Manager's own nonce action.
+			$action = isset( $_GET['action'] ) ? sanitize_key( wp_unslash( $_GET['action'] ) ) : '';
+			$job_id = isset( $_GET['job_id'] ) ? absint( $_GET['job_id'] ) : 0;
+			$nonce  = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
+			// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+			if ( ! $job_id || ! in_array( $action, array( 'duplicate', 'continue', 'relist', 'renew' ), true )
+				|| ! bp_is_user() || ! bp_is_my_profile() || ! $this->bpjm_is_owned_action()
+				|| ! wp_verify_nonce( $nonce, 'job_manager_my_job_actions' )
+				|| 'job_listing' !== get_post_type( $job_id ) || ! job_manager_user_can_edit_job( $job_id ) ) {
+				return;
 			}
 
-			// Parse the query string from the location URL.
-			$query_str = wp_parse_url( $location, PHP_URL_QUERY );
+			$args = array(
+				'job_id' => $job_id,
+				'action' => $action,
+			);
 
-			// Ensure query_str is not null before parsing.
-			if ( null !== $query_str ) {
-				parse_str( $query_str, $parsed_query );
-
-				// Redirect if 'job_id' is set and not '0'.
-				if ( isset( $parsed_query['job_id'] ) && '0' !== $parsed_query['job_id'] ) {
-					// bp_members_get_user_url() only exists on BuddyPress 12.0+.
-					// Mirror the guard used by bpjm_add_private_message_link()
-					// and fall back to bp_core_get_user_domain() on older BP.
-					if ( function_exists( 'bp_members_get_user_url' ) && version_compare( BP_VERSION, '12.0.0', '>=' ) ) {
-						$user_url = bp_members_get_user_url( bp_displayed_user_id() );
-					} else {
-						$user_url = bp_core_get_user_domain( bp_displayed_user_id() );
-					}
-
-					$location = trailingslashit( $user_url ) . 'jobs/post-job/?job_id=' . $parsed_query['job_id'];
+			if ( 'duplicate' === $action ) {
+				$new_job_id = job_manager_duplicate_listing( $job_id );
+				if ( ! $new_job_id ) {
+					return; // Leave it to WP Job Manager, which reports the failure.
 				}
+				$args = array( 'job_id' => $new_job_id );
+			} elseif ( 'renew' === $action ) {
+				$args['nonce'] = wp_create_nonce( 'job_manager_renew_job_' . $job_id );
 			}
 
-			return $location;
+			wp_safe_redirect( add_query_arg( $args, $this->bpjm_screen_url( bp_loggedin_user_id(), 'jobs', 'post-job' ) ) );
+			exit;
 		}
 
 		/**
@@ -1594,32 +1625,57 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 				 */
 				$text = apply_filters( '_bprwg_notification_text', $default_text ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Long-standing public contract.
 
-				$job_dashboard_page_id = get_option( 'job_manager_job_dashboard_page_id' );
-				$application_link      = '';
-				if ( $job_dashboard_page_id ) {
+				/*
+				 * Point at the owner's own My Jobs tab, never WP Job Manager's
+				 * dashboard page: that page is normally unconfigured on a BuddyPress
+				 * site, which left this notice with an empty link. Viewing the list
+				 * marks the notice read (bpjm_mark_application_notifications_read()).
+				 */
+				$application_link = '';
+				$job_owner        = $job_id ? (int) get_post_field( 'post_author', $job_id ) : 0;
+				if ( $job_owner ) {
 					$application_link = add_query_arg(
 						array(
 							'action' => 'show_applications',
 							'job_id' => $job_id,
 						),
-						get_permalink( $job_dashboard_page_id )
+						$this->bpjm_screen_url( $job_owner, 'jobs', 'my-jobs' )
 					);
 				}
 
-				$result = array(
-					'text' => $text,
-					'link' => $application_link,
-				);
+				return $this->bpjm_notification_output( $text, $application_link, $format );
+			}
 
-				// WordPress Toolbar.
-				if ( 'string' === $format ) {
-					$result = sprintf( '<a class="ab-item" href="%s">%s</a>', $application_link, $text );
-				}
+			if ( 'application_status' === $component_action_name ) {
+				$application = get_post( $item_id );
+				$job_title   = $application ? get_the_title( $application->post_parent ) : '';
+				$status      = $application ? get_post_status_object( $application->post_status ) : null;
 
-				return $result;
+				/* translators: 1: job title, 2: application status label such as "Interviewed". */
+				$text = sprintf( esc_html__( 'Your application for %1$s is now: %2$s.', 'bp-job-manager' ), esc_html( $job_title ), esc_html( $status ? $status->label : '' ) );
+				return $this->bpjm_notification_output( $text, $this->bpjm_screen_url( bp_loggedin_user_id(), 'jobs', 'applied-jobs' ), $format );
 			}
 
 			return $action;
+		}
+
+		/**
+		 * A notification as BuddyPress asks for it: a toolbar link, or text + link.
+		 *
+		 * @since 3.0.1
+		 * @param string $text   Escaped notification text.
+		 * @param string $link   Target URL.
+		 * @param string $format 'string' or 'object'.
+		 * @return string|array
+		 */
+		private function bpjm_notification_output( $text, $link, $format ) {
+			if ( 'string' === $format ) {
+				return sprintf( '<a class="ab-item" href="%s">%s</a>', esc_url( $link ), $text );
+			}
+			return array(
+				'text' => $text,
+				'link' => $link,
+			);
 		}
 
 		/**
@@ -1629,8 +1685,6 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		 * @return boolean
 		 */
 		public function bpjm_restrict_user_post_job( $can_post ) {
-			global $bpjm_bp_job_manager;
-
 			return bpjm_user_can_post_job( is_user_logged_in() ? bp_loggedin_user_id() : null );
 		}
 
@@ -1708,18 +1762,19 @@ if ( ! class_exists( 'Bp_Job_Manager_Public' ) ) :
 		}
 
 		/**
-		 * Determine if the shortcode action handler should run.
+		 * Let WP Job Manager's dashboard actions run on the member's own job screens.
+		 *
+		 * WP Job Manager only runs them on a page holding [job_dashboard]; here
+		 * that dashboard lives in a profile tab. This used to answer true for
+		 * every request on the site, so WP Job Manager's handler ran everywhere.
 		 *
 		 * @since 1.35.0
 		 *
-		 * @param bool $is_page Should the handler run.
+		 * @param bool $is_page Whether WP Job Manager thinks this is its dashboard page.
+		 * @return bool
 		 */
 		public function bpjm_allow_continue_submission( $is_page ) {
-
-			if ( bp_is_my_profile() && 'post-job' === bp_current_action() ) {
-				return true;
-			}
-			return true;
+			return $is_page || ( bp_is_user() && bp_is_my_profile() && $this->bpjm_is_owned_action() );
 		}
 
 		/**

@@ -807,6 +807,7 @@
 
 	.bpjm-settings-sidebar {
 		width: 100%;
+		box-sizing: border-box; /* 1px border pushed it 2px past the viewport at 390. */
 		position: static;
 		top: auto;
 	}
