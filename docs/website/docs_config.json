@@ -35,12 +35,34 @@
     {
       "name": "Settings",
       "folder": "settings",
-      "description": "The one settings screen and what the plugin stores.",
+      "description": "The one settings screen, what is off until you save it, and what the plugin stores.",
       "pages": [
         {
           "slug": "index",
           "title": "Settings",
           "file": "settings/index.md"
+        }
+      ]
+    },
+    {
+      "name": "Usage",
+      "folder": "usage",
+      "description": "Post and manage jobs, resumes and applications from a member profile, and what activity and notifications members see.",
+      "pages": [
+        {
+          "slug": "jobs",
+          "title": "Post and manage jobs",
+          "file": "usage/jobs.md"
+        },
+        {
+          "slug": "resumes-and-applications",
+          "title": "Resumes and applications",
+          "file": "usage/resumes-and-applications.md"
+        },
+        {
+          "slug": "activity-and-notifications",
+          "title": "Activity and notifications",
+          "file": "usage/activity-and-notifications.md"
         }
       ]
     },
@@ -59,7 +81,7 @@
     {
       "name": "FAQ",
       "folder": "faq",
-      "description": "Common questions about tabs, posting, applications and translation.",
+      "description": "Common questions about setup, tabs, posting, applications, themes and translation.",
       "pages": [
         {
           "slug": "index",
@@ -71,7 +93,7 @@
     {
       "name": "Troubleshooting",
       "folder": "troubleshooting",
-      "description": "Missing tabs, posting errors, pagination and styling.",
+      "description": "Missing tabs, missing activity and notifications, posting errors, pagination and styling.",
       "pages": [
         {
           "slug": "index",
@@ -92,6 +114,5 @@
         }
       ]
     }
-  ],
-  "note": "GitHub-only. These docs are never published, synced or uploaded to any site."
+  ]
 }

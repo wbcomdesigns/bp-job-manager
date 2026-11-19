@@ -7,11 +7,11 @@ order: 2
 
 # Settings
 
-**WB Plugins → Job Manager.** Four screens, and only one of them has anything to change.
+**WB Plugins → Job Manager.** Four screens, and only one of them has anything to change. You need the `manage_options` capability to open it.
 
 ## General
 
-Three toggles, all on by default. Nothing here is required for the plugin to work.
+Three toggles. **All of them are off on a fresh install.** Activation writes no settings, so a toggle turns on only after you tick it and click **Save Settings**. The profile tabs do not depend on these toggles and work from the start.
 
 | Setting | What it does |
 |---|---|
@@ -19,7 +19,15 @@ Three toggles, all on by default. Nothing here is required for the plugin to wor
 | Post resume activity | Adds a BuddyPress activity update when a member publishes a resume |
 | Application notifications | Sends the job author a BuddyPress notification when someone applies, and the applicant one when the job author changes the application's status |
 
-The resume and application rows only appear when the matching add-on is active.
+Only the toggles that apply to your site appear. Post job activity always shows. Post resume activity shows when the Resume Manager add-on is active, and Application notifications shows when the Applications add-on is active. A site without those add-ons sees one toggle.
+
+What to expect after you turn each one on:
+
+- Activity and notifications are created from that moment on. Jobs and resumes published earlier do not get an activity update later. Editing an old job does not create one either.
+- Turning a toggle off stops new activity updates or notifications. It does not remove the ones already created.
+- Application notifications needs the BuddyPress **Notifications** component to be active. Without it nothing is sent.
+
+See [Activity and notifications](../usage/activity-and-notifications.md) for what members see.
 
 ### There are no role settings
 
@@ -33,9 +41,7 @@ applies everywhere on the site rather than only on the profile tabs.
 
 ## Overview
 
-Read-only. It reports which integrations are active and what the current configuration
-actually does. If a feature is on but reaching nobody, this screen says so rather than
-reporting a cheerful "On".
+Read-only. It shows whether Resume Manager and the Applications add-on are active, whether BuddyPress and WP Job Manager are active, and what each toggle currently does. A toggle that is off shows "Off" with a **Turn on** link to the General tab. The link only opens the tab; it does not change the setting.
 
 ## Help & Support
 
@@ -51,7 +57,7 @@ Apart from its settings, nothing.
 
 | Stored | Where | Why |
 |---|---|---|
-| `bpjm_general_settings` | option | The three toggles above |
+| `bpjm_general_settings` | option | The three toggles above. The row does not exist until you save the General tab once |
 | `bp-job-manager_activation_date`, `bp-job-manager_no_bug` | options | When the plugin was installed, and whether the review notice was dismissed |
 | `bpjm_user_{ID}_job_listings`, `bpjm_user_{ID}_my_resumes_count` | transients | A cache for the profile nav counts, cleared whenever a job or resume changes status |
 

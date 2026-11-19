@@ -24,16 +24,22 @@ out who they are. If they are looking for work, their resume belongs there. If t
 hiring, the jobs they have posted belong there. The community's social graph becomes the
 hiring graph, and nobody leaves their profile to manage either side.
 
+## Who it is for
+
+Communities that want a careers area on member profiles instead of a separate job board: professional and alumni networks, niche industry communities, membership sites. Members who hire post jobs from their profile, and members who look for work keep resumes and track applications there.
+
 ## Requirements
 
 | | |
 |---|---|
 | WordPress | 6.5 or higher |
 | PHP | 8.0 or higher |
-| BuddyPress | required |
-| WP Job Manager | required |
+| BuddyPress | required (BuddyBoss Platform also satisfies the check) |
+| WP Job Manager | required, free from wordpress.org |
 
-The four WP Job Manager add-ons are optional. Each one simply unlocks a tab when you
+WordPress itself will not activate this plugin until WP Job Manager is installed and active. If BuddyPress or WP Job Manager is later deactivated, this plugin does nothing, shows an admin notice to administrators and deactivates itself on the next admin page load. Activate the missing plugin, then activate this one again.
+
+The four WP Job Manager add-ons are separate WP Job Manager products and are optional. Each one simply unlocks a tab when you
 install it:
 
 | Add-on | What it adds |
@@ -46,8 +52,10 @@ install it:
 ## Installing
 
 1. Install and activate **BuddyPress** and **WP Job Manager** first.
-2. Install BuddyPress Job Manager and activate it.
-3. That is the whole setup. There is nothing to configure.
+2. Install BuddyPress Job Manager and activate it. WordPress sends you to **WB Plugins > Job Manager** once.
+3. Open the **General** tab, tick the activity and notification options you want, and click **Save Settings**.
+
+The tabs on member profiles work without step 3. The activity updates and notifications do not: they are all **off** until you save the General tab once, because activation writes no settings. See [Settings](../settings/index.md).
 
 Activation writes nothing except a short-lived flag used to redirect you to the settings
 screen once. It creates no pages and changes no member data.
@@ -66,6 +74,15 @@ Resumes tab only if they actually have resumes and Resume Manager lets the visit
 resumes. Empty tabs, and tabs that would only say "you do not have permission", are not
 shown on other people's profiles. Visitors see the jobs and resumes as WP Job Manager's own
 listing cards, never the owner's dashboard.
+
+## First job in five minutes
+
+1. Log in as a member and open your own profile.
+2. Open **Jobs > Post Job**, fill in the form and submit it.
+3. Click **Go to My Jobs** to see the job in your list.
+4. Open the same profile logged out. The job shows on the member's Jobs tab as a job card.
+
+For every screen a member sees and what each action does, see [Post and manage jobs](../usage/jobs.md) and [Resumes and applications](../usage/resumes-and-applications.md).
 
 ## Related
 
