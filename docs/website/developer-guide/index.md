@@ -47,15 +47,15 @@ Most of this plugin's historical bugs came from breaking one of these.
 | Jobs → Job Alerts | `[job_alerts]` |
 | Resumes → My Resumes | `[candidate_dashboard]` |
 | Resumes → Add Resume | `[submit_resume_form]` |
-| Apply To Job page | `[job_apply]`, in our template |
+| Apply To Job page (legacy, only on sites that had it created before 3.0.0) | `[job_apply]`, in our template |
 
-Eight screens, eight host shortcodes. We own the tab, the frame and the context; the host
+Seven screens use a host shortcode; the legacy Apply To Job page uses one more. We own the tab, the frame and the context; the host
 owns the markup. If you find yourself writing a table that a host plugin already renders,
 stop and use its shortcode.
 
 ## Hooks
 
-Every hook below is verified as actually fired in 3.0.0.
+Every hook below is verified as actually fired in 3.0.1.
 
 ### Filters
 
