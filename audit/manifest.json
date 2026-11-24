@@ -555,7 +555,7 @@
     "Settings save uses the sentinel-guarded merge pattern (bpjm_tab_rendered_keys / bpjm_array_rendered_keys) — see settings[0].save_contract."
   ],
   "build_commands": {
-    "release": "grunt dist (clean:dist + copy:dist -> dist/bp-job-manager/ + compress:dist -> dist/bp-job-manager.zip)",
+    "release": "bash bin/build-release.sh (git archive -> dist/bp-job-manager-<version>.zip, folder = WordPress.org slug)",
     "build": "grunt build",
     "i18n": "composer i18n (make-pot -> make-mo -> make-php); both make-mo and make-php are mandatory",
     "ci_local": null,
