@@ -106,24 +106,6 @@ module.exports = function ( grunt ) {
 						dest: 'dist/bp-job-manager/'
 					}]
 				}
-			},
-				// Create zip file
-			compress: {
-				dist: {
-					options: {
-						// Versioned, like every other plugin in the free series. An
-					// unversioned asset is ambiguous on a release page and makes it
-					// impossible to tell two downloads apart. Keep package.json's
-					// version in step with the plugin header.
-					archive: 'dist/bp-job-manager-<%= pkg.version %>.zip'
-					},
-					files: [{
-						expand: true,
-						cwd: 'dist/',
-						src: ['bp-job-manager/**'],
-						dest: ''
-					}]
-				}
 			}
 		}
 	);
@@ -131,9 +113,8 @@ module.exports = function ( grunt ) {
 	// register task  'checktextdomain', 'makepot',
 	grunt.registerTask( 'default', [ 'checktextdomain','makepot' ] );
 
-	// Build task - creates clean dist folder and zip file
+	// Build task - creates a clean dist folder (no zip)
 	grunt.registerTask( 'build', [ 'clean:dist', 'copy:dist' ] );
 
-	// Dist task - creates distribution zip file
-	grunt.registerTask( 'dist', [ 'clean:dist', 'copy:dist', 'compress:dist' ] );
+	// Release zip: bin/build-release.sh (WordPress.org folder standard).
 };

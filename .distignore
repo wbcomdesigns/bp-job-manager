@@ -1,0 +1,4 @@
+# Dev-only files kept out of the release zip (bin/build-release.sh).
+*.md
+.wbcom-i18n.json
+phpstan-bootstrap.php

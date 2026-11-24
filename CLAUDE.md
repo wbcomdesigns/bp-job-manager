@@ -84,7 +84,7 @@ WordPress-Plugin-Boilerplate layout (Bootstrap -> Loader -> Globals -> Admin/Pub
 - The bare `jobs` action is the parent nav item's own screen, reached before any subnav is selected, so it must stay in that list.
 - **One canonical source for the Jobs/Resumes screen labels.** `Bp_Job_Manager_Public::bpjm_get_member_screen_label( $screen, $user_id )` produces both the subnav label and the screen heading for both tabs. There used to be four independent literals which had drifted every way possible (`"%s's Jobs"` vs `"%s Jobs"`, `ucfirst()` on one pair only, name hidden from logged-out visitors on the headings but not the nav) and one of the four was dead code, so `"%s's Jobs"` could never render while sitting in all five PO files. Never re-inline these strings; filter `bpjm_jobs_tab_name` / `bpjm_resume_tab_name` instead.
 - **Never read `active_plugins` directly.** Use `bpjm_is_plugin_active()` — a bare `in_array( …, get_option( 'active_plugins' ) )` reports every network-activated add-on as inactive on every multisite subsite, which is what made add-on detection disagree with the activator's `class_exists()` checks. Core's `is_plugin_active()` does the same job but is admin-only, and most of these checks run on the front end.
-- Release via `grunt dist` (-> `dist/bp-job-manager.zip`).
+- Release via `bash bin/build-release.sh` (-> `dist/bp-job-manager-<version>.zip`, folder `bp-job-manager`).
 - Source literal hook `bpjm_profile_peronal_inf_txt` is misspelled ("peronal") — do not "fix" it; it is a public contract.
 
 ## CSS selectors (for testing/dev)
